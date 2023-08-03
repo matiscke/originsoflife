@@ -1,0 +1,126 @@
+% Some entries inspired from a preamble by Adrian Price-Whelan, https://github.com/adrn/PhaseSpiralAsteroseismology/blob/main/tex/preamble.tex
+
+\usepackage{showyourwork}
+
+% Latex imports
+\let\tablenum\relax             % necessary for AASTeX
+\usepackage{siunitx}
+\sisetup{range-phrase= \text{--}, range-units=single, separate-uncertainty=true}
+\sisetup{separate-uncertainty=true}
+\usepackage{blindtext}          % Filler text
+\usepackage{xcolor}
+\usepackage{amssymb}
+
+% package to open file containing variables
+\usepackage{datatool, filecontents}
+\DTLsetseparator{,}% Set the separator between the columns.
+
+% import data
+% \DTLloaddb[noheader, keys={thekey,thevalue}]{variables}{variables.dat}
+% Loads variables.dat with column headers 'thekey' and 'thevalue'
+\newcommand{\var}[1]{\DTLfetch{variables}{thekey}{#1}{thevalue}}
+
+% paper comments
+\usepackage{comment}						 % comments that can be switched visible/invisible
+\includecomment{comment}
+%\specialcomment{outtake}{\begingroup\sffamily\color{gray}}{\endgroup}
+\specialcomment{note}{\begingroup\sffamily\color{red!40!green!70!blue!90}}{\endgroup}
+%\excludecomment{note}                       % switch notes off
+
+%% switch TODO notes on/off
+\usepackage[backgroundcolor=red!20!green!40!blue!10, textsize=tiny]{todonotes}
+% \usepackage[disable]{todonotes}			% switches all todo notes to invisible
+\usepackage{regexpatch}
+\makeatletter
+\xpatchcmd{\@todo}{\setkeys{todonotes}{#1}}{\setkeys{todonotes}{inline,#1}}{}{}
+\makeatother
+
+%% manuscript revision
+\newcommand{\rev}[1]{{\textbf{#1}}}
+%\newcommand{\rev}[1]{{#1}}
+
+% ---------------------------------
+% PAPER VARIABLES
+
+% ---------------------------------
+% CONSTANTS/MISSIONS/ABBREVIATIONS
+
+% SIunitx definitions
+\DeclareSIUnit\mSun{M_\odot}
+\DeclareSIUnit\Msun{M_\odot}
+\DeclareSIUnit\mStar{M_\star}
+\DeclareSIUnit\Mstar{M_\star}
+\DeclareSIUnit\mEarth{M_\oplus}
+\DeclareSIUnit\Mearth{M_\oplus}
+\DeclareSIUnit\rEarth{R_\oplus}
+\DeclareSIUnit\Rearth{R_\oplus}
+\DeclareSIUnit\year{yr}
+\DeclareSIUnit\au{au}
+\DeclareSIUnit\dex{dex}
+\DeclareSIUnit\ppm{ppm}
+\DeclareSIUnit\eV{eV}
+\DeclareSIUnit\parsec{pc}
+
+% Missions/Projects/Packages
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\project}[1]{\textsl{#1}}
+
+\newcommand{\bioverse}{\code{Bioverse}}
+\newcommand{\emcee}{\project{emcee}}
+
+\newcommand{\rst}{\project{Nancy Grace Roman Space Telescope}}
+\newcommand{\plato}{\project{PLATO}}
+\newcommand{\cheops}{\project{CHEOPS}}
+\newcommand{\kepler}{\project{Kepler}}
+\newcommand{\ktwo}{\project{K2}}
+\newcommand{\tess}{\project{TESS}}
+\newcommand{\ariel}{\project{Ariel}}
+\newcommand{\nautilus}{\project{Nautilus}}
+\newcommand{\life}{\project{LIFE}}
+\newcommand{\hwo}{\project{Habitable Worlds Observatory}}
+\newcommand{\gclef}{\project{G-CLEF}}
+\newcommand{\gmt}{\project{Giant Magellan Telescope}}
+\newcommand{\andes}{\project{ANDES}}
+\newcommand{\elt}{\project{European Extremely Large Telescope}}
+\newcommand{\modhis}{\project{MODHIS}}
+\newcommand{\tmt}{\project{Thirty Meter Telescope}}
+\newcommand{\gaia}{\project{Gaia}}
+
+% Stats / probability
+\newcommand{\given}{\,|\,}
+\newcommand{\norm}{\mathcal{N}}
+\newcommand{\pdf}{\textsl{pdf}}
+
+% Maths
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\transpose}[1]{{#1}^{\mathsf{T}}}
+\newcommand{\inverse}[1]{{#1}^{-1}}
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+\newcommand{\mean}[1]{\left< #1 \right>}
+
+% Non-scalar variables
+\renewcommand{\vec}[1]{\ensuremath{\bs{#1}}}
+\newcommand{\mat}[1]{\ensuremath{\mathbf{#1}}}
+
+% Unit shortcuts
+\newcommand{\msun}{\ensuremath{\mathrm{M}_\odot}}
+\newcommand{\mjup}{\ensuremath{\mathrm{M}_{\mathrm{J}}}}
+\newcommand{\kms}{\ensuremath{\mathrm{km}~\mathrm{s}^{-1}}}
+\newcommand{\mps}{\ensuremath{\mathrm{m}~\mathrm{s}^{-1}}}
+\newcommand{\pc}{\ensuremath{\mathrm{pc}}}
+\newcommand{\kpc}{\ensuremath{\mathrm{kpc}}}
+\newcommand{\kmskpc}{\ensuremath{\mathrm{km}~\mathrm{s}^{-1}~\mathrm{kpc}^{-1}}}
+\newcommand{\dayd}{\ensuremath{\mathrm{d}}}
+\newcommand{\yr}{\ensuremath{\mathrm{yr}}}
+\newcommand{\AU}{\ensuremath{\mathrm{AU}}}
+\newcommand{\Kel}{\ensuremath{\mathrm{K}}}
+
+% Misc.
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+
+% Astronomy
+\newcommand{\feh}{\ensuremath{{[{\rm Fe}/{\rm H}]}}}
+\newcommand{\mh}{\ensuremath{{[{\rm M}/{\rm H}]}}}
+\newcommand{\logg}{\ensuremath{\log g}}
+\newcommand{\Teff}{\ensuremath{T_{\textrm{eff}}}}
+\newcommand{\vsini}{\ensuremath{v\,\sin i}}
