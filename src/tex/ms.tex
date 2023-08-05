@@ -66,9 +66,84 @@ Prebiotic synthesis triggered through reduced impactors that stochastically crea
 
 Observables: stochastic increase in brightness temperature, transient increase of planet size, and change of planet composition (decreasing with decreasing impact rate, ie stellar age).
 
+\section{Bayesian Analysis}
+It is instructive to consider the constraining power of a successful biosignature detection for competing OoL scenarios, which we here attempt with an analytical approach.
+We may first consider the probability $\pdf(bio|H_i)$ of detecting a convincing biosignature on a planet, given a specific OoL hypothesis $H_i, \, i \in 1, 2, 3$ is true.
+This can be decomposed into the probability of abiogenesis $\pdf_\mathrm{abio}$, the fraction of life-hosting worlds that develop atmospheric biosignatures $\pdf_\mathrm{sig}$, the probability of the planet type required by the OoL hypothesis occurring in the surveyed sample $\pdf_\mathrm{\eta, i}$, and the probability of detecting the biosignature on this planet type with current technology $\pdf_\mathrm{det, i}$, yielding
+
+\begin{align}
+\label{eqn:pbio}
+\pdf(bio|H_i) = \pdf_\mathrm{abio} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
+\end{align}
+
+However, what we are actually interested in is the probability of a OoL hypothesis being true, given a specific biosignature detection, $\pdf(H_i|bio)$.
+To obtain this we can use Bayes' theorem, which yields
+\begin{align}
+\pdf(H_i|bio) = \frac{\pdf(bio|H_i) \pdf(H_i)}{\pdf(bio)}.
+\end{align}
+Here, $\pdf(H_i)$ is the prior probability of the OoL hypothesis $H_i$, and $\pdf(bio)$ is the prior probability of detecting a biosignature.
+% Following Eq.~\ref{eqn:pbio}, we can sum over all possible scenarios to obtain
+% \begin{align}
+% \pdf(bio) = \sum_{i=1}^{N} \pdf_\mathrm{abio} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
+% \end{align}
+
+If the hypotheses $H_i$ are adjunct, i.e., their joint occurrence is impossible, one can show that
+\begin{align}
+\pdf(H_i|bio) = \frac{\pdf(bio|H_i) \pdf(H_i)}{\sum_{i=1}^{N} \pdf(bio|H_i) \pdf(H_i)}.
+\end{align}
+Then the parameters in Eq.~\ref{eqn:pbio} that are independent of the chosen hypothesis $H_i$ eliminate and we obtain
+\begin{align}
+\pdf(H_i|bio) = &\frac{\pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i} \pdf(H_i)}{\sum_{i=1}^{N} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i} \pdf(H_i)} \\
+\overset{\pdf(H_i) = \pdf(H_j)}{ \underset{\forall i,j \in \{1, 2, 3\}}{=}} &\frac{\pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}}{\sum_{i=1}^{N} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}},
+\end{align}
+where in the last step we made the implicit assumption that all OoL hypotheses are a priori equally probable.
+
+% Putting everything together, we arrive at
+% \begin{align}
+% \label{eqn:posterior}
+% \pdf(H_i|bio) = \frac{\pdf(H_i)}{\pdf(bio)} \times \pdf_\mathrm{abio} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
+% \end{align}
+% If we assume that all OoL hypotheses are a priori equally probable, we can treat $\frac{\pdf(H_i)}{\pdf(bio)}$ in Eq.~\ref{eqn:posterior} as a normalization constant.
+In the following, we discuss the impact of the remaining variables $\pdf_\mathrm{\eta, i}$ and $\pdf_\mathrm{det, i}$ on $\pdf(H_i|bio)$.
+
+% \subsection{Probability of Abiogenesis $\pdf_\mathrm{abio}$}
+% Following previous work~\citep{Spiegel2012,Chen2018,Kipping2021}, we may adopt a uniform rate model for abiogenesis, i.e., assume that OoL events occur at a uniform rate.
+% This corresponds to a Poisson process with a rate parameter $lambda$, where we make the implicit assumption that abiogenesis occurs only via a single, unique mechanism, only once, and instantaneous.
+% If this event occurs within a limited time window $t$, say, between planets form around a star and when it leaves the main sequence, we have
+% \begin{align}
+% \pdf_\mathrm{abio} = 1 - \exp(-\lambda t).
+% \end{align}
+% ~\\
+% ...
+
+% \subsection{biosignature fraction $\pdf_\mathrm{abio}$}
+% Limiting ourselves to the search for \textit{life-as-we-know-it}, we may assume that there are atmospheric biomarkers present on a planet after the abiogenesis event and until global extinction.
+
+\subsection{Fractional planet occurrence rate $\pdf_\mathrm{\eta, i}$}
+As the different OoL hypotheses do not all work on the same planet types, we may study the impact of the fractional occurrence rates of different planet types on the posterior probability $\pdf(H_i|bio)$.
+For simplicity, let's consider only planets that allow at least one of the scenarios.
+We also ignore any influence of other planets in the same system, e.g. an outer gas giant that itself does not develop life~\citep{Schlecker2021a} or panspermia scenarios CITE.
+We may then distinguish between:
+\begin{enumerate}
+    \item Earths, i.e., limited-water terrestrial planets in the liquid water habitable zone ($H1, H2, H3$). These planets with roughly Earth-like water mass fractions support both the existence of submarine hydrothermal vents ($H1$) and hydrothermal fields with wet/dry cycles ($H2$). Limits in exoplanet observables to this planet type are their orbital distance (both scenarios require liquid water; at least for FGK stars this requirement also puts the planet outside of the tidal locking zone ($H2$)), and bulk density ($H1$, $H2$, and $H3$ require limited water fractions).
+    \item ``shallow-water'' water worlds ($H1$). These planets have no land surface exposed to the atmosphere, thus excluding the subaerial pond scenario.
+    \item warm terrestrial planets ($H3$). These planets have smaller orbital distances, which serves as a proxy for high past UV fluxes (as required by $H3$).
+    \item ``deep ocean'' water worlds. Through the development of high-pressure ices, these planets do not support any of the considered OoL scenarios.
+\end{enumerate}
+
+
+
+
+
+\subsection{Detection probability $\pdf_\mathrm{det, i}$}
+
 
 \section{Exoplanet survey simulations}
-\todo[inline]{Focus on Oxygen as a biomarker(?)}
+\todo[inline]{Focus on molecular Oxygen as a biomarker(?)}
+A commonly discussed biomarker is molecular Oxygen (O$_2$), which on Earth emerged as a byproduct of photosynthesis during the Proterozoic era.
+While not the only atmospheric species discussed as a signature for planetary life CITE, we focused on O$_2$ as a representative biomarker for our spectroscopic survey simulations.
+
+
 \subsection{Habitable Worlds Observatory}
 \subsubsection{target list}
 Provisional stellar target List for the habitable Worlds Observatory~\citep{Mamajek2023}.
