@@ -39,10 +39,10 @@ Iron-rich impactors have been suggested to intermittently provide the reduced en
 \label{sec:observables}
 
 What are the environmental conditions necessary for the processes and reactions inherent to an OoL scenario to take place?
-What distinct observables connected to these conditions are accessible via present and near-future remote sensing techniques? 
+What distinct observables connected to these conditions are accessible via present and near-future remote sensing techniques?
 
 \subsection{Hydrothermal vents}
-The hydrothermal vents scenario requires a direct contact of an ocean and the planetary mantle/crust. 
+The hydrothermal vents scenario requires a direct contact of an ocean and the planetary mantle/crust.
 This requirement is not met on an ocean world with large amounts of water, where the water pressure on the ocean floor is high enough to form high-pressure ices (Noack+2016).
 \todo[inline]{see discussion in Kite \& Ford 2018 Sect. 6.4}
 
@@ -59,12 +59,57 @@ Surficial origins of life chemistries are dependent on the redox state of a plan
 
 \subsection{Cyanosulfidic scenario}
 A strong requirement for the cyanosulfidic scenario is a sufficient Ultraviolet (UV) flux incident on the planet.
-On planets that have never received significant UV fluxes, the relevant photochemistry is limited. 
+On planets that have never received significant UV fluxes, the relevant photochemistry is limited.
 
 \subsection{Impact trigger}
 Prebiotic synthesis triggered through reduced impactors that stochastically create transiently reducing or neutral atmospheres requires a certain composition of the impactors, the planet to not be in a magma ocean state (???) (Lichtenberg \& Clement 2022), and, related to this requirement, occurrence of impact events during early planetary evolution.
 
 Observables: stochastic increase in brightness temperature, transient increase of planet size, and change of planet composition (decreasing with decreasing impact rate, ie stellar age).
+
+\section{Bayesian Analysis}
+It is instructive to consider the constraining power of a successful biosignature detection for competing OoL scenarios, which we here attempt with an analytical approach.
+We may first consider the probability $\pdf(bio|H_i)$ of detecting a convincing biosignature on a planet, given a specific OoL hypothesis $H_i, \, i \in 1, 2, 3$ is true. 
+This can be decomposed into the probability of abiogenesis $\pdf_\mathrm{abio}$, the occurrence rate of the planet type required by the hypothesis $\eta_i$, and the probability of detecting the biosignature on this planet type with current technology $\pdf_\mathrm{det, i}$, yielding 
+
+\begin{align}
+\label{eqn:pbio}
+\pdf(bio|H_i) = \pdf_\mathrm{abio} \times \eta_i \times \pdf_\mathrm{det, i}.
+\end{align}
+
+However, what we are actually interested in is the probability of a OoL hypothesis being true, given a specific biosignature detection, $\pdf(H_i|bio)$.
+To obtain this we can use Bayes' theorem, which yields 
+\begin{align}
+\pdf(H_i|bio) = \pdf(bio|H_i) \pdf(H_i) / \pdf(bio).
+\end{align}
+Putting everything together, we arrive at
+\begin{align}
+\label{eqn:posterior}
+\pdf(H_i|bio) = \frac{\pdf(H_i)}{\pdf(bio)} \times \pdf_\mathrm{abio} \times \eta_i \times \pdf_\mathrm{det, i}.
+\end{align}
+
+Here, $\pdf(bio)$ is the prior probability of detecting the biosignature.
+Following Eq.~\ref{eqn:pbio}, we can sum over all possible scenarios to obtain
+\begin{align}
+\pdf(bio) = \sum_{i=1}^{N} \pdf_\mathrm{abio} \times \eta_i \times \pdf_\mathrm{det, i}.
+\end{align}
+$\pdf(H_i)$ is the prior probability of the OoL hypothesis $H_i$.
+If we assume that all OoL hypotheses are a priori equally probable, we can treat $\frac{\pdf(H_i)}{\pdf(bio)}$ in Eq.~\ref{eqn:posterior} as a normalization constant. 
+
+In the following, we discuss the impact of the remaining variables $\pdf_\mathrm{abio}, \eta_i, $ and $\pdf_\mathrm{det, i}$ on $\pdf(H_i|bio)$.
+
+\subsection{Probability of Abiogenesis $\pdf_\mathrm{abio}$}
+Following previous work~\citep{Spiegel2012,Chen2018,Kipping2021}, we may adopt a uniform rate model for abiogenesis, i.e., assume that OoL events occur at a uniform rate.
+This corresponds to a Poisson process with a rate parameter $lambda$, where we make the implicit assumption that abiogenesis occurs only via a single, unique mechanism, only once, and instantaneous.
+If this event occurs within a limited time window $t$, say, between planets form around a star and when it leaves the main sequence, we have
+\begin{align}
+\pdf_\mathrm{abio} = 1 - \exp(-\lambda t).
+\end{align}
+~\\
+...
+
+
+\subsection{Planet occurrence rate $\eta_i$}
+\subsection{Detection probability $\pdf_\mathrm{det, i}$}
 
 
 \section{Exoplanet survey simulations}
@@ -93,7 +138,8 @@ Provisional stellar target List for the habitable Worlds Observatory~\citep{Mama
 \section{Discussion and Conclusions}
 \label{sec:discussion}
 
-
+''Which natural processes best explain how living matter spontaneously appears from nonliving matter?''~\citep{Malaterre2022}
+%WE consider life ``as we know it''
 
 \bibliography{bib}
 
