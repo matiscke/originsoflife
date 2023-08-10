@@ -1,15 +1,10 @@
 # Constraining Origins of Life Hypotheses
-A [Bioverse](https://github.com/danielapai/bioverse) project to study what Origins of Life hypotheses can be tested with future space-based exoplanet surveys. 
 
-[//]: # (<p align="left">)
+A [Bioverse](https://github.com/danielapai/bioverse) project to study what Origins of Life hypotheses can be tested with future space-based exoplanet surveys.
 
-[//]: # (<img width = "300" src="src/figures/logo.jpg" alt="logo"/>)
-
-[//]: # (</p>)
-
+<br>
+<img width = "150" src="icon/OoL-icon_dark-green.jpg" alt="logo"/>
 <p>
-<br>
-<br>
 <a href="https://github.com/matiscke/originsoflife/actions/workflows/build.yml">
 <img src="https://github.com/matiscke/originsoflife/actions/workflows/build.yml/badge.svg?branch=main" alt="Article status"/>
 </a>
