@@ -72,7 +72,7 @@ Observables: stochastic increase in brightness temperature, transient increase o
 It is instructive to consider the constraining power of a successful biosignature detection for competing OoL scenarios, which we here attempt with an analytical approach.
 The hydrothermal vents scenario ($H_1$) and the subaereal pond scenario ($H_2$) can be considered as mutually exclusive models, and we may study how a particular future observation of biosignatures impacts our beliefs about the relative model probabilities.
 
-We may first consider the probability $\pdf(bio|H_i)$ of detecting a convincing biosignature on a planet, given a particular OoL hypothesis $H_i, \, i \in 1, 2, 3$ is true.
+We may first consider the probability $\pdf(bio|H_i)$ of detecting a convincing biosignature on a planet, given a particular OoL hypothesis $H_i, \, i \in 1, 2$ is true.
 This can be decomposed into the probability of abiogenesis $\pdf_\mathrm{abio}$, the fraction of life-hosting worlds that develop atmospheric biosignatures $\pdf_\mathrm{sig}$, the probability of the planet type required by the OoL hypothesis occurring in the surveyed sample $\pdf_\mathrm{\eta, i}$, and the probability of detecting the biosignature on this planet type with current technology $\pdf_\mathrm{det, i}$, yielding
 
 \begin{align}
@@ -98,7 +98,7 @@ If the hypotheses $H_i$ are adjunct, i.e., their joint occurrence is impossible,
 Then the parameters in Eq.~\ref{eqn:pbio} that are independent of the chosen hypothesis $H_i$ eliminate and we obtain
 \begin{align}
 \pdf(H_i|bio) = &\frac{\pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i} \pdf(H_i)}{\sum_{i=1}^{N} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i} \pdf(H_i)} \\
-\overset{\pdf(H_i) = \pdf(H_j)}{ \underset{\forall i,j \in \{1, 2, 3\}}{=}} &\frac{\pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}}{\sum_{i=1}^{N} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}},
+\overset{\pdf(H_i) = \pdf(H_j)}{ \underset{\forall i,j \in \{1, 2\}}{=}} &\frac{\pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}}{\sum_{i=1}^{N} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}},
 \end{align}
 where in the last step we made the implicit assumption that all OoL hypotheses are a priori equally probable.
 
@@ -129,9 +129,8 @@ For simplicity, let's consider only planets that allow at least one of the scena
 We also ignore any influence of other planets in the same system, e.g. an outer gas giant that itself does not develop life~\citep{Schlecker2021a} or panspermia scenarios CITE.
 We may then distinguish between:
 \begin{enumerate}
-    \item Earths, i.e., limited-water terrestrial planets in the liquid water habitable zone ($H1, H2, H3$). These planets with roughly Earth-like water mass fractions support both the existence of submarine hydrothermal vents ($H1$) and hydrothermal fields with wet/dry cycles ($H2$). Limits in exoplanet observables to this planet type are their orbital distance (both scenarios require liquid water; at least for FGK stars this requirement also puts the planet outside of the tidal locking zone ($H2$)), and bulk density ($H1$, $H2$, and $H3$ require limited water fractions).
+    \item Earths, i.e., limited-water terrestrial planets in the liquid water habitable zone ($H1, H2$). These planets with roughly Earth-like water mass fractions support both the existence of submarine hydrothermal vents ($H1$) and hydrothermal fields with wet/dry cycles ($H2$). Limits in exoplanet observables to this planet type are their orbital distance (both scenarios require liquid water; at least for FGK stars this requirement also puts the planet outside of the tidal locking zone ($H2$)), and bulk density ($H1$ and $H2$ require limited water fractions).
     \item ``shallow ocean'' water worlds ($H1$). These planets have no land surface exposed to the atmosphere, thus excluding the subaerial pond scenario.
-    \item warm terrestrial planets ($H3$). These planets have smaller orbital distances, which serves as a proxy for high past UV fluxes (as required by $H3$).
     \item ``deep ocean'' water worlds. Through the development of high-pressure ices, these planets do not support any of the considered OoL scenarios.
 \end{enumerate}
 
