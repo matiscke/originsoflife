@@ -94,13 +94,19 @@ Then the parameters in Eq.~\ref{eqn:pbio} that are independent of the chosen hyp
 \end{align}
 where in the last step we made the implicit assumption that all OoL hypotheses are a priori equally probable.
 
+If we take the ratio of these posteriors for our two independent hypotheses $H_1$ and $H_2$, we get the \textit{Bayes Factor}
+\begin{align}
+    \frac{\pdf(H_1|bio)}{\pdf(H_2|bio)} = \frac{\pdf_\mathrm{\eta, 1} \pdf_\mathrm{det, 1}}{\pdf_\mathrm{\eta, 2} \pdf_\mathrm{det, 2}},
+\end{align}
+which quantifies the evidence of the data arising from $H_1$ versus $H_2$.
+
 % Putting everything together, we arrive at
 % \begin{align}
 % \label{eqn:posterior}
 % \pdf(H_i|bio) = \frac{\pdf(H_i)}{\pdf(bio)} \times \pdf_\mathrm{abio} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
 % \end{align}
 % If we assume that all OoL hypotheses are a priori equally probable, we can treat $\frac{\pdf(H_i)}{\pdf(bio)}$ in Eq.~\ref{eqn:posterior} as a normalization constant.
-In the following, we discuss the impact of the remaining variables $\pdf_\mathrm{\eta, i}$ and $\pdf_\mathrm{det, i}$ on $\pdf(H_i|bio)$.
+In the following, we discuss the impact of the remaining variables $\pdf_\mathrm{\eta, i}$ and $\pdf_\mathrm{det, i}$ on the Bayes factor.
 
 % \subsection{Probability of Abiogenesis $\pdf_\mathrm{abio}$}
 % Following previous work~\citep{Spiegel2012,Chen2018,Kipping2021}, we may adopt a uniform rate model for abiogenesis, i.e., assume that OoL events occur at a uniform rate.

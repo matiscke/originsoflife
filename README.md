@@ -1,4 +1,4 @@
-<img align="left" width = "100" hspace="20" vspace="34" src="icon/OoL-icon_dark-green.jpg" alt="logo"/>
+<img align="left" width = "100" hspace="20" vspace="40" src="icon/OoL-icon_dark-green.jpg" alt="logo"/>
 
 # Constraining Origins of Life Hypotheses
 
