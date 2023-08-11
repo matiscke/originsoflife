@@ -1,9 +1,10 @@
+<img align="left" width = "100" hspace="20" vspace="18" src="icon/OoL-icon_dark-green.jpg" alt="logo"/>
+
 # Constraining Origins of Life Hypotheses
 
 A [Bioverse](https://github.com/danielapai/bioverse) project to study what Origins of Life hypotheses can be tested with future space-based exoplanet surveys.
 
 <br>
-<img width = "150" src="icon/OoL-icon_dark-green.jpg" alt="logo"/>
 <p>
 <a href="https://github.com/matiscke/originsoflife/actions/workflows/build.yml">
 <img src="https://github.com/matiscke/originsoflife/actions/workflows/build.yml/badge.svg?branch=main" alt="Article status"/>

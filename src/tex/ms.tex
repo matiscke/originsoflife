@@ -68,8 +68,11 @@ Prebiotic synthesis triggered through reduced impactors that stochastically crea
 Observables: stochastic increase in brightness temperature, transient increase of planet size, and change of planet composition (decreasing with decreasing impact rate, ie stellar age).
 
 \section{Bayesian Analysis}
+\todo[inline]{consider Fisher matrix (Kendall \& Stuart 1977; Tegmark 1997) analysis to determine sensitivity of a survey to a set of parameters?}
 It is instructive to consider the constraining power of a successful biosignature detection for competing OoL scenarios, which we here attempt with an analytical approach.
-We may first consider the probability $\pdf(bio|H_i)$ of detecting a convincing biosignature on a planet, given a specific OoL hypothesis $H_i, \, i \in 1, 2, 3$ is true.
+The hydrothermal vents scenario ($H_1$) and the subaereal pond scenario ($H_2$) can be considered as mutually exclusive models, and we may study how a particular future observation of biosignatures impacts our beliefs about the relative model probabilities.
+
+We may first consider the probability $\pdf(bio|H_i)$ of detecting a convincing biosignature on a planet, given a particular OoL hypothesis $H_i, \, i \in 1, 2, 3$ is true.
 This can be decomposed into the probability of abiogenesis $\pdf_\mathrm{abio}$, the fraction of life-hosting worlds that develop atmospheric biosignatures $\pdf_\mathrm{sig}$, the probability of the planet type required by the OoL hypothesis occurring in the surveyed sample $\pdf_\mathrm{\eta, i}$, and the probability of detecting the biosignature on this planet type with current technology $\pdf_\mathrm{det, i}$, yielding
 
 \begin{align}
@@ -77,7 +80,7 @@ This can be decomposed into the probability of abiogenesis $\pdf_\mathrm{abio}$,
 \pdf(bio|H_i) = \pdf_\mathrm{abio} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
 \end{align}
 
-However, what we are actually interested in is the probability of a OoL hypothesis being true, given a specific biosignature detection, $\pdf(H_i|bio)$.
+However, what we are actually interested in is the probability of a OoL hypothesis being true, given a particular biosignature detection, $\pdf(H_i|bio)$.
 To obtain this we can use Bayes' theorem, which yields
 \begin{align}
 \pdf(H_i|bio) = \frac{\pdf(bio|H_i) \pdf(H_i)}{\pdf(bio)}.
@@ -127,7 +130,7 @@ We also ignore any influence of other planets in the same system, e.g. an outer 
 We may then distinguish between:
 \begin{enumerate}
     \item Earths, i.e., limited-water terrestrial planets in the liquid water habitable zone ($H1, H2, H3$). These planets with roughly Earth-like water mass fractions support both the existence of submarine hydrothermal vents ($H1$) and hydrothermal fields with wet/dry cycles ($H2$). Limits in exoplanet observables to this planet type are their orbital distance (both scenarios require liquid water; at least for FGK stars this requirement also puts the planet outside of the tidal locking zone ($H2$)), and bulk density ($H1$, $H2$, and $H3$ require limited water fractions).
-    \item ``shallow-water'' water worlds ($H1$). These planets have no land surface exposed to the atmosphere, thus excluding the subaerial pond scenario.
+    \item ``shallow ocean'' water worlds ($H1$). These planets have no land surface exposed to the atmosphere, thus excluding the subaerial pond scenario.
     \item warm terrestrial planets ($H3$). These planets have smaller orbital distances, which serves as a proxy for high past UV fluxes (as required by $H3$).
     \item ``deep ocean'' water worlds. Through the development of high-pressure ices, these planets do not support any of the considered OoL scenarios.
 \end{enumerate}
@@ -137,6 +140,23 @@ We may then distinguish between:
 
 
 \subsection{Detection probability $\pdf_\mathrm{det, i}$}
+
+
+
+\subsection{Discussion of Bayesian analysis}
+
+\begin{note}
+    shallow ocean planets are vulnerable to water loss through high-energy radiation, limiting the time window for habitability especially if no geochemical feedbacks exist~\citep{Kite2018}.
+\end{note}
+\todo[inline]{discuss host star spectral type dependencies, e.g., abiogenesis time window for G stars ($\lessapprox 10 Gyr$, MS lifetime) or M dwarfs. \citep[e.g.,][]{Spiegel2012}}
+
+
+
+
+
+
+
+
 
 
 \section{Exoplanet survey simulations}
