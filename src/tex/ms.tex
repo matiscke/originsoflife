@@ -65,11 +65,11 @@ It is instructive to consider the constraining power of a successful biosignatur
 The hydrothermal vents scenario ($H_1$) and the subaereal pond scenario ($H_2$) can be considered as mutually exclusive models, and we may study how a particular future observation of biosignatures impacts our beliefs about the relative model probabilities.
 
 We may first consider the probability $\pdf(bio|H_i)$ of detecting a convincing biosignature on a planet, given a particular OoL hypothesis $H_i, \, i \in 1, 2$ is true.
-This can be decomposed into the probability of abiogenesis $\pdf_\mathrm{abio}$, the fraction of life-hosting worlds that develop atmospheric biosignatures $\pdf_\mathrm{sig}$, the probability of the planet type required by the OoL hypothesis occurring in the surveyed sample $\pdf_\mathrm{\eta, i}$, and the probability of detecting the biosignature on this planet type with current technology $\pdf_\mathrm{det, i}$, yielding
+This can be decomposed into the probability of abiogenesis in a particular environment $\pdf_\mathrm{env, i}$, the fraction of life-hosting worlds that develop atmospheric biosignatures $\pdf_\mathrm{sig}$, the probability of the planet type required by the OoL hypothesis occurring in the surveyed sample $\pdf_\mathrm{\eta, i}$, and the probability of detecting the biosignature on this planet type with current technology $\pdf_\mathrm{det, i}$, yielding
 
 \begin{align}
 \label{eqn:pbio}
-\pdf(bio|H_i) = \pdf_\mathrm{abio} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
+\pdf(bio|H_i) = \pdf_\mathrm{env, i} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
 \end{align}
 
 However, what we are actually interested in is the probability of a OoL hypothesis being true, given a particular biosignature detection, $\pdf(H_i|bio)$.
@@ -80,7 +80,7 @@ To obtain this we can use Bayes' theorem, which yields
 Here, $\pdf(H_i)$ is the prior probability of the OoL hypothesis $H_i$, and $\pdf(bio)$ is the prior probability of detecting a biosignature.
 % Following Eq.~\ref{eqn:pbio}, we can sum over all possible scenarios to obtain
 % \begin{align}
-% \pdf(bio) = \sum_{i=1}^{N} \pdf_\mathrm{abio} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
+% \pdf(bio) = \sum_{i=1}^{N} \pdf_\mathrm{env, i} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
 % \end{align}
 
 If the hypotheses $H_i$ are adjunct, i.e., their joint occurrence is impossible, one can show that
@@ -89,36 +89,46 @@ If the hypotheses $H_i$ are adjunct, i.e., their joint occurrence is impossible,
 \end{align}
 Then the parameters in Eq.~\ref{eqn:pbio} that are independent of the chosen hypothesis $H_i$ eliminate and we obtain
 \begin{align}
-\pdf(H_i|bio) = &\frac{\pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i} \pdf(H_i)}{\sum_{i=1}^{N} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i} \pdf(H_i)} \\
-\overset{\pdf(H_i) = \pdf(H_j)}{ \underset{\forall i,j \in \{1, 2\}}{=}} &\frac{\pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}}{\sum_{i=1}^{N} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}},
+\pdf(H_i|bio) = &\frac{\pdf_\mathrm{env, i} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i} \pdf(H_i)}{\sum_{i=1}^{N} \pdf_\mathrm{env, i} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i} \pdf(H_i)} \\
+\overset{\pdf(H_i) = \pdf(H_j)}{ \underset{\forall i,j \in \{1, 2\}}{=}} &\frac{\pdf_\mathrm{env, i} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}}{\sum_{i=1}^{N} \pdf_\mathrm{env, i} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}},
 \end{align}
 where in the last step we made the implicit assumption that all OoL hypotheses are a priori equally probable.
 
 If we take the ratio of these posteriors for our two independent hypotheses $H_1$ and $H_2$, we get the \textit{Bayes Factor}
 \begin{align}
-    \frac{\pdf(H_1|bio)}{\pdf(H_2|bio)} = \frac{\pdf_\mathrm{\eta, 1} \pdf_\mathrm{det, 1}}{\pdf_\mathrm{\eta, 2} \pdf_\mathrm{det, 2}},
+    \frac{\pdf(H_1|bio)}{\pdf(H_2|bio)} = \frac{\pdf_\mathrm{env, 1} \pdf_\mathrm{\eta, 1} \pdf_\mathrm{det, 1}}{\pdf_\mathrm{env, 2} \pdf_\mathrm{\eta, 2} \pdf_\mathrm{det, 2}},
 \end{align}
 which quantifies the evidence of the data arising from $H_1$ versus $H_2$.
 
 % Putting everything together, we arrive at
 % \begin{align}
 % \label{eqn:posterior}
-% \pdf(H_i|bio) = \frac{\pdf(H_i)}{\pdf(bio)} \times \pdf_\mathrm{abio} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
+% \pdf(H_i|bio) = \frac{\pdf(H_i)}{\pdf(bio)} \times \pdf_\mathrm{env, i} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
 % \end{align}
 % If we assume that all OoL hypotheses are a priori equally probable, we can treat $\frac{\pdf(H_i)}{\pdf(bio)}$ in Eq.~\ref{eqn:posterior} as a normalization constant.
-In the following, we discuss the impact of the remaining variables $\pdf_\mathrm{\eta, i}$ and $\pdf_\mathrm{det, i}$ on the Bayes factor.
+In the following, we discuss the impact of the remaining variables $\pdf_\mathrm{env, i}$, $\pdf_\mathrm{\eta, i}$ and $\pdf_\mathrm{det, i}$ on the Bayes factor.
 
-% \subsection{Probability of Abiogenesis $\pdf_\mathrm{abio}$}
+ \subsection{Required environment $\pdf_\mathrm{env, i}$}
 % Following previous work~\citep{Spiegel2012,Chen2018,Kipping2021}, we may adopt a uniform rate model for abiogenesis, i.e., assume that OoL events occur at a uniform rate.
 % This corresponds to a Poisson process with a rate parameter $lambda$, where we make the implicit assumption that abiogenesis occurs only via a single, unique mechanism, only once, and instantaneous.
 % If this event occurs within a limited time window $t$, say, between planets form around a star and when it leaves the main sequence, we have
 % \begin{align}
-% \pdf_\mathrm{abio} = 1 - \exp(-\lambda t).
+% \pdf_\mathrm{env, i} = 1 - \exp(-\lambda t).
 % \end{align}
 % ~\\
-% ...
+\todo[inline]{The planet should be in the liquid-water HZ}
+...
+Let us assume that $H_1$ only requires a minimum bulk density $\rho_1$, such that $\pdf_\mathrm{env, 1} = 1$ if $\rho > \rho_1$ and zero otherwise.
+On the other hand, $H_2$ requires exposed land and thus a small water mass fraction.
+We may implement this in the same way as above but with a minimum bulk density $\rho_2 > \rho_1$.
+Furthermore, there is a requirement that the tidal locking timescale may not be so small that the planet is likely tidally locked at observation.
+This translates to imposing a minimum semimajor axis $a_2$.
+...
+...
 
-% \subsection{biosignature fraction $\pdf_\mathrm{abio}$}
+
+
+% \subsection{biosignature fraction $\pdf_\mathrm{env, i}$}
 % Limiting ourselves to the search for \textit{life-as-we-know-it}, we may assume that there are atmospheric biomarkers present on a planet after the abiogenesis event and until global extinction.
 
 \subsection{Fractional planet occurrence rate $\pdf_\mathrm{\eta, i}$}
