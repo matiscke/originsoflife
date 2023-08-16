@@ -96,6 +96,7 @@ where in the last step we made the implicit assumption that all OoL hypotheses a
 
 If we take the ratio of these posteriors for our two independent hypotheses $H_1$ and $H_2$, we get the \textit{Bayes Factor}
 \begin{align}
+    \label{eq:bayesfactor}
     \frac{\pdf(H_1|bio)}{\pdf(H_2|bio)} = \frac{\pdf_\mathrm{env, 1} \pdf_\mathrm{\eta, 1} \pdf_\mathrm{det, 1}}{\pdf_\mathrm{env, 2} \pdf_\mathrm{\eta, 2} \pdf_\mathrm{det, 2}},
 \end{align}
 which quantifies the evidence of the data arising from $H_1$ versus $H_2$.
@@ -143,26 +144,62 @@ where $C$ is a compression factor characterizing the steepness of the sigmoid fu
     \end{centering}
 \end{figure}
 Figure~\ref{fig:Penv} shows the corresponding $\pdf_\mathrm{env}$ factors and where their regions of high probability overlap.
-...
+
+\subsection{Planet occurrence rate $\pdf_{\eta}$}
+We model $\pdf_{\eta, i} (a, \rho)$ following the suggested broken power-law occurrence rates from NASA’s Exoplanet Program Analysis Group chartered Science Analysis Group 13 (SAG 13)~\citep[see][]{Bixel2021} and converting between semi-major axis and period, and between bulk density and radius assuming Earth-like orbits and compositions. \todo[inline]{this is an oversimplification.}
+\begin{figure}[ht!]
+    \script{bayes_rho-a.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/analytic/Peta.pdf}
+        \caption{
+        Planet occurrence rate density assuming SAG~13 occurrence rates.
+        }
+        \label{fig:Peta}
+    \end{centering}
+\end{figure}
+The resulting occurrence rate density has a strong preference for low-density planets on short orbits (see Fig.~\ref{fig:Peta}).
+\todo[inline]{This assumes the same occurrence rate for both hypotheses. Is this sensible? If yes, it does not impact the Bayes factor (Eq. \ref{eq:bayesfactor}); we could bring it only later to see where high Bayes factor and planet occurrence overlap.}
+
+\subsection{Information content of a biosignature detection}
+We may now evaluate Eqn.~\ref{eq:bayesfactor} to measure the information content with respect to favoring $H_1$ versus $H_2$ depending on the position of a planet with a confirmed biosignature detection in density-orbital distance space.
+\begin{figure}[ht!]
+    \script{bayes_rho-a.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/analytic/bayes_rho-a.pdf}
+        \caption{
+        Bayes factor (Eqn.~\ref{eq:bayesfactor}) evaluated at different bulk densities and orbital distances.
+        Contour levels reflect the empirical scale for strength of evidence suggested by Jeffreys et al. 19XX.
+        There, $\ln(\mathcal{B}) = 2.5$ corresponds to ``moderate'' evidence, and $\ln(\mathcal{B}) = 5 $ corresponds to ``strong'' evidence.
+        Only short orbits ($a \lessapprox \SI{0.03}{\au}$) and low bulk densities ($\rho \lessapprox \SI{0.6}{\rho_\oplus}$) allow a selection between the proposed models; they lead to a strong preference for hypothesis $H_1$.
+        There is no region in this parameter space that provides strong evidence for $H_2$.
+        }
+        \label{fig:bayes_rho-a}
+    \end{centering}
+\end{figure}
+Figure~\ref{fig:bayes_rho-a} shows the logarithm of the Bayes factor in this space, providing a scale for evaluating the strength of evidence to prefer one of the proposed models.
+Only a small region allows for a significant model selection: While short orbits ($a \lessapprox \SI{0.03}{\au}$) and low bulk densities ($\rho \lessapprox \SI{0.6}{\rho_\oplus}$) strongly support $H_1$, no combination of bulk density and orbital distance provide strong evidence for $H_2$ over $H_1$ without additional information.
+\todo[inline]{factor in Detection probability P_det}
+\todo[inline]{TODO: test sensitivity of this result on the assumed function and thresholds for P_env}
+
 
 
 
 % \subsection{biosignature fraction $\pdf_\mathrm{env, i}$}
 % Limiting ourselves to the search for \textit{life-as-we-know-it}, we may assume that there are atmospheric biomarkers present on a planet after the abiogenesis event and until global extinction.
 
-\subsection{Fractional planet occurrence rate $\pdf_\mathrm{\eta, i}$}
-As the different OoL hypotheses do not all work on the same planet types, we may study the impact of the fractional occurrence rates of different planet types on the posterior probability $\pdf(H_i|bio)$.
-For simplicity, let's consider only planets that allow at least one of the scenarios.
-We also ignore any influence of other planets in the same system, e.g. an outer gas giant that itself does not develop life~\citep{Schlecker2021a} or panspermia scenarios CITE.
-We may then distinguish between:
-\begin{enumerate}
-    \item Earths, i.e., limited-water terrestrial planets in the liquid water habitable zone ($H1, H2$). These planets with roughly Earth-like water mass fractions support both the existence of submarine hydrothermal vents ($H1$) and hydrothermal fields with wet/dry cycles ($H2$). Limits in exoplanet observables to this planet type are their orbital distance (both scenarios require liquid water; at least for FGK stars this requirement also puts the planet outside of the tidal locking zone ($H2$)), and bulk density ($H1$ and $H2$ require limited water fractions).
-    \item ``shallow ocean'' water worlds ($H1$). These planets have no land surface exposed to the atmosphere, thus excluding the subaerial pond scenario.
-    \item ``deep ocean'' water worlds. Through the development of high-pressure ices, these planets do not support any of the considered OoL scenarios.
-\end{enumerate}
-
-
-
+%\subsection{Fractional planet occurrence rate $\pdf_\mathrm{\eta, i}$}
+%As the different OoL hypotheses do not all work on the same planet types, we may study the impact of the fractional occurrence rates of different planet types on the posterior probability $\pdf(H_i|bio)$.
+%For simplicity, let's consider only planets that allow at least one of the scenarios.
+%We also ignore any influence of other planets in the same system, e.g. an outer gas giant that itself does not develop life~\citep{Schlecker2021a} or panspermia scenarios CITE.
+%We may then distinguish between:
+%\begin{enumerate}
+%    \item Earths, i.e., limited-water terrestrial planets in the liquid water habitable zone ($H1, H2$). These planets with roughly Earth-like water mass fractions support both the existence of submarine hydrothermal vents ($H1$) and hydrothermal fields with wet/dry cycles ($H2$). Limits in exoplanet observables to this planet type are their orbital distance (both scenarios require liquid water; at least for FGK stars this requirement also puts the planet outside of the tidal locking zone ($H2$)), and bulk density ($H1$ and $H2$ require limited water fractions).
+%    \item ``shallow ocean'' water worlds ($H1$). These planets have no land surface exposed to the atmosphere, thus excluding the subaerial pond scenario.
+%    \item ``deep ocean'' water worlds. Through the development of high-pressure ices, these planets do not support any of the considered OoL scenarios.
+%\end{enumerate}
+%
+%
+%
 
 
 \subsection{Detection probability $\pdf_\mathrm{det, i}$}

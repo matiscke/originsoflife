@@ -85,8 +85,13 @@ def plot_factorgrid_dual(aa, rrho, P1, P2, title=None):
     """Plot evaluated environment factors on a grid in rho, a."""
     RRHO, AA = np.meshgrid(rrho, aa)
     fig, ax = plt.subplots()
+
+    # dummy plot for colorbar
+    dummy_cs = ax.pcolormesh(AA, RRHO, P2, cmap="gray_r", vmin=0.0, vmax=1.0)
+    dummy_cs.set_visible(False)
+
     ax.contourf(AA, RRHO, P1, cmap="Blues", alpha=0.5, vmin=0.3)
-    ax.contourf(AA, RRHO, P2, cmap="Oranges", alpha=0.5, vmin=0.3)
+    csf2 = ax.contourf(AA, RRHO, P2, cmap="Oranges", alpha=0.5, vmin=0.3)
     cs1 = ax.contour(AA, RRHO, P1, cmap="Blues", vmax=1.0)
     cs2 = ax.contour(AA, RRHO, P2, cmap="Oranges", vmax=1.0)
     h1, _ = cs1.legend_elements()
@@ -96,7 +101,7 @@ def plot_factorgrid_dual(aa, rrho, P1, P2, title=None):
     ax.set_xlabel("semi-major axis [au]")
     ax.set_ylabel(r"bulk density [$\rho_\oplus$]")
     ax.set_title(title)
-    fig.colorbar(cs2, label="$P_\mathrm{env}$")
+    fig.colorbar(dummy_cs, label="$P_\mathrm{env}$")
     return fig, ax
 
 
