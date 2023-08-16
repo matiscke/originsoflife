@@ -118,12 +118,31 @@ In the following, we discuss the impact of the remaining variables $\pdf_\mathrm
 % ~\\
 \todo[inline]{The planet should be in the liquid-water HZ}
 ...
-Let us assume that $H_1$ only requires a minimum bulk density $\rho_1$, such that $\pdf_\mathrm{env, 1} = 1$ if $\rho > \rho_1$ and zero otherwise.
+Let us assume that $H_1$ only requires a minimum bulk density $\rho_1$, such that $\pdf_\mathrm{env, 1} \rightarrow 1$ for $\rho >> \rho_1$ and $\pdf_\mathrm{env, 1} \rightarrow 0$ for $\rho << \rho_1$.
 On the other hand, $H_2$ requires exposed land and thus a small water mass fraction.
 We may implement this in the same way as above but with a minimum bulk density $\rho_2 > \rho_1$.
 Furthermore, there is a requirement that the tidal locking timescale may not be so small that the planet is likely tidally locked at observation.
 This translates to imposing a minimum semimajor axis $a_2$.
-...
+
+To approximate these thresholds including their expected intrinsic fuzziness, we model them with logistic sigmoid functions
+\begin{align}
+    \pdf_\mathrm{env, 1} &= \frac{1}{1+\exp[-(C  (\rho - \rho_1))]} \quad \mathrm{and}\\
+    \pdf_\mathrm{env, 2} &= \frac{1}{1+\exp[-(C  (\rho - \rho_2))]} \times \frac{1}{1+\exp[-(C  (a - a_2))]},
+\end{align}
+where $C$ is a compression factor characterizing the steepness of the sigmoid function.
+\begin{figure}[ht!]
+    \script{bayes_rho-a.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/analytic/Penv.pdf}
+        \caption{
+        Probability of abiogenesis for the OoL hypotheses $H_1$ and $H_2$ as a function of planet bulk density and semi-major axis.
+        $H_1$ only requires large enough densities to exclude deep global water oceans.
+            $H_2$ requires a higher minimum density due to the exposed land requirement, and small semi-major axes are excluded to prevent tidal locking.
+        }
+        \label{fig:Penv}
+    \end{centering}
+\end{figure}
+Figure~\ref{fig:Penv} shows the corresponding $\pdf_\mathrm{env}$ factors and where their regions of high probability overlap.
 ...
 
 
