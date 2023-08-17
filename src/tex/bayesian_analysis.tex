@@ -1,0 +1,160 @@
+
+\section{Bayesian Analysis}
+%\todo[inline]{consider Fisher matrix (Kendall \& Stuart 1977; Tegmark 1997) analysis to determine sensitivity of a survey to a set of parameters?}
+It is instructive to consider the constraining power of a successful biosignature detection for competing OoL scenarios, which we here attempt with an analytical approach.
+The hydrothermal vents scenario ($H_1$) and the subaereal pond scenario ($H_2$) can be considered as mutually exclusive models, and we may study how a particular future observation of biosignatures impacts our beliefs about the relative model probabilities.
+
+We may first consider the probability $\pdf(bio|H_i)$ of detecting a convincing biosignature on a planet, given a particular OoL hypothesis $H_i, \, i \in 1, 2$ is true.
+This can be decomposed into the probability of abiogenesis in a particular environment $\pdf_\mathrm{env, i}$, the fraction of life-hosting worlds that develop atmospheric biosignatures $\pdf_\mathrm{sig}$, the probability of the planet type required by the OoL hypothesis occurring in the surveyed sample $\pdf_\mathrm{\eta, i}$, and the probability of detecting the biosignature on this planet type with current technology $\pdf_\mathrm{det, i}$, yielding
+
+\begin{align}
+    \label{eqn:pbio}
+    \pdf(bio|H_i) = \pdf_\mathrm{env, i} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
+\end{align}
+
+However, what we are actually interested in is the probability of a OoL hypothesis being true, given a particular biosignature detection, $\pdf(H_i|bio)$.
+To obtain this we can use Bayes' theorem, which yields
+\begin{align}
+    \pdf(H_i|bio) = \frac{\pdf(bio|H_i) \pdf(H_i)}{\pdf(bio)}.
+\end{align}
+Here, $\pdf(H_i)$ is the prior probability of the OoL hypothesis $H_i$, and $\pdf(bio)$ is the prior probability of detecting a biosignature.
+% Following Eq.~\ref{eqn:pbio}, we can sum over all possible scenarios to obtain
+% \begin{align}
+% \pdf(bio) = \sum_{i=1}^{N} \pdf_\mathrm{env, i} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
+% \end{align}
+
+If the hypotheses $H_i$ are adjunct, i.e., their joint occurrence is impossible, one can show that
+\begin{align}
+    \pdf(H_i|bio) = \frac{\pdf(bio|H_i) \pdf(H_i)}{\sum_{i=1}^{N} \pdf(bio|H_i) \pdf(H_i)}.
+\end{align}
+Then the parameters in Eq.~\ref{eqn:pbio} that are independent of the chosen hypothesis $H_i$ eliminate and we obtain
+\begin{align}
+    \pdf(H_i|bio) = &\frac{\pdf_\mathrm{env, i} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i} \pdf(H_i)}{\sum_{i=1}^{N} \pdf_\mathrm{env, i} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i} \pdf(H_i)} \\
+    \overset{\pdf(H_i) = \pdf(H_j)}{ \underset{\forall i,j \in \{1, 2\}}{=}} &\frac{\pdf_\mathrm{env, i} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}}{\sum_{i=1}^{N} \pdf_\mathrm{env, i} \pdf_\mathrm{\eta, i} \pdf_\mathrm{det, i}},
+\end{align}
+where in the last step we made the implicit assumption that all OoL hypotheses are a priori equally probable.
+
+If we take the ratio of these posteriors for our two independent hypotheses $H_1$ and $H_2$, we get the \textit{Bayes Factor}
+\begin{align}
+    \label{eq:bayesfactor}
+    \frac{\pdf(H_1|bio)}{\pdf(H_2|bio)} = \frac{\pdf_\mathrm{env, 1} \pdf_\mathrm{\eta, 1} \pdf_\mathrm{det, 1}}{\pdf_\mathrm{env, 2} \pdf_\mathrm{\eta, 2} \pdf_\mathrm{det, 2}},
+\end{align}
+which quantifies the evidence of the data arising from $H_1$ versus $H_2$.
+
+% Putting everything together, we arrive at
+% \begin{align}
+% \label{eqn:posterior}
+% \pdf(H_i|bio) = \frac{\pdf(H_i)}{\pdf(bio)} \times \pdf_\mathrm{env, i} \times \pdf_\mathrm{sig} \times \pdf_\mathrm{\eta, i} \times \pdf_\mathrm{det, i}.
+% \end{align}
+% If we assume that all OoL hypotheses are a priori equally probable, we can treat $\frac{\pdf(H_i)}{\pdf(bio)}$ in Eq.~\ref{eqn:posterior} as a normalization constant.
+In the following, we discuss the impact of the remaining variables $\pdf_\mathrm{env, i}$, $\pdf_\mathrm{\eta, i}$ and $\pdf_\mathrm{det, i}$ on the Bayes factor.
+
+\subsection{Required environment $\pdf_\mathrm{env, i}$}
+% Following previous work~\citep{Spiegel2012,Chen2018,Kipping2021}, we may adopt a uniform rate model for abiogenesis, i.e., assume that OoL events occur at a uniform rate.
+% This corresponds to a Poisson process with a rate parameter $lambda$, where we make the implicit assumption that abiogenesis occurs only via a single, unique mechanism, only once, and instantaneous.
+% If this event occurs within a limited time window $t$, say, between planets form around a star and when it leaves the main sequence, we have
+% \begin{align}
+% \pdf_\mathrm{env, i} = 1 - \exp(-\lambda t).
+% \end{align}
+% ~\\
+\todo[inline]{The planet should be in the liquid-water HZ}
+...
+Let us assume that $H_1$ only requires a minimum bulk density $\rho_1$, such that $\pdf_\mathrm{env, 1} \rightarrow 1$ for $\rho >> \rho_1$ and $\pdf_\mathrm{env, 1} \rightarrow 0$ for $\rho << \rho_1$.
+On the other hand, $H_2$ requires exposed land and thus a small water mass fraction.
+We may implement this in the same way as above but with a minimum bulk density $\rho_2 > \rho_1$.
+Furthermore, there is a requirement that the tidal locking timescale may not be so small that the planet is likely tidally locked at observation.
+This translates to imposing a minimum semimajor axis $a_2$.
+
+To approximate these thresholds including their expected intrinsic fuzziness, we model them with logistic sigmoid functions
+\begin{align}
+    \pdf_\mathrm{env, 1} &= \frac{1}{1+\exp[-(C  (\rho - \rho_1))]} \quad \mathrm{and}\\
+    \pdf_\mathrm{env, 2} &= \frac{1}{1+\exp[-(C  (\rho - \rho_2))]} \times \frac{1}{1+\exp[-(C  (a - a_2))]},
+\end{align}
+where $C$ is a compression factor characterizing the steepness of the sigmoid function.
+\begin{figure}[ht!]
+    \script{bayes_rho-a.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/analytic/Penv.pdf}
+        \caption{
+            Probability of abiogenesis for the OoL hypotheses $H_1$ and $H_2$ as a function of planet bulk density and semi-major axis.
+            $H_1$ only requires large enough densities to exclude deep global water oceans.
+            $H_2$ requires a higher minimum density due to the exposed land requirement, and small semi-major axes are excluded to prevent tidal locking.
+        }
+        \label{fig:Penv}
+    \end{centering}
+\end{figure}
+Figure~\ref{fig:Penv} shows the corresponding $\pdf_\mathrm{env}$ factors and where their regions of high probability overlap.
+
+\subsection{Planet occurrence rate $\pdf_{\eta}$}
+We model $\pdf_{\eta, i} (a, \rho)$ following the suggested broken power-law occurrence rates from NASA’s Exoplanet Program Analysis Group chartered Science Analysis Group 13 (SAG 13)~\citep[see][]{Bixel2021} and converting between semi-major axis and period, and between bulk density and radius assuming Earth-like orbits and compositions. \todo[inline]{this is an oversimplification.}
+\begin{figure}[ht!]
+    \script{bayes_rho-a.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/analytic/Peta.pdf}
+        \caption{
+            Planet occurrence rate density assuming SAG~13 occurrence rates.
+        }
+        \label{fig:Peta}
+    \end{centering}
+\end{figure}
+The resulting occurrence rate density has a strong preference for low-density planets on short orbits (see Fig.~\ref{fig:Peta}).
+\todo[inline]{This assumes the same occurrence rate for both hypotheses. Is this sensible? If yes, it does not impact the Bayes factor (Eq. \ref{eq:bayesfactor}); we could bring it only later to see where high Bayes factor and planet occurrence overlap.}
+
+\subsection{Information content of a biosignature detection}
+We may now evaluate Eqn.~\ref{eq:bayesfactor} to measure the information content with respect to favoring $H_1$ versus $H_2$ depending on the position of a planet with a confirmed biosignature detection in density-orbital distance space.
+\begin{figure}[ht!]
+    \script{bayes_rho-a.py}
+    \begin{centering}
+        \includegraphics[width=\linewidth]{figures/analytic/bayes_rho-a.pdf}
+        \caption{
+            Bayes factor (Eqn.~\ref{eq:bayesfactor}) evaluated at different bulk densities and orbital distances.
+            Contour levels reflect the empirical scale for strength of evidence suggested by Jeffreys et al. 19XX.
+            There, $\ln(\mathcal{B}) = 2.5$ corresponds to ``moderate'' evidence, and $\ln(\mathcal{B}) = 5 $ corresponds to ``strong'' evidence.
+            Only short orbits ($a \lessapprox \SI{0.03}{\au}$) and low bulk densities ($\rho \lessapprox \SI{0.6}{\rho_\oplus}$) allow a selection between the proposed models; they lead to a strong preference for hypothesis $H_1$.
+            There is no region in this parameter space that provides strong evidence for $H_2$.
+        }
+        \label{fig:bayes_rho-a}
+    \end{centering}
+\end{figure}
+Figure~\ref{fig:bayes_rho-a} shows the logarithm of the Bayes factor in this space, providing a scale for evaluating the strength of evidence to prefer one of the proposed models.
+Only a small region allows for a significant model selection: While short orbits ($a \lessapprox \SI{0.03}{\au}$) and low bulk densities ($\rho \lessapprox \SI{0.6}{\rho_\oplus}$) strongly support $H_1$, no combination of bulk density and orbital distance provide strong evidence for $H_2$ over $H_1$ without additional information.
+ \todo[inline]{factor in Detection probability P\_det}
+ \todo[inline]{TODO: test sensitivity of this result on the assumed function and thresholds for P\_env}
+
+
+
+
+% \subsection{biosignature fraction $\pdf_\mathrm{env, i}$}
+% Limiting ourselves to the search for \textit{life-as-we-know-it}, we may assume that there are atmospheric biomarkers present on a planet after the abiogenesis event and until global extinction.
+
+%\subsection{Fractional planet occurrence rate $\pdf_\mathrm{\eta, i}$}
+%As the different OoL hypotheses do not all work on the same planet types, we may study the impact of the fractional occurrence rates of different planet types on the posterior probability $\pdf(H_i|bio)$.
+%For simplicity, let's consider only planets that allow at least one of the scenarios.
+%We also ignore any influence of other planets in the same system, e.g. an outer gas giant that itself does not develop life~\citep{Schlecker2021a} or panspermia scenarios CITE.
+%We may then distinguish between:
+%\begin{enumerate}
+%    \item Earths, i.e., limited-water terrestrial planets in the liquid water habitable zone ($H1, H2$). These planets with roughly Earth-like water mass fractions support both the existence of submarine hydrothermal vents ($H1$) and hydrothermal fields with wet/dry cycles ($H2$). Limits in exoplanet observables to this planet type are their orbital distance (both scenarios require liquid water; at least for FGK stars this requirement also puts the planet outside of the tidal locking zone ($H2$)), and bulk density ($H1$ and $H2$ require limited water fractions).
+%    \item ``shallow ocean'' water worlds ($H1$). These planets have no land surface exposed to the atmosphere, thus excluding the subaerial pond scenario.
+%    \item ``deep ocean'' water worlds. Through the development of high-pressure ices, these planets do not support any of the considered OoL scenarios.
+%\end{enumerate}
+%
+%
+%
+
+
+\subsection{Detection probability $\pdf_\mathrm{det, i}$}
+
+
+
+\subsection{Discussion of Bayesian analysis}
+
+\begin{note}
+    shallow ocean planets are vulnerable to water loss through high-energy radiation, limiting the time window for habitability especially if no geochemical feedbacks exist~\citep{Kite2018}.
+\end{note}
+\todo[inline]{discuss host star spectral type dependencies, e.g., abiogenesis time window for G stars ($\lessapprox 10 Gyr$, MS lifetime) or M dwarfs. \citep[e.g.,][]{Spiegel2012}}
+
+
+
+
+
+
