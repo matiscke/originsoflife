@@ -1,5 +1,6 @@
 % Define document class
-\documentclass[twocolumn]{aastex631}
+%\documentclass[twocolumn,twocolappendix,linenumbers]{aastex631}
+\documentclass[modern,linenumbers]{aastex631}
 \input{preamble}
 \begin{document}
 
@@ -20,7 +21,7 @@
 \label{sec:intro}
 \todo[inline]{Introduce OOL, the importance of planetary contexts}
 
-\section{Origins of Life Scenarios and their predictions}
+\section{Origins of Life Scenarios and their Predictions}
 \todo[inline]{Present widely discussed OOL scenarios and their predictions on exoplanet observables; derive testable hypotheses.}
 \label{sec:ool_scenarios}
 In this section, we present some of the most prominent origins of life scenarios and their observational predictions.
@@ -82,6 +83,31 @@ Figure~\ref{fig:hypotheses} lists the hypotheses derived from the predictions of
 ...
 
 
+\section{Hypothesis Tests}
+\label{sec:hypotests}
+\todo[inline]{Briefly introduce Bayesian model comparison, then present the particular hypotheses in their mathematical form.}
+
+\subsection{Bayesian hypothesis testing with \bioverse}
+
+\subsection{H1: Life only originates in hydrothermal vents}
+The hydrothermal vent scenario does not allow oceans deep enough to form an impenetrable layer of high-pressure ice on its floor.
+The resulting allowed parameter space is described by a lower limit on the bulk density. \todo[inline]{+ exclude atmospheric signature for water worlds?}
+...
+
+\subsection{H2: Life only originates in subaerial ponds with wet/dry cycles}
+We parametrize the required exposed land surface in this scenario as a lower limit in bulk density that is higher than for H1.
+Further, the tidal locking timescale of the planet may not be smaller than the age of the system.
+...
+
+\subsection{H3: Life only originates on planets with particular UV irradiance}
+We test a UV irradiance requirement by relating the occurrence of life on a planet with a minimum past UV flux, which is a function of ...? \todo[inline]{SUKRIT}
+
+\todo[inline]{OPTIONAL: ``We further test the scenario of a linear correlation of past UV flux and biosignature occurrence rate.
+This test requires the detection of multiple biosignatures.''
+~\\
+Test for negative correlations as well?}
+
+
 \section{Exoplanet survey simulations}
 \todo[inline]{Focus on molecular Oxygen as a biomarker(?)}
 A commonly discussed biomarker is molecular Oxygen (O$_2$), which on Earth emerged as a byproduct of photosynthesis during the Proterozoic era.
@@ -96,16 +122,6 @@ While not the only atmospheric species discussed as a signature for planetary li
 \subsection{Nautilus}
 \subsection{LIFE} % optional
 
-\section{Hypothesis tests}
-\label{sec:hypotests}
-\todo[inline]{Briefly introduce Bayesian model comparison, then present the particular hypotheses in their mathematical form.}
-\subsection{H1: Life only originates in hydrothermal vents}
-
-\subsection{H2: Life only originates in subaerial ponds with wet/dry cycles}
-
-\subsection{H3: Life only originates on planets with particular UV irradiance}
-
-
 
 \section{Results}
 \label{sec:results}
@@ -117,9 +133,18 @@ While not the only atmospheric species discussed as a signature for planetary li
 
 \section{Discussion and Conclusions}
 \label{sec:discussion}
-
 %''Which natural processes best explain how living matter spontaneously appears from nonliving matter?''~\citep{Malaterre2022}
 %WE consider life ``as we know it''
+
+\subsection{What do we learn from a single biosignature detection?}
+\todo[inline]{discuss constraining power on OOL of a convincing biosignature detection on a single planet, depending on the position of the planet in the parameter space we explored.}
+
+\subsection{Constraining power for the origins of life as a function of biosignature location}
+\todo[inline]{How does the location of biosignature detections impact the credibility of OOL scenarios?}
+\todo[inline]{biosignature on M~dwarf planet vs. FGK: Impact on UV flux requirement?}
+
+\subsection{Conclusions and future work}
+
 
 \bibliography{bib,coauthors}
 
