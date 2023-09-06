@@ -13,3 +13,7 @@ src/tex/figures/*
 # Miscellaneous
 __pycache__
 *.synctex.gz
+/out/*
+/.idea/*
+*.ipynb_checkpoints
+.DS_Store
