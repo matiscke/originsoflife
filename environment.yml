@@ -1,3 +1,11 @@
+# File to create a conda environment with all necessary dependencies.
+# To create a new conda environment with the dependencies listed in this file, run:
+# `conda env create -f environment.yml`
+#
+# If this file changes, update the environment (has to be activated) with:
+# `conda env update --file environment.yml --prune`
+
+
 dependencies:
 #  - conda-forge::numpy=1.19.2
   - conda-forge::pip=21.0.1
@@ -6,11 +14,11 @@ dependencies:
 #      - matplotlib==3.4.3
       - matplotlib==3.6.2
 
-  - numpy
+  - numpy==1.25
   - pandas
   - scipy
   - cmocean
-  - astropy
+  - astropy==5.3.3
 #  - pickle
 #  - numpy=1.20.1
 #  - pip=21.0.1
@@ -26,8 +34,9 @@ dependencies:
 ##  Bioverse requires a few packages:
   - dynesty=1.1
   - emcee=3.1.1
-#
-## install Bioverse:
-#  - pip:
+
+# install Bioverse:
+  - pip:
 #    - git+https://github.com/danielapai/bioverse@v1.1.1
-##    - -e /Users/schlecker/repos/bioverse
+#    - git+https://github.com/danielapai/bioverse@develop
+    - -e /Users/schlecker/repos/bioverse
