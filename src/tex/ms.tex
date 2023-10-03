@@ -123,17 +123,19 @@ Further, the tidal locking timescale of the planet may not be smaller than the a
 ...
 
 \subsection{H3: Life only originates on planets with particular UV irradiance}
-Our third theoretical experiment is to test the UV irradiance requirement (Sect.~\ref{sec:predictions:uv}) by relating the occurrence of life on a planet with a minimum past UV flux.
-Here, we focus on the prebiotically interesting \SIrange{200}{280}{\nano\meter} range CITE and the quiescent stellar flux.  %~\citep{RanjanSasselov2016}.
-Our concrete hypothesis shall be that life only occurs on planets that at some point in their history have received UV radiation in this wavelength range that exceeded a minimum NUV flux $F_\mathrm{NUV, min}$.
-We further require this flux to have lasted for $\geq \SI{100}{\mega\year}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}.
-We assign the development of life to a fraction $f_\mathrm{life}$ of all temperate planets fulfilling these requirements.
+Our third theoretical experiment is to test the UV irradiance requirement (Sect.~\ref{sec:predictions:uv}) by relating the occurrence of life on an exo-earth candidate with a minimum past quiescent stellar UV flux, focusing on the prebiotically interesting NUV range from \SIrange{200}{280}{\nano\meter}. \todo[inline]{SUKRIT: got a good reference for this?}  %~\citep{RanjanSasselov2016}.?
+Our concrete hypothesis shall be that life only occurs on planets that at some point in their history have received such radiation exceeded a minimum flux $F_\mathrm{NUV, min}$.
+We further require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}, and the planet to be within its momentary habitable zone during this entire period.
+
+For each exo-earth candidate, we interpolated the age- and stellar mass-dependent habitable zone fluxes obtained by \citet{Richey-Yowell2023} and computed the evolution of the inner (runaway greenhouse) and outer (maximum greenhouse) edges as a function of planet mass, stellar spectral type using the results of \citet{Kopparapu2014} and the stellar luminosity evolution of \citet{Baraffe1998}.
+We then determined which planets were both in the HZ and had NUV fluxes above $F_\mathrm{NUV, min}$ for $\Delta T_\mathrm{min} \geq \SI{100}{\mega\year}$.
+We assigned the development of life to a fraction $f_\mathrm{life}$ of all temperate planets fulfilling these requirements.
 For a population-level hypothesis, we then have
 \begin{equation}\label{eq:hypothesis-uv}
     H_{3} = f_\mathrm{life} (\theta, F_\mathrm{NUV}) =
         \begin{cases}
             0 , & F_\mathrm{NUV} < F_\mathrm{NUV, min}\\
-            f_\mathrm{life}, & F_\mathrm{NUV} \geq F_\mathrm{NUV, min} \, \mathrm{for} \, \Delta t \geq \SI{100}{\mega\year}
+            f_\mathrm{life}, & F_\mathrm{NUV} \geq F_\mathrm{NUV, min} \,\mathrm{and\, in\, HZ} \, \mathrm{for} \, \Delta t \geq \SI{100}{\mega\year}
         \end{cases}
 \end{equation}
 and the corresponding null hypothesis
@@ -162,7 +164,7 @@ While not the only atmospheric species discussed as a signature for planetary li
 
 \subsection{Habitable Worlds Observatory}
 \subsubsection{target list}
-\todo[inline]{Provisional stellar target List for the habitable Worlds Observatory:~\citep{Mamajek2023}}
+\todo[inline]{Provisional stellar target List for the habitable Worlds Observatory:~\citep{Mamajek2023}} % read like in https://github.com/mkenworthy/HWObows/tree/40b1e5f2bc2bbbe8c999b097c80ca5a8cda0aeae/src/scripts
 
 
 \subsection{Nautilus}
@@ -188,6 +190,10 @@ While not the only atmospheric species discussed as a signature for planetary li
 \subsection{Constraining power for the origins of life as a function of biosignature location}
 \todo[inline]{How does the location of biosignature detections impact the credibility of OOL scenarios?}
 \todo[inline]{biosignature on M~dwarf planet vs. FGK: Impact on UV flux requirement?}
+
+\subsection{Contextual support for potential biosignature detections}
+\todo[inline]{discuss how planetary context may impact credibility of tentative biosignature detections (e.g., if there is a good fit with a predicted OOL pattern; or the opposite: the planetary context does not fit well to any OOL scenarios)}
+
 
 \subsection{Caveats}
 \subsubsection{Atmosphere transmission}
