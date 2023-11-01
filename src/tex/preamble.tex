@@ -12,6 +12,10 @@
 \usepackage{amssymb}
 \usepackage[T1]{fontenc}
 
+\usepackage[toc,nogroupskip,nohypertypes={glossary}]{glossaries} % import after hyperref
+\glsdisablehyper
+\include{glossary}
+
 % package to open file containing variables
 \usepackage{datatool, filecontents}
 \DTLsetseparator{,}% Set the separator between the columns.
