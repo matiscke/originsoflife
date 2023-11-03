@@ -35,6 +35,8 @@ dependencies:
   #   - src/data/dataset_for_my_script.dat
   # src/tex/ms.tex:
   #   - src/tex/stylesheet.tex
+  src/scripts/inhabited_FGKM.py:
+    - src/data/pipeline/sample.pkl
 
 # Name of the `.tex` manuscript and corresponding `.pdf` article
 ms_name: ms
