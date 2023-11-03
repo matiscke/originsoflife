@@ -102,7 +102,7 @@ All Origins of Life scenarios considered here require water as a solvent; we thu
 Different formulations of habitable zones as regions around a star where a planet with Earth's atmospheric composition can maintain liquid water on its surface exist~\citep[e.g.,][]{MolLous2022,Spinelli2023,Tuchow2023}. CITE! Ramirez \& Kaltenegger 2017, 2018
 Here, we adopt the popular estimates of \citet{Kasting1993} and \citet{Kopparapu2013,Kopparapu2014} that define a temperate zone between the runaway greenhouse transition CITE! and the maximum greenhouse limit CITE!.
 We use the parametrization in \citet{Kopparapu2014} to derive luminosity and planetary mass-dependent edges of the \gls{HZ} $a_\mathrm{inner}$ and $a_\mathrm{outer}$.
-We further follow \citet{Bixel2021} and classify as ``exo-Earth candidates'' all planets with radii $0.8 S^{0.25} < R < 1.4 $ that orbit within the above boundaries.
+We further follow \citet{Bixel2021} and classify as \glspl{EEC} all planets with radii $0.8 S^{0.25} < R < 1.4 $ that orbit within the above boundaries.
 The lower limit was suggested as a minimum planet size to retain an atmosphere~\citep{Zahnle2017}.
 
 
@@ -110,7 +110,7 @@ The lower limit was suggested as a minimum planet size to retain an atmosphere~\
 
 \subsection{Fraction of inhabited planets with detectable biosignatures}
 Presumably, not all habitable worlds are inhabited and not all inhabited worlds develop detectable biosignatures.
-The fraction of exo-Earth candidates that are both inhabited and harbor detectable biosignatures at the time when we observe them remains speculative; we aggregate them in the unitless parameter $f_\mathrm{life}$.
+The fraction of \glspl{EEC} that are both inhabited and harbor detectable biosignatures at the time when we observe them remains speculative; we aggregate them in the unitless parameter $f_\mathrm{life}$.
 
 \subsection{H1: Life only originates in hydrothermal vents}
 The hydrothermal vent scenario does not allow oceans deep enough to form an impenetrable layer of high-pressure ice on its floor.
@@ -127,15 +127,15 @@ Our third theoretical experiment is to test the UV irradiance requirement (Sect.
 Our concrete hypothesis shall be that life only occurs on planets that at some point in their history have received such radiation exceeded a minimum flux $F_\mathrm{NUV, min}$.
 We further require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}, and the planet to be within its momentary \gls{HZ} during this entire period.
 
-For each exo-earth candidate, we interpolated the age- and stellar mass-dependent \gls{HZ} fluxes obtained by \citet{Richey-Yowell2023} and computed the evolution of the inner (runaway greenhouse) and outer (maximum greenhouse) edges as a function of planet mass, stellar spectral type using the results of \citet{Kopparapu2014} and the stellar luminosity evolution of \citet{Baraffe1998}.
-We then determined which planets were both in the \gls{HZ} and had \gls{NUV} fluxes above $F_\mathrm{NUV, min}$ for $\Delta T_\mathrm{min} \geq \SI{100}{\mega\year}$.
+For each exo-earth candidate, we interpolated the age- and stellar mass-dependent \gls{NUV} fluxes in the \gls{HZ} obtained by \citet{Richey-Yowell2023} and computed the evolution of the inner (runaway greenhouse) and outer (maximum greenhouse) edges as a function of planet mass, stellar spectral type using the results of \citet{Kopparapu2014} and the stellar luminosity evolution of \citet{Baraffe1998}.
+We then determined which planets were both in the \gls{HZ} and had \gls{NUV} fluxes above $F_\mathrm{NUV, min}$ for $\Delta T_\mathrm{min} \geq \var{deltaT_min}\,\SI{}{\mega\year}$.
 We assigned the development of life to a fraction $f_\mathrm{life}$ of all temperate planets fulfilling these requirements.
 For a population-level hypothesis, we then have
 \begin{equation}\label{eq:hypothesis-uv}
     H_{3} = f_\mathrm{life} (\theta, F_\mathrm{NUV}) =
         \begin{cases}
             0 , & F_\mathrm{NUV} < F_\mathrm{NUV, min}\\
-            f_\mathrm{life}, & F_\mathrm{NUV} \geq F_\mathrm{NUV, min} \,\mathrm{and\, in\, HZ} \, \mathrm{for} \, \Delta t \geq \SI{100}{\mega\year}
+            f_\mathrm{life}, & F_\mathrm{NUV} \geq F_\mathrm{NUV, min} \,\mathrm{and\, in\, HZ} \, \mathrm{for} \, \Delta t \geq \var{deltaT_min} \,\SI{}{\mega\year}
         \end{cases}
 \end{equation}
 and the corresponding null hypothesis

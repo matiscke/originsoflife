@@ -21,9 +21,9 @@
 \DTLsetseparator{,}% Set the separator between the columns.
 
 % import data
-% \DTLloaddb[noheader, keys={thekey,thevalue}]{variables}{variables.dat}
+\DTLloaddb[noheader, keys={thekey,thevalue}]{variables}{variables.dat}
 % Loads variables.dat with column headers 'thekey' and 'thevalue'
-\newcommand{\var}[1]{\DTLfetch{variables}{thekey}{#1}{thevalue}}
+\newcommand{\var}[1]{\ensuremath{\DTLfetch{variables}{thekey}{#1}{thevalue}}}
 
 % paper comments
 \usepackage{comment}						 % comments that can be switched visible/invisible
