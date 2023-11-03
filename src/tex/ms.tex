@@ -123,13 +123,23 @@ Further, the tidal locking timescale of the planet may not be smaller than the a
 ...
 
 \subsection{H3: Life only originates on planets with particular UV irradiance}
+\todo[inline]{\citet{Guenther2020} relate U-band energy to bolometric flux.}
+\todo[inline]{OPTIONAL: ``We further test the scenario of a linear correlation of past UV flux and biosignature occurrence rate.
+This test requires the detection of multiple biosignatures.''
+~\\
+Test for negative correlations as well?}
 Our third theoretical experiment is to test the UV irradiance requirement (Sect.~\ref{sec:predictions:uv}) by relating the occurrence of life on an exo-earth candidate with a minimum past quiescent stellar UV flux, focusing on the prebiotically interesting \gls{NUV} range from \SIrange{200}{280}{\nano\meter}. \todo[inline]{SUKRIT: got a good reference for this?}  %~\citep{RanjanSasselov2016}.?
 Our concrete hypothesis shall be that life only occurs on planets that at some point in their history have received such radiation exceeded a minimum flux $F_\mathrm{NUV, min}$.
 We further require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}, and the planet to be within its momentary \gls{HZ} during this entire period.
 
-For each exo-earth candidate, we interpolated the age- and stellar mass-dependent \gls{NUV} fluxes in the \gls{HZ} obtained by \citet{Richey-Yowell2023} and computed the evolution of the inner (runaway greenhouse) and outer (maximum greenhouse) edges as a function of planet mass, stellar spectral type using the results of \citet{Kopparapu2014} and the stellar luminosity evolution of \citet{Baraffe1998}.
+To determine \gls{HZ} occupancy, we interpolated the stellar luminosity evolution grid of \citet{Baraffe1998} using a Clough Tocher interpolant~\citep[][see left panel of Fig.~\ref{fig:hz_nuv_evo}]{Nielson1983,Alfeld1984} to compute the evolution of the inner (runaway greenhouse) and outer (maximum greenhouse) edges as a function of planet mass and stellar spectral type~\citep{Kopparapu2014}.
+This provides each planet's epochs within and outside the \gls{HZ}.
+For the \gls{NUV} flux, we use the age- and stellar mass-dependent \gls{NUV} fluxes in the \gls{HZ} obtained by \citet{Richey-Yowell2023}.
+We linearly interpolate in their measured grid, where we convert spectral type to stellar mass using the midpoints of their mass ranges (\SI{0.75}{\Msun} for K~stars, \SI{0.475}{\Msun} for early-type M~stars,  and \SI{0.215}}{\Msun} for late-type M~stars).
+Outside of the age and stellar mass range covered in \citet{Richey-Yowell2023}, we extrapolate using nearest simplex (see right panel of Fig.~\ref{fig:hz_nuv_evo}).
+
 We then determined which planets were both in the \gls{HZ} and had \gls{NUV} fluxes above $F_\mathrm{NUV, min}$ for $\Delta T_\mathrm{min} \geq \var{deltaT_min}\,\SI{}{\mega\year}$.
-We assigned the development of life to a fraction $f_\mathrm{life}$ of all temperate planets fulfilling these requirements.
+We assigned the development of life to a random fraction $f_\mathrm{life}$ of all temperate planets fulfilling these requirements.
 For a population-level hypothesis, we then have
 \begin{equation}\label{eq:hypothesis-uv}
     H_{3} = f_\mathrm{life} (\theta, F_\mathrm{NUV}) =
@@ -168,13 +178,11 @@ As shown in Figure~\ref{fig:inhabited_FGKM}, the majority of \glspl{EEC} and all
 
 
 
-\subsubsection{past UV flux}
-\todo[inline]{\citet{Günther2020} relate U-band energy to bolometric flux.}
 
-\todo[inline]{OPTIONAL: ``We further test the scenario of a linear correlation of past UV flux and biosignature occurrence rate.
-This test requires the detection of multiple biosignatures.''
-~\\
-Test for negative correlations as well?}
+
+
+
+
 
 
 \section{Exoplanet survey simulations}
