@@ -135,7 +135,7 @@ We further require this flux to have lasted for a minimum duration $\Delta T_\ma
 To determine \gls{HZ} occupancy, we interpolated the stellar luminosity evolution grid of \citet{Baraffe1998} using a Clough Tocher interpolant~\citep[][see left panel of Fig.~\ref{fig:hz_nuv_evo}]{Nielson1983,Alfeld1984} to compute the evolution of the inner (runaway greenhouse) and outer (maximum greenhouse) edges as a function of planet mass and stellar spectral type~\citep{Kopparapu2014}.
 This provides each planet's epochs within and outside the \gls{HZ}.
 For the \gls{NUV} flux, we use the age- and stellar mass-dependent \gls{NUV} fluxes in the \gls{HZ} obtained by \citet{Richey-Yowell2023}.
-We linearly interpolate in their measured grid, where we convert spectral type to stellar mass using the midpoints of their mass ranges (\SI{0.75}{\Msun} for K~stars, \SI{0.475}{\Msun} for early-type M~stars,  and \SI{0.215}}{\Msun} for late-type M~stars).
+We linearly interpolate in their measured grid, where we convert spectral type to stellar mass using the midpoints of their mass ranges (\SI{0.75}{\Msun} for K~stars, \SI{0.475}{\Msun} for early-type M~stars,  and \SI{0.215}{\Msun} for late-type M~stars).
 Outside of the age and stellar mass range covered in \citet{Richey-Yowell2023}, we extrapolate using nearest simplex (see right panel of Fig.~\ref{fig:hz_nuv_evo}).
 
 We then determined which planets were both in the \gls{HZ} and had \gls{NUV} fluxes above $F_\mathrm{NUV, min}$ for $\Delta T_\mathrm{min} \geq \var{deltaT_min}\,\SI{}{\mega\year}$.
@@ -167,11 +167,11 @@ i.e., no correlation with UV flux.
 As shown in Figure~\ref{fig:inhabited_FGKM}, the majority of \glspl{EEC} and all inhabited planets orbit M~dwarfs.
 
 
-
 \begin{figure*}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/hz_nuv_evo.pdf}
-        \caption{Stellar luminosity evolution (left) and evolution of the \gls{NUV} flux in the \gls{HZ} as a function of host star mass. White markers show age and host star mass of the transiting planets in the synthetic sample.}
+        \caption{Interpolated stellar luminosity evolution (left) and evolution of the \gls{NUV} flux in the \gls{HZ} as a function of host star mass. White markers show age and host star mass of the transiting planets in the synthetic sample.
+        Two of the three planet trajectories shown have extended overlap of \gls{HZ} occupancy and high \gls{NUV} flux (green sections), our requirement for abiogenesis.}
         \label{fig:hz_nuv_evo}
     \end{centering}
 \end{figure*}
