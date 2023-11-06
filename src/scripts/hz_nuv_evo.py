@@ -22,17 +22,20 @@ def plot_interpolation(
     if input_points:
         ax.plot(*input_points, "x", ms=1, label="input point")
     if d:
-        ax.scatter(
-            d["age"],
-            d["M_st"],
-            c=d["L_st_interp"],
-            s=4,
-            norm=norm,
-            edgecolors="white",
-            linewidths=0.3,
-            label="transiting planet",
-        )
-    # ax.legend()
+        # for (v, c) in [(False, 'white'), (True, 'C1')]:
+        for c, (EEC, group) in zip(['white', 'C0'], d.to_pandas().groupby('EEC')):
+            ax.scatter(
+                group["age"],
+                group["M_st"],
+                c=group["L_st_interp"],
+                s=4,
+                norm=norm,
+                # edgecolors="white",
+                edgecolors=c,
+                linewidths=0.6,
+                label=["EEC" if EEC else None][0],
+            )
+        ax.legend(loc='upper left')
     fig.colorbar(q, label=cbarlabel)
     ax.set_xscale("log")
     ax.set_xlabel("Time (Gyr)")
