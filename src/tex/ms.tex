@@ -150,6 +150,43 @@ Our concrete hypothesis shall be that life only occurs on planets that at some p
 \subsubsection{Semi-analytical analysis}
 First, we apply a Bayes Factor Design Analysis~\citep{Schoenbrodt2018} to assess the expected probabilities of obtaining true negative or true positive evidence for the hypothesis above, as well as the probability for misleading or inconclusive evidence.
 
+Let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
+Under Hypothesis $H_3$ (Equation \ref{eq:hypothesis-uv}), there exists a special unknown value of $F_\mathrm{NUV}$, noted $F_\mathrm{NUV, min}$ such that
+\begin{array}{rcll}
+P(L|\theta,H_3) & = & f_\mathrm{life} &\text{if } \theta>F_\mathrm{NUV, min}\\
+P(L|\theta,H_3) & = & 0 &\text{otherwise}
+\end{array}
+where $f_\mathrm{life}$ is the unknown probability of abiogenesis.
+The corresponding null hypothesis is that there exists no such special value of $F_\mathrm{NUV}$ and that
+\begin{equation}
+P(L|\theta,H_\mathrm{3, null}) = f_\mathrm{life}.
+\end{equation}
+
+If we now define a sample of size $n$ as $X=\{F_\mathrm{NUV, i},L_i\}_{i \in [1,n]}$ where $L_i$ is equal to 1 if life is detected and 0 otherwise, we can calculate the evidence for hypothesis $H_i$ against $H_j$ through the Bayes factor
+\begin{equation}
+BF_{H_i,H_j} = \frac{P(X|H_i)}{P(X|H_j)},
+\end{equation}
+with $P(X|H_i)$ and $P(X|H_j)$ likelihoods of obtaining the sample $X$ under either hypothesis.
+
+If we define $k=\sum L_i$ and denote $Y$ the random variable that describes it, $H_\mathrm{3, null}$ represents the likelihood that the number of planets with life in the sample follows the binomial distribution
+\begin{equation}
+P(Y=k|H_\mathrm{3, null}) = \binom{n}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n-k}.
+\end{equation}
+
+Under $H_3$, $Y$ also follows a binomial distribution, however it is conditioned by $n_{\lambda}=Card(\{F_\mathrm{NUV, i} \text{ if } F_\mathrm{NUV, i}>F_\mathrm{NUV, min}\}_{i \in [1,n]})$ the number of values of $F_\mathrm{NUV}$ in the experiment that exceed $F_\mathrm{NUV, min}$
+\begin{equation}
+P(Y=k|H_3) = \binom{n_{\lambda}}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n_{\lambda}-k}.
+\end{equation}
+
+Hence,
+\begin{equation}
+BF_{H_3,H_\mathrm{3, null}} = \frac{P(Y=k|H_3)}{P(Y=k|H_\mathrm{3, null})} = \frac{\binom{n_\lambda}{k}}{\binom{n}{k}}(1-f_\mathrm{life})^{n_{\lambda}-n}.
+\end{equation}
+
+
+
+
+
 
 
 
