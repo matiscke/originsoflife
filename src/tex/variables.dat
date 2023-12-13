@@ -2,3 +2,5 @@ N_nautilus,177
 deltaT_min,100
 uv_inhabited,23
 f_life,0.8
+semian_Nsamp1,10
+semian_Nsamp2,100

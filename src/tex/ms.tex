@@ -179,10 +179,15 @@ P(Y=k|H_3) = \binom{n_{\lambda}}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n_{\lam
 \end{equation}
 
 Hence,
-\begin{equation}
+\begin{equation}\label{eq:bayes_factor}
 BF_{H_3,H_\mathrm{3, null}} = \frac{P(Y=k|H_3)}{P(Y=k|H_\mathrm{3, null})} = \frac{\binom{n_\lambda}{k}}{\binom{n}{k}}(1-f_\mathrm{life})^{n_{\lambda}-n}.
 \end{equation}
 
+
+Given a sample of planets, where for some of them we have convincing biosignature detections but remaining agnostic on $f_\mathrm{life}$: What evidence for $H_\mathrm{3}$ and $H_\mathrm{3, null}$ can we expect to get?
+Our Bayes factor (Equation~\ref{eq:bayes_factor}) is determined by the unknown variables $f_\mathrm{life}$ and $F_\mathrm{NUV, min}$, as well as the number of planets with biosignature detections in the sample $k$.
+To compute the distribution of evidences, we repeatedly generated samples under $H_\mathrm{3}$ and $H_\mathrm{3, null}$ and computed the Bayes factors $BF_{H_3,H_\mathrm{3, null}}$ and $BF_{H_\mathrm{3, null}, H_3}$.
+We then evaluated the fraction of Monte Carlo runs in which certain evidence thresholds~\citep{Jeffreys1939} were exceeded.
 
 
 
@@ -220,6 +225,7 @@ i.e., no correlation with UV flux.
 
 
 \begin{figure}
+    \script{inhabited_FGKM.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/inhabited_FGKM.pdf}
         \caption{Host stars of all transiting planets, \glspl{EEC}, and inhabited planets. In a sample of \var{N_nautilus} transiting planets, most \glspl{EEC} and all inhabited planets orbit M~dwarfs.}
@@ -256,6 +262,30 @@ As shown in Figure~\ref{fig:inhabited_FGKM}, the majority of \glspl{EEC} and all
 \subsection{Information content in tidal locking timescale-density space}
 
 \subsection{Correlation of past UV flux and biosignature occurrence}\label{sec:results_uv}
+
+\subsubsection{Semi-analytical approach}
+In Section~\ref{sec:met-semianalytical} We computed the probability for true positive evidence for $H_\mathrm{3}$ and $H_\mathrm{3, null}$ respectively.
+Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10).
+For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{3}$ ($H_\mathrm{3, null}$) can be expected in $\sim \SI{30}{\percent}$ ($\sim \SI{40}{\percent}$) of all random experiments.
+In the majority of cases, the outcome of the survey will be inconclusive.
+\begin{figure}
+    \script{semian_true_evidence.py}
+    \begin{centering}
+        \includegraphics[width=\hsize]{figures/semian_true_evidence.pdf}
+        \caption{Probability to obtain true strong evidence for $H_\mathrm{3}$ and $H_\mathrm{3, null}$ under sample sizes $n = \var{semian_Nsamp1}$ (solid) and $n = \var{semian_Nsamp2}$ (dashed). The vertical lines denote the thresholds for ``strong'' evidence, $BF_{H_i, H_j}$ > 10, and ``extreme'' evidence, $BF_{H_i, H_j}$ > 100.}
+        \label{fig:semian_true_evidence}
+    \end{centering}
+\end{figure}
+The situation improves for larger samples -- \SI{80}{\percent} of random experiments yield true strong evidence under either $H_\mathrm{3}$ or $H_\mathrm{3, null}$.
+
+
+
+
+
+
+
+
+\subsubsection{Survey simulations with Bioverse}
 
 In a magnitude- and volume-limited sample of a transit survey, the host star distribution will be skewed toward later spectral types and dominated by M~dwarfs (see Fig.~\ref{fig:inhabited_FGKM}).
 Due to how the \gls{HZ} scales with spectral type, by far most transiting \glspl{EEC} occur around M~dwarfs.
