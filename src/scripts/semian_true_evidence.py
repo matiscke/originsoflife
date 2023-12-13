@@ -79,10 +79,9 @@ def get_evidence(sampsize=100):
     return bfh1_kh1, bfh0_kh0
 
 
-def true_evidence():
+def plot_true_evidence(ax):
     gtvec = 10 ** np.linspace(-2, 3, 300)
-    fig, ax = plt.subplots()
-    
+
     for s, ls, showlabel in zip([10, 100], ["-", "--"], ["", "_"]):
         bfh1_kh1, bfh0_kh0 = get_evidence(s)
     
@@ -119,12 +118,69 @@ def true_evidence():
         columnspacing=1.6,
     )
     ax.set_xscale("log")
+    ax.set_ylim(-.05, 1.05)
     ax.set_ylabel("P(evidence>x)")
     ax.set_xlabel("x")
 
-    return fig, ax
+    return ax
 
-fig, ax = true_evidence()
+## calculate P(BF>eta)
+
+
+def P_true_evidence(sampsize, eta=10, nboot=int(1e4), pisamp=None, theta_lsamp=None):
+    theta = rng.uniform(0, 1, sampsize)
+
+    if pisamp is None:
+        pisamp = rng.uniform(0, 1, nboot)
+    elif np.isscalar(pisamp):
+        # try a fixed value for pi
+        pisamp = np.full(nboot, pisamp)
+    else:
+        # seems we're dealing with an array
+        pisamp = np.full((nboot, pisamp.shape[1]), pisamp)
+
+    if theta_lsamp is None:
+        # random threshold
+        theta_lsamp = rng.uniform(0, 1, nboot)
+    elif np.isscalar(theta_lsamp):
+        # try a fixed threshold
+        theta_lsamp = np.full(nboot, theta_lsamp)
+    else:
+        # seems we're dealing with an array
+        theta_lsamp = np.full((nboot, theta_lsamp.shape[1]), theta_lsamp)
+
+    kh1samp = sample_H1(theta, pisamp, theta_lsamp)
+    kh0samp = sample_H0(theta, pisamp, theta_lsamp)
+
+    bfh1_kh1 = BFH1(
+        kh1samp, theta, pisamp, theta_lsamp
+    )  # evidence for H1 when H1 is true (k is sampled under H1)
+    bfh1_kh0 = BFH1(
+        kh0samp, theta, pisamp, theta_lsamp
+    )  # evidence for H1 when H0 is true (k is sampled under H0)
+    bfh0_kh0 = 1 / bfh1_kh0
+
+    trueeH1 = np.sum(bfh1_kh1 > eta) / len(bfh1_kh1)
+    trueeH0 = np.sum(bfh0_kh0 > eta) / len(bfh0_kh0)
+    return np.min([trueeH1, trueeH0])
+
+def plot_evidence_sampsize(ax, s_max=500):
+    """plot strong true evidence as a function of sample size"""
+    svec = np.arange(10,s_max)
+    true_strong_evidence_p = [P_true_evidence(sampsize=s) for s in svec]
+
+    ax.plot(svec,true_strong_evidence_p)
+    ax.set_ylim(-.05, 1.05)
+    ax.set_ylabel('Probability of strong true evidence')
+    ax.set_xlabel('Sample size')
+
+    return ax
+
+
+fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
+axs[0] = plot_true_evidence(axs[0])
+axs[1] = plot_evidence_sampsize(axs[1])
+# axs[1] = plot_evidence_sampsize(axs[1], s_max=50)
 
 
 # fig.tight_layout(

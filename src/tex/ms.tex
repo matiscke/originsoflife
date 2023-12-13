@@ -268,15 +268,16 @@ In Section~\ref{sec:met-semianalytical} We computed the probability for true pos
 Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10).
 For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{3}$ ($H_\mathrm{3, null}$) can be expected in $\sim \SI{30}{\percent}$ ($\sim \SI{40}{\percent}$) of all random experiments.
 In the majority of cases, the outcome of the survey will be inconclusive.
-\begin{figure}
+\begin{figure*}
     \script{semian_true_evidence.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/semian_true_evidence.pdf}
-        \caption{Probability to obtain true strong evidence for $H_\mathrm{3}$ and $H_\mathrm{3, null}$ under sample sizes $n = \var{semian_Nsamp1}$ (solid) and $n = \var{semian_Nsamp2}$ (dashed). The vertical lines denote the thresholds for ``strong'' evidence, $BF_{H_i, H_j}$ > 10, and ``extreme'' evidence, $BF_{H_i, H_j}$ > 100.}
+        \caption{Probability to obtain true strong evidence. Left: evidence levels for $H_\mathrm{3}$ and $H_\mathrm{3, null}$ under sample sizes $n = \var{semian_Nsamp1}$ (solid) and $n = \var{semian_Nsamp2}$ (dashed). The vertical lines denote the thresholds for ``strong'' evidence, $BF_{H_i, H_j}$ > 10, and ``extreme'' evidence, $BF_{H_i, H_j}$ > 100. Right: Probability of true strong evidence for $H_\mathrm{3}$ or $H_\mathrm{3, null}$, whichever is smaller, as a function of sample size $n$.}
         \label{fig:semian_true_evidence}
     \end{centering}
-\end{figure}
+\end{figure*}
 The situation improves for larger samples -- \SI{80}{\percent} of random experiments yield true strong evidence under either $H_\mathrm{3}$ or $H_\mathrm{3, null}$.
+
 
 
 
