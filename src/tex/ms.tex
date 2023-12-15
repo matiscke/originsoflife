@@ -151,11 +151,13 @@ Our concrete hypothesis shall be that life only occurs on planets that at some p
 First, we apply a Bayes Factor Design Analysis~\citep{Schoenbrodt2018} to assess the expected probabilities of obtaining true negative or true positive evidence for the hypothesis above, as well as the probability for misleading or inconclusive evidence.
 
 Let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
-Under Hypothesis $H_3$ (Equation \ref{eq:hypothesis-uv}), there exists a special unknown value of $F_\mathrm{NUV}$, noted $F_\mathrm{NUV, min}$ such that
-\begin{array}{rcll}
-P(L|\theta,H_3) & = & f_\mathrm{life} &\text{if } \theta>F_\mathrm{NUV, min}\\
-P(L|\theta,H_3) & = & 0 &\text{otherwise}
-\end{array}
+Under Hypothesis $H_3$ (Equation~\ref{eq:hypothesis-uv}), there exists a special unknown value of $F_\mathrm{NUV}$, noted $F_\mathrm{NUV, min}$ such that
+
+\begin{align}
+    P(L|\theta,H_3) & = & f_\mathrm{life} & \text{if } \theta>F_\mathrm{NUV, min}\\
+    P(L|\theta,H_3) & = & 0 & \text{otherwise}
+\end{align}
+
 where $f_\mathrm{life}$ is the unknown probability of abiogenesis.
 The corresponding null hypothesis is that there exists no such special value of $F_\mathrm{NUV}$ and that
 \begin{equation}
@@ -237,6 +239,7 @@ As shown in Figure~\ref{fig:inhabited_FGKM}, the majority of \glspl{EEC} and all
 
 
 \begin{figure*}
+    \script{hz_nuv_evo.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/hz_nuv_evo.pdf}
         \caption{Interpolated stellar luminosity evolution (left) and evolution of the \gls{NUV} flux in the \gls{HZ} as a function of host star mass. The scatter plot shows age and host star mass of the transiting planets in the synthetic sample with \gls{EEC} highlighted in green.
@@ -335,10 +338,10 @@ The biosignature surveys we simulated here may test the hypothesis of sufficient
 Our main findings are:
 \begin{enumerate}
     \item Models of the Origins of Life provide hypotheses that are testable with near-future exoplanet surveys.
-    \item The required \gls{nuv} radiation in the cyanosulfidic scenario should lead to a correlation between past \gls{nuv} flux and current occurrence of biosignatures, both of which will soon be observationally accessible.
+    \item The required \gls{NUV} radiation in the cyanosulfidic scenario should lead to a correlation between past \gls{NUV} flux and current occurrence of biosignatures, both of which will soon be observationally accessible.
     \item The required sample size for detecting this correlation depends on the occurrence of life on temperate exoplanets, the distribution of host star spectral types in the sample, ...
-        A direct imaging mission with the \gls{hwo} will require characterizing XXX planets ...
-    \item Abiogenesis in the cyanosulfidic scenario strongly prefers late host star spectral types in a sample of transiting planets. Any potential biosignature detection on a planet around a star other than an M~dwarf would disvafor this scenario and any other \gls{ool} theory requiring extended periods of high \gls{nuv} irradiation.
+        A direct imaging mission with the \gls{HWO} will require characterizing XXX planets ...
+    \item Abiogenesis in the cyanosulfidic scenario strongly prefers late host star spectral types in a sample of transiting planets. Any potential biosignature detection on a planet around a star other than an M~dwarf would disvafor this scenario and any other \gls{ool} theory requiring extended periods of high \gls{NUV} irradiation.
 \end{enumerate}
 
 %\input{acknowledgments_contributions}

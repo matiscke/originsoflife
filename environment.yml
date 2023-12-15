@@ -24,7 +24,7 @@ dependencies:
 #  - pandas=1.4
 #  - matplotlib==3.4.3
 #  - scipy>=1.8
-#  - seaborn>=0.12
+  - seaborn>=0.12
 #  - cmocean==2.0
 #  - pickle=4.0
 #  - corner
