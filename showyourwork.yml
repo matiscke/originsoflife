@@ -37,6 +37,8 @@ dependencies:
   #   - src/tex/stylesheet.tex
   src/scripts/inhabited_FGKM.py:
     - src/data/pipeline/sample.pkl
+  src/scripts/hz_nuv_evo.py:
+    - src/data/pipeline/sample.pkl
 
 # Name of the `.tex` manuscript and corresponding `.pdf` article
 ms_name: ms
