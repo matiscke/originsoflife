@@ -271,18 +271,14 @@ def plot_selectivity(ax):
     return ax
 
 
+# 2-panel figure
+fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
+axs[0] = plot_true_evidence(axs[0])
+axs[1] = plot_evidence_sampsize(axs[1])
+# axs[1] = plot_evidence_sampsize(axs[1], s_max=50)
 
-
-
-#
-# # 2-panel figure
-# fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
-# axs[0] = plot_true_evidence(axs[0])
-# axs[1] = plot_evidence_sampsize(axs[1])
-# # axs[1] = plot_evidence_sampsize(axs[1], s_max=50)
-#
-# # fig.tight_layout(
-# fig.savefig(paths.figures / "semian_true_evidence.pdf")
+# fig.tight_layout(
+fig.savefig(paths.figures / "semian_true_evidence.pdf")
 
 
 # selectivity figure
