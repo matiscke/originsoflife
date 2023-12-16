@@ -177,6 +177,51 @@ def plot_evidence_sampsize(ax, s_max=500):
 
     return ax
 
+def get_meshplot(smooth_sigma, sampsize, ax):
+    x = np.linspace(0.0, 1.0, 10)  # theta_l
+    y = np.linspace(0.0, 1.0, 10)  # pi
+    z = np.zeros((len(x), len(y)))
+    for i, xi in enumerate(x):
+        for j, yj in enumerate(y):
+            z[i, j] = P_true_evidence(
+                sampsize=sampsize, eta=10, nboot=int(1e5), theta_lsamp=xi, pisamp=yj
+            )
+
+    # Smooth the data
+    if smooth_sigma:
+        from scipy.ndimage import gaussian_filter
+
+        z = gaussian_filter(z, smooth_sigma)
+
+    x, y = np.meshgrid(x, y, indexing="ij")
+    im = ax.pcolormesh(
+        x, y, z, cmap=cmocean.cm.ice
+    )  # , vmin=vmin, vmax=vmax, cmap=cmap, lw=0, rasterized=True, shading='auto', edgecolors='k', linewidths=4)
+
+    # ax.set_xlabel('$\\theta_{\lambda}$')
+    ax.set_xlabel("NUV flux threshold (arb. units)")
+    ax.set_ylabel("$f_\mathrm{life}$")
+
+    return ax, im
+
+
+def plot_evidence_grid():
+    steps = 4
+    sampsizes = np.rint(np.geomspace(10, 500, steps) / 10).astype(np.int64) * 10
+    smooth_sigma = None
+
+    fig, axs = plt.subplots(1, steps, figsize=[13, 3.3], sharey=True)
+
+    for i, sampsize in enumerate(sampsizes):
+        axs[i], im = get_meshplot(smooth_sigma, sampsize, axs[i])
+        axs[i].text(0.8, 0.95, "$n = {}$".format(sampsize))
+
+    cbar_ax = fig.add_axes([1.015, 0.18, 0.02, 0.775])
+    cbar = fig.colorbar(im, label="P(true strong evidence)", cax=cbar_ax)
+    fig.tight_layout()
+
+    return fig, axs
+
 
 def plot_beta(ax):
     # show Beta function for different parameters
@@ -280,6 +325,9 @@ axs[1] = plot_evidence_sampsize(axs[1])
 # fig.tight_layout(
 fig.savefig(paths.figures / "semian_true_evidence.pdf")
 
+# evidence grid
+fig, axs = plot_evidence_grid()
+fig.savefig(paths.figures / "semian_evidence-grid.pdf")
 
 # selectivity figure
 fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])

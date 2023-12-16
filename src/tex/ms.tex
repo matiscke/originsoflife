@@ -281,6 +281,19 @@ In the majority of cases, the outcome of the survey will be inconclusive.
 \end{figure*}
 The situation improves for larger samples -- \SI{80}{\percent} of random experiments yield true strong evidence under either $H_\mathrm{3}$ or $H_\mathrm{3, null}$.
 
+The expected resulting evidence further depends on the a priori unknown abiogenesis rate $f_\mathrm{life}$ and on the \gls{NUV} flux threshold.
+\begin{figure*}
+    \script{semian_true_evidence.py}
+    \begin{centering}
+        \includegraphics[width=\hsize]{figures/semian_evidence-grid.pdf}
+        \caption{Probability of obtaining true strong evidence for different abiogenesis rates, \gls{NUV} flux thresholds, and sample sizes. For each of these parameters, higher values increase the probability of yielding strong evidence.}
+        \label{fig:semian_evidence-grid}
+    \end{centering}
+\end{figure*}
+Figure~\ref{fig:semian_evidence-grid} illustrates this dependency: For very low values of either parameter, samples drawn under the null or alternative hypotheses are indistinguishable and the Bayesian evidence is always low.
+Both higher $f_\mathrm{life}$ and higher \gls{NUV} flux thresholds increase the probability of obtaining strong evidence.
+Larger sample sizes enable this at lower values of these parameters.
+
 
 So far, we have assumed random, uniform distributions of $f_\mathrm{life}$, $F_\mathrm{NUV, min}$, and $F_\mathrm{NUV}$.
 A high biosignature detection rate $f_\mathrm{life}$ increases the evidence (cmp. Equation~\ref{eq:bayes_factor}) but we cannot influence it.
