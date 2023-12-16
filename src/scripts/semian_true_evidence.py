@@ -1,6 +1,7 @@
 import paths
 import pickle
 import plotstyle
+import cmocean
 
 plotstyle.styleplots()
 
@@ -177,11 +178,116 @@ def plot_evidence_sampsize(ax, s_max=500):
     return ax
 
 
+def plot_beta(ax):
+    # show Beta function for different parameters
+    x = np.linspace(0, 1, 100)
+    ax.plot(x, stats.beta.pdf(x, 0.1, 0.1), label=r"$s$=1, $Beta (0.1, 0.1)$")
+    ax.plot(x, stats.beta.pdf(x, 1, 1), label=r"$s$=0, $Beta (1, 1)$")
+    ax.plot(x, stats.beta.pdf(x, 10, 10), label=r"$s$=-1, $Beta (10,10)$")
+    ax.set_xlabel("x")
+    ax.set_ylabel("Probability density")
+    ax.legend()
+    return ax
+
+
+def P_true_evidence_beta(
+    sampsize, selectivity, eta=10, nboot=int(1e4), pisamp=None, theta_lsamp=None
+):
+    s = (
+        10**selectivity
+    )  # selectivity is log such that -1 is the center case, 0 is the neutral case and +1 is the border case
+    theta = rng.beta(1 / s, 1 / s, sampsize)
+
+    if pisamp is None:
+        pisamp = rng.uniform(0, 1, nboot)
+    elif np.isscalar(pisamp):
+        # try a fixed value for pi
+        pisamp = np.full(nboot, pisamp)
+    else:
+        # seems we're dealing with an array
+        pisamp = np.full((nboot, pisamp.shape[1]), pisamp)
+
+    if theta_lsamp is None:
+        # random threshold
+        theta_lsamp = rng.uniform(0, 1, nboot)
+    elif np.isscalar(theta_lsamp):
+        # try a fixed threshold
+        theta_lsamp = np.full(nboot, theta_lsamp)
+    else:
+        # seems we're dealing with an array
+        theta_lsamp = np.full((nboot, theta_lsamp.shape[1]), theta_lsamp)
+
+    kh1samp = sample_H1(theta, pisamp, theta_lsamp)
+    kh0samp = sample_H0(theta, pisamp, theta_lsamp)
+
+    bfh1_kh1 = BFH1(
+        kh1samp, theta, pisamp, theta_lsamp
+    )  # evidence for H1 when H1 is true (k is sampled under H1)
+    bfh1_kh0 = BFH1(
+        kh0samp, theta, pisamp, theta_lsamp
+    )  # evidence for H1 when H0 is true (k is sampled under H0)
+    bfh0_kh0 = 1 / bfh1_kh0
+
+    trueeH1 = np.sum(bfh1_kh1 > eta) / len(bfh1_kh1)
+    trueeH0 = np.sum(bfh0_kh0 > eta) / len(bfh0_kh0)
+    return np.min([trueeH1, trueeH0])
+
+
+
+def plot_selectivity(ax):
+    X = np.arange(10, 300, 20)  # sample size
+    Y = np.linspace(-1, 1, 10)  # selectivity
+    Pvecz = np.vectorize(lambda x, y: P_true_evidence_beta(x, y, eta=10, nboot=int(1e4)))
+    XX, YY = np.meshgrid(X, Y)
+    Z = Pvecz(XX, YY)
+
+    pc = ax.pcolormesh(XX, YY, Z, cmap=cmocean.cm.ice)
+    fig.colorbar(pc, label="P(true strong evidence)")
+    ax.set_ylabel("Selectivity $s$")
+    ax.set_xlabel("Sample size $n$")
+    ax.plot([10, 96], [0, 0], "--C1")
+    ax.annotate(
+        xytext=(20, 0.0),
+        xy=(20, 0.3),
+        text="",
+        arrowprops=dict(arrowstyle="simple", facecolor="C1", connectionstyle="arc3"),
+    )
+    ax.annotate(
+        xy=(25, 0.15), text=r"Sample more extreme $F_\mathrm{NUV}$", ha="left", va="center", color='k'
+    )
+    
+    ax.annotate(
+        xytext=(20, 0.0),
+        xy=(20, -0.3),
+        text="",
+        arrowprops=dict(arrowstyle="simple", facecolor="C1", connectionstyle="arc3"),
+    )
+    ax.annotate(
+        xy=(25, -0.15),
+        text=r"Sample more intermediate $F_\mathrm{NUV}$",  color='k',
+        ha="left",
+        va="center",
+    )
+    return ax
+
+
+
+
+
+#
+# # 2-panel figure
+# fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
+# axs[0] = plot_true_evidence(axs[0])
+# axs[1] = plot_evidence_sampsize(axs[1])
+# # axs[1] = plot_evidence_sampsize(axs[1], s_max=50)
+#
+# # fig.tight_layout(
+# fig.savefig(paths.figures / "semian_true_evidence.pdf")
+
+
+# selectivity figure
 fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
-axs[0] = plot_true_evidence(axs[0])
-axs[1] = plot_evidence_sampsize(axs[1])
-# axs[1] = plot_evidence_sampsize(axs[1], s_max=50)
+axs[0] = plot_beta(axs[0])
+axs[1] = plot_selectivity(axs[1])
 
-
-# fig.tight_layout(
-fig.savefig(paths.figures / "semian_true_evidence.pdf")
+fig.savefig(paths.figures / "semian_selectivity.pdf")

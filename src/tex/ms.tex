@@ -282,6 +282,24 @@ In the majority of cases, the outcome of the survey will be inconclusive.
 The situation improves for larger samples -- \SI{80}{\percent} of random experiments yield true strong evidence under either $H_\mathrm{3}$ or $H_\mathrm{3, null}$.
 
 
+So far, we have assumed random, uniform distributions of $f_\mathrm{life}$, $F_\mathrm{NUV, min}$, and $F_\mathrm{NUV}$.
+A high biosignature detection rate $f_\mathrm{life}$ increases the evidence (cmp. Equation~\ref{eq:bayes_factor}) but we cannot influence it.
+The same is true for $F_\mathrm{NUV, min}$, where again higher values increase the evidence as the binomial distribution for $H_\mathrm{3}$ gets increasingly skewed and shifted away from the one for $H_\mathrm{3, null}$.
+The distribution of $F_\mathrm{NUV}$ in the planet sample, on the other hand, can be influenced by the survey strategy.
+A targeted sampling approach could be to favor extreme values of $F_\mathrm{NUV}$ in the sample selection.
+Figure~\ref{fig:semian_selectivity} shows how the probability of obtaining true strong evidence for $H_\mathrm{3}$ scales with selectivity $s$, where $s\in]-1,1[$ such that $F_\mathrm{NUV} \sim Beta(1/10^s,1/10^s)$.
+Here, $s=0$ corresponds to a random uniform distribution.
+Compared to this case, a high selectivity can increase the probability of obtaining true strong evidence to $\gtrsim \SI{85}{\percent}$ for large samples.
+
+\begin{figure}
+    \script{semian_true_evidence.py}
+    \begin{centering}
+        \includegraphics[width=\hsize]{figures/semian_selectivity.pdf}
+        \caption{Scaling of the probability of obtaining true strong evidence with sample selectivity. Left: Sampling distribution for different selectivity parameters $s$. Right: Resulting \mbox{P(true strong evidence)}. Sampling more extreme values of $F_\mathrm{NUV}$ is more likely to yield strong evidence.}
+        \label{fig:semian_selectivity}
+    \end{centering}
+\end{figure}
+
 
 
 
