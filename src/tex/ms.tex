@@ -147,7 +147,7 @@ Test for negative correlations as well?}
 Our third theoretical experiment is to test the UV irradiance requirement (Sect.~\ref{sec:predictions:uv}) by relating the occurrence of life on an exo-earth candidate with a minimum past quiescent stellar UV flux, focusing on the prebiotically interesting \gls{NUV} range from \SIrange{200}{280}{\nano\meter}. \todo[inline]{SUKRIT: got a good reference for this?}  %~\citep{RanjanSasselov2016}.?
 Our concrete hypothesis shall be that life only occurs on planets that at some point in their history have received such radiation exceeded a minimum flux $F_\mathrm{NUV, min}$.
 
-\subsubsection{Semi-analytical analysis}
+\subsubsection{Semi-analytical analysis}\label{sec:met-semianalytical}
 First, we apply a Bayes Factor Design Analysis~\citep{Schoenbrodt2018} to assess the expected probabilities of obtaining true negative or true positive evidence for the hypothesis above, as well as the probability for misleading or inconclusive evidence.
 
 Let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
@@ -267,7 +267,7 @@ As shown in Figure~\ref{fig:inhabited_FGKM}, the majority of \glspl{EEC} and all
 \subsection{Correlation of past UV flux and biosignature occurrence}\label{sec:results_uv}
 
 \subsubsection{Semi-analytical approach}
-In Section~\ref{sec:met-semianalytical} We computed the probability for true positive evidence for $H_\mathrm{3}$ and $H_\mathrm{3, null}$ respectively.
+In Section~\ref{sec:met-semianalytical} we computed the probability for true positive evidence for $H_\mathrm{3}$ and $H_\mathrm{3, null}$ respectively.
 Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10).
 For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{3}$ ($H_\mathrm{3, null}$) can be expected in $\sim \SI{30}{\percent}$ ($\sim \SI{40}{\percent}$) of all random experiments.
 In the majority of cases, the outcome of the survey will be inconclusive.
@@ -326,6 +326,15 @@ Because of that, all inhabited planets orbit M~dwarfs.
 \subsection{Constraining power for the origins of life as a function of biosignature location}
 \todo[inline]{How does the location of biosignature detections impact the credibility of OOL scenarios?}
 \todo[inline]{biosignature on M~dwarf planet vs. FGK: Impact on UV flux requirement?}
+\subsubsection{Sampling strategy for testing a predicted minimum \gls{NUV} flux}
+We show in Sect.~\ref{sec:results_uv} that the constraining power for testing the hypothesis of a minimum past \gls{NUV} flux required for abiogenesis is sensitive on the occurrence of life, the value of this threshold flux, the sample size, and the distribution of sampled past \gls{NUV} fluxes.
+In particular the last parameter offers an opportunity to optimize the survey strategy: Although constraints on a planet's UV history have generally large uncertainties~\citep[e.g.,][]{Richey-Yowell2023}, the likely maximum flux of a planet can be inferred and used as a proxy.
+Sampling more extreme (low and high) values for the maximum flux increases the probability of obtaining true strong evidence for the hypothesis.
+For large sample sizes $\gtrsim 200$, this strategy can push this probability into the \SI{90}{\percent} range.
+\todo[inline]{and what about the probability of getting true strong evidence for H0?}
+
+
+
 
 \subsection{Contextual support for potential biosignature detections}
 \todo[inline]{discuss how planetary context may impact credibility of tentative biosignature detections (e.g., if there is a good fit with a predicted OOL pattern; or the opposite: the planetary context does not fit well to any OOL scenarios)}
@@ -359,6 +368,7 @@ Our main findings are:
     \item The required \gls{NUV} radiation in the cyanosulfidic scenario should lead to a correlation between past \gls{NUV} flux and current occurrence of biosignatures, both of which will soon be observationally accessible.
     \item The required sample size for detecting this correlation depends on the occurrence of life on temperate exoplanets, the distribution of host star spectral types in the sample, ...
         A direct imaging mission with the \gls{HWO} will require characterizing XXX planets ...
+    \item If the predicted \gls{NUV} correlation exists, yielding strong evidence for it is likely ($> \SI{90}{\percent}$) for sample sizes $\geq 100$, and a survey strategy that targets extreme values of inferred past \gls{NUV} irradiation.
     \item Abiogenesis in the cyanosulfidic scenario strongly prefers late host star spectral types in a sample of transiting planets. Any potential biosignature detection on a planet around a star other than an M~dwarf would disvafor this scenario and any other \gls{ool} theory requiring extended periods of high \gls{NUV} irradiation.
 \end{enumerate}
 
