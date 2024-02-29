@@ -55,14 +55,14 @@ def plot_nuv_evo(fig, ax):
     return ax
 
 
-def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0):
+def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0, N_sample=2, random_state=42):
     "plot where HZ and sufficient NUV overlap for a few planets."
     eec = sample[sample["EEC"].astype(bool)]
     eec.evolve()
     eecdf = eec.to_pandas()
     inhabited = eecdf[eecdf.hz_and_uv]
 
-    for id in inhabited.sample(2, random_state=45).planetID:
+    for id in inhabited.sample(N_sample, random_state=random_state).planetID:
         Mst = eecdf[eecdf.planetID == id]["M_st"]
         t = eec.evolution[id]["time"]
         ax.plot(t, [Mst for tt in t], lw=1, c="gray")
@@ -83,28 +83,28 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0):
 
     return ax
 
+if __name__ == "__main__":
+    with open(paths.data / "pipeline/sample.pkl", "rb") as f:
+        d = pickle.load(f)
 
-with open(paths.data / "pipeline/sample.pkl", "rb") as f:
-    d = pickle.load(f)
+    m = np.linspace(0.1, 1.0, num=200)
+    t = np.geomspace(5e-3, 10.0, num=200)
+    M, T = np.meshgrid(m, t)
+    interp_lum, extrap_nn = interpolate_luminosity()
 
-m = np.linspace(0.1, 1.0, num=200)
-t = np.geomspace(5e-3, 10.0, num=200)
-M, T = np.meshgrid(m, t)
-interp_lum, extrap_nn = interpolate_luminosity()
+    Z = interp_lum(M, T)
+    d["L_st_interp"] = interp_lum(d["M_st"], d["age"])
 
-Z = interp_lum(M, T)
-d["L_st_interp"] = interp_lum(d["M_st"], d["age"])
+    fig, axs = plt.subplots(1, 2, figsize=(12, 3.5))
+    axs[0] = plot_interpolation(
+        fig, axs[0], T, M, Z, d, cbarlabel="Bol. luminosity ($L/L_\odot$)"
+    )
+    axs[1] = plot_nuv_evo(fig, axs[1])
+    axs[0] = plot_hz_and_nuv(fig, axs[0], d, NUV_thresh=100.0)
+    axs[1] = plot_hz_and_nuv(fig, axs[1], d, NUV_thresh=100.0)
 
-fig, axs = plt.subplots(1, 2, figsize=(12, 3.5))
-axs[0] = plot_interpolation(
-    fig, axs[0], T, M, Z, d, cbarlabel="Bol. luminosity ($L/L_\odot$)"
-)
-axs[1] = plot_nuv_evo(fig, axs[1])
-axs[0] = plot_hz_and_nuv(fig, axs[0], d, NUV_thresh=100.0)
-axs[1] = plot_hz_and_nuv(fig, axs[1], d, NUV_thresh=100.0)
+    [ax.set_xlim(min(t), max(t)) for ax in axs]
+    [ax.set_ylim(min(m), max(m)) for ax in axs]
 
-[ax.set_xlim(min(t), max(t)) for ax in axs]
-[ax.set_ylim(min(m), max(m)) for ax in axs]
-
-fig.tight_layout()
-fig.savefig(paths.figures / "hz_nuv_evo.pdf")
+    fig.tight_layout()
+    fig.savefig(paths.figures / "hz_nuv_evo.pdf")

@@ -2,7 +2,9 @@
 This file contains the code to generate the datasets for the paper.
 It heavily relies on Bioverse and its auxiliary functions.
 """
-import pickle
+# import pickle
+import dill
+import timeit
 
 import paths
 from utils import *
@@ -14,7 +16,13 @@ import numpy as np
 from bioverse.generator import Generator
 from bioverse.survey import TransitSurvey
 
+from bioverse.hypothesis import Hypothesis
+
 # from bioverse.constants import CONST, DATA_DIR
+
+def eec_filter(d):
+    """Filter the planets to only include EECs."""
+    return d[d["EEC"].astype(bool)]
 
 
 def inject_nuv_life_correlation(d, f_life=0.1):
@@ -40,6 +48,7 @@ def inject_nuv_life_correlation(d, f_life=0.1):
         The table of planets with the injected correlation
         and including a new column `inhabited`.
     """
+
 
     d["inhabited"] = np.logical_and(
         d["hz_and_uv"], np.random.random(size=len(d)) <= f_life
@@ -104,10 +113,11 @@ def generate_generator(stars_only=False, **kwargs):
         g.insert_step("compute_transit_params")
         g.insert_step("past_hz_uv")
         # g.insert_step('apply_bias')
+        g.insert_step(eec_filter)
         g.insert_step(inject_nuv_life_correlation)
         g.insert_step(inject_biosignature)
     [g.set_arg(key, val) for key, val in g_args.items()]
-    return g
+    return g, g_args
 
 
 def survey_nautilus(sample, t_total=10 * 365.25):
@@ -128,6 +138,8 @@ def survey_nautilus(sample, t_total=10 * 365.25):
         The planets detected by the survey.
     data : Table
         A table with the obtained measurements and their errors.
+    nautilus : TransitSurvey object
+        The survey object.
     """
     nautilus = TransitSurvey()
 
@@ -150,6 +162,7 @@ def survey_nautilus(sample, t_total=10 * 365.25):
         "EEC",
         "has_O2",
         "hz_and_uv",
+        "max_nuv",
     ]
 
     margs["precision"] = {
@@ -162,6 +175,8 @@ def survey_nautilus(sample, t_total=10 * 365.25):
         "age": "30%",
         "P": 0.000001,
         "S": "5%",
+        # "max_nuv": "20%",
+        "max_nuv": "5%",
     }
 
     # margs['t_ref'] = {'R':1.5}
@@ -177,47 +192,179 @@ def survey_nautilus(sample, t_total=10 * 365.25):
     # compute yield, conduct survey
     detected = nautilus.compute_yield(sample)
     save_var_latex("N_nautilus", len(detected))
-    data = nautilus.observe(detected, t_total=t_total)
-
-    return sample, detected, data
+    data = nautilus.observe(detected) # commented out for now because of Bioverse's issue #45: , t_total=t_total)
 
 
 
+    # print(data['max_nuv'][:10])
+
+    return sample, detected, data, nautilus
 
 
-def past_uv(**kwargs):
+# hypothesis tests
+def h1(theta, X):
+    f_life, NUV_thresh = theta
+    return  f_life*(X >=  NUV_thresh)
+
+def h_null(theta, X):
+    shape = (np.shape(X)[0], 1)
+    return np.full(shape, theta)
+
+def hypothesis_test(data, method='dynesty'):
+    """Perform a single hypothesis test on the data."""
+    params = ("f_life", "NUV_thresh")
+    log = (True, True)
+    bounds = np.array([[1e-3, 1.0], [10.0, 1e5]])
+    bounds_null = np.array([[1e-3, 1.0]])
+    features = ("max_nuv",)
+    labels = ("has_O2",)
+
+    h_nuv = Hypothesis(
+        h1, bounds, params=params, features=features, labels=labels, log=log
+    )
+    h_nuv.h_null = Hypothesis(
+        h_null,
+        bounds_null,
+        params=("f_O2",),
+        features=features,
+        labels=labels,
+        log=(True,),
+    )
+
+    results = h_nuv.fit(data, method=method)
+
+    print(
+        "The evidence in favor of the hypothesis is: dlnZ = {:.1f} (corresponds to p = {:.1E})".format(
+            results["dlnZ"], np.exp(-results["dlnZ"])
+        )
+    )
+    return results
+
+def hypotest_grid(generator, survey, N_grid=4):
+    params = ("f_life", "NUV_thresh")
+    log = (True, True)
+    bounds = np.array([[1e-3, 1.0], [10.0, 1e5]])
+    bounds_null = np.array([[1e-3, 1.0]])
+    features = ("max_nuv",)
+    labels = ("has_O2",)
+
+    h_nuv = Hypothesis(
+        h1, bounds, params=params, features=features, labels=labels, log=log
+    )
+    h_nuv.h_null = Hypothesis(
+        h_null,
+        bounds_null,
+        params=("f_O2",),
+        features=features,
+        labels=labels,
+        log=(True,),
+    )
+
+    f_life = np.logspace(-3, 0, N_grid)
+    # f_life = np.logspace(0.8, 0, N_grid)
+    NUV_thresh = np.logspace(1, 3, N_grid)
+    NUV_thresh = np.logspace(1, 2.5, N_grid)
+
+    from bioverse.analysis import test_hypothesis_grid
+
+    results = test_hypothesis_grid(
+        h_nuv,
+        generator,
+        survey,
+        # method="mannwhitney",
+        method="dynesty",
+
+
+
+        # f_life=f_life,
+        f_life=0.9,             # test 1D hypothesis grid test
+
+
+        NUV_thresh=NUV_thresh,
+        N=5,
+        processes=8,
+        t_total=10 * 365.25,
+    )
+    return results
+
+
+
+
+def past_uv(grid=True, **kwargs):
     """Test the hypothesis that life only originates on planets with a minimum past UV irradiance."""
 
     # default parameters for planet generation
     params_past_uv = {
-        "d_max": 35,
-        "NUV_thresh": 300.0,
-        "f_life": 0.8,
-        "deltaT_min": 100.0,
+        "d_max": 60,
+        # "d_max": 30,
+        "deltaT_min": 10.0,  # Myr
+        "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
+        # "NUV_thresh": 200.0,
+        # "f_life": 0.8,
+        "f_life": 0.999,
         'f_eta': 5.0,         # Occurrence rate scaling factor
     }
 
+    # replace parameters with kwargs, if any
+    for key, value in kwargs.items():
+        params_past_uv[key] = value
 
 
-    g = generate_generator(label=None, **params_past_uv, **kwargs)
+    g, g_args = generate_generator(label=None, **params_past_uv, **kwargs)
     d = g.generate()
-
     dd = d.to_pandas()
 
     print("Total number of planets: {}".format(len(d)))
     print("Inhabited: {}".format(len(dd[dd.inhabited])))
 
+    d, detected, data, nautilus = survey_nautilus(d)
+    # d.evolve()
+
+    if grid:
+        # perform a grid of hypothesis tests
+        grid = hypotest_grid(g, nautilus, N_grid=3)
+        with open(paths.data / "pipeline/grid_flife_nuv.pkl", "wb") as file:
+            dill.dump(grid, file)
+    else:
+        # perform a single hypothesis test
+        grid = None
+        _ = hypothesis_test(data)
+
+
+    print('Number of planets in the sample: {}'.format(len(d)))
+
+
+
+
     # save some variables for the manuscript
+    save_var_latex("d_max", g_args["d_max"])
+    save_var_latex("M_G_max", g_args["M_G_max"])
+
     save_var_latex("f_life", params_past_uv["f_life"])
     save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
     save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
 
-    return d
+    save_var_latex("sigma_M_st", nautilus.measurements['M_st'].precision)
+    save_var_latex("sigma_t", nautilus.measurements['age'].precision)
+    return d, grid, detected, data, nautilus
 
 
-# if __name__ == "__main__":
-print('RUNNING BIOVERSE PIPELINE')
-d = past_uv()
-# save Bioverse objects
-with open(paths.data / 'pipeline/sample.pkl', 'wb') as file:
-    pickle.dump(d, file)
+def main():
+    print('RUNNING BIOVERSE PIPELINE')
+    d, grid, detected, data, nautilus = past_uv()
+
+    # d, grid, detected, data, nautilus = past_uv(grid=False)
+
+    # save Bioverse objects
+    with open(paths.data / 'pipeline/sample.pkl', 'wb') as file:
+        dill.dump(d, file)
+    with open(paths.data / "pipeline/grid_flife_nuv.dll", "wb") as file:
+        dill.dump(grid, file)
+
+    return d, grid
+
+if __name__ == "__main__":
+    # result = timeit.timeit("main()", number=1)
+    result = main()
+
+    wait = input("PRESS ENTER TO CONTINUE.")
