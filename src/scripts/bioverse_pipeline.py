@@ -20,6 +20,7 @@ from bioverse.hypothesis import Hypothesis
 
 # from bioverse.constants import CONST, DATA_DIR
 
+
 def eec_filter(d):
     """Filter the planets to only include EECs."""
     return d[d["EEC"].astype(bool)]
@@ -48,7 +49,6 @@ def inject_nuv_life_correlation(d, f_life=0.1):
         The table of planets with the injected correlation
         and including a new column `inhabited`.
     """
-
 
     d["inhabited"] = np.logical_and(
         d["hz_and_uv"], np.random.random(size=len(d)) <= f_life
@@ -192,9 +192,9 @@ def survey_nautilus(sample, t_total=10 * 365.25):
     # compute yield, conduct survey
     detected = nautilus.compute_yield(sample)
     save_var_latex("N_nautilus", len(detected))
-    data = nautilus.observe(detected) # commented out for now because of Bioverse's issue #45: , t_total=t_total)
-
-
+    data = nautilus.observe(
+        detected
+    )  # commented out for now because of Bioverse's issue #45: , t_total=t_total)
 
     # print(data['max_nuv'][:10])
 
@@ -204,13 +204,15 @@ def survey_nautilus(sample, t_total=10 * 365.25):
 # hypothesis tests
 def h1(theta, X):
     f_life, NUV_thresh = theta
-    return  f_life*(X >=  NUV_thresh)
+    return f_life * (X >= NUV_thresh)
+
 
 def h_null(theta, X):
     shape = (np.shape(X)[0], 1)
     return np.full(shape, theta)
 
-def hypothesis_test(data, method='dynesty'):
+
+def hypothesis_test(data, method="dynesty"):
     """Perform a single hypothesis test on the data."""
     params = ("f_life", "NUV_thresh")
     log = (True, True)
@@ -240,7 +242,8 @@ def hypothesis_test(data, method='dynesty'):
     )
     return results
 
-def hypotest_grid(generator, survey, N_grid=4):
+
+def hypotest_grid(generator, survey, N_grid):
     params = ("f_life", "NUV_thresh")
     log = (True, True)
     bounds = np.array([[1e-3, 1.0], [10.0, 1e5]])
@@ -260,10 +263,18 @@ def hypotest_grid(generator, survey, N_grid=4):
         log=(True,),
     )
 
-    f_life = np.logspace(-3, 0, N_grid)
-    # f_life = np.logspace(0.8, 0, N_grid)
-    NUV_thresh = np.logspace(1, 3, N_grid)
-    NUV_thresh = np.logspace(1, 2.5, N_grid)
+    # f_life = np.logspace(-3, 0, N_grid)
+    f_life = np.geomspace(0.1, 1., N_grid)
+    # f_life = (0.9,)  # test 1D hypothesis grid test
+    # f_life = 0.99  # test 1D hypothesis grid test
+    # NUV_thresh = np.logspace(1, 3, N_grid)
+    # NUV_thresh = np.logspace(1, 2.5, N_grid)
+    NUV_thresh = np.array([300., 380.])
+
+
+
+
+    # NUV_thresh=350.,
 
     from bioverse.analysis import test_hypothesis_grid
 
@@ -273,42 +284,33 @@ def hypotest_grid(generator, survey, N_grid=4):
         survey,
         # method="mannwhitney",
         method="dynesty",
-
-
-
-        # f_life=f_life,
-        f_life=0.9,             # test 1D hypothesis grid test
-
-
+        f_life=f_life,
         NUV_thresh=NUV_thresh,
-        N=5,
+        # N=5,
+        N=2,
         processes=8,
         t_total=10 * 365.25,
     )
     return results
 
 
-
-
-def past_uv(grid=True, **kwargs):
+def past_uv(grid=True, N_grid=4, **kwargs):
     """Test the hypothesis that life only originates on planets with a minimum past UV irradiance."""
 
     # default parameters for planet generation
     params_past_uv = {
-        "d_max": 60,
-        # "d_max": 30,
+        # "d_max": 60,        # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
+        "d_max": 75,        # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
         "deltaT_min": 10.0,  # Myr
         "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
         # "NUV_thresh": 200.0,
-        # "f_life": 0.8,
-        "f_life": 0.999,
-        'f_eta': 5.0,         # Occurrence rate scaling factor
+        "f_life": 0.8,
+        "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
     }
 
     # replace parameters with kwargs, if any
     for key, value in kwargs.items():
         params_past_uv[key] = value
-
 
     g, g_args = generate_generator(label=None, **params_past_uv, **kwargs)
     d = g.generate()
@@ -322,7 +324,7 @@ def past_uv(grid=True, **kwargs):
 
     if grid:
         # perform a grid of hypothesis tests
-        grid = hypotest_grid(g, nautilus, N_grid=3)
+        grid = hypotest_grid(g, nautilus, N_grid=N_grid)
         with open(paths.data / "pipeline/grid_flife_nuv.pkl", "wb") as file:
             dill.dump(grid, file)
     else:
@@ -330,11 +332,7 @@ def past_uv(grid=True, **kwargs):
         grid = None
         _ = hypothesis_test(data)
 
-
-    print('Number of planets in the sample: {}'.format(len(d)))
-
-
-
+    print("Number of planets in the sample: {}".format(len(d)))
 
     # save some variables for the manuscript
     save_var_latex("d_max", g_args["d_max"])
@@ -344,24 +342,26 @@ def past_uv(grid=True, **kwargs):
     save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
     save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
 
-    save_var_latex("sigma_M_st", nautilus.measurements['M_st'].precision)
-    save_var_latex("sigma_t", nautilus.measurements['age'].precision)
+    ## Below commands potentially lead to latex error "Paragraph ended before \@dtl@stripeol was complete":
+    # save_var_latex("sigma_M_st", nautilus.measurements['M_st'].precision)
+    # save_var_latex("sigma_t", nautilus.measurements['age'].precision)
     return d, grid, detected, data, nautilus
 
 
 def main():
-    print('RUNNING BIOVERSE PIPELINE')
+    print("RUNNING BIOVERSE PIPELINE")
     d, grid, detected, data, nautilus = past_uv()
 
     # d, grid, detected, data, nautilus = past_uv(grid=False)
 
     # save Bioverse objects
-    with open(paths.data / 'pipeline/sample.pkl', 'wb') as file:
+    with open(paths.data / "pipeline/sample.pkl", "wb") as file:
         dill.dump(d, file)
     with open(paths.data / "pipeline/grid_flife_nuv.dll", "wb") as file:
         dill.dump(grid, file)
 
     return d, grid
+
 
 if __name__ == "__main__":
     # result = timeit.timeit("main()", number=1)
