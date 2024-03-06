@@ -1,5 +1,5 @@
 import paths
-import pickle
+import dill
 import plotstyle
 
 plotstyle.styleplots()
@@ -84,8 +84,8 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0, N_sample=2, random_state=
     return ax
 
 if __name__ == "__main__":
-    with open(paths.data / "pipeline/sample.pkl", "rb") as f:
-        d = pickle.load(f)
+    with open(paths.data / "pipeline/sample.dll", "rb") as f:
+        d = dill.load(f)
 
     m = np.linspace(0.1, 1.0, num=200)
     t = np.geomspace(5e-3, 10.0, num=200)

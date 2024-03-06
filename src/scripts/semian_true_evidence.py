@@ -1,5 +1,5 @@
 import paths
-import pickle
+import dill
 import plotstyle
 import cmocean
 

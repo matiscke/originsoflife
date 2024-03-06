@@ -1,4 +1,4 @@
-import pickle
+import dill
 import paths
 import plotstyle
 plotstyle.styleplots()
@@ -22,7 +22,7 @@ def plot_detections_uv(eec):
 
 
 with open(paths.data / 'pipeline/data.dll', 'rb') as f:
-    data = pickle.load(f)
+    data = dill.load(f)
 
 fig, ax = plot_detections_uv(data)
 

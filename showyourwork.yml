@@ -36,9 +36,9 @@ dependencies:
   # src/tex/ms.tex:
   #   - src/tex/stylesheet.tex
   src/scripts/inhabited_FGKM.py:
-    - src/data/pipeline/sample.pkl
+    - src/data/pipeline/sample.dll
   src/scripts/hz_nuv_evo.py:
-    - src/data/pipeline/sample.pkl
+    - src/data/pipeline/sample.dll
   src/scripts/detections_uv.py:
     - src/data/pipeline/data.dll
 

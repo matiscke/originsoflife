@@ -20,7 +20,7 @@ dependencies:
   - cmocean
   - astropy==5.3.3
   - jupyterlab==4.0.5
-#  - pickle
+  - dill
 #  - pandas=1.4
 #  - matplotlib==3.4.3
 #  - scipy>=1.8

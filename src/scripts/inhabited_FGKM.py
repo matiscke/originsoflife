@@ -1,4 +1,4 @@
-import pickle
+import dill
 import paths
 import plotstyle
 plotstyle.styleplots()
@@ -29,7 +29,7 @@ def plot_inhabited_FGKM(d):
     return g
 
 
-with open(paths.data / 'pipeline/sample.pkl', 'rb') as f:
-    sample = pickle.load(f)
+with open(paths.data / 'pipeline/sample.dll', 'rb') as f:
+    sample = dill.load(f)
 
 g = plot_inhabited_FGKM(sample)
