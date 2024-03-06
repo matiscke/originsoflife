@@ -365,7 +365,7 @@ def main():
     # save Bioverse objects
     with open(paths.data / "pipeline/sample.pkl", "wb") as file:
         dill.dump(d, file)
-    with open(paths.data / "pipeline/data.pkl", "wb") as file:
+    with open(paths.data / "pipeline/data.dll", "wb") as file:
         dill.dump(data, file)
     with open(paths.data / "pipeline/grid_flife_nuv.dll", "wb") as file:
         dill.dump(grid, file)

@@ -21,9 +21,9 @@ def plot_detections_uv(eec):
     return fig, ax
 
 
-with open(paths.data / 'pipeline/sample.pkl', 'rb') as f:
-    sample = pickle.load(f)
+with open(paths.data / 'pipeline/data.dll', 'rb') as f:
+    data = pickle.load(f)
 
-fig, ax = plot_detections_uv(sample)
+fig, ax = plot_detections_uv(data)
 
 fig.savefig(paths.figures / "detections_uv.pdf")
