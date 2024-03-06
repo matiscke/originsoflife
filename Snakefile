@@ -6,6 +6,7 @@ rule pipeline:
         "src/data/pipeline/sample.dll"
         "src/data/pipeline/data.dll"
         "src/data/pipeline/grid_flife_nuv.dll"
+        "src/tex/variables.dat"
     cache:
         True
     script:
