@@ -268,15 +268,12 @@ def hypotest_grid(generator, survey, N_grid):
         log=(True,),
     )
 
-    # f_life = np.logspace(-3, 0, N_grid)
-    f_life = np.geomspace(0.1, 1., N_grid)
+    # f_life = np.geomspace(0.1, 1.0, N_grid)
+    f_life = np.geomspace(0.2, 1.0, N_grid)
     # f_life = (0.9,)  # test 1D hypothesis grid test
     # f_life = 0.99  # test 1D hypothesis grid test
     # NUV_thresh = np.logspace(1, 2.5, N_grid)
-    NUV_thresh = np.geomspace(300., 380., N_grid)
-
-
-
+    NUV_thresh = np.geomspace(300.0, 380.0, N_grid)
 
     # NUV_thresh=350.,
 
@@ -298,7 +295,7 @@ def hypotest_grid(generator, survey, N_grid):
     return results
 
 
-def past_uv(grid=True, N_grid=4, **kwargs):
+def past_uv(grid=True, N_grid=3, **kwargs):
     """Test the hypothesis that life only originates on planets with a minimum past UV irradiance."""
 
     # default parameters for planet generation
@@ -377,4 +374,4 @@ if __name__ == "__main__":
     # result = timeit.timeit("main()", number=1)
     result = main()
 
-    wait = input("PRESS ENTER TO CONTINUE.")
+    # wait = input("PRESS ENTER TO CONTINUE.")
