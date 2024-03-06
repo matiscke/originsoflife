@@ -338,6 +338,21 @@ This leads to a distribution of biosignature detections with detections increasi
 \end{figure}
 
 
+We now investigate the sensitivity of the achieved statistical power of our default transit survey to the a priori unconstrained threshold \gls{NUV} flux $F_\mathrm{NUV, min}$ and the abiogenesis rate $f_\mathrm{life}$.
+Figure~\ref{fig:powergrid} shows the statistical power as a function of these parameters for a sample size of $N=\var{N_nautilus}$.
+Higher values of $F_\mathrm{NUV, min}$ increase the achieved statistical power of the survey, as the dataset under the alternative hypothesis $H_3$ differs more from the null hypothesis with increasing threshold flux.
+The same is true for the abiogenesis rate $f_\mathrm{life}$, where higher values increase the evidence for $H_3$.
+
+\begin{figure}
+    \script{powergrid.py}
+    \begin{centering}
+        \includegraphics[width=\hsize]{figures/powergrid.pdf}
+        \caption{Statistical power as a function of threshold \gls{NUV} flux and abiogenesis rate. For a given sample size (here: $N=\var{N_nautilus}$), the achieved statistical power of the survey is enhanced for higher values of $F_\mathrm{NUV, min}$ and $f_\mathrm{life}$.}
+        \label{fig:powergrid}
+    \end{centering}
+\end{figure}
+
+
 
 \section{Discussion}
 \label{sec:discussion}
