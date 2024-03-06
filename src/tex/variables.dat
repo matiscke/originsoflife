@@ -1,6 +1,7 @@
-N_nautilus,177
-deltaT_min,100
-uv_inhabited,23
+N_nautilus,598
+deltaT_min,10
+uv_inhabited,152
 f_life,0.8
 semian_Nsamp1,10
 semian_Nsamp2,100
+
