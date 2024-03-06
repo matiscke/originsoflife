@@ -267,9 +267,8 @@ def hypotest_grid(generator, survey, N_grid):
     f_life = np.geomspace(0.1, 1., N_grid)
     # f_life = (0.9,)  # test 1D hypothesis grid test
     # f_life = 0.99  # test 1D hypothesis grid test
-    # NUV_thresh = np.logspace(1, 3, N_grid)
     # NUV_thresh = np.logspace(1, 2.5, N_grid)
-    NUV_thresh = np.array([300., 380.])
+    NUV_thresh = np.geomspace(300., 380., N_grid)
 
 
 
@@ -339,6 +338,7 @@ def past_uv(grid=True, N_grid=4, **kwargs):
     save_var_latex("M_G_max", g_args["M_G_max"])
 
     save_var_latex("f_life", params_past_uv["f_life"])
+    save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
     save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
     save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
 

@@ -39,6 +39,8 @@ dependencies:
     - src/data/pipeline/sample.pkl
   src/scripts/hz_nuv_evo.py:
     - src/data/pipeline/sample.pkl
+  src/scripts/detections_uv.py:
+    - src/data/pipeline/sample.pkl
 
 # Name of the `.tex` manuscript and corresponding `.pdf` article
 ms_name: ms
