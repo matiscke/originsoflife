@@ -120,27 +120,8 @@ def generate_generator(stars_only=False, **kwargs):
     return g, g_args
 
 
-def survey_nautilus(sample, t_total=10 * 365.25):
-    """Conduct a transit survey based on the Nautilus concept.
-
-    Parameters
-    ----------
-    sample : Table
-        The sample of planets to survey.
-    t_total : float
-        The total duration of the survey, in days.
-
-    Returns
-    -------
-    sample : Table
-        The sample of planets to survey.
-    detected : Table
-        The planets detected by the survey.
-    data : Table
-        A table with the obtained measurements and their errors.
-    nautilus : TransitSurvey object
-        The survey object.
-    """
+def create_survey_nautilus():
+    """Create a survey object based on the Nautilus concept."""
     nautilus = TransitSurvey()
 
     # plan measurements and their precision
@@ -189,12 +170,36 @@ def survey_nautilus(sample, t_total=10 * 365.25):
                 mkwargs[key] = vals[mkey]
         nautilus.add_measurement(mkey, **mkwargs)
 
+    return nautilus
+
+
+def run_survey_nautilus(sample, t_total=10 * 365.25):
+    """Conduct a transit survey based on the Nautilus concept.
+
+    Parameters
+    ----------
+    sample : Table
+        The sample of planets to survey.
+    t_total : float
+        The total duration of the survey, in days.
+
+    Returns
+    -------
+    sample : Table
+        The sample of planets to survey.
+    detected : Table
+        The planets detected by the survey.
+    data : Table
+        A table with the obtained measurements and their errors.
+    nautilus : TransitSurvey object
+        The survey object.
+    """
+    nautilus = create_survey_nautilus()
+
     # compute yield, conduct survey
     detected = nautilus.compute_yield(sample)
     save_var_latex("N_nautilus", len(detected))
-    data = nautilus.observe(
-        detected
-    )  # commented out for now because of Bioverse's issue #45: , t_total=t_total)
+    data = nautilus.observe(detected)  # commented out for now because of Bioverse's issue #45: , t_total=t_total)
 
     # print(data['max_nuv'][:10])
 
@@ -299,7 +304,7 @@ def past_uv(grid=True, N_grid=4, **kwargs):
     # default parameters for planet generation
     params_past_uv = {
         # "d_max": 60,        # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
-        "d_max": 75,        # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
+        "d_max": 75,  # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
         "deltaT_min": 10.0,  # Myr
         "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
         # "NUV_thresh": 200.0,
@@ -318,17 +323,18 @@ def past_uv(grid=True, N_grid=4, **kwargs):
     print("Total number of planets: {}".format(len(d)))
     print("Inhabited: {}".format(len(dd[dd.inhabited])))
 
-    d, detected, data, nautilus = survey_nautilus(d)
     # d.evolve()
 
     if grid:
         # perform a grid of hypothesis tests
+        nautilus = create_survey_nautilus()
         grid = hypotest_grid(g, nautilus, N_grid=N_grid)
-        with open(paths.data / "pipeline/grid_flife_nuv.pkl", "wb") as file:
-            dill.dump(grid, file)
+        detected = None
+        data = None
     else:
         # perform a single hypothesis test
         grid = None
+        d, detected, data, nautilus = run_survey_nautilus(d)
         _ = hypothesis_test(data)
 
     print("Number of planets in the sample: {}".format(len(d)))
@@ -349,18 +355,22 @@ def past_uv(grid=True, N_grid=4, **kwargs):
 
 
 def main():
+    """Run the Bioverse pipeline."""
     print("RUNNING BIOVERSE PIPELINE")
-    d, grid, detected, data, nautilus = past_uv()
 
-    # d, grid, detected, data, nautilus = past_uv(grid=False)
+    d, _grid, detected, data, nautilus = past_uv(grid=False)
+    _d, grid, _detected, _data, _nautilus = past_uv()
+
 
     # save Bioverse objects
     with open(paths.data / "pipeline/sample.pkl", "wb") as file:
         dill.dump(d, file)
+    with open(paths.data / "pipeline/data.pkl", "wb") as file:
+        dill.dump(data, file)
     with open(paths.data / "pipeline/grid_flife_nuv.dll", "wb") as file:
         dill.dump(grid, file)
 
-    return d, grid
+    return
 
 
 if __name__ == "__main__":
