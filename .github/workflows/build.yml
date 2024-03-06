@@ -12,6 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
+          showyourwork-spec: git+https://github.com/showyourwork/showyourwork
           fetch-depth: 0
 
       - name: Build the article PDF
