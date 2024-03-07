@@ -41,6 +41,8 @@ dependencies:
     - src/data/pipeline/sample.dll
   src/scripts/detections_uv.py:
     - src/data/pipeline/data.dll
+  src/scripts/powergrid.py:
+    - src/data/pipeline/grid_flife_nuv.dll
 
 # Name of the `.tex` manuscript and corresponding `.pdf` article
 ms_name: ms

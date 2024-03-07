@@ -14,6 +14,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install showyourwork from GitHub # (not latest pypi version)
+        run: pip install git+https://github.com/showyourwork/showyourwork.git
+
       - name: Build the article PDF
         id: build
         uses: showyourwork/showyourwork-action@v1
