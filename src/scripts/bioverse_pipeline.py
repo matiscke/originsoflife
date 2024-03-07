@@ -383,7 +383,7 @@ def main(fast=True):
 
 
 if __name__ == "__main__":
-    # result = timeit.timeit("main()", number=1)
-    result = main()
+    """Run the Bioverse pipeline, either doing the full grid or fast mode."""
+    result = main(fast=False)
 
     # wait = input("PRESS ENTER TO CONTINUE.")
