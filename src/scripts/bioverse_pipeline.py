@@ -248,7 +248,7 @@ def hypothesis_test(data, method="dynesty"):
     return results
 
 
-def hypotest_grid(generator, survey, N_grid):
+def hypotest_grid(generator, survey, N_grid, fast):
     params = ("f_life", "NUV_thresh")
     log = (True, True)
     bounds = np.array([[1e-3, 1.0], [10.0, 1e5]])
@@ -268,6 +268,10 @@ def hypotest_grid(generator, survey, N_grid):
         log=(True,),
     )
 
+    if fast:
+        N_iter = 2
+    else:
+        N_iter = 6
     # f_life = np.geomspace(0.1, 1.0, N_grid)
     f_life = np.geomspace(0.2, 1.0, N_grid)
     # f_life = (0.9,)  # test 1D hypothesis grid test
@@ -287,15 +291,14 @@ def hypotest_grid(generator, survey, N_grid):
         method="dynesty",
         f_life=f_life,
         NUV_thresh=NUV_thresh,
-        # N=5,
-        N=2,
+        N=N_iter,
         processes=8,
         t_total=10 * 365.25,
     )
     return results
 
 
-def past_uv(grid=True, N_grid=3, **kwargs):
+def past_uv(grid=True, N_grid=None, fast=False, **kwargs):
     """Test the hypothesis that life only originates on planets with a minimum past UV irradiance."""
 
     # default parameters for planet generation
@@ -324,8 +327,14 @@ def past_uv(grid=True, N_grid=3, **kwargs):
 
     if grid:
         # perform a grid of hypothesis tests
+        if fast:
+            N_grid = 2
+        elif N_grid:
+            N_grid = N_grid
+        else:
+            N_grid = 6
         nautilus = create_survey_nautilus()
-        grid = hypotest_grid(g, nautilus, N_grid=N_grid)
+        grid = hypotest_grid(g, nautilus, N_grid=N_grid, fast=fast)
         detected = None
         data = None
     else:
@@ -354,12 +363,12 @@ def past_uv(grid=True, N_grid=3, **kwargs):
     return d, grid, detected, data, nautilus
 
 
-def main():
+def main(fast=True):
     """Run the Bioverse pipeline."""
     print("RUNNING BIOVERSE PIPELINE")
 
     d, _grid, detected, data, nautilus = past_uv(grid=False)
-    _d, grid, _detected, _data, _nautilus = past_uv()
+    _d, grid, _detected, _data, _nautilus = past_uv(fast=fast)
 
 
     # save Bioverse objects
