@@ -345,6 +345,9 @@ def past_uv(grid=True, N_grid=3, **kwargs):
     save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
     save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
 
+    # fixed variables from semianalytical analysis
+    save_var_latex("semian_Nsamp1", 10)
+    save_var_latex("semian_Nsamp2", 100)
     ## Below commands potentially lead to latex error "Paragraph ended before \@dtl@stripeol was complete":
     # save_var_latex("sigma_M_st", nautilus.measurements['M_st'].precision)
     # save_var_latex("sigma_t", nautilus.measurements['age'].precision)

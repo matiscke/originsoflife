@@ -1,9 +1,9 @@
-N_nautilus,177
-deltaT_min,100
-uv_inhabited,23
-f_life,0.8
 semian_Nsamp1,10
 semian_Nsamp2,100
+N_nautilus,598
 d_max,75
 M_G_max,16
+f_life,0.8
 NUV_thresh,350.0
+deltaT_min,10
+uv_inhabited,152
