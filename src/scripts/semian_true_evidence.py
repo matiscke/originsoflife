@@ -214,7 +214,7 @@ def plot_evidence_grid():
 
     for i, sampsize in enumerate(sampsizes):
         axs[i], im = get_meshplot(smooth_sigma, sampsize, axs[i])
-        axs[i].text(0.8, 0.95, "$n = {}$".format(sampsize))
+        axs[i].text(0.99, 0.95, "$n = {}$".format(sampsize), horizontalalignment='right')
 
     cbar_ax = fig.add_axes([1.015, 0.18, 0.02, 0.775])
     cbar = fig.colorbar(im, label="P(true strong evidence)", cax=cbar_ax)
