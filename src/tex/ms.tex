@@ -1,3 +1,4 @@
+%! suppress = Ellipsis
 % Define document class
 %\documentclass[twocolumn,twocolappendix,linenumbers]{aastex631}
 \documentclass[modern,linenumbers]{aastex631}
@@ -85,7 +86,7 @@ We use this threshold value as our baseline case.
 ...
 \begin{figure*}
     \begin{centering}
-        \includegraphics[width=\hsize]{figures/hypotheses.pdf}
+        \includegraphics[width=\hsize]{figures/hypotheses}
         \caption{Population-level hypothesis and null hypothesis on UV irradiance derived from the cyanosulfidic scenario.}
         \label{fig:hypotheses}
     \end{centering}
@@ -224,7 +225,7 @@ i.e., no correlation with UV flux.
 \begin{figure}
     \script{inhabited_FGKM.py}
     \begin{centering}
-        \includegraphics[width=\hsize]{figures/inhabited_FGKM.pdf}
+        \includegraphics[width=\hsize]{figures/inhabited_FGKM}
         \caption{Host stars of all transiting planets, \glspl{EEC}, and inhabited planets. In a sample of \var{N_nautilus} transiting planets, most \glspl{EEC} and all inhabited planets orbit M~dwarfs.}
         \label{fig:inhabited_FGKM}
     \end{centering}
@@ -236,7 +237,7 @@ As shown in Figure~\ref{fig:inhabited_FGKM}, the majority of \glspl{EEC} and all
 \begin{figure*}
     \script{hz_nuv_evo.py}
     \begin{centering}
-        \includegraphics[width=\hsize]{figures/hz_nuv_evo.pdf}
+        \includegraphics[width=\hsize]{figures/hz_nuv_evo}
         \caption{Interpolated stellar luminosity evolution (left) and evolution of the \gls{NUV} flux in the \gls{HZ} as a function of host star mass. The scatter plot shows age and host star mass of the transiting planets in the synthetic sample with \gls{EEC} highlighted in green.
         Two of the three planet trajectories shown have extended overlap of \gls{HZ} occupancy and high \gls{NUV} flux (green sections), our requirement for abiogenesis.}
         \label{fig:hz_nuv_evo}
@@ -274,7 +275,7 @@ In the majority of cases, the outcome of the survey will be inconclusive.
 \begin{figure*}
     \script{semian_true_evidence.py}
     \begin{centering}
-        \includegraphics[width=\hsize]{figures/semian_true_evidence.pdf}
+        \includegraphics[width=\hsize]{figures/semian_true_evidence}
         \caption{Probability to obtain true strong evidence. Left: evidence levels for $H_\mathrm{1}$ and $H_\mathrm{null}$ under sample sizes $n = \var{semian_Nsamp1}$ (solid) and $n = \var{semian_Nsamp2}$ (dashed). The vertical lines denote the thresholds for ``strong'' evidence, $BF_{H_i, H_j}$ > 10, and ``extreme'' evidence, $BF_{H_i, H_j}$ > 100. Right: Probability of true strong evidence for $H_\mathrm{1}$ or $H_\mathrm{null}$, whichever is smaller, as a function of sample size $n$.}
         \label{fig:semian_true_evidence}
     \end{centering}
@@ -285,7 +286,7 @@ The expected resulting evidence further depends on the a priori unknown abiogene
 \begin{figure*}
     \script{semian_true_evidence.py}
     \begin{centering}
-        \includegraphics[width=\hsize]{figures/semian_evidence-grid.pdf}
+        \includegraphics[width=\hsize]{figures/semian_evidence-grid}
         \caption{Probability of obtaining true strong evidence for different abiogenesis rates, \gls{NUV} flux thresholds, and sample sizes. For each of these parameters, higher values increase the probability of yielding strong evidence.}
         \label{fig:semian_evidence-grid}
     \end{centering}
@@ -307,7 +308,7 @@ Compared to this case, a high selectivity can increase the probability of obtain
 \begin{figure}
     \script{semian_true_evidence.py}
     \begin{centering}
-        \includegraphics[width=\hsize]{figures/semian_selectivity.pdf}
+        \includegraphics[width=\hsize]{figures/semian_selectivity}
         \caption{Scaling of the probability of obtaining true strong evidence with sample selectivity. Left: Sampling distribution for different selectivity parameters $s$. Right: Resulting \mbox{P(true strong evidence)} (random, uniform $f_\mathrm{life}$, $F_\mathrm{NUV, min}$). Sampling more extreme values of $F_\mathrm{NUV}$ is more likely to yield strong evidence.}
         \label{fig:semian_selectivity}
     \end{centering}
@@ -331,7 +332,7 @@ This leads to a distribution of biosignature detections with detections increasi
 \begin{figure}
     \script{detections_uv.py}
     \begin{centering}
-        \includegraphics[width=\hsize]{figures/detections_uv.pdf}
+        \includegraphics[width=\hsize]{figures/detections_uv}
         \caption{Recovered biosignature detections in the \gls{NUV} flux -- biosignature occurrence space. The dashed line denotes the threshold \gls{NUV} flux $F_\mathrm{NUV, min}$.}
         \label{fig:detections_uv}
     \end{centering}
@@ -346,7 +347,7 @@ The same is true for the abiogenesis rate $f_\mathrm{life}$, where higher values
 \begin{figure}
     \script{powergrid.py}
     \begin{centering}
-        \includegraphics[width=\hsize]{figures/powergrid.pdf}
+        \includegraphics[width=\hsize]{figures/powergrid}
         \caption{Statistical power as a function of threshold \gls{NUV} flux and abiogenesis rate. For a given sample size (here: $N=\var{N_nautilus}$), the achieved statistical power of the survey is enhanced for higher values of $f_\mathrm{life}$ and intermediate values of $F_\mathrm{NUV, min}$.}
         \label{fig:powergrid}
     \end{centering}
