@@ -97,48 +97,23 @@ Figure~\ref{fig:hypotheses} shows the hypothesis and null hypothesis derived fro
 \section{Methods}
 \label{sec:hypotests}
 \todo[inline]{Briefly introduce Bayesian model comparison, then present the particular hypotheses in their mathematical form.}
-\subsection{Bayesian hypothesis testing with \bioverse}
-
-\subsection{Considered planets and their orbits}
-All Origins of Life scenarios considered here require water as a solvent; we thus consider only rocky planets that may sustain liquid water on their surface.
-Different formulations of habitable zones as regions around a star where a planet with Earth's atmospheric composition can maintain liquid water on its surface exist~\citep[e.g.,][]{MolLous2022,Spinelli2023,Tuchow2023}. CITE! Ramirez \& Kaltenegger 2017, 2018
-Here, we adopt the popular estimates of \citet{Kasting1993} and \citet{Kopparapu2013,Kopparapu2014} that define a temperate zone between the runaway greenhouse transition CITE! and the maximum greenhouse limit CITE!.
-We use the parametrization in \citet{Kopparapu2014} to derive luminosity and planetary mass-dependent edges of the \gls{HZ} $a_\mathrm{inner}$ and $a_\mathrm{outer}$.
-We further follow \citet{Bixel2021} and classify as \glspl{EEC} all planets with radii $0.8 S^{0.25} < R < 1.4 $ that orbit within the above boundaries.
-The lower limit was suggested as a minimum planet size to retain an atmosphere~\citep{Zahnle2017}.
-
-
-\subsection{Exoplanet survey simulations}
-\todo[inline]{biosignatures: Focus on molecular Oxygen? Excess Methane? \citep[e.g.,][]{Seeburger2023}}
-% detecting methanogenic life: Sandora2020, Wang2018,
-A commonly discussed biosignature is molecular Oxygen (O$_2$), which on Earth emerged as a byproduct of photosynthesis during the Proterozoic era.
-No individual component of an atmosphere has been identified as a reliable biosignature in isolation~\citep{Seager2016}, and the detection of Oxygen alone will certainly not be sufficient to confirm the presence of life.
-Nevertheless, we focus here on detecting this key absorber as it represents the general inherent observational challenges and trends.
-
-
-\subsubsection{Transit survey (e.g., Nautilus)}
-
-\subsubsection{Direct imaging survey (e.g., Habitable Worlds Observatory, LIFE)}
-%\subsubsubsection{target list}
-%\todo[inline]{Provisional stellar target List for the habitable Worlds Observatory:~\citep{Mamajek2023}} % read like in https://github.com/mkenworthy/HWObows/tree/40b1e5f2bc2bbbe8c999b097c80ca5a8cda0aeae/src/scripts
-
 
 
 \subsection{Fraction of inhabited planets with detectable biosignatures}
 Presumably, not all habitable worlds are inhabited and not all inhabited worlds develop detectable biosignatures.
 The fraction of \glspl{EEC} that are both inhabited and harbor detectable biosignatures at the time when we observe them remains speculative; we aggregate them in the unitless parameter $f_\mathrm{life}$.
 
-\subsection{H1: Life only originates in hydrothermal vents}
-The hydrothermal vent scenario does not allow oceans deep enough to form an impenetrable layer of high-pressure ice on its floor.
-The resulting allowed parameter space is described by a lower limit on the bulk density. \todo[inline]{+ exclude atmospheric signature for water worlds?}
-...
-
-\subsection{H2: Life only originates in subaerial ponds with wet/dry cycles}
-We parametrize the required exposed land surface in this scenario as a lower limit in bulk density that is higher than for H1.
-Further, the tidal locking timescale of the planet may not be smaller than the age of the system.
-...
-
-\subsection{H3: Life only originates on planets with particular UV irradiance}
+%\subsection{H1: Life only originates in hydrothermal vents}
+%The hydrothermal vent scenario does not allow oceans deep enough to form an impenetrable layer of high-pressure ice on its floor.
+%The resulting allowed parameter space is described by a lower limit on the bulk density. \todo[inline]{+ exclude atmospheric signature for water worlds?}
+%...
+%
+%\subsection{H2: Life only originates in subaerial ponds with wet/dry cycles}
+%We parametrize the required exposed land surface in this scenario as a lower limit in bulk density that is higher than for H1.
+%Further, the tidal locking timescale of the planet may not be smaller than the age of the system.
+%...
+%
+%\subsection{H3: Life only originates on planets with particular UV irradiance}
 \todo[inline]{\citet{Guenther2020} relate U-band energy to bolometric flux.}
 \todo[inline]{OPTIONAL: ``We further test the scenario of a linear correlation of past UV flux and biosignature occurrence rate.
 This test requires the detection of multiple biosignatures.''
@@ -147,7 +122,9 @@ Test for negative correlations as well?}
 Our third theoretical experiment is to test the UV irradiance requirement (Sect.~\ref{sec:predictions:uv}) by relating the occurrence of life on an exo-earth candidate with a minimum past quiescent stellar UV flux, focusing on the prebiotically interesting \gls{NUV} range from \SIrange{200}{280}{\nano\meter}. \todo[inline]{SUKRIT: got a good reference for this?}  %~\citep{RanjanSasselov2016}.?
 Our concrete hypothesis shall be that life only occurs on planets that at some point in their history have received such radiation exceeded a minimum flux $F_\mathrm{NUV, min}$.
 
-\subsubsection{Semi-analytical analysis}\label{sec:met-semianalytical}
+
+
+\subsection{Semi-analytical analysis}\label{sec:met-semianalytical}
 First, we apply a Bayes Factor Design Analysis~\citep{Schoenbrodt2018} to assess the expected probabilities of obtaining true negative or true positive evidence for the hypothesis above, as well as the probability for misleading or inconclusive evidence.
 
 Let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
@@ -192,12 +169,30 @@ To compute the distribution of evidences, we repeatedly generated samples under 
 We then evaluated the fraction of Monte Carlo runs in which certain evidence thresholds~\citep{Jeffreys1939} were exceeded.
 
 
+%\subsection{Bayesian hypothesis testing with \bioverse}
+
+\subsection{Considered planets and their orbits}
+All Origins of Life scenarios considered here require water as a solvent; we thus consider only rocky planets that may sustain liquid water on their surface.
+Different formulations of habitable zones as regions around a star where a planet with Earth's atmospheric composition can maintain liquid water on its surface exist~\citep[e.g.,][]{MolLous2022,Spinelli2023,Tuchow2023}. CITE! Ramirez \& Kaltenegger 2017, 2018
+Here, we adopt the popular estimates of \citet{Kasting1993} and \citet{Kopparapu2013,Kopparapu2014} that define a temperate zone between the runaway greenhouse transition CITE! and the maximum greenhouse limit CITE!.
+We use the parametrization in \citet{Kopparapu2014} to derive luminosity and planetary mass-dependent edges of the \gls{HZ} $a_\mathrm{inner}$ and $a_\mathrm{outer}$.
+We further follow \citet{Bixel2021} and classify as \glspl{EEC} all planets with radii $0.8 S^{0.25} < R < 1.4 $ that orbit within the above boundaries.
+The lower limit was suggested as a minimum planet size to retain an atmosphere~\citep{Zahnle2017}.
+
+
+\todo[inline]{biosignatures: Focus on molecular Oxygen? Excess Methane? \citep[e.g.,][]{Seeburger2023}}
+% detecting methanogenic life: Sandora2020, Wang2018,
+A commonly discussed biosignature is molecular Oxygen (O$_2$), which on Earth emerged as a byproduct of photosynthesis during the Proterozoic era.
+No individual component of an atmosphere has been identified as a reliable biosignature in isolation~\citep{Seager2016}, and the detection of Oxygen alone will certainly not be sufficient to confirm the presence of life.
+Nevertheless, we focus here on detecting this key absorber as it represents the general inherent observational challenges and trends.
 
 
 
 
 
-\subsubsection{Survey simulations with Bioverse}
+
+
+\subsection{Exoplanet survey simulations with Bioverse}
 To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we now conduct survey simulations with Bioverse using different sample sizes and survey strategies.
 We again require that life occurs only on planets with sufficient past UV irradiation exceeding $F_\mathrm{NUV, min}$.
 Further, we require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}, and the planet to be within its momentary \gls{HZ} during this entire period.
@@ -250,6 +245,12 @@ As shown in Figure~\ref{fig:inhabited_FGKM}, the majority of \glspl{EEC} and all
 
 
 
+
+\subsubsection{Transit survey (e.g., Nautilus)}
+
+\subsubsection{Direct imaging survey (e.g., Habitable Worlds Observatory, LIFE)}
+%\subsubsubsection{target list}
+%\todo[inline]{Provisional stellar target List for the habitable Worlds Observatory:~\citep{Mamajek2023}} % read like in https://github.com/mkenworthy/HWObows/tree/40b1e5f2bc2bbbe8c999b097c80ca5a8cda0aeae/src/scripts
 
 
 
