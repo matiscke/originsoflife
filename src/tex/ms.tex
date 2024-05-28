@@ -128,17 +128,17 @@ Our concrete hypothesis shall be that life only occurs on planets that at some p
 First, we apply a Bayes Factor Design Analysis~\citep{Schoenbrodt2018} to assess the expected probabilities of obtaining true negative or true positive evidence for the hypothesis above, as well as the probability for misleading or inconclusive evidence.
 
 Let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
-Under Hypothesis $H_3$ (Equation~\ref{eq:hypothesis-uv}), there exists a special unknown value of $F_\mathrm{NUV}$, noted $F_\mathrm{NUV, min}$ such that
+Under Hypothesis $H_1$ (Equation~\ref{eq:hypothesis-uv}), there exists a special unknown value of $F_\mathrm{NUV}$, noted $F_\mathrm{NUV, min}$ such that
 
 \begin{align}
-    P(L|\theta,H_3) &=  f_\mathrm{life} \quad \text{if } \theta>F_\mathrm{NUV, min}\\
-    P(L|\theta,H_3) &=  0               \quad  \text{otherwise}
+    P(L|\theta,H_1) &=  f_\mathrm{life} \quad \text{if } \theta>F_\mathrm{NUV, min}\\
+    P(L|\theta,H_1) &=  0               \quad  \text{otherwise}
 \end{align}
 
 where $f_\mathrm{life}$ is the unknown probability of abiogenesis.
 The corresponding null hypothesis is that there exists no such special value of $F_\mathrm{NUV}$ and that
 \begin{equation}
-P(L|\theta,H_\mathrm{3, null}) = f_\mathrm{life}.
+P(L|\theta,H_\mathrm{null}) = f_\mathrm{life}.
 \end{equation}
 
 If we now define a sample of size $n$ as $X=\{F_\mathrm{NUV, i},L_i\}_{i \in [1,n]}$ where $L_i$ is equal to 1 if life is detected and 0 otherwise, we can calculate the evidence for hypothesis $H_i$ against $H_j$ through the Bayes factor
@@ -147,25 +147,25 @@ BF_{H_i,H_j} = \frac{P(X|H_i)}{P(X|H_j)},
 \end{equation}
 with $P(X|H_i)$ and $P(X|H_j)$ likelihoods of obtaining the sample $X$ under either hypothesis.
 
-If we define $k=\sum L_i$ and denote $Y$ the random variable that describes it, $H_\mathrm{3, null}$ represents the likelihood that the number of planets with life in the sample follows the binomial distribution
+If we define $k=\sum L_i$ and denote $Y$ the random variable that describes it, $H_\mathrm{null}$ represents the likelihood that the number of planets with life in the sample follows the binomial distribution
 \begin{equation}
-P(Y=k|H_\mathrm{3, null}) = \binom{n}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n-k}.
+P(Y=k|H_\mathrm{null}) = \binom{n}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n-k}.
 \end{equation}
 
-Under $H_3$, $Y$ also follows a binomial distribution, however it is conditioned by $n_{\lambda}=Card(\{F_\mathrm{NUV, i} \text{ if } F_\mathrm{NUV, i}>F_\mathrm{NUV, min}\}_{i \in [1,n]})$ the number of values of $F_\mathrm{NUV}$ in the experiment that exceed $F_\mathrm{NUV, min}$
+Under $H_1$, $Y$ also follows a binomial distribution, however it is conditioned by $n_{\lambda}=Card(\{F_\mathrm{NUV, i} \text{ if } F_\mathrm{NUV, i}>F_\mathrm{NUV, min}\}_{i \in [1,n]})$ the number of values of $F_\mathrm{NUV}$ in the experiment that exceed $F_\mathrm{NUV, min}$
 \begin{equation}
-P(Y=k|H_3) = \binom{n_{\lambda}}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n_{\lambda}-k}.
+P(Y=k|H_1) = \binom{n_{\lambda}}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n_{\lambda}-k}.
 \end{equation}
 
 Hence,
 \begin{equation}\label{eq:bayes_factor}
-BF_{H_3,H_\mathrm{3, null}} = \frac{P(Y=k|H_3)}{P(Y=k|H_\mathrm{3, null})} = \frac{\binom{n_\lambda}{k}}{\binom{n}{k}}(1-f_\mathrm{life})^{n_{\lambda}-n}.
+BF_{H_1,H_\mathrm{null}} = \frac{P(Y=k|H_1)}{P(Y=k|H_\mathrm{null})} = \frac{\binom{n_\lambda}{k}}{\binom{n}{k}}(1-f_\mathrm{life})^{n_{\lambda}-n}.
 \end{equation}
 
 
-Given a sample of planets, where for some of them we have convincing biosignature detections but remaining agnostic on $f_\mathrm{life}$: What evidence for $H_\mathrm{3}$ and $H_\mathrm{3, null}$ can we expect to get?
+Given a sample of planets, where for some of them we have convincing biosignature detections but remaining agnostic on $f_\mathrm{life}$: What evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$ can we expect to get?
 Our Bayes factor (Equation~\ref{eq:bayes_factor}) is determined by the unknown variables $f_\mathrm{life}$ and $F_\mathrm{NUV, min}$, as well as the number of planets with biosignature detections in the sample $k$.
-To compute the distribution of evidences, we repeatedly generated samples under $H_\mathrm{3}$ and $H_\mathrm{3, null}$ and computed the Bayes factors $BF_{H_3,H_\mathrm{3, null}}$ and $BF_{H_\mathrm{3, null}, H_3}$.
+To compute the distribution of evidences, we repeatedly generated samples under $H_\mathrm{1}$ and $H_\mathrm{null}$ and computed the Bayes factors $BF_{H_1,H_\mathrm{null}}$ and $BF_{H_\mathrm{null}, H_1}$.
 We then evaluated the fraction of Monte Carlo runs in which certain evidence thresholds~\citep{Jeffreys1939} were exceeded.
 
 
@@ -207,7 +207,7 @@ We then determined which planets were both in the \gls{HZ} and had \gls{NUV} flu
 We assigned the development of life to a random fraction $f_\mathrm{life}$ of all temperate planets fulfilling these requirements.
 For a population-level hypothesis, we then have
 \begin{equation}\label{eq:hypothesis-uv}
-    H_{3} = f_\mathrm{life} (\theta, F_\mathrm{NUV}) =
+    H_{1} = f_\mathrm{life} (\theta, F_\mathrm{NUV}) =
         \begin{cases}
             0 , & F_\mathrm{NUV} < F_\mathrm{NUV, min}\\
             f_\mathrm{life}, & F_\mathrm{NUV} \geq F_\mathrm{NUV, min} \,\mathrm{and\, in\, HZ} \, \mathrm{for} \, \Delta t \geq \var{deltaT_min} \,\SI{}{\mega\year}
@@ -215,7 +215,7 @@ For a population-level hypothesis, we then have
 \end{equation}
 and the corresponding null hypothesis
 %\begin{equation}
-$H_{3, null} = f_\mathrm{life} (\theta),$
+$H_{null} = f_\mathrm{life} (\theta),$
 %\end{equation}
 i.e., no correlation with UV flux.
 
@@ -267,19 +267,19 @@ As shown in Figure~\ref{fig:inhabited_FGKM}, the majority of \glspl{EEC} and all
 \subsection{Correlation of past UV flux and biosignature occurrence}\label{sec:results_uv}
 
 \subsubsection{Semi-analytical approach}
-In Section~\ref{sec:met-semianalytical} we computed the probability for true positive evidence for $H_\mathrm{3}$ and $H_\mathrm{3, null}$ respectively.
+In Section~\ref{sec:met-semianalytical} we computed the probability for true positive evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$ respectively.
 Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10).
-For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{3}$ ($H_\mathrm{3, null}$) can be expected in $\sim \SI{30}{\percent}$ ($\sim \SI{40}{\percent}$) of all random experiments.
+For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{1}$ ($H_\mathrm{null}$) can be expected in $\sim \SI{30}{\percent}$ ($\sim \SI{40}{\percent}$) of all random experiments.
 In the majority of cases, the outcome of the survey will be inconclusive.
 \begin{figure*}
     \script{semian_true_evidence.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/semian_true_evidence.pdf}
-        \caption{Probability to obtain true strong evidence. Left: evidence levels for $H_\mathrm{3}$ and $H_\mathrm{3, null}$ under sample sizes $n = \var{semian_Nsamp1}$ (solid) and $n = \var{semian_Nsamp2}$ (dashed). The vertical lines denote the thresholds for ``strong'' evidence, $BF_{H_i, H_j}$ > 10, and ``extreme'' evidence, $BF_{H_i, H_j}$ > 100. Right: Probability of true strong evidence for $H_\mathrm{3}$ or $H_\mathrm{3, null}$, whichever is smaller, as a function of sample size $n$.}
+        \caption{Probability to obtain true strong evidence. Left: evidence levels for $H_\mathrm{1}$ and $H_\mathrm{null}$ under sample sizes $n = \var{semian_Nsamp1}$ (solid) and $n = \var{semian_Nsamp2}$ (dashed). The vertical lines denote the thresholds for ``strong'' evidence, $BF_{H_i, H_j}$ > 10, and ``extreme'' evidence, $BF_{H_i, H_j}$ > 100. Right: Probability of true strong evidence for $H_\mathrm{1}$ or $H_\mathrm{null}$, whichever is smaller, as a function of sample size $n$.}
         \label{fig:semian_true_evidence}
     \end{centering}
 \end{figure*}
-The situation improves with larger samples: for $n = \var{semian_Nsamp2}$, \SI{80}{\percent} of random experiments yield true strong evidence under either $H_\mathrm{3}$ or $H_\mathrm{3, null}$.
+The situation improves with larger samples: for $n = \var{semian_Nsamp2}$, \SI{80}{\percent} of random experiments yield true strong evidence under either $H_\mathrm{1}$ or $H_\mathrm{null}$.
 
 The expected resulting evidence further depends on the a priori unknown abiogenesis rate $f_\mathrm{life}$ and on the \gls{NUV} flux threshold.
 \begin{figure*}
@@ -297,10 +297,10 @@ Larger sample sizes enable this at lower values of these parameters.
 
 So far, we have assumed random, uniform distributions of $f_\mathrm{life}$, $F_\mathrm{NUV, min}$, and $F_\mathrm{NUV}$.
 A high biosignature detection rate $f_\mathrm{life}$ increases the evidence (cmp. Equation~\ref{eq:bayes_factor}) but we cannot influence it.
-The same is true for $F_\mathrm{NUV, min}$, where again higher values increase the evidence as the binomial distribution for $H_\mathrm{3}$ gets increasingly skewed and shifted away from the one for $H_\mathrm{3, null}$.
+The same is true for $F_\mathrm{NUV, min}$, where again higher values increase the evidence as the binomial distribution for $H_\mathrm{1}$ gets increasingly skewed and shifted away from the one for $H_\mathrm{null}$.
 The distribution of $F_\mathrm{NUV}$ in the planet sample, on the other hand, can be influenced by the survey strategy.
 A targeted sampling approach could be to favor extreme values of $F_\mathrm{NUV}$ in the sample selection.
-Figure~\ref{fig:semian_selectivity} shows how the probability of obtaining true strong evidence for $H_\mathrm{3}$ scales with selectivity $s$, where $s\in]-1,1[$ such that $F_\mathrm{NUV} \sim Beta(1/10^s,1/10^s)$.
+Figure~\ref{fig:semian_selectivity} shows how the probability of obtaining true strong evidence for $H_\mathrm{1}$ scales with selectivity $s$, where $s\in]-1,1[$ such that $F_\mathrm{NUV} \sim Beta(1/10^s,1/10^s)$.
 Here, $s=0$ corresponds to a random uniform distribution.
 Compared to this case, a high selectivity can increase the probability of obtaining true strong evidence to $\gtrsim \SI{85}{\percent}$ for large samples.
 
@@ -340,8 +340,8 @@ This leads to a distribution of biosignature detections with detections increasi
 
 We now investigate the sensitivity of the achieved statistical power of our default transit survey to the a priori unconstrained threshold \gls{NUV} flux $F_\mathrm{NUV, min}$ and the abiogenesis rate $f_\mathrm{life}$.
 Figure~\ref{fig:powergrid} shows the statistical power as a function of these parameters for a sample size of $N=\var{N_nautilus}$.
-Values of $F_\mathrm{NUV, min}$ that lie between the extrema of the inferred maximum \gls{NUV} flux increase the achieved statistical power of the survey, as in this case the dataset under the alternative hypothesis $H_3$ differs more from the null hypothesis.
-The same is true for the abiogenesis rate $f_\mathrm{life}$, where higher values increase the evidence for $H_3$.
+Values of $F_\mathrm{NUV, min}$ that lie between the extrema of the inferred maximum \gls{NUV} flux increase the achieved statistical power of the survey, as in this case the dataset under the alternative hypothesis $H_1$ differs more from the null hypothesis.
+The same is true for the abiogenesis rate $f_\mathrm{life}$, where higher values increase the evidence for $H_1$.
 
 \begin{figure}
     \script{powergrid.py}
