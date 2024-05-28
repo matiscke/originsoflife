@@ -1,8 +1,10 @@
+%! suppress = GroupedSubSupScript
 %! suppress = Ellipsis
 % Define document class
 %\documentclass[twocolumn,twocolappendix,linenumbers]{aastex631}
 \documentclass[modern,linenumbers]{aastex631}
 \input{preamble}
+%! suppress = LineBreak
 \begin{document}
 
 % Title
@@ -22,7 +24,7 @@
 \label{sec:intro}
 \todo[inline]{Introduce OOL, the importance of planetary contexts}
 
-\subsection{Origins of Life Scenarios and their Predictions}
+\subsection{Origins of Life Scenarios and their Predictions}\label{sec:predictions}
 \todo[inline]{Present widely discussed OOL scenarios and their predictions on exoplanet observables; derive testable hypotheses.}
 \label{sec:ool_scenarios}
 In this section, we present some of the most prominent origins of life scenarios and their observational predictions.
@@ -47,7 +49,7 @@ The competition of tectonic stress with gravitational crustal spreading (Melosh 
 Such mountains will be permanently under water on water worlds.
 Another impediment to wet-dry cycles is tidal locking of the planet as it stalls stellar tide-induced water movement and diurnal irradiation variability.
 
-\textbf{Prediction:} Biosignatures occur outside the tidal locking zone and at bulk densities consistent with exposed rock..
+\textbf{Prediction:} Biosignatures occur outside the tidal locking zone and at bulk densities consistent with exposed rock.
 \todo[inline]{SR: I'm not a priori sold that tidal locking means that no wet-dry cycles occur. you can still have cycling driven by transient changes in instellation due to flares, for example (e.g., https://iopscience.iop.org/article/10.3847/1538-4357/aadfd1/meta). Similarly, I wonder if 3D effects might not give rise to variability (https://iopscience.iop.org/article/10.3847/PSJ/acc9c4/meta).  I argue that it is more robust to establish a correlation between biosignatures and planets which show evidence of continents/land. I think that Ty Robinson in our department has done some work in this area, his papers might be a good starting point. Other papers which look relevant (but with which I am not familiar, as this is not my area): https://academic.oup.com/mnras/article/511/1/440/6501216, https://academic.oup.com/mnras/article/495/1/1/5733176, https://iopscience.iop.org/article/10.3847/1538-3881/aad775/meta, https://iopscience.iop.org/article/10.3847/1538-3881/aaed3a/meta, https://iopscience.iop.org/article/10.3847/1538-3881/ab2df3/meta}
 
 
@@ -120,7 +122,7 @@ The fraction of \glspl{EEC} that are both inhabited and harbor detectable biosig
 This test requires the detection of multiple biosignatures.''
 ~\\
 Test for negative correlations as well?}
-Our third theoretical experiment is to test the UV irradiance requirement (Sect.~\ref{sec:predictions:uv}) by relating the occurrence of life on an exo-earth candidate with a minimum past quiescent stellar UV flux, focusing on the prebiotically interesting \gls{NUV} range from \SIrange{200}{280}{\nano\meter}. \todo[inline]{SUKRIT: got a good reference for this?}  %~\citep{RanjanSasselov2016}.?
+Our third theoretical experiment is to test the UV irradiance requirement (Sect.~\ref{sec:predictions}) by relating the occurrence of life on an exo-earth candidate with a minimum past quiescent stellar UV flux, focusing on the prebiotically interesting \gls{NUV} range from \SIrange{200}{280}{\nano\meter}. \todo[inline]{SUKRIT: got a good reference for this?}  %~\citep{RanjanSasselov2016}.?
 Our concrete hypothesis shall be that life only occurs on planets that at some point in their history have received such radiation exceeded a minimum flux $F_\mathrm{NUV, min}$.
 
 
@@ -261,13 +263,12 @@ As shown in Figure~\ref{fig:inhabited_FGKM}, the majority of \glspl{EEC} and all
 
 \section{Results}
 \label{sec:results}
-\subsection{Information content in mass-density space}
+%\subsection{Information content in mass-density space}
+%\subsection{Information content in tidal locking timescale-density space}
 
-\subsection{Information content in tidal locking timescale-density space}
+%\subsection{Correlation of past UV flux and biosignature occurrence}\label{sec:results_uv}
 
-\subsection{Correlation of past UV flux and biosignature occurrence}\label{sec:results_uv}
-
-\subsubsection{Semi-analytical approach}
+\subsection{Semi-analytical approach}
 In Section~\ref{sec:met-semianalytical} we computed the probability for true positive evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$ respectively.
 Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10).
 For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{1}$ ($H_\mathrm{null}$) can be expected in $\sim \SI{30}{\percent}$ ($\sim \SI{40}{\percent}$) of all random experiments.
@@ -317,8 +318,7 @@ Compared to this case, a high selectivity can increase the probability of obtain
 
 
 
-
-\subsubsection{Survey simulations with Bioverse}
+\subsection{Survey simulations with Bioverse}
 
 In a magnitude- and volume-limited sample of a transit survey, the host star distribution will be skewed toward later spectral types and dominated by M~dwarfs (see Figure~\ref{fig:inhabited_FGKM}).
 Due to how the \gls{HZ} scales with spectral type, by far most transiting \glspl{EEC} occur around M~dwarfs.
@@ -367,7 +367,7 @@ The same is true for the abiogenesis rate $f_\mathrm{life}$, where higher values
 \todo[inline]{How does the location of biosignature detections impact the credibility of OOL scenarios?}
 \todo[inline]{biosignature on M~dwarf planet vs. FGK: Impact on UV flux requirement?}
 \subsubsection{Sampling strategy for testing a predicted minimum \gls{NUV} flux}
-We show in Sect.~\ref{sec:results_uv} that the constraining power for testing the hypothesis of a minimum past \gls{NUV} flux required for abiogenesis is sensitive on the occurrence of life, the value of this threshold flux, the sample size, and the distribution of sampled past \gls{NUV} fluxes.
+We show in Sect.~\ref{sec:results} that the constraining power for testing the hypothesis of a minimum past \gls{NUV} flux required for abiogenesis is sensitive on the occurrence of life, the value of this threshold flux, the sample size, and the distribution of sampled past \gls{NUV} fluxes.
 In particular the last parameter offers an opportunity to optimize the survey strategy: Although constraints on a planet's UV history have generally large uncertainties~\citep[e.g.,][]{Richey-Yowell2023}, the likely maximum flux of a planet can be inferred and used as a proxy.
 Sampling more extreme (low and high) values for the maximum flux increases the probability of obtaining true strong evidence for the hypothesis.
 For large sample sizes $\gtrsim 200$, this strategy can push this probability into the \SI{90}{\percent} range.
@@ -378,7 +378,7 @@ For large sample sizes $\gtrsim 200$, this strategy can push this probability in
 
 \subsection{Contextual support for potential biosignature detections}
 \todo[inline]{discuss how planetary context may impact credibility of tentative biosignature detections (e.g., if there is a good fit with a predicted OOL pattern; or the opposite: the planetary context does not fit well to any OOL scenarios)}
-As we have shown in Section~\ref{sec:results_uv}, the interplay of \gls{NUV} evolution and \gls{HZ} occupancy strongly favors late spectral types for abiogenesis via the cyanosulfidic scenario.
+As we have shown in Section~\ref{sec:results}, the interplay of \gls{NUV} evolution and \gls{HZ} occupancy strongly favors late spectral types for abiogenesis via the cyanosulfidic scenario.
 This strong predicted correlation between stellar spectral type and the occurrence of life can be used to falsify \gls{ool} scenarios.
 The constraint of this context is particularly strong if a candidate biosignature is detected on a planet orbiting an earlier type star, i.e., where it is unexpected in the context of this \gls{ool} scenario.
 
@@ -396,8 +396,8 @@ This concerns mainly ultracool dwarfs, due to their low quiescent emission and h
 Recent work indicates that the majority of stars show inadequate activity levels for a sufficient contribution through flares~\citep{Glazier2020,Ducrot2020,Guenther2020}.
 The biosignature surveys we simulated here may test the hypothesis of sufficient UV radiation via stellar flares.
 
-\subsubsection{Diurnal cycles}
-\todo[inline]{We assume that tidal locking implies that there are no wet-dry cycles. Challenge this assumption.}
+%\subsubsection{Diurnal cycles}
+%\todo[inline]{We assume that tidal locking implies that there are no wet-dry cycles. Challenge this assumption.}
 
 
 \section{Conclusions and future work}
@@ -416,6 +416,7 @@ Our main findings are:
 
 \section*{Reproducibility}
 
+%! suppress = MissingBibliographystyle
 \bibliography{bib,coauthors}
 
 \end{document}
