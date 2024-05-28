@@ -64,7 +64,7 @@ def inject_biosignature(d, P=1.0):
 
 
 def get_generator_args():
-    """define generator parameters"""
+    """define default generator parameters. These may be overwritten by other functions"""
     # Parameters for star generation
     stars_args = {
         "d_max": 30,  # max. dist to stars (pc)
