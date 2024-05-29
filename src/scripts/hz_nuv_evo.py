@@ -35,7 +35,7 @@ def plot_interpolation(
                 linewidths=0.6,
                 label=["EEC" if EEC else None][0],
             )
-        ax.legend(loc="upper left")
+        ax.legend(loc="upper left", framealpha=.0)
     fig.colorbar(q, label=cbarlabel)
     ax.set_xscale("log")
     ax.set_xlabel("Time (Gyr)")
