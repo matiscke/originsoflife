@@ -23,7 +23,7 @@ def plot_interpolation(
         ax.plot(*input_points, "x", ms=1, label="input point")
     if d:
         # for (v, c) in [(False, 'white'), (True, 'C1')]:
-        for c, (EEC, group) in zip(['white', 'C0'], d.to_pandas().groupby('EEC')):
+        for c, (EEC, group) in zip(["white", "C0"], d.to_pandas().groupby("EEC")):
             ax.scatter(
                 group["age"],
                 group["M_st"],
@@ -35,7 +35,7 @@ def plot_interpolation(
                 linewidths=0.6,
                 label=["EEC" if EEC else None][0],
             )
-        ax.legend(loc='upper left')
+        ax.legend(loc="upper left")
     fig.colorbar(q, label=cbarlabel)
     ax.set_xscale("log")
     ax.set_xlabel("Time (Gyr)")
@@ -65,8 +65,12 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0, N_sample=2, random_state=
     for id in inhabited.sample(N_sample, random_state=random_state).planetID:
         Mst = eecdf[eecdf.planetID == id]["M_st"]
         t = eec.evolution[id]["time"]
-        ax.plot(t, [Mst for tt in t], lw=1, c="gray")
-
+        ax.plot(
+            np.concatenate((np.array([1e-3]), t)),
+            [Mst] + [Mst for tt in t],
+            lw=1,
+            c="gray",
+        )
         in_hz = eec.evolution[id]["in_hz"]
         nuv = eec.evolution[id]["nuv"]
         # check if planet ever was in the HZ and had NUV fluxes above the threshold value
@@ -79,9 +83,10 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0, N_sample=2, random_state=
     id = eecdf[~eecdf.hz_and_uv].sample(1, random_state=48).planetID.values[0]
     Mst = eecdf[eecdf.planetID == id]["M_st"]
     t = eec.evolution[id]["time"]
-    ax.plot(t, [Mst for tt in t], lw=1, c="gray")
+    ax.plot(np.concatenate((np.array([1e-3]), t)), [Mst] + [Mst for tt in t], lw=1, c="gray")
 
     return ax
+
 
 if __name__ == "__main__":
     with open(paths.data / "pipeline/sample.dll", "rb") as f:
