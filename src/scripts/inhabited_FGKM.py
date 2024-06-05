@@ -6,6 +6,18 @@ plotstyle.styleplots()
 import seaborn as sns
 
 def plot_inhabited_FGKM(d):
+    """Plot the distribution of inhabited planets in the FGKM diagram.
+
+    Parameters
+    ----------
+    d : bioverse Table
+        The table containing the sample.
+
+    Returns
+    -------
+    g : seaborn.FacetGrid
+        a seaborn FacetGrid object containing the plot.
+    """
 
     dd = d.to_pandas()
 
