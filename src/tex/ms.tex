@@ -269,7 +269,7 @@ As shown in Figure~\ref{fig:inhabited_FGKM}, the majority of \glspl{EEC} and all
 
 %\subsection{Correlation of past UV flux and biosignature occurrence}\label{sec:results_uv}
 
-\subsection{Semi-analytical approach}
+\subsection{Semi-analytical approach}\label{sec:results-semianalytical}
 In Section~\ref{sec:met-semianalytical} we computed the probability for true positive evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$ respectively.
 Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10).
 For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{1}$ ($H_\mathrm{null}$) can be expected in $\sim \SI{30}{\percent}$ ($\sim \SI{40}{\percent}$) of all random experiments.
@@ -323,10 +323,13 @@ Compared to this case, a high selectivity can increase the probability of obtain
 
 In a magnitude- and volume-limited sample of a transit survey, the host star distribution will be skewed toward later spectral types and dominated by M~dwarfs (see Figure~\ref{fig:inhabited_FGKM}).
 Due to how the \gls{HZ} scales with spectral type, by far most transiting \glspl{EEC} occur around M~dwarfs.
+Their \gls{NUV} fluxes are generally highest in at early times \SI{\lesssim 100}{\mega\year}.
 These host stars, in particular late subtypes, also provide extended periods of increased \gls{NUV} emission that overlap with times when some of these planets occupy the \gls{HZ} (see Figure~\ref{fig:hz_nuv_evo}), our requirement for abiogenesis (compare Equation~\ref{eq:hypothesis-uv}).
 Because of that, all inhabited planets orbit M~dwarfs.
 
 
+
+\subsubsection{expected biosignature pattern in a transit survey}
 A representative recovery of the injected biosignature pattern is shown in Figure~\ref{fig:detections_uv}.
 There, we assumed an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$ and a minimum \gls{NUV} flux of $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\photons\per\centi\meter\squared\per\second\per\nano\meter}$.
 This leads to a distribution of biosignature detections with detections increasingly occurring above a threshold inferred NUV flux.
@@ -340,6 +343,7 @@ This leads to a distribution of biosignature detections with detections increasi
 \end{figure}
 
 
+\subsubsection{Statistical power for a transit survey and sensitivity on astrophysical parameters}
 We now investigate the sensitivity of the achieved statistical power of our default transit survey to the a priori unconstrained threshold \gls{NUV} flux $F_\mathrm{NUV, min}$ and the abiogenesis rate $f_\mathrm{life}$.
 Figure~\ref{fig:powergrid} shows the statistical power as a function of these parameters for a sample size of $N=\var{N_nautilus}$.
 Values of $F_\mathrm{NUV, min}$ that lie between the extrema of the inferred maximum \gls{NUV} flux increase the achieved statistical power of the survey, as in this case the dataset under the alternative hypothesis $H_1$ differs more from the null hypothesis.
