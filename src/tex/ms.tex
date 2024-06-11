@@ -327,6 +327,17 @@ Their \gls{NUV} fluxes are generally highest in at early times \SI{\lesssim 100}
 These host stars, in particular late subtypes, also provide extended periods of increased \gls{NUV} emission that overlap with times when some of these planets occupy the \gls{HZ} (see Figure~\ref{fig:hz_nuv_evo}), our requirement for abiogenesis (compare Equation~\ref{eq:hypothesis-uv}).
 Because of that, all inhabited planets orbit M~dwarfs.
 
+\subsubsection{selectivity of a generic transit survey}
+In Section~\ref{sec:results-semianalytical}, we demonstrated that the probability of obtaining true strong evidence for the hypothesis that life only originates on planets with a minimum past \gls{NUV} flux is sensitive to the distribution of sampled past \gls{NUV} fluxes, i.e., the selectivity of the survey (compare Figure~\ref{fig:semian_selectivity}).
+The maximum \gls{NUV} distribution of our generic transit survey is rather unimodal with a median around \SI{500}{\erg\per\second\per\centi\meter\squared} (see Figure~\ref{fig:nuv_distribution}), leading to a selectivity of roughly \var{selectivity_transit_volume-lim}.
+\begin{figure}
+    \script{nuv_distribution.py}
+    \begin{centering}
+        \includegraphics[width=\hsize]{figures/nuv_distribution}
+        \caption{Distribution of maximum past \gls{NUV} flux in a generic volume- and magnitude-limited transit survey. The best-fit beta distribution (gray) corresponds to a selectivity of \var{selectivity_transit_volume-lim}.}
+        \label{fig:nuv_distribution}
+    \end{centering}
+\end{figure}
 
 
 \subsubsection{expected biosignature pattern in a transit survey}
