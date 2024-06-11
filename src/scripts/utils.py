@@ -19,6 +19,10 @@ def save_var_latex(key, value, datafile=paths.tex/'variables.dat'):
     except FileNotFoundError:
         pass
 
+    # Check if the value is a float, if so format it to have a maximum of two decimal places
+    if isinstance(value, float):
+        value = round(value, 2)
+
     dict_var[key] = value
 
     with open(file_path, "w") as f:
