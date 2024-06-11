@@ -7,3 +7,4 @@ f_life,0.8
 NUV_thresh,350.0
 deltaT_min,10
 uv_inhabited,152
+selectivity_transit_volume-lim,-0.4

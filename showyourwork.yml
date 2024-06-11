@@ -39,6 +39,8 @@ dependencies:
     - src/data/pipeline/sample.dll
   src/scripts/hz_nuv_evo.py:
     - src/data/pipeline/sample.dll
+  src/scripts/nuv_distribution.py:
+    - src/data/pipeline/data.dll
   src/scripts/detections_uv.py:
     - src/data/pipeline/data.dll
   src/scripts/powergrid.py:
