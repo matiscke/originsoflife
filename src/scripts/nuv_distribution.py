@@ -11,9 +11,8 @@ from scipy import stats
 import numpy as np
 
 
-def plot_nuv_distribution(data):
+def plot_nuv_distribution(data, fig, ax):
     dataa = data.to_pandas()
-    fig, ax = plt.subplots(figsize=(15, 1.5))
 
     # force-fit a beta distribution to our NUV_max
     # max_likeli = stats.beta.fit(dataa.max_nuv, method='MLE')
@@ -26,7 +25,6 @@ def plot_nuv_distribution(data):
     print(f"selectivity ~ {selectivity:.2f}")
 
     x = np.arange(0.0, 1000.0, 5)
-    fig, ax = plt.subplots()
     ax.hist(dataa.max_nuv, density=True, color="C0")
     ax.plot(
         x,
@@ -38,7 +36,7 @@ def plot_nuv_distribution(data):
     ax.set_ylabel("Probability density")
     ax.text(
         0.97,
-        0.9,
+        0.85,
         transform=ax.transAxes,
         s="selectivity s = {:.1f}".format(selectivity),
         horizontalalignment="right",
@@ -48,9 +46,13 @@ def plot_nuv_distribution(data):
     return fig, ax
 
 
-with open(paths.data / "pipeline/data.dll", "rb") as f:
-    data = dill.load(f)
+fig, axs = plt.subplots(1, 2, figsize=(15, 2.5))
 
-fig, ax = plot_nuv_distribution(data)
+for spt, ax in zip(['FGK', 'M'], axs):
+    with open(paths.data / "pipeline/data_{}.dll".format(spt), "rb") as f:
+        data = dill.load(f)
+
+    fig, ax = plot_nuv_distribution(data, fig, ax)
+    ax.set_title(f"{spt}-type host stars")
 
 fig.savefig(paths.figures / "nuv_distribution.pdf")
