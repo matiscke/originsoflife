@@ -351,19 +351,23 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         # exclude other spectral types
         params_past_uv["SpT"] = ["F", "G", "K"]
         params_past_uv["d_max"] = 125  # Gaia GCNS doesn't go further than 119 pc
-        params_past_uv["f_eta"] = 6.  # scale to obtain 100 transiting EECs in the sample
+        params_past_uv[
+            "f_eta"
+        ] = 6.0  # scale to obtain 100 transiting EECs in the sample
 
-    elif hoststars == 'M':
+    elif hoststars == "M":
         # only M dwarf hosts
         params_past_uv["SpT"] = ["M"]
         params_past_uv["d_max"] = 42.5
-        params_past_uv["f_eta"] = 5.  # scale to obtain 100 transiting EECs in the sample
+        params_past_uv[
+            "f_eta"
+        ] = 5.0  # scale to obtain 100 transiting EECs in the sample
 
     elif hoststars == "all":
         # default, volume-limited
         pass
 
-    g, g_args = generate_generator(label=None, **params_past_uv) #, **kwargs)
+    g, g_args = generate_generator(label=None, **params_past_uv)  # , **kwargs)
     d = g.generate()
     dd = d.to_pandas()
 
