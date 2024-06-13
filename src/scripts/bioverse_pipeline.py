@@ -369,6 +369,10 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
 
     g, g_args = generate_generator(label=None, **params_past_uv)  # , **kwargs)
     d = g.generate()
+
+    # keep only 100 planets
+    d = d[:100]
+
     dd = d.to_pandas()
 
     print("Total number of planets: {}".format(len(d)))
