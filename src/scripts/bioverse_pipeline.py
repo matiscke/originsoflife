@@ -401,13 +401,18 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
     print("Number of planets in the sample: {}".format(len(d)))
 
     # save some variables for the manuscript
-    save_var_latex("d_max", g_args["d_max"])
-    save_var_latex("M_G_max", g_args["M_G_max"])
-
-    save_var_latex("f_life", params_past_uv["f_life"])
-    save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
-    save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
-    save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
+    if hoststars == "FGK":
+        save_var_latex("uv_inhabited_FGK", len(dd[dd.inhabited]))
+    elif hoststars == "M":
+        save_var_latex("uv_inhabited_M", len(dd[dd.inhabited]))
+    elif hoststars == "all":
+        # general run
+        save_var_latex("d_max", g_args["d_max"])
+        save_var_latex("M_G_max", g_args["M_G_max"])
+        save_var_latex("f_life", params_past_uv["f_life"])
+        save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
+        save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
+        save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
 
     # fixed variables from semianalytical analysis
     save_var_latex("semian_Nsamp1", 10)
@@ -422,22 +427,37 @@ def main(fast=True):
     """Run the Bioverse pipeline."""
     print("RUNNING BIOVERSE PIPELINE")
 
-    d, _grid, detected, data, nautilus = past_uv(grid=False)
-    _d, grid, _detected, _data, _nautilus = past_uv(grid=True, fast=fast)
+    for grid in [False, True]:
+        # for spt in ["all", "FGK", "M"]:
+        for spt in ["FGK", "M"]:
+            if grid:
+                # grid runs
+                _d, grid, _detected, _data, _nautilus = past_uv(grid=True, fast=fast)
+                # save Bioverse object
+                with open(
+                    paths.data / "pipeline/grid_flife_nuv_{}.dll".format(spt), "wb"
+                ) as file:
+                    dill.dump(grid, file)
+            else:
+                # single hypothesis test
+                _d, _grid, _detected, _data, _nautilus = past_uv(
+                    hoststars=spt, grid=False
+                )
 
-    # save Bioverse objects
-    with open(paths.data / "pipeline/sample.dll", "wb") as file:
-        dill.dump(d, file)
-    with open(paths.data / "pipeline/data.dll", "wb") as file:
-        dill.dump(data, file)
-    with open(paths.data / "pipeline/grid_flife_nuv.dll", "wb") as file:
-        dill.dump(grid, file)
-
+                # save Bioverse objects
+                with open(
+                    paths.data / "pipeline/sample_{}.dll".format(spt), "wb"
+                ) as file:
+                    dill.dump(_d, file)
+                with open(
+                    paths.data / "pipeline/data_{}.dll".format(spt), "wb"
+                ) as file:
+                    dill.dump(_data, file)
     return
 
 
 if __name__ == "__main__":
     # result = timeit.timeit("main()", number=1)
-    result = main()
+    main()
 
     # wait = input("PRESS ENTER TO CONTINUE.")
