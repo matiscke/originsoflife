@@ -336,10 +336,11 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         # "d_max": 60,        # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
         "d_max": 75,  # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
         "deltaT_min": 10.0,  # Myr
-        "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
+        # "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
         # "NUV_thresh": 200.0,
+        "NUV_thresh": 150.0,
         "f_life": 0.8,
-        "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
+        # "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
     }
 
     # replace parameters with kwargs, if any
