@@ -199,7 +199,9 @@ def run_survey_nautilus(sample, t_total=10 * 365.25):
     # compute yield, conduct survey
     detected = nautilus.compute_yield(sample)
     save_var_latex("N_nautilus", len(detected))
-    data = nautilus.observe(detected)  # commented out for now because of Bioverse's issue #45: , t_total=t_total)
+    data = nautilus.observe(
+        detected
+    )  # commented out for now because of Bioverse's issue #45: , t_total=t_total)
 
     # print(data['max_nuv'][:10])
 
@@ -298,8 +300,36 @@ def hypotest_grid(generator, survey, N_grid, fast):
     return results
 
 
-def past_uv(grid=True, N_grid=None, fast=False, **kwargs):
-    """Test the hypothesis that life only originates on planets with a minimum past UV irradiance."""
+def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
+    """Test the hypothesis that life only originates on planets with a minimum past UV irradiance.
+
+    Parameters
+    ----------
+    hoststars : str
+        The spectral type of the host stars to consider.
+        Options are 'all', 'FGK', 'M'.
+    grid : bool
+        Whether to perform a grid of hypothesis tests.
+    N_grid : int
+        The number of grid points to use.
+    fast : bool
+        Whether to run a fast grid for testing (less grid points)
+    kwargs : dict
+        Additional parameters to pass to the generator.
+
+    Returns
+    -------
+    d : Table
+        The sample of planets.
+    grid : Table
+        The grid of hypothesis tests.
+    detected : Table
+        The detected planets.
+    data : Table
+        The measurements obtained.
+    nautilus : TransitSurvey object
+        The transit survey.
+    """
 
     # default parameters for planet generation
     params_past_uv = {
@@ -316,7 +346,23 @@ def past_uv(grid=True, N_grid=None, fast=False, **kwargs):
     for key, value in kwargs.items():
         params_past_uv[key] = value
 
-    g, g_args = generate_generator(label=None, **params_past_uv, **kwargs)
+    if hoststars == "FGK":
+        # exclude other spectral types
+        params_past_uv["SpT"] = ["F", "G", "K"]
+        params_past_uv["d_max"] = 125  # Gaia GCNS doesn't go further than 119 pc
+        params_past_uv["f_eta"] = 6.  # scale to obtain 100 transiting EECs in the sample
+
+    elif hoststars == 'M':
+        # only M dwarf hosts
+        params_past_uv["SpT"] = ["M"]
+        params_past_uv["d_max"] = 42.5
+        params_past_uv["f_eta"] = 5.  # scale to obtain 100 transiting EECs in the sample
+
+    elif hoststars == "all":
+        # default, volume-limited
+        pass
+
+    g, g_args = generate_generator(label=None, **params_past_uv) #, **kwargs)
     d = g.generate()
     dd = d.to_pandas()
 
@@ -368,8 +414,7 @@ def main(fast=True):
     print("RUNNING BIOVERSE PIPELINE")
 
     d, _grid, detected, data, nautilus = past_uv(grid=False)
-    _d, grid, _detected, _data, _nautilus = past_uv(fast=fast)
-
+    _d, grid, _detected, _data, _nautilus = past_uv(grid=True, fast=fast)
 
     # save Bioverse objects
     with open(paths.data / "pipeline/sample.dll", "wb") as file:
