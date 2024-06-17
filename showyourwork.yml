@@ -41,10 +41,16 @@ dependencies:
     - src/data/pipeline/sample.dll
   src/scripts/nuv_distribution.py:
     - src/data/pipeline/data.dll
+    - src/data/pipeline/data_FGK.dll
+    - src/data/pipeline/data_M.dll
   src/scripts/detections_uv.py:
     - src/data/pipeline/data.dll
+    - src/data/pipeline/data_FGK.dll
+    - src/data/pipeline/data_M.dll
   src/scripts/powergrid.py:
     - src/data/pipeline/grid_flife_nuv.dll
+    - src/data/pipeline/grid_flife_nuv_FGK.dll
+    - src/data/pipeline/grid_flife_nuv_M.dll
 
 # Name of the `.tex` manuscript and corresponding `.pdf` article
 ms_name: ms
