@@ -396,7 +396,8 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         # perform a single hypothesis test
         grid = None
         d, detected, data, nautilus = run_survey_nautilus(d)
-        _ = hypothesis_test(data)
+        results = hypothesis_test(data)
+        save_var_latex("dlnZ_{}".format(hoststars), results["dlnZ"])
 
     print("Number of planets in the sample: {}".format(len(d)))
 
