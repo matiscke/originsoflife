@@ -279,7 +279,8 @@ def hypotest_grid(generator, survey, N_grid, fast):
     # f_life = (0.9,)  # test 1D hypothesis grid test
     # f_life = 0.99  # test 1D hypothesis grid test
     # NUV_thresh = np.logspace(1, 2.5, N_grid)
-    NUV_thresh = np.geomspace(300.0, 380.0, N_grid)
+    # NUV_thresh = np.geomspace(300.0, 380.0, N_grid)
+    NUV_thresh = np.geomspace(30.0, 3000.0, N_grid)
 
     # NUV_thresh=350.,
 
