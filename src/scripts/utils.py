@@ -2,7 +2,8 @@
 
 import paths
 
-def save_var_latex(key, value, datafile=paths.tex/'variables.dat'):
+
+def save_var_latex(key, value, datafile=paths.tex / "variables.dat"):
     # https://stackoverflow.com/questions/59408823/pdf-latex-with-python-script-custom-python-variables-into-latex-output on 2023-01-13
     import csv
     import os
@@ -28,3 +29,25 @@ def save_var_latex(key, value, datafile=paths.tex/'variables.dat'):
     with open(file_path, "w") as f:
         for key in dict_var.keys():
             f.write(f"{key},{dict_var[key]}\n")
+
+    return None
+
+
+def read_var_latex(key, datafile=paths.tex / "variables.dat"):
+    """read the value of variable `key` from a file."""
+    import csv
+    import os
+
+    dict_var = {}
+
+    file_path = os.path.join(os.getcwd(), datafile)
+
+    try:
+        with open(file_path, newline="") as file:
+            reader = csv.reader(file)
+            for row in reader:
+                dict_var[row[0]] = row[1]
+    except FileNotFoundError:
+        pass
+
+    return dict_var[key]
