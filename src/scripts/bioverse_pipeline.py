@@ -406,16 +406,26 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
     # save some variables for the manuscript
     if hoststars == "FGK":
         save_var_latex("uv_inhabited_FGK", len(dd[dd.inhabited]))
-    elif hoststars == "M":
-        save_var_latex("uv_inhabited_M", len(dd[dd.inhabited]))
-    elif hoststars == "all":
-        # general run
+
+        # general
         save_var_latex("d_max", g_args["d_max"])
         save_var_latex("M_G_max", g_args["M_G_max"])
         save_var_latex("f_life", params_past_uv["f_life"])
         save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
         save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
         save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
+
+    elif hoststars == "M":
+        save_var_latex("uv_inhabited_M", len(dd[dd.inhabited]))
+    elif hoststars == "all":
+        # general run (are we even still doing this)?
+        pass
+        # save_var_latex("d_max", g_args["d_max"])
+        # save_var_latex("M_G_max", g_args["M_G_max"])
+        # save_var_latex("f_life", params_past_uv["f_life"])
+        # save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
+        # save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
+        # save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
 
     # fixed variables from semianalytical analysis
     save_var_latex("semian_Nsamp1", 10)
