@@ -297,6 +297,7 @@ def hypotest_grid(generator, survey, N_grid, fast):
         N=N_iter,
         processes=8,
         t_total=10 * 365.25,
+        error_dump_filename=paths.root / "out/error_dump.txt",
     )
     return results
 
@@ -337,9 +338,9 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         # "d_max": 60,        # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
         "d_max": 75,  # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
         "deltaT_min": 10.0,  # Myr
-        # "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
+        "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
         # "NUV_thresh": 200.0,
-        "NUV_thresh": 150.0,
+        # "NUV_thresh": 150.0,
         "f_life": 0.8,
         # "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
     }
