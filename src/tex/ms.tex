@@ -127,7 +127,7 @@ Our concrete hypothesis shall be that life only occurs on planets that at some p
 
 
 
-\subsection{Semi-analytical analysis}\label{sec:met-semianalytical}
+\subsection{Semi-analytical assessment}\label{sec:met-semianalytical}
 First, we apply a Bayes Factor Design Analysis~\citep{Schoenbrodt2018} to assess the expected probabilities of obtaining true negative or true positive evidence for the hypothesis above, as well as the probability for misleading or inconclusive evidence.
 
 Let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
@@ -174,22 +174,6 @@ We then evaluated the fraction of Monte Carlo runs in which certain evidence thr
 
 %\subsection{Bayesian hypothesis testing with \bioverse}
 
-\subsection{Considered planets and their orbits}
-All Origins of Life scenarios considered here require water as a solvent; we thus consider only rocky planets that may sustain liquid water on their surface.
-Different formulations of habitable zones as regions around a star where a planet with Earth's atmospheric composition can maintain liquid water on its surface exist~\citep[e.g.,][]{MolLous2022,Spinelli2023,Tuchow2023}. CITE! Ramirez \& Kaltenegger 2017, 2018
-Here, we adopt the popular estimates of \citet{Kasting1993} and \citet{Kopparapu2013,Kopparapu2014} that define a temperate zone between the runaway greenhouse transition CITE! and the maximum greenhouse limit CITE!.
-We use the parametrization in \citet{Kopparapu2014} to derive luminosity and planetary mass-dependent edges of the \gls{HZ} $a_\mathrm{inner}$ and $a_\mathrm{outer}$.
-We further follow \citet{Bixel2021} and classify as \glspl{EEC} all planets with radii $0.8 S^{0.25} < R < 1.4 $ that orbit within the above boundaries.
-The lower limit was suggested as a minimum planet size to retain an atmosphere~\citep{Zahnle2017}.
-
-
-\todo[inline]{biosignatures: Focus on molecular Oxygen? Excess Methane? \citep[e.g.,][]{Seeburger2023}}
-% detecting methanogenic life: Sandora2020, Wang2018,
-A commonly discussed biosignature is molecular Oxygen (O$_2$), which on Earth emerged as a byproduct of photosynthesis during the Proterozoic era.
-No individual component of an atmosphere has been identified as a reliable biosignature in isolation~\citep{Seager2016}, and the detection of Oxygen alone will certainly not be sufficient to confirm the presence of life.
-Nevertheless, we focus here on detecting this key absorber as it represents the general inherent observational challenges and trends.
-
-
 
 
 
@@ -198,7 +182,23 @@ Nevertheless, we focus here on detecting this key absorber as it represents the 
 \subsection{Exoplanet survey simulations with Bioverse}
 To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we now conduct survey simulations with Bioverse using different sample sizes and survey strategies.
 We again require that life occurs only on planets with sufficient past UV irradiation exceeding $F_\mathrm{NUV, min}$.
-Further, we require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}, and the planet to be within its momentary \gls{HZ} during this entire period.
+Further, we require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}.
+
+All common Origin of Life scenarios require water as a solvent.
+We thus consider only rocky planets that may sustain liquid water on their surface, i.e., that occupy their momentary \gls{HZ} during the above period.
+
+\subsubsection{Habitable zone occupancy and UV flux}
+Different formulations of habitable zones as regions around a star where a planet with Earth's atmospheric composition can maintain liquid water on its surface exist~\citep[e.g.,][]{MolLous2022,Spinelli2023,Tuchow2023}. CITE! Ramirez \& Kaltenegger 2017, 2018
+Here, we adopt the popular estimates of \citet{Kasting1993} and \citet{Kopparapu2013,Kopparapu2014} that define a temperate zone between the runaway greenhouse transition CITE! and the maximum greenhouse limit CITE!.
+We use the parametrization in \citet{Kopparapu2014} to derive luminosity and planetary mass-dependent edges of the \gls{HZ} $a_\mathrm{inner}$ and $a_\mathrm{outer}$.
+We further follow \citet{Bixel2021} and classify as \glspl{EEC} all planets with radii $0.8 S^{0.25} < R < 1.4 $ that orbit within the above boundaries.
+The lower limit was suggested as a minimum planet size to retain an atmosphere~\citep{Zahnle2017}.
+
+\todo[inline]{biosignatures: Focus on molecular Oxygen? Excess Methane? \citep[e.g.,][]{Seeburger2023}}
+% detecting methanogenic life: Sandora2020, Wang2018,
+A commonly discussed biosignature is molecular Oxygen (O$_2$), which on Earth emerged as a byproduct of photosynthesis during the Proterozoic era.
+No individual component of an atmosphere has been identified as a reliable biosignature in isolation~\citep{Seager2016}, and the detection of Oxygen alone will certainly not be sufficient to confirm the presence of life.
+Nevertheless, we focus here on detecting this key absorber as it represents the general inherent observational challenges and trends.
 
 To determine \gls{HZ} occupancy, we interpolated the stellar luminosity evolution grid of \citet{Baraffe1998} using a Clough Tocher interpolant~\citep[][see left panel of Figure~\ref{fig:hz_nuv_evo}]{Nielson1983,Alfeld1984} to compute the evolution of the inner (runaway greenhouse) and outer (maximum greenhouse) edges as a function of planet mass and stellar spectral type~\citep{Kopparapu2014}.
 This provides each planet's epochs within and outside the \gls{HZ}.
@@ -246,6 +246,7 @@ As shown in Figure~\ref{fig:inhabited_FGKM}, the majority of \glspl{EEC} and all
         \label{fig:hz_nuv_evo}
     \end{centering}
 \end{figure*}
+
 
 
 
@@ -330,7 +331,7 @@ Because of that, all inhabited planets orbit M~dwarfs.
 \subsubsection{selectivity of a generic transit survey}
 In Section~\ref{sec:results-semianalytical}, we demonstrated that the probability of obtaining true strong evidence for the hypothesis that life only originates on planets with a minimum past \gls{NUV} flux is sensitive to the distribution of sampled past \gls{NUV} fluxes, i.e., the selectivity of the survey (compare Figure~\ref{fig:semian_selectivity}).
 %The maximum \gls{NUV} distribution of our generic transit survey is rather unimodal with a median around \SI{500}{\erg\per\second\per\centi\meter\squared} (see Figure~\ref{fig:nuv_distribution}), leading to a selectivity of roughly \var{selectivity_transit_volumelim}.
-For both surveys targeting M dwarfs and those targeting FGK dwarfs, the maximum \gls{NUV} distribution is rather unimodal, leading to low selectivities (Figure~\ref{fig:nuv_distribution}).
+For both surveys targeting M dwarfs and those targeting FGK dwarfs, the maximum \gls{NUV} distribution is rather unimodal, leading to low selectivities (see Figure~\ref{fig:nuv_distribution}).
 \begin{figure}
     \script{nuv_distribution.py}
     \begin{centering}
@@ -349,7 +350,7 @@ This leads to a distribution of biosignature detections with detections increasi
     \script{detections_uv.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/detections_uv}
-        \caption{Recovered biosignature detections in the \gls{NUV} flux -- biosignature occurrence space. The dashed line denotes the threshold \gls{NUV} flux $F_\mathrm{NUV, min}$.}
+        \caption{Recovered biosignature detections in the \gls{NUV} flux -- biosignature occurrence space. The dashed line denotes a generic threshold \gls{NUV} flux $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.}
         \label{fig:detections_uv}
     \end{centering}
 \end{figure}
