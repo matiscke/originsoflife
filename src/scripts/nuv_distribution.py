@@ -11,7 +11,7 @@ from scipy import stats
 import numpy as np
 
 
-def plot_nuv_distribution(data, fig, ax):
+def plot_nuv_distribution(data, fig, ax, spt):
     dataa = data.to_pandas()
 
     # force-fit a beta distribution to our NUV_max
@@ -21,7 +21,7 @@ def plot_nuv_distribution(data, fig, ax):
 
     # estimate selectivity from average of fitted beta function parameters
     selectivity = np.log10(1 / (np.mean(max_likeli[:2])))
-    save_var_latex("selectivity_transit_volume-lim", round(selectivity, 1))
+    save_var_latex("selectivity_{}".format(spt), round(selectivity, 1))
     print(f"selectivity ~ {selectivity:.2f}")
 
     x = np.arange(0.0, 1000.0, 5)
@@ -52,7 +52,7 @@ for spt, ax in zip(['FGK', 'M'], axs):
     with open(paths.data / "pipeline/data_{}.dll".format(spt), "rb") as f:
         data = dill.load(f)
 
-    fig, ax = plot_nuv_distribution(data, fig, ax)
+    fig, ax = plot_nuv_distribution(data, fig, ax, spt)
     ax.set_title(f"{spt}-type host stars")
 
 fig.savefig(paths.figures / "nuv_distribution.pdf")

@@ -329,12 +329,13 @@ Because of that, all inhabited planets orbit M~dwarfs.
 
 \subsubsection{selectivity of a generic transit survey}
 In Section~\ref{sec:results-semianalytical}, we demonstrated that the probability of obtaining true strong evidence for the hypothesis that life only originates on planets with a minimum past \gls{NUV} flux is sensitive to the distribution of sampled past \gls{NUV} fluxes, i.e., the selectivity of the survey (compare Figure~\ref{fig:semian_selectivity}).
-The maximum \gls{NUV} distribution of our generic transit survey is rather unimodal with a median around \SI{500}{\erg\per\second\per\centi\meter\squared} (see Figure~\ref{fig:nuv_distribution}), leading to a selectivity of roughly \var{selectivity_transit_volume-lim}.
+%The maximum \gls{NUV} distribution of our generic transit survey is rather unimodal with a median around \SI{500}{\erg\per\second\per\centi\meter\squared} (see Figure~\ref{fig:nuv_distribution}), leading to a selectivity of roughly \var{selectivity_transit_volumelim}.
+For both surveys targeting M dwarfs and those targeting FGK dwarfs, the maximum \gls{NUV} distribution is rather unimodal, leading to low selectivities (Figure~\ref{fig:nuv_distribution}).
 \begin{figure}
     \script{nuv_distribution.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/nuv_distribution}
-        \caption{Distribution of maximum past \gls{NUV} flux in a generic volume- and magnitude-limited transit survey. The best-fit beta distribution (gray) corresponds to a selectivity of \var{selectivity_transit_volume-lim}.}
+        \caption{Distribution of maximum past \gls{NUV} flux in transit surveys targeting FGK and M~stars, respectively. The best-fit beta distributions (gray) correspond to selectivities of $s_\mathrm{FGK} = $\var{selectivity_FGK} and $s_\mathrm{M} = $\var{selectivity_M}.}
         \label{fig:nuv_distribution}
     \end{centering}
 \end{figure}
