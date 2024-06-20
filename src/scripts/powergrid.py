@@ -10,7 +10,7 @@ plotstyle.styleplots()
 
 def plot_powergrid(grid, fig, ax, **kwargs):
     """Plot the power grid."""
-    labels = ("S_thresh", "f_life")
+    labels = ("$F_\mathrm{NUV, min}$", "$f_\mathrm{life}$")
 
     fig, ax = plots.plot_power_grid(
         grid,
@@ -29,33 +29,32 @@ def plot_powergrid(grid, fig, ax, **kwargs):
         cmap=cmocean.cm.dense_r,
         **kwargs,
     )
+
+    ax.set_ylim(0.0, 1.0)
+
+
     return fig, ax
 
 
 fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
 
-for spt, ax in zip(["FGK", "M"], axs):
+for i, (spt, ax) in enumerate(zip(["FGK", "M"], axs)):
     # with open(
     #     paths.data / "pipeline/grid_flife_nuv_{}.dll".format(spt), "rb"
     # ) as f, open(paths.data / "pipeline/data_{}.dll".format(spt), "rb") as d:
     #     grid = dill.load(f)
     #     data = dill.load(d)  # do we need this?
 
-
-
-
-    # WHILE DEBUGGING
+    # WHILE DEBUGGING (and no .dll files are available)
     import pickle
+
     with open(
-            paths.data / "pipeline/grid_flife_nuv_{}.pkl".format(spt), "rb"
+        paths.data / "pipeline/grid_flife_nuv_{}.pkl".format(spt), "rb"
     ) as f, open(paths.data / "pipeline/data_{}.dll".format(spt), "rb") as d:
         grid = pickle.load(f)
         data = dill.load(d)  # do we need this?
 
-
-
-
-    cbar = False if spt == "FGK" else True
+    cbar = False if i == 0 else True
 
     fig, ax = plot_powergrid(grid, fig, ax, cbar=cbar)
     ax.set_title(f"{spt}-type host stars")
