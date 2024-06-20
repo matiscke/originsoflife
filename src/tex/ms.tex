@@ -177,11 +177,20 @@ We then evaluated the fraction of Monte Carlo runs in which certain evidence thr
 
 
 
-
-
 \subsection{Exoplanet survey simulations with Bioverse}
-To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we now conduct survey simulations with Bioverse using different sample sizes and survey strategies.
-We again require that life occurs only on planets with sufficient past UV irradiation exceeding $F_\mathrm{NUV, min}$.
+To assess the information gain of a real exoplanet survey, we employed Bioverse~\citep{Bixel2021}, a framework that integrates multiple components including statistically realistic simulations of exoplanet populations, a survey simulation module, and a Bayesian hypothesis testing module to evaluate the statistical power of different observational strategies.
+The general approach is as follows:
+\begin{enumerate}
+%    \item We simulate a synthetic population of exoplanets with known properties, including their host stars, orbital parameters, and physical characteristics.
+\item \textbf{Exoplanet population synthesis:} We populate the Gaia Nearby Star Catalog with synthetic exoplanets whose orbital parameters and planetary properties reflect our current understanding of exoplanet demographics.
+    \item \textbf{Survey Simulation:} We simulate the detection and characterization of these exoplanets with a hypothetical survey, taking into account the survey's sensitivity, target selection, and observational biases.
+    \item \textbf{Hypothesis Tests:} We employ Bayesian statistical methods to evaluate the likelihood that a given survey would detect a specified statistical trend in the exoplanet population and estimate the precision with which the survey could constrain the parameters of that trend.
+\end{enumerate}
+To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we conduct survey simulations with Bioverse using different sample sizes and survey strategies.
+
+
+
+To test the UV hypothesis, we require that life occurs only on planets with sufficient past UV irradiation exceeding $F_\mathrm{NUV, min}$.
 Further, we require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}.
 
 All common Origin of Life scenarios require water as a solvent.
