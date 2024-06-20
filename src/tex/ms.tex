@@ -175,28 +175,36 @@ We then evaluated the fraction of Monte Carlo runs in which certain evidence thr
 %\subsection{Bayesian hypothesis testing with \bioverse}
 
 
-
-
 \subsection{Exoplanet survey simulations with Bioverse}
 To assess the information gain of a real exoplanet survey, we employed Bioverse~\citep{Bixel2021}, a framework that integrates multiple components including statistically realistic simulations of exoplanet populations, a survey simulation module, and a Bayesian hypothesis testing module to evaluate the statistical power of different observational strategies.
 The general approach is as follows:
 \begin{enumerate}
-%    \item We simulate a synthetic population of exoplanets with known properties, including their host stars, orbital parameters, and physical characteristics.
-\item \textbf{Exoplanet population synthesis:} We populate the Gaia Nearby Star Catalog with synthetic exoplanets whose orbital parameters and planetary properties reflect our current understanding of exoplanet demographics.
-    \item \textbf{Survey Simulation:} We simulate the detection and characterization of these exoplanets with a hypothetical survey, taking into account the survey's sensitivity, target selection, and observational biases.
-    \item \textbf{Hypothesis Tests:} We employ Bayesian statistical methods to evaluate the likelihood that a given survey would detect a specified statistical trend in the exoplanet population and estimate the precision with which the survey could constrain the parameters of that trend.
-\end{enumerate}
+\item \textbf{Exoplanet population synthesis:} We populate the Gaia Catalogue of Nearby Stars~\citep{Smart2021} with synthetic exoplanets whose orbital parameters and planetary properties reflect our current understanding of exoplanet demographics~\citep{Bergsten2022}.
+    \item \textbf{Survey simulation:} We simulate the detection and characterization of these exoplanets with a hypothetical survey, taking into account the survey's sensitivity, target selection, and observational biases.
 To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we conduct survey simulations with Bioverse using different sample sizes and survey strategies.
+    \item \textbf{Hypothesis testing:} We employ Bayesian statistical methods to evaluate the likelihood that a given survey would detect a specified statistical trend in the exoplanet population and estimate the precision with which the survey could constrain the parameters of that trend.
+    A common definition of the null hypothesis $H_0$, which is also applied here, is that there is no relationship between the independent variable (here: maximum NUV flux) and the dependent variable (here: biosignature occurrence).
+    The alternative hypothesis $H_1$ proposes a specific relationship parameterized by $\theta$.
+    If the dependent variable is of binary nature such as in the case of biosignature detections, we model the likelihood function as
+    \begin{equation}
+\mathcal{L}(y \mid \boldsymbol{\theta})=\prod_i^N\left[y_i h\left(\boldsymbol{\theta}, x_i\right)+\left(1-y_i\right)\left(1-h\left(\boldsymbol{\theta}, x_i\right)\right)\right],
+\end{equation}
+where here $y_i \in \{0,1\}$ is the biosignature detection variable, $x_i$ is the maximum NUV flux, and $h(\boldsymbol{\theta}, x_i)$ is the probability of detecting a biosignature given the maximum NUV flux and the model parameters $\boldsymbol{\theta}$.
+We then use a nested sampling method~\citep{Speagle2020} to compute the Bayesian evidence for the null and alternative hypotheses and estimate the strength of evidence for the alternative hypothesis.
+
+To determine the diagnostic capability of a given survey, Bioverse runs multiple iterations of the simulated survey and calculates the fraction of realizations that successfully reject the null hypothesis.
+We use this metric, known as the statistical power, to quantify the potential information content of the survey, identify critical design trades, and find strategies that maximize the survey's scientific return.
+The posterior samples obtained from the nested sampling runs further allows us to estimate the precision with which the survey could constrain the parameters of the hypothesized trend.
+\end{enumerate}
 
 
-
-To test the UV hypothesis, we require that life occurs only on planets with sufficient past UV irradiation exceeding $F_\mathrm{NUV, min}$.
-Further, we require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}.
-
-All common Origin of Life scenarios require water as a solvent.
-We thus consider only rocky planets that may sustain liquid water on their surface, i.e., that occupy their momentary \gls{HZ} during the above period.
 
 \subsubsection{Habitable zone occupancy and UV flux}
+To test the UV hypothesis, we require that life occurs only on planets with sufficient past UV irradiation exceeding $F_\mathrm{NUV, min}$.
+Further, we require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}.
+All common Origin of Life scenarios require water as a solvent;
+we thus consider only rocky planets that may sustain liquid water on their surface, i.e., that occupy their momentary \gls{HZ} during the above period.
+
 Different formulations of habitable zones as regions around a star where a planet with Earth's atmospheric composition can maintain liquid water on its surface exist~\citep[e.g.,][]{MolLous2022,Spinelli2023,Tuchow2023}. CITE! Ramirez \& Kaltenegger 2017, 2018
 Here, we adopt the popular estimates of \citet{Kasting1993} and \citet{Kopparapu2013,Kopparapu2014} that define a temperate zone between the runaway greenhouse transition CITE! and the maximum greenhouse limit CITE!.
 We use the parametrization in \citet{Kopparapu2014} to derive luminosity and planetary mass-dependent edges of the \gls{HZ} $a_\mathrm{inner}$ and $a_\mathrm{outer}$.
