@@ -225,7 +225,9 @@ Outside the age and stellar mass range covered in \citet{Richey-Yowell2023}, we 
 
 We then determined which planets were both in the \gls{HZ} and had \gls{NUV} fluxes above $F_\mathrm{NUV, min}$ for $\Delta T_\mathrm{min} \geq \var{deltaT_min}\,\SI{}{\mega\year}$.
 We assigned the development of life to a random fraction $f_\mathrm{life}$ of all temperate planets fulfilling these requirements.
-For a population-level hypothesis, we then have
+
+
+For the hypothesis tests, we then define our alternative hypothesis as
 \begin{equation}\label{eq:hypothesis-uv}
     H_{1} = f_\mathrm{life} (\theta, F_\mathrm{NUV}) =
         \begin{cases}
@@ -238,7 +240,7 @@ and the corresponding null hypothesis
 $H_{null} = f_\mathrm{life} (\theta),$
 %\end{equation}
 i.e., no correlation with UV flux.
-
+We imposed log-uniform priors on the parameters $\boldsymbol{\theta}$, sampling $f_\mathrm{life}$ from a log-uniform distribution between $10^{-3}$ and $1$ and $F_\mathrm{NUV, min}$ from a log-uniform distribution between $10^{1}$ and $10^{5}$.
 
 
 \begin{figure}
