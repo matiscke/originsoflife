@@ -35,7 +35,7 @@ def plot_interpolation(
                 linewidths=0.6,
                 label=["EEC" if EEC else None][0],
             )
-        ax.legend(loc="upper left", framealpha=.0)
+        ax.legend(loc="upper left", framealpha=0.0)
     fig.colorbar(q, label=cbarlabel)
     ax.set_xscale("log")
     ax.set_xlabel("Time (Gyr)")
@@ -45,7 +45,7 @@ def plot_interpolation(
 
 def plot_nuv_evo(fig, ax):
     interp_nuv = interpolate_nuv()
-    T = np.geomspace(5e-3, 10., num=200)
+    T = np.geomspace(5e-3, 10.0, num=200)
     M = np.linspace(0.1, 1.0, num=200)
     M, T = np.meshgrid(M, T)
     Z = interp_nuv(M, T)
@@ -55,14 +55,17 @@ def plot_nuv_evo(fig, ax):
     return ax
 
 
-def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0, N_sample=2, random_state=42):
+def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0, N_sample=2, random_state=44):
     "plot where HZ and sufficient NUV overlap for a few planets."
     eec = sample[sample["EEC"].astype(bool)]
     eec.evolve()
     eecdf = eec.to_pandas()
     inhabited = eecdf[eecdf.hz_and_uv]
 
-    for id in inhabited.sample(N_sample, random_state=random_state).planetID:
+    exampleplanets = {}
+    for i, id in enumerate(
+        inhabited.sample(N_sample, random_state=random_state).planetID
+    ):
         Mst = eecdf[eecdf.planetID == id]["M_st"]
         t = eec.evolution[id]["time"]
         ax.plot(
@@ -79,17 +82,43 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0, N_sample=2, random_state=
         t_hzuv = t[hz_and_uv]
         ax.plot(t_hzuv, [Mst for tt in t_hzuv], lw=4, c="C0")
 
+        # save Mst and last time to dictionary
+        exampleplanets[Mst.values[0]] = t[-1]
+
+        # print out the planet's SpT
+        print(f"Planet {i+1} has SpT {eecdf[eecdf.planetID == id].SpT.values[0]}")
+
     # plot a not-inhabited planet, too
     id = eecdf[~eecdf.hz_and_uv].sample(1, random_state=48).planetID.values[0]
     Mst = eecdf[eecdf.planetID == id]["M_st"]
     t = eec.evolution[id]["time"]
-    ax.plot(np.concatenate((np.array([1e-3]), t)), [Mst] + [Mst for tt in t], lw=1, c="gray")
+    ax.plot(
+        np.concatenate((np.array([1e-3]), t)), [Mst] + [Mst for tt in t], lw=1, c="gray"
+    )
+    exampleplanets[Mst.values[0]] = t.tolist()[-1]
+    print(f"Planet {i+2} has SpT {eecdf[eecdf.planetID == id].SpT.values[0]}")
+
+    # add number to the example planets, ordered decending by mass
+    for i, (Mst, t) in enumerate(
+        sorted(exampleplanets.items(), key=lambda x: x[0], reverse=True)
+    ):
+        ax.text(
+            t,
+            Mst,
+            f"{i+1}",
+            color="white",
+            ha="right",
+            va="bottom",
+            fontsize=12,
+            fontweight="bold",
+        )
 
     return ax
 
 
 if __name__ == "__main__":
-    with open(paths.data / "pipeline/sample.dll", "rb") as f:
+    # with open(paths.data / "pipeline/sample.dll", "rb") as f:
+    with open(paths.data / "pipeline/sample_FGK.dll", "rb") as f:
         d = dill.load(f)
 
     m = np.linspace(0.1, 1.0, num=200)

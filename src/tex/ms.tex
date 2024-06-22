@@ -264,9 +264,11 @@ The fraction of inhabited planets is highest in the M~dwarf sample due to the hi
     \script{hz_nuv_evo.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/hz_nuv_evo}
-        \caption{Interpolated stellar luminosity evolution (left) and evolution of the \gls{NUV} flux in the \gls{HZ} as a function of host star mass. The scatter plot shows age and host star mass of the transiting planets in the synthetic sample.% with \gls{EEC} highlighted in green.
-        We show the evolutionary tracks of a few randomly selected planets.
-        Tracks with extended overlap of \gls{HZ} occupancy and high \gls{NUV} flux (green sections) fulfill our requirement for abiogenesis.}
+        \caption{Interpolated stellar luminosity evolution (left) and evolution of the \gls{NUV} flux in the \gls{HZ} as a function of host star mass. The scatter plot shows age and host star mass of the transiting planets in the synthetic sample. % with \gls{EEC} highlighted in green.
+        A few example tracks are shown, where extended overlap of \gls{HZ} occupancy and high \gls{NUV} flux (green sections) fulfill our requirement for abiogenesis.
+        Planet~1 is an \gls{EEC} that never receives sufficient \gls{NUV} flux for abiogenesis.
+        Planet~2 and Planet~3 enter the \gls{HZ} at different times and receive sufficient \gls{NUV} flux for different durations until their respective host star evolves below the threshold.
+        }
         \label{fig:hz_nuv_evo}
     \end{centering}
 \end{figure*}
@@ -378,7 +380,7 @@ All injected biosignatures are assumed to be detected, and the maximum \gls{NUV}
     \script{detections_uv.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/detections_uv}
-        \caption{Recovered biosignature detections in the \gls{NUV} flux -- biosignature occurrence space. The dashed line denotes a generic threshold \gls{NUV} flux $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.}
+        \caption{Recovered biosignature detections in the \gls{NUV} flux-biosignature occurrence space. The dashed line denotes a generic threshold \gls{NUV} flux $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.}
         \label{fig:detections_uv}
     \end{centering}
 \end{figure*}
