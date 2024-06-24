@@ -1,3 +1,5 @@
+import pandas as pd
+
 import paths
 import dill
 import plotstyle
@@ -11,6 +13,26 @@ import matplotlib.colors as colors
 from bioverse.util import interpolate_luminosity, interpolate_nuv
 
 
+def plot_planets_scatter(ax, d, norm, col=None):
+    # for (v, c) in [(False, 'white'), (True, 'C1')]:
+    for c, (EEC, group) in zip(["white", "C0"], d.to_pandas().groupby("EEC")):
+        if col != "white":
+            col = group["L_st_interp"]
+        ax.scatter(
+            group["age"],
+            group["M_st"],
+            c=col,
+            s=4,
+            norm=norm,
+            # edgecolors="white",
+            edgecolors=c,
+            linewidths=0.6,
+            label=["EEC" if EEC else None][0],
+        )
+    ax.legend(loc="upper left", framealpha=0.0)
+    return ax
+
+
 def plot_interpolation(
     fig, ax, T, M, Z, d=None, input_points=None, log=True, cbarlabel=None, **kwargs
 ):
@@ -22,20 +44,7 @@ def plot_interpolation(
     if input_points:
         ax.plot(*input_points, "x", ms=1, label="input point")
     if d:
-        # for (v, c) in [(False, 'white'), (True, 'C1')]:
-        for c, (EEC, group) in zip(["white", "C0"], d.to_pandas().groupby("EEC")):
-            ax.scatter(
-                group["age"],
-                group["M_st"],
-                c=group["L_st_interp"],
-                s=4,
-                norm=norm,
-                # edgecolors="white",
-                edgecolors=c,
-                linewidths=0.6,
-                label=["EEC" if EEC else None][0],
-            )
-        ax.legend(loc="upper left", framealpha=0.0)
+        ax = plot_planets_scatter(ax, d, norm)
     fig.colorbar(q, label=cbarlabel)
     ax.set_xscale("log")
     ax.set_xlabel("Time (Gyr)")
@@ -43,7 +52,7 @@ def plot_interpolation(
     return ax
 
 
-def plot_nuv_evo(fig, ax):
+def plot_nuv_evo(fig, ax, log=True, d=None):
     interp_nuv = interpolate_nuv()
     T = np.geomspace(5e-3, 10.0, num=200)
     M = np.linspace(0.1, 1.0, num=200)
@@ -52,6 +61,30 @@ def plot_nuv_evo(fig, ax):
     plot_interpolation(
         fig, ax, T, M, Z, log=True, cbarlabel="NUV flux [erg/s/cm$^2$]", cmap="viridis"
     )
+
+    # plot measured NUV fluxes
+    nuv = pd.read_csv(paths.data / "past-UV.csv", comment="#")
+    nuv["age"] /= 1000
+
+    # translate spectral type to stellar mass using the mass midpoints in Richey-Yowell et al. (2023)
+    spT2mass = {"K": 0.75, "earlyM": 0.475, "lateM": 0.215}
+    nuv["Mst"] = nuv["SpT"].map(spT2mass)
+
+    ax.scatter(
+        nuv["age"],
+        nuv["Mst"],
+        s=25,
+        marker="x",
+        color="k",
+        linewidths=0.6,
+    )
+
+    if d:
+        if log:
+            norm = colors.LogNorm()
+        else:
+            norm = colors.Normalize()
+        ax = plot_planets_scatter(ax, d, norm, col="white")
     return ax
 
 
@@ -133,7 +166,7 @@ if __name__ == "__main__":
     axs[0] = plot_interpolation(
         fig, axs[0], T, M, Z, d, cbarlabel="Bol. luminosity ($L/L_\odot$)"
     )
-    axs[1] = plot_nuv_evo(fig, axs[1])
+    axs[1] = plot_nuv_evo(fig, axs[1], d=d)
     axs[0] = plot_hz_and_nuv(fig, axs[0], d, NUV_thresh=100.0)
     axs[1] = plot_hz_and_nuv(fig, axs[1], d, NUV_thresh=100.0)
 
