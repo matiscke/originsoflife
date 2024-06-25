@@ -39,6 +39,7 @@ dependencies:
     - src/data/pipeline/sample.dll
   src/scripts/hz_nuv_evo.py:
     - src/data/pipeline/sample.dll
+    - src/data/past-UV.csv
   src/scripts/nuv_distribution.py:
     - src/data/pipeline/data.dll
     - src/data/pipeline/data_FGK.dll
