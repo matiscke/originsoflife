@@ -89,14 +89,14 @@ def plot_true_evidence(ax):
         ax.plot(
             gtvec,
             [np.sum(bfh1_kh1 > g) / len(bfh1_kh1) for g in gtvec],
-            label=showlabel + "True evidence for $H_\mathrm{3}$",
+            label=showlabel + "True evidence for $H_\mathrm{1}$",
             c="C0",
             ls=ls,
         )
         ax.plot(
             gtvec,
             [np.sum(bfh0_kh0 > g) / len(bfh1_kh1) for g in gtvec],
-            label=showlabel + "True evidence for $H_\mathrm{3, null}$",
+            label=showlabel + "True evidence for $H_\mathrm{null}$",
             c="C1",
             ls=ls,
         )
