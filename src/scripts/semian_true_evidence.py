@@ -162,8 +162,10 @@ def P_true_evidence(sampsize, eta=10, nboot=int(1e4), pisamp=None, theta_lsamp=N
     bfh0_kh0 = 1 / bfh1_kh0
 
     trueeH1 = np.sum(bfh1_kh1 > eta) / len(bfh1_kh1)
-    trueeH0 = np.sum(bfh0_kh0 > eta) / len(bfh0_kh0)
-    return np.min([trueeH1, trueeH0])
+    # trueeH0 = np.sum(bfh0_kh0 > eta) / len(bfh0_kh0)
+    # return np.min([trueeH1, trueeH0])
+    return trueeH1
+
 
 def plot_evidence_sampsize(ax, s_max=500):
     """plot strong true evidence as a function of sample size"""
@@ -172,7 +174,7 @@ def plot_evidence_sampsize(ax, s_max=500):
 
     ax.plot(svec,true_strong_evidence_p)
     ax.set_ylim(-.05, 1.05)
-    ax.set_ylabel('Probability of strong true evidence')
+    ax.set_ylabel('P($BF_{H_1, H_\mathrm{null}}$ > 10)')
     ax.set_xlabel('Sample size')
 
     return ax
