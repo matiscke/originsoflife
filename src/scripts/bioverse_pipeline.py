@@ -436,6 +436,7 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
     return d, grid, detected, data, nautilus
 
 
+@timeit
 def main(fast=True):
     """Run the Bioverse pipeline."""
     print("RUNNING BIOVERSE PIPELINE")
