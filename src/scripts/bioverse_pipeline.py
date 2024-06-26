@@ -219,7 +219,8 @@ def h_null(theta, X):
     return np.full(shape, theta)
 
 
-def hypothesis_test(data, method="dynesty"):
+# def hypothesis_test(data, method="dynesty"):
+def hypothesis_test(data, method="mannwhitney"):
     """Perform a single hypothesis test on the data."""
     params = ("f_life", "NUV_thresh")
     log = (True, True)
@@ -242,11 +243,14 @@ def hypothesis_test(data, method="dynesty"):
 
     results = h_nuv.fit(data, method=method)
 
-    print(
-        "The evidence in favor of the hypothesis is: dlnZ = {:.1f} (corresponds to p = {:.1E})".format(
-            results["dlnZ"], np.exp(-results["dlnZ"])
+    if method in ["dynesty", "emcee"]:
+        print(
+            "The evidence in favor of the hypothesis is: dlnZ = {:.1f} (corresponds to p = {:.1E})".format(
+                results["dlnZ"], np.exp(-results["dlnZ"])
+            )
         )
-    )
+    elif method == "mannwhitney":
+        print("The p-value of the Mann-Whitney U test is {}".format(results["p"]))
     return results
 
 
@@ -273,7 +277,7 @@ def hypotest_grid(generator, survey, N_grid, fast):
     if fast:
         N_iter = 2
     else:
-        N_iter = 6
+        N_iter = 8
     # f_life = np.geomspace(0.1, 1.0, N_grid)
     f_life = np.geomspace(0.2, 1.0, N_grid)
     # f_life = (0.9,)  # test 1D hypothesis grid test
@@ -290,8 +294,8 @@ def hypotest_grid(generator, survey, N_grid, fast):
         h_nuv,
         generator,
         survey,
-        # method="mannwhitney",
-        method="dynesty",
+        method="mannwhitney",
+        # method="dynesty",
         f_life=f_life,
         NUV_thresh=NUV_thresh,
         N=N_iter,
@@ -389,7 +393,7 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         elif N_grid:
             N_grid = N_grid
         else:
-            N_grid = 6
+            N_grid = 8
         nautilus = create_survey_nautilus()
         grid = hypotest_grid(g, nautilus, N_grid=N_grid, fast=fast)
         detected = None
@@ -399,7 +403,10 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         grid = None
         d, detected, data, nautilus = run_survey_nautilus(d)
         results = hypothesis_test(data)
-        save_var_latex("dlnZ_{}".format(hoststars), results["dlnZ"])
+        try:
+            save_var_latex("dlnZ_{}".format(hoststars), results["dlnZ"])
+        except KeyError:
+            save_var_latex("p_{}".format(hoststars), results["p"])
 
     print("Number of planets in the sample: {}".format(len(d)))
 
@@ -437,7 +444,7 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
 
 
 @timeit
-def main(fast=True):
+def main(fast=False):
     """Run the Bioverse pipeline."""
     print("RUNNING BIOVERSE PIPELINE")
 
@@ -446,12 +453,15 @@ def main(fast=True):
         for spt in ["FGK", "M"]:
             if grid:
                 # grid runs
-                _d, grid, _detected, _data, _nautilus = past_uv(grid=True, fast=fast)
+                _d, grid, _detected, _data, _nautilus = past_uv(
+                    hoststars=spt, grid=True, fast=fast
+                )
                 # save Bioverse object
                 with open(
                     paths.data / "pipeline/grid_flife_nuv_{}.dll".format(spt), "wb"
                 ) as file:
                     dill.dump(grid, file)
+
             else:
                 # single hypothesis test
                 _d, _grid, _detected, _data, _nautilus = past_uv(
