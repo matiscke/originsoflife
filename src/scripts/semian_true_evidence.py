@@ -60,9 +60,9 @@ def get_evidence(sampsize=100):
     # For convenience, we redefine theta here so that one can play with sample size and such
     theta = rng.uniform(
         0, 1, sampsize
-    )  # vector theta chosen at random for demonstrative purposes for simplicity we assume theta in 0,1
+    )  # vector theta chosen at random for demonstrative purposes; for simplicity we assume theta in 0,1
 
-    nboot = 100000  # it is advised to use larger nboot because we have increased the sampling space quite a bit (probably already too much)
+    nboot = 100000  # it is advised to use a large nboot because we have increased the sampling space quite a bit (probably already too much)
     pisamp = rng.uniform(0, 1, nboot)
     theta_lsamp = rng.uniform(0, 1, nboot)
     kh1samp = sample_H1(theta, pisamp, theta_lsamp)
