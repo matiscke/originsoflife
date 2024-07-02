@@ -317,23 +317,26 @@ def plot_selectivity(ax):
     )
     return ax
 
+def main():
+    # 2-panel figure
+    fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
+    axs[0] = plot_true_evidence(axs[0])
+    axs[1] = plot_evidence_sampsize(axs[1])
+    # axs[1] = plot_evidence_sampsize(axs[1], s_max=50)
 
-# 2-panel figure
-fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
-axs[0] = plot_true_evidence(axs[0])
-axs[1] = plot_evidence_sampsize(axs[1])
-# axs[1] = plot_evidence_sampsize(axs[1], s_max=50)
+    # fig.tight_layout(
+    fig.savefig(paths.figures / "semian_true_evidence.pdf")
 
-# fig.tight_layout(
-fig.savefig(paths.figures / "semian_true_evidence.pdf")
+    # evidence grid
+    fig, axs = plot_evidence_grid()
+    fig.savefig(paths.figures / "semian_evidence-grid.pdf")
 
-# evidence grid
-fig, axs = plot_evidence_grid()
-fig.savefig(paths.figures / "semian_evidence-grid.pdf")
+    # selectivity figure
+    fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
+    axs[0] = plot_beta(axs[0])
+    axs[1] = plot_selectivity(axs[1])
 
-# selectivity figure
-fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
-axs[0] = plot_beta(axs[0])
-axs[1] = plot_selectivity(axs[1])
+    fig.savefig(paths.figures / "semian_selectivity.pdf")
 
-fig.savefig(paths.figures / "semian_selectivity.pdf")
+if __name__ == "__main__":
+    main()
