@@ -12,14 +12,13 @@ from utils import *
 # import pickle
 import numpy as np
 
-# Import the Generator class
+# Import Bioverse objects
 from bioverse.generator import Generator
 from bioverse.survey import TransitSurvey
-
 from bioverse.hypothesis import Hypothesis
-
 # from bioverse.constants import CONST, DATA_DIR
 
+from semian_true_evidence import BFH1
 
 def eec_filter(d):
     """Filter the planets to only include EECs."""
@@ -220,8 +219,17 @@ def h_null(theta, X):
 
 
 # def hypothesis_test(data, method="dynesty"):
-def hypothesis_test(data, method="mannwhitney"):
+def hypothesis_test(data, testmethod):
     """Perform a single hypothesis test on the data."""
+
+    # if testmethod == "binomial":
+    #     bf = BFH1(k, theta, pi, theta_l)
+    #
+    #
+    #     print("The evidence in favor of the hypothesis is: dlnZ = {:.1f} (corresponds to p = {:.1E})".format()
+    #     return results
+    #
+
     params = ("f_life", "NUV_thresh")
     log = (True, True)
     bounds = np.array([[1e-3, 1.0], [10.0, 1e5]])
@@ -241,20 +249,30 @@ def hypothesis_test(data, method="mannwhitney"):
         log=(True,),
     )
 
-    results = h_nuv.fit(data, method=method)
+    results = h_nuv.fit(data, method=testmethod)
 
-    if method in ["dynesty", "emcee"]:
+    if testmethod == "dynesty":
         print(
             "The evidence in favor of the hypothesis is: dlnZ = {:.1f} (corresponds to p = {:.1E})".format(
                 results["dlnZ"], np.exp(-results["dlnZ"])
             )
         )
-    elif method == "mannwhitney":
+    elif testmethod == "emcee":
+        print(
+            "The differential Bayesian Information Criterion is dBIC={}".format(
+                results["dBIC"]
+            )
+        )
+    elif testmethod == "mannwhitney":
         print("The p-value of the Mann-Whitney U test is {}".format(results["p"]))
+
+    else:
+        raise KeyError("No recognized method for hypothesis testing was provided.")
+
     return results
 
 
-def hypotest_grid(generator, survey, N_grid, fast):
+def hypotest_grid(generator, survey, N_grid, fast, testmethod):
     params = ("f_life", "NUV_thresh")
     log = (True, True)
     bounds = np.array([[1e-3, 1.0], [10.0, 1e5]])
@@ -275,18 +293,21 @@ def hypotest_grid(generator, survey, N_grid, fast):
     )
 
     if fast:
-        N_iter = 2
+        N_iter = 3
+        # DEBUG
+
     else:
         N_iter = 8
     # f_life = np.geomspace(0.1, 1.0, N_grid)
-    f_life = np.geomspace(0.2, 1.0, N_grid)
+    # f_life = np.geomspace(1e-3, 1.0, N_grid)
+    f_life = np.geomspace(0.5, 1.0, N_grid)
     # f_life = (0.9,)  # test 1D hypothesis grid test
     # f_life = 0.99  # test 1D hypothesis grid test
-    # NUV_thresh = np.logspace(1, 2.5, N_grid)
     # NUV_thresh = np.geomspace(300.0, 380.0, N_grid)
-    NUV_thresh = np.geomspace(30.0, 3000.0, N_grid)
+    # NUV_thresh = np.geomspace(30.0, 3000.0, N_grid)
+    NUV_thresh = np.geomspace(200.0, 600.0, N_grid)
+    # DEBUG
 
-    # NUV_thresh=350.,
 
     from bioverse.analysis import test_hypothesis_grid
 
@@ -294,7 +315,9 @@ def hypotest_grid(generator, survey, N_grid, fast):
         h_nuv,
         generator,
         survey,
-        method="mannwhitney",
+        method=testmethod,
+        # method="emcee",
+        mw_alternative="two-sided",
         # method="dynesty",
         f_life=f_life,
         NUV_thresh=NUV_thresh,
@@ -306,7 +329,9 @@ def hypotest_grid(generator, survey, N_grid, fast):
     return results
 
 
-def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
+def past_uv(
+    hoststars="all", grid=True, N_grid=None, testmethod='mannwhitney', powergrid=False, fast=False, **kwargs
+):
     """Test the hypothesis that life only originates on planets with a minimum past UV irradiance.
 
     Parameters
@@ -318,6 +343,8 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         Whether to perform a grid of hypothesis tests.
     N_grid : int
         The number of grid points to use.
+    powergrid : bool
+        Whether to run a grid of statistical power calculations.
     fast : bool
         Whether to run a fast grid for testing (less grid points)
     kwargs : dict
@@ -345,7 +372,7 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
         # "NUV_thresh": 200.0,
         # "NUV_thresh": 150.0,
-        "f_life": 0.8,
+        # "f_life": 0.8,
         # "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
     }
 
@@ -359,7 +386,9 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         params_past_uv["d_max"] = 125  # Gaia GCNS doesn't go further than 119 pc
         params_past_uv[
             "f_eta"
-        ] = 6.0  # scale to obtain 100 transiting EECs in the sample
+            # ] = 6.0  # scale to obtain 100 transiting EECs in the sample
+        ] = 24.0  # scale to obtain 100 transiting EECs in the sample
+        # DEBUG
 
     elif hoststars == "M":
         # only M dwarf hosts
@@ -367,7 +396,9 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         params_past_uv["d_max"] = 42.5
         params_past_uv[
             "f_eta"
-        ] = 5.0  # scale to obtain 100 transiting EECs in the sample
+            # ] = 5.0  # scale to obtain 100 transiting EECs in the sample
+        ] = 20.0  # scale to obtain 100 transiting EECs in the sample
+        # DEBUG
 
     elif hoststars == "all":
         # default, volume-limited
@@ -377,7 +408,9 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
     d = g.generate()
 
     # keep only 100 planets
-    d = d[:100]
+    # d = d[:100]
+
+    # DEBUG
 
     dd = d.to_pandas()
 
@@ -395,14 +428,29 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         else:
             N_grid = 8
         nautilus = create_survey_nautilus()
-        grid = hypotest_grid(g, nautilus, N_grid=N_grid, fast=fast)
+        grid = hypotest_grid(g, nautilus, N_grid=N_grid, fast=fast, testmethod=testmethod)
         detected = None
         data = None
+    # elif powergrid:
+    #     # perform a grid of statistical power calculations
+    #
+    #     d_max = np.linspace(10, 100, 6)
+    #     nautilus = create_survey_nautilus()
+    #
+    #     # NUV_thresh=350.,
+    #
+    #     from bioverse.analysis import test_hypothesis_grid
+    #
+    #     # Compute the statistical power for each parameter combination
+    #     power = analysis.compute_statistical_power(results, method="dlnZ", threshold=3)
+    #
+    #     return d, grid, detected, data, nautilus
+    #
     else:
         # perform a single hypothesis test
         grid = None
         d, detected, data, nautilus = run_survey_nautilus(d)
-        results = hypothesis_test(data)
+        results = hypothesis_test(data, testmethod)
         try:
             save_var_latex("dlnZ_{}".format(hoststars), results["dlnZ"])
         except KeyError:
@@ -417,7 +465,10 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
         # general
         save_var_latex("d_max", g_args["d_max"])
         save_var_latex("M_G_max", g_args["M_G_max"])
-        save_var_latex("f_life", params_past_uv["f_life"])
+        try:
+            save_var_latex("f_life", params_past_uv["f_life"])
+        except KeyError:
+            pass
         save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
         save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
         save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
@@ -444,19 +495,28 @@ def past_uv(hoststars="all", grid=True, N_grid=None, fast=False, **kwargs):
 
 
 @timeit
-def main(fast=False):
+def main(fast=False, testmethod='mannwhitney'):
     """Run the Bioverse pipeline."""
-    print("RUNNING BIOVERSE PIPELINE")
+    # for grid in [False, True]:
 
-    for grid in [False, True]:
+    # for grid in [True]:
+    for grid in [False]:
+    # DEBUG
+
+
+
         # for spt in ["all", "FGK", "M"]:
         for spt in ["FGK", "M"]:
             if grid:
+                print("grid run")
+                if fast:
+                    print("...in fast mode")
+
                 # grid runs
                 _d, grid, _detected, _data, _nautilus = past_uv(
-                    hoststars=spt, grid=True, fast=fast
+                    hoststars=spt, grid=True, testmethod=testmethod, fast=fast
                 )
-                # save Bioverse object
+                # save grid results
                 with open(
                     paths.data / "pipeline/grid_flife_nuv_{}.dll".format(spt), "wb"
                 ) as file:
@@ -465,7 +525,7 @@ def main(fast=False):
             else:
                 # single hypothesis test
                 _d, _grid, _detected, _data, _nautilus = past_uv(
-                    hoststars=spt, grid=False
+                    hoststars=spt, testmethod=testmethod, grid=False
                 )
 
                 # save Bioverse objects
@@ -477,11 +537,68 @@ def main(fast=False):
                     paths.data / "pipeline/data_{}.dll".format(spt), "wb"
                 ) as file:
                     dill.dump(_data, file)
+    #
+    # # run statistical power grids
+    # for spt in ["FGK", "M"]:
+    #     _d, powergrid, _detected, _data, _nautilus = past_uv(
+    #         hoststars=spt, grid=False, testmethod=testmethod, powergrid=True
+    #     )
+    #
     return
 
 
 if __name__ == "__main__":
     # result = timeit.timeit("main()", number=1)
-    main()
+    main(fast=True)
+    # main(fast=False)
 
-    # wait = input("PRESS ENTER TO CONTINUE.")
+
+# # -----------------
+# # SOME DEBUGGING: experiment with NUV_thresh for FGK and M stars, plot the "detections_uv" as diagnostics
+#
+# from matplotlib import pyplot as plt
+#
+# NUV_thresh_i = 250
+# from detections_uv import plot_detections_uv
+#
+# d_FGK, grid, detected_FGK, data_FGK, nautilus = past_uv(
+#     hoststars="FGK",
+#     grid=False,
+#     N_grid=None,
+#     powergrid=False,
+#     fast=False,
+#     NUV_thresh=NUV_thresh_i,
+# )
+# fig, ax = plt.subplots(1, 1, figsize=(15, 2.0), sharex=True)
+# fig, ax = plot_detections_uv(data_FGK, fig, ax, NUV_thresh_i)
+# ax.set_title(f"FGK-type host stars")
+# ax.text(
+#     0.97,
+#     0.85,
+#     "FGK, {}".format(NUV_thresh_i),
+#     transform=ax.transAxes,
+#     horizontalalignment="right",
+#     color="0.2",
+# )
+# plt.show()
+#
+# d_M, grid, detected_M, data_M, nautilus = past_uv(
+#     hoststars="M",
+#     grid=False,
+#     N_grid=None,
+#     powergrid=False,
+#     fast=False,
+#     NUV_thresh=NUV_thresh_i,
+# )
+# fig, ax = plt.subplots(1, 1, figsize=(15, 2.0), sharex=True)
+# fig, ax = plot_detections_uv(data_M, fig, ax, NUV_thresh_i)
+# ax.set_title(f"M-type host stars")
+# ax.text(
+#     0.97,
+#     0.85,
+#     'M, {}'.format(NUV_thresh_i),
+#     transform=ax.transAxes,
+#     horizontalalignment="right",
+#     color="0.2",
+# )
+# plt.show()
