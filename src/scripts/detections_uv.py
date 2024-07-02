@@ -32,7 +32,8 @@ for spt, ax in zip(["FGK", "M"], axs):
 
     fig, ax = plot_detections_uv(data, fig, ax, NUV_thresh=read_var_latex("NUV_thresh"))
     ax.set_title(f"{spt}-type host stars")
-    ax.text(0.97, 0.85, "dlnZ = {:.0f}".format(np.round(float(read_var_latex("dlnZ_{}".format(spt)))) + 0.),
+    # ax.text(0.97, 0.85, "dlnZ = {:.0f}".format(np.round(float(read_var_latex("dlnZ_{}".format(spt)))) + 0.),
+    ax.text(0.97, 0.85, "p = {:.2f}".format(float(read_var_latex("p_{}".format(spt)))),
             transform=ax.transAxes, horizontalalignment="right", color="0.2")
 
 ax.set_xlabel("max. NUV irradiance [erg/s/$cm^2$]")  # , fontsize=24)
