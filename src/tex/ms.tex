@@ -129,7 +129,8 @@ Our concrete hypothesis shall be that life only occurs on planets that at some p
 
 
 \subsection{Semi-analytical approach}\label{sec:met-semianalytical}
-First, we apply a Bayes Factor Design Analysis~\citep{Schoenbrodt2018} to assess the expected probabilities of obtaining true negative or true positive evidence for the hypothesis above, as well as the probability for misleading or inconclusive evidence.
+First, we apply a Bayes Factor Design Analysis~\citep{Schoenbrodt2018} to assess the expected probabilities of obtaining true negative or true positive evidence for the hypothesis above, as well as the probability for misleading or inconclusive evidence, under idealized conditions.
+This serves as a first-order estimate of the information content of a survey, before we take into account impacts from exoplanet demographics, sample selection, and survey strategy.
 
 Let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
 Under Hypothesis $H_1$ (Equation~\ref{eq:hypothesis-uv}), there exists a special unknown value of $F_\mathrm{NUV}$, noted $F_\mathrm{NUV, min}$ such that
@@ -177,7 +178,8 @@ We then evaluated the fraction of Monte Carlo runs in which certain evidence thr
 
 
 \subsection{Exoplanet survey simulations with Bioverse}
-To assess the information gain of a real exoplanet survey, we employed Bioverse~\citep{Bixel2021}, a framework that integrates multiple components including statistically realistic simulations of exoplanet populations, a survey simulation module, and a Bayesian hypothesis testing module to evaluate the statistical power of different observational strategies.
+A real exoplanet survey will be subject to observational biases, sample selection effects, and the underlying demographics of the planet sample.
+To assess the information gain of a realistic exoplanet survey, we employed Bioverse~\citep{Bixel2021}, a framework that integrates multiple components including statistically realistic simulations of exoplanet populations, a survey simulation module, and a Bayesian hypothesis testing module to evaluate the statistical power of different observational strategies.
 The general approach is as follows:
 \begin{enumerate}
 \item \textbf{Exoplanet population synthesis:} We populate the Gaia Catalogue of Nearby Stars~\citep{Smart2021} with synthetic exoplanets whose orbital parameters and planetary properties reflect our current understanding of exoplanet demographics~\citep{Bergsten2022}.
@@ -247,7 +249,7 @@ We imposed log-uniform priors on the parameters $\boldsymbol{\theta}$, sampling 
     \script{inhabited_FGKM.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/inhabited_FGKM}
-        \caption{Host stars of all transiting \glspl{EEC} and inhabited planets.
+        \caption{Host stars of all transiting \glspl{EEC} and inhabited planets in a simulated transit survey.
         In the FGK sample, most \glspl{EEC} and all inhabited planets orbit K~dwarfs.
         In an M~dwarf sample of the same size, the fraction of inhabited planets is larger.
         }
@@ -265,7 +267,7 @@ The fraction of inhabited planets is highest in the M~dwarf sample due to the hi
         \includegraphics[width=\hsize]{figures/hz_nuv_evo}
         \caption{Interpolated stellar luminosity evolution (left) and evolution of the \gls{NUV} flux in the \gls{HZ} (right) as a function of host star mass.
         The scatter plots show age and host star mass of the transiting planets in the synthetic FGK sample; crosses denote the estimated \gls{NUV} values in \citet{Richey-Yowell2019}. % with \gls{EEC} highlighted in green.
-        A few example tracks are shown, where extended overlap of \gls{HZ} occupancy and high \gls{NUV} flux (green sections) fulfill our requirement for abiogenesis.
+        A few example tracks for an example threshold flux of $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$ are shown; extended overlap of \gls{HZ} occupancy and high \gls{NUV} flux (green sections) fulfills our requirement for abiogenesis.
         Planet~1 is an \gls{EEC} that never receives sufficient \gls{NUV} flux for abiogenesis.
         Planet~2 and Planet~3 enter the \gls{HZ} at different times and receive sufficient \gls{NUV} flux for different durations until their respective host star evolves below the threshold.
         }
@@ -437,7 +439,7 @@ A lack of biosignatures on these planets would support the \gls{NUV} hypothesis,
 \subsection{What do we learn from a single biosignature detection?}
 \todo[inline]{discuss constraining power on OOL of a convincing biosignature detection on a single planet, depending on the position of the planet in the parameter space we explored.}
 
-\subsubsection{Sampling strategy for testing a predicted minimum \gls{NUV} flux}
+\subsection{Sampling strategy for testing a predicted minimum \gls{NUV} flux}
 We show in Sect.~\ref{sec:results} that the constraining power for testing the hypothesis of a minimum past \gls{NUV} flux required for abiogenesis is sensitive on the occurrence of life, the value of this threshold flux, the sample size, and the distribution of sampled past \gls{NUV} fluxes.
 In particular the last parameter offers an opportunity to optimize the survey strategy: Although constraints on a planet's UV history have generally large uncertainties~\citep[e.g.,][]{Richey-Yowell2023}, the likely maximum flux of a planet can be inferred and used as a proxy.
 Sampling more extreme (low and high) values for the maximum flux increases the probability of obtaining true strong evidence for the hypothesis.
