@@ -10,13 +10,18 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import numpy as np
 
+def normalize_data(data):
+    min_val = data.min()
+    max_val = data.max()
+    return (data - min_val) / (max_val - min_val)
 
 def plot_nuv_distribution(data, fig, ax, spt):
     dataa = data.to_pandas()
+    normalized_data = normalize_data(dataa.max_nuv)
 
     # force-fit a beta distribution to our NUV_max
     # max_likeli = stats.beta.fit(dataa.max_nuv, method='MLE')
-    max_likeli = stats.beta.fit(dataa.max_nuv, method="MM")
+    max_likeli = stats.beta.fit(normalized_data, method="MM")
     print(f"fit parameters: {max_likeli}")
 
     # estimate selectivity from average of fitted beta function parameters
@@ -24,7 +29,9 @@ def plot_nuv_distribution(data, fig, ax, spt):
     save_var_latex("selectivity_{}".format(spt), round(selectivity, 1))
     print(f"selectivity ~ {selectivity:.2f}")
 
+    # plot histogram and beta distribution fitted on non-normalized data
     x = np.arange(0.0, 1000.0, 5)
+    max_likeli = stats.beta.fit(dataa.max_nuv, method="MM")
     ax.hist(dataa.max_nuv, density=True, color="C0")
     ax.plot(
         x,
@@ -34,14 +41,14 @@ def plot_nuv_distribution(data, fig, ax, spt):
 
     ax.set_xlabel("max. NUV irradiance $F_\mathrm{NUV, max}$ [erg/s/$cm^2$]")
     ax.set_ylabel("Probability density")
-    ax.text(
-        0.97,
-        0.85,
-        transform=ax.transAxes,
-        s="selectivity s = {:.1f}".format(selectivity),
-        horizontalalignment="right",
-        color="0.2",
-    )
+    # ax.text(
+    #     0.97,
+    #     0.85,
+    #     transform=ax.transAxes,
+    #     s="selectivity s = {:.1f}".format(selectivity),
+    #     horizontalalignment="right",
+    #     color="0.2",
+    # )
 
     return fig, ax
 
