@@ -328,6 +328,44 @@ def hypotest_grid(generator, survey, N_grid, fast, testmethod):
     )
     return results
 
+def get_params_past_uv(hoststars="all", **kwargs):
+    """define default parameters for the past UV hypothesis test."""
+    params_past_uv = {
+        # "d_max": 60,        # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
+        "d_max": 75,  # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
+        "deltaT_min": 10.0,  # Myr
+        # "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
+        "NUV_thresh": 380.0,  # choose such that n_inhabited can't be zero
+        # "f_life": 0.8,
+        "f_life": 0.99,
+        # "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
+    }
+
+    # replace parameters with kwargs, if any
+    for key, value in kwargs.items():
+        params_past_uv[key] = value
+
+    if hoststars == "FGK":
+        # exclude other spectral types
+        params_past_uv["SpT"] = ["F", "G", "K"]
+        params_past_uv["d_max"] = 125  # Gaia GCNS doesn't go further than 119 pc
+        params_past_uv[
+            "f_eta"
+            ] = 6.0  # scale to obtain 100 transiting EECs in the sample
+
+    elif hoststars == "M":
+        # only M dwarf hosts
+        params_past_uv["SpT"] = ["M"]
+        params_past_uv["d_max"] = 42.5
+        params_past_uv[
+            "f_eta"
+            ] = 5.0  # scale to obtain 100 transiting EECs in the sample
+
+    elif hoststars == "all":
+        # default, volume-limited
+        pass
+
+    return params_past_uv
 
 def past_uv(
     hoststars="all", grid=True, N_grid=None, testmethod='mannwhitney', powergrid=False, fast=False, **kwargs
@@ -365,44 +403,7 @@ def past_uv(
     """
 
     # default parameters for planet generation
-    params_past_uv = {
-        # "d_max": 60,        # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
-        "d_max": 75,  # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
-        "deltaT_min": 10.0,  # Myr
-        "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
-        # "NUV_thresh": 200.0,
-        # "NUV_thresh": 150.0,
-        # "f_life": 0.8,
-        # "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
-    }
-
-    # replace parameters with kwargs, if any
-    for key, value in kwargs.items():
-        params_past_uv[key] = value
-
-    if hoststars == "FGK":
-        # exclude other spectral types
-        params_past_uv["SpT"] = ["F", "G", "K"]
-        params_past_uv["d_max"] = 125  # Gaia GCNS doesn't go further than 119 pc
-        params_past_uv[
-            "f_eta"
-            # ] = 6.0  # scale to obtain 100 transiting EECs in the sample
-        ] = 24.0  # scale to obtain 100 transiting EECs in the sample
-        # DEBUG
-
-    elif hoststars == "M":
-        # only M dwarf hosts
-        params_past_uv["SpT"] = ["M"]
-        params_past_uv["d_max"] = 42.5
-        params_past_uv[
-            "f_eta"
-            # ] = 5.0  # scale to obtain 100 transiting EECs in the sample
-        ] = 20.0  # scale to obtain 100 transiting EECs in the sample
-        # DEBUG
-
-    elif hoststars == "all":
-        # default, volume-limited
-        pass
+    params_past_uv = get_params_past_uv(hoststars)
 
     g, g_args = generate_generator(label=None, **params_past_uv)  # , **kwargs)
     d = g.generate()
