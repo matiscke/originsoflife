@@ -201,8 +201,21 @@ The posterior samples obtained from the nested sampling runs further allows us t
 \end{enumerate}
 
 
+\subsubsection{Simulated star and planet sample}
+We generated two sets of synthetic exoplanet populations, one for FGK-type stars and one for M-type stars.
+The stellar samples are drawn from the Gaia Catalogue of Nearby Stars~\citep{Smart2021} with a maximum Gaia magnitude of \var{M_G_max} and a maximum stellar mass of \var{M_st_max} \SI{}{\Msun}.
+We included stars out to a maximum distance $d_{\max}$ that depends on the required planet sample size.
+Planets were generated and assigned to the synthetic stars following the occurrence rates and size/orbit distributions of \citet{Bergsten2022}.
+Following \citet{Bixel2021}, we considered only transiting \glspl{EEC} with radii $0.8\, S^{0.25} < R < 1.4 $ that are within the habitable zone (see Section~\ref{sec:met-hz}).
+The lower limit was suggested as a minimum planet size to retain an atmosphere~\citep{Zahnle2017}.
+To generate planet samples larger than what the stellar catalog in combination with these occurrence rates yields, we scaled up the occurrence rates by a constant factor that yields the desired number of planets.
+This was in particular necessary for the FGK sample, where the rate of transiting planets that occupy the habitable zone is low.
 
-\subsubsection{Habitable zone occupancy and UV flux}
+For all survey simulations and hypothesis tests, we repeated the above in a Monte Carlo fashion to generate randomized ensembles of synthetic star and planet populations~\citep[compare][]{Bixel2021}.
+
+
+
+\subsubsection{Habitable zone occupancy and UV flux}\label{sec:met-hz}
 To test the UV hypothesis, we require that life occurs only on planets with sufficient past UV irradiation exceeding $F_\mathrm{NUV, min}$.
 Further, we require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}.
 All common Origin of Life scenarios require water as a solvent;
@@ -211,8 +224,6 @@ we thus consider only rocky planets that may sustain liquid water on their surfa
 Different formulations of habitable zones as regions around a star where a planet with Earth's atmospheric composition can maintain liquid water on its surface exist~\citep[e.g.,][]{MolLous2022,Spinelli2023,Tuchow2023}. CITE! Ramirez \& Kaltenegger 2017, 2018
 Here, we adopt the popular estimates of \citet{Kasting1993} and \citet{Kopparapu2013,Kopparapu2014} that define a temperate zone between the runaway greenhouse transition CITE! and the maximum greenhouse limit CITE!.
 We use the parametrization in \citet{Kopparapu2014} to derive luminosity and planetary mass-dependent edges of the \gls{HZ} $a_\mathrm{inner}$ and $a_\mathrm{outer}$.
-We further follow \citet{Bixel2021} and classify as \glspl{EEC} all planets with radii $0.8 S^{0.25} < R < 1.4 $ that orbit within the above boundaries.
-The lower limit was suggested as a minimum planet size to retain an atmosphere~\citep{Zahnle2017}.
 
 % detecting methanogenic life: Sandora2020, Wang2018, Seeburger2023
 A commonly discussed biosignature is molecular Oxygen (O$_2$), which on Earth emerged as a byproduct of photosynthesis during the Proterozoic era.
