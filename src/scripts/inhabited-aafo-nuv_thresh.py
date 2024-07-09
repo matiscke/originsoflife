@@ -28,15 +28,19 @@ def run_simulation(nuv_thresh, n_planets, star_type, seed):
     params_past_uv = get_params_past_uv(star_type, NUV_thresh=nuv_thresh, seed=seed)
     g, g_args = generate_generator(label=None, **params_past_uv)
     d = g.generate()
+    d = d.to_pandas()
 
-    d = d[:n_planets]
+    # sample n_planets, avoiding error when the sample is smaller than n_planets
+    if len(d) < n_planets:
+        d = d.sample(len(d), random_state=seed, replace=True)
+    else:
+        d = d.sample(n_planets, random_state=seed)
 
     inhabited_planets = len(d[d["inhabited"]])
     return inhabited_planets / n_planets
 
 
 def simulate():
-
     # set_params
     n_planets = 100
     n_nuv_thresholds = 10
@@ -44,8 +48,10 @@ def simulate():
     n_simulations_per_threshold = 10
     # n_simulations_per_threshold = 2
     # nuv_thresholds = np.geomspace(30.0, 3000.0, n_nuv_thresholds)
-    nuv_thresholds = np.geomspace(200.0, 600.0, n_nuv_thresholds)
-    f_life = 1.0
+    # nuv_thresholds = np.geomspace(200.0, 600.0, n_nuv_thresholds)
+    nuv_thresholds = np.linspace(50.0, 500.0, n_nuv_thresholds)
+    # f_life = 1.0
+    f_life = .8
 
     # Storage for results
     results_fgk = np.zeros((n_nuv_thresholds, n_simulations_per_threshold))
@@ -102,22 +108,23 @@ def plot_results():
     lower_bound_m = np.percentile(results_m, 5, axis=1)
     upper_bound_m = np.percentile(results_m, 95, axis=1)
 
-    plt.figure(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
 
     # Plot FGK stars
-    plt.plot(nuv_thresholds_fgk, mean_fractions_fgk, label="FGK Stars", marker="o")
-    plt.fill_between(nuv_thresholds_fgk, lower_bound_fgk, upper_bound_fgk, alpha=0.3)
+    ax.plot(nuv_thresholds_fgk, mean_fractions_fgk, label="FGK Stars", marker="o")
+    ax.fill_between(nuv_thresholds_fgk, lower_bound_fgk, upper_bound_fgk, alpha=0.3)
 
     # Plot M stars
-    plt.plot(nuv_thresholds_m, mean_fractions_m, label="M Stars", marker="s")
-    plt.fill_between(nuv_thresholds_m, lower_bound_m, upper_bound_m, alpha=0.3)
+    ax.plot(nuv_thresholds_m, mean_fractions_m, label="M Stars", marker="s")
+    ax.fill_between(nuv_thresholds_m, lower_bound_m, upper_bound_m, alpha=0.3)
 
-    plt.xlabel("NUV Threshold")
-    plt.ylabel("Fraction of Inhabited Planets")
-    plt.title("Fraction of Inhabited Planets vs. NUV Threshold")
-    plt.legend()
-    # plt.grid(True)
-    plt.show()
+    ax.set_xlabel("NUV Threshold")
+    ax.set_ylabel("Fraction of Inhabited Planets")
+    # ax.set_xscale("log")
+    # ax.set_title("Fraction of Inhabited Planets vs. NUV Threshold")
+    ax.legend()
+    fig.show()
+    fig.savefig(paths.figures / "inhabited_aafo_nuv_thresh.pdf")
 
 
 @timeit
