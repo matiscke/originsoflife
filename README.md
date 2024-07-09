@@ -14,7 +14,11 @@ A [Bioverse](https://github.com/danielapai/bioverse) project to study what Origi
 <a href="https://github.com/matiscke/originsoflife/raw/main-pdf/arxiv.tar.gz">
 <img src="https://img.shields.io/badge/article-tarball-blue.svg?style=flat" alt="Article tarball"/>
 </a>
-<a href="https://github.com/matiscke/originsoflife/raw/main-pdf/ms.pdf">
+
+
+[//]: # (<a href="https://github.com/matiscke/originsoflife/raw/main-pdf/ms.pdf">)
+
+<a href="https://github.com/matiscke/originsoflife/tree/main/src/tex/output/ms.pdf">
 <img src="https://img.shields.io/badge/article-pdf-blue.svg?style=flat" alt="Read the article"/>
 </a>
 </p>
