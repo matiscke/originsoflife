@@ -15,7 +15,8 @@ def normalize_data(data):
     max_val = data.max()
     return (data - min_val) / (max_val - min_val)
 
-def plot_nuv_distribution(data, fig, ax, spt):
+def plot_nuv_distribution(sample, data, fig, ax, spt):
+    sample = sample.to_pandas()
     dataa = data.to_pandas()
     normalized_data = normalize_data(dataa.max_nuv)
 
@@ -32,7 +33,8 @@ def plot_nuv_distribution(data, fig, ax, spt):
     # plot histogram and beta distribution fitted on non-normalized data
     x = np.arange(0.0, 1000.0, 5)
     max_likeli = stats.beta.fit(dataa.max_nuv, method="MM")
-    ax.hist(dataa.max_nuv, density=True, color="C0")
+    # ax.hist(dataa.max_nuv, density=True, color="C0")
+    ax.hist([dataa.max_nuv[sample.inhabited], dataa.max_nuv[~sample.inhabited]], stacked=True, density=True, color=["C1", "C0"], label=["inhabited", "EEC"])
     ax.plot(
         x,
         stats.beta.pdf(x, *max_likeli[:2], loc=max_likeli[2], scale=max_likeli[3]),
@@ -41,6 +43,10 @@ def plot_nuv_distribution(data, fig, ax, spt):
 
     ax.set_xlabel("max. NUV irradiance $F_\mathrm{NUV, max}$ [erg/s/$cm^2$]")
     ax.set_ylabel("Probability density")
+    if spt == "FGK":
+        ax.legend(title=None)
+
+
     # ax.text(
     #     0.97,
     #     0.85,
@@ -56,10 +62,12 @@ def plot_nuv_distribution(data, fig, ax, spt):
 fig, axs = plt.subplots(1, 2, figsize=(15, 2.5))
 
 for spt, ax in zip(['FGK', 'M'], axs):
+    with open(paths.data / "pipeline/sample_{}.dll".format(spt), "rb") as f:
+        sample = dill.load(f)
     with open(paths.data / "pipeline/data_{}.dll".format(spt), "rb") as f:
         data = dill.load(f)
 
-    fig, ax = plot_nuv_distribution(data, fig, ax, spt)
+    fig, ax = plot_nuv_distribution(sample, data, fig, ax, spt)
     ax.set_title(f"{spt}-type host stars")
 
 fig.savefig(paths.figures / "nuv_distribution.pdf")

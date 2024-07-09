@@ -42,6 +42,8 @@ dependencies:
     - src/data/past-UV.csv
   src/scripts/nuv_distribution.py:
     - src/data/pipeline/data.dll
+    - src/data/pipeline/sample_FGK.dll
+    - src/data/pipeline/sample_M.dll
     - src/data/pipeline/data_FGK.dll
     - src/data/pipeline/data_M.dll
   src/scripts/detections_uv.py:
