@@ -400,6 +400,18 @@ All injected biosignatures are assumed to be detected, and the maximum \gls{NUV}
 This leads to a distribution of biosignature detections with detections increasingly occurring above a threshold inferred NUV flux.
 In this example case, the few biosignature detections in the FGK sample lead to a higher evidence ($dlnZ_\mathrm{FGK} = \var{dlnZ_FGK}$) than in the M dwarf sample ($dlnZ_\mathrm{M} = \var{dlnZ_M}$), where the majority of planets are above the threshold \gls{NUV} flux.
 
+\begin{figure}
+    \script{inhabited_aafo_nuv_thresh.py}
+    \begin{centering}
+        \includegraphics[width=\hsize]{figures/inhabited_aafo_nuv_thresh}
+        \caption{Fraction of inhabited planets for different threshold \gls{NUV} fluxes under the UV hypothesis if the abiogenesis rate is \var{f_life}.}
+        \label{fig:inhabited_aafo_nuv_thresh}
+    \end{centering}
+\end{figure}
+Figure \ref{fig:inhabited_aafo_nuv_thresh} shows the fraction of inhabited planets under the UV hypothesis for different threshold \gls{NUV} fluxes and for a high abiogenesis rate of \var{f_life}.
+This fraction decreases sharply with increasing threshold flux, as fewer planets receive sufficient \gls{NUV} flux for abiogenesis.
+For the FGK sample, the fraction of inhabited planets drops at lower threshold fluxes than for the M dwarf sample.
+
 
 \subsubsection{Statistical power for a transit survey and sensitivity on astrophysical parameters}
 We now investigate the sensitivity of the achieved statistical power of our default transit survey to the a priori unconstrained threshold \gls{NUV} flux $F_\mathrm{NUV, min}$ and the abiogenesis rate $f_\mathrm{life}$.
