@@ -335,7 +335,8 @@ def get_params_past_uv(hoststars="all", **kwargs):
         "d_max": 75,  # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
         "deltaT_min": 10.0,  # Myr
         # "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
-        "NUV_thresh": 380.0,  # choose such that n_inhabited can't be zero
+        # "NUV_thresh": 380.0,  # choose such that n_inhabited can't be zero
+        "NUV_thresh": 250.0,  # choose such that n_inhabited can't be zero
         # "f_life": 0.8,
         "f_life": 0.99,
         # "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
@@ -451,13 +452,13 @@ def past_uv(
         # perform a single hypothesis test
         grid = None
         d, detected, data, nautilus = run_survey_nautilus(d)
+        print("Number of planets in the sample: {}".format(len(d)))
         results = hypothesis_test(data, testmethod)
         try:
             save_var_latex("dlnZ_{}".format(hoststars), results["dlnZ"])
         except KeyError:
             save_var_latex("p_{}".format(hoststars), results["p"])
 
-    print("Number of planets in the sample: {}".format(len(d)))
 
     # save some variables for the manuscript
     if hoststars == "FGK":
@@ -466,6 +467,7 @@ def past_uv(
         # general
         save_var_latex("d_max", g_args["d_max"])
         save_var_latex("M_G_max", g_args["M_G_max"])
+        save_var_latex("M_st_max", g_args["M_st_max"])
         try:
             save_var_latex("f_life", params_past_uv["f_life"])
         except KeyError:
@@ -525,7 +527,7 @@ def main(fast=False, testmethod='mannwhitney'):
 
             else:
                 # single hypothesis test
-                _d, _grid, _detected, _data, _nautilus = past_uv(
+                _d, _grid, _detected, _data, nautilus = past_uv(
                     hoststars=spt, testmethod=testmethod, grid=False
                 )
 
