@@ -538,6 +538,11 @@ def main(fast=False, testmethod='mannwhitney'):
                     paths.data / "pipeline/data_{}.dll".format(spt), "wb"
                 ) as file:
                     dill.dump(_data, file)
+
+    # save relevant Nautilus survey parameters to variables file
+    save_var_latex("nautilus_max_nuv", nautilus.measurements['max_nuv'].precision)
+    save_var_latex("nautilus_S", nautilus.measurements['S'].precision)
+
     #
     # # run statistical power grids
     # for spt in ["FGK", "M"]:
