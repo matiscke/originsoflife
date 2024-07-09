@@ -118,8 +118,8 @@ def plot_results():
     ax.plot(nuv_thresholds_m, mean_fractions_m, label="M Stars", marker="s")
     ax.fill_between(nuv_thresholds_m, lower_bound_m, upper_bound_m, alpha=0.3)
 
-    ax.set_xlabel("NUV Threshold")
-    ax.set_ylabel("Fraction of Inhabited Planets")
+    ax.set_xlabel("NUV Threshold [erg/s/$cm^2$]")
+    ax.set_ylabel("Fraction of inhabited planets")
     # ax.set_xscale("log")
     # ax.set_title("Fraction of Inhabited Planets vs. NUV Threshold")
     ax.legend()
