@@ -542,8 +542,9 @@ def main(fast=False, testmethod="mannwhitney"):
                     dill.dump(_data, file)
 
     # save relevant Nautilus survey parameters to variables file
-    save_var_latex("nautilus_max_nuv", nautilus.measurements['max_nuv'].precision)
-    save_var_latex("nautilus_S", nautilus.measurements['S'].precision)
+    save_var_latex("nautilus_max_nuv", nautilus.measurements["max_nuv"].precision)
+    save_var_latex("nautilus_S", nautilus.measurements["S"].precision)
+    save_var_latex("nautilus_T_eff_st", nautilus.measurements["T_eff_st"].precision)
 
     #
     # # run statistical power grids
