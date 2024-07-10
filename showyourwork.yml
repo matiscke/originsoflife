@@ -54,6 +54,11 @@ dependencies:
     - src/data/pipeline/grid_flife_nuv.dll
     - src/data/pipeline/grid_flife_nuv_FGK.dll
     - src/data/pipeline/grid_flife_nuv_M.dll
+  src/scripts/inhabited-aafo-nuv_thresh.py:
+      - src/data/frac-inhabited_fgk_all.dll
+      - src/data/frac-inhabited_fgk_transiting.dll
+      - src/data/frac-inhabited_m_all.dll
+      - src/data/frac-inhabited_m_transiting.dll
 
 # Name of the `.tex` manuscript and corresponding `.pdf` article
 ms_name: ms
