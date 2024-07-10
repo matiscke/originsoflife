@@ -290,14 +290,16 @@ The fraction of inhabited planets is highest in the M~dwarf sample due to the hi
 
 
 
-\subsubsection{Transit survey (e.g., Nautilus)}
+\subsubsection{Transit survey simulations}
+With the synthetic star and planet samples generated, we simulated observations of these planets with a hypothetical transit survey.
+Using Bioverse's survey module, we simulated noisy measurements of key observables assuming a capable transit survey that can characterize a large sample with high photometric precision.
+We roughly followed the mission parameters of the Nautilus mission concept~\citep{Apai2019,Apai2022} and measured planetary instellation (for \gls{HZ} occupancy) with a precision of \var{nautilus_S} and host star effective temperature with a precision of \var{nautilus_T_eff_st}~K.
+We assumed that the maximum past \gls{NUV} flux a planet received can be determined within a precision of \var{nautilus_max_nuv}.
+To marginalize over choices of biosignatures and their detectability, which are beyond the scope of this study, we assumed that any inhabited planet would show a biosignature detectable by the survey.
 
 %\subsubsection{Direct imaging survey (e.g., Habitable Worlds Observatory, LIFE)}
 %\subsubsubsection{target list}
 %\todo[inline]{Provisional stellar target List for the habitable Worlds Observatory:~\citep{Mamajek2023}} % read like in https://github.com/mkenworthy/HWObows/tree/40b1e5f2bc2bbbe8c999b097c80ca5a8cda0aeae/src/scripts
-
-
-... measure the maximum past \gls{NUV} flux with a precision of \var{nautilus_max_nuv} and the instellation that a planet receives with a precision of \var{nautilus_S}.
 
 
 
