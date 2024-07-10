@@ -1,3 +1,5 @@
+# Plot the distribution of measured maximum NUV irradiance for inhabited and non-inhabited planets in FGK and M stars, respectively.
+
 import dill
 import paths
 import plotstyle
