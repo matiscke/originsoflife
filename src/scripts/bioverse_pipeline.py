@@ -15,9 +15,11 @@ import numpy as np
 from bioverse.generator import Generator
 from bioverse.survey import TransitSurvey
 from bioverse.hypothesis import Hypothesis
+
 # from bioverse.constants import CONST, DATA_DIR
 
 from semian_true_evidence import BFH1
+
 
 def eec_filter(d):
     """Filter the planets to only include EECs."""
@@ -293,20 +295,17 @@ def hypotest_grid(generator, survey, N_grid, fast, testmethod):
 
     if fast:
         N_iter = 3
-        # DEBUG
-
     else:
         N_iter = 8
     # f_life = np.geomspace(0.1, 1.0, N_grid)
-    # f_life = np.geomspace(1e-3, 1.0, N_grid)
-    f_life = np.geomspace(0.5, 1.0, N_grid)
+    f_life = np.geomspace(1e-3, 1.0, N_grid)
+    # f_life = np.geomspace(0.5, 1.0, N_grid)
     # f_life = (0.9,)  # test 1D hypothesis grid test
     # f_life = 0.99  # test 1D hypothesis grid test
     # NUV_thresh = np.geomspace(300.0, 380.0, N_grid)
     # NUV_thresh = np.geomspace(30.0, 3000.0, N_grid)
-    NUV_thresh = np.geomspace(200.0, 600.0, N_grid)
-    # DEBUG
-
+    # NUV_thresh = np.geomspace(200.0, 600.0, N_grid)
+    NUV_thresh = np.geomspace(20.0, 800.0, N_grid)
 
     from bioverse.analysis import test_hypothesis_grid
 
@@ -327,6 +326,7 @@ def hypotest_grid(generator, survey, N_grid, fast, testmethod):
     )
     return results
 
+
 def get_params_past_uv(hoststars="all", **kwargs):
     """define default parameters for the past UV hypothesis test."""
     params_past_uv = {
@@ -337,7 +337,7 @@ def get_params_past_uv(hoststars="all", **kwargs):
         # "NUV_thresh": 380.0,  # choose such that n_inhabited can't be zero
         "NUV_thresh": 250.0,  # choose such that n_inhabited can't be zero
         # "f_life": 0.8,
-        "f_life": 0.99,
+        "f_life": 1.0,
         # "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
     }
 
@@ -351,7 +351,7 @@ def get_params_past_uv(hoststars="all", **kwargs):
         params_past_uv["d_max"] = 125  # Gaia GCNS doesn't go further than 119 pc
         params_past_uv[
             "f_eta"
-            ] = 6.0  # scale to obtain 100 transiting EECs in the sample
+        ] = 6.0  # scale to obtain 100 transiting EECs in the sample
 
     elif hoststars == "M":
         # only M dwarf hosts
@@ -359,7 +359,7 @@ def get_params_past_uv(hoststars="all", **kwargs):
         params_past_uv["d_max"] = 42.5
         params_past_uv[
             "f_eta"
-            ] = 5.0  # scale to obtain 100 transiting EECs in the sample
+        ] = 5.0  # scale to obtain 100 transiting EECs in the sample
 
     elif hoststars == "all":
         # default, volume-limited
@@ -423,7 +423,9 @@ def past_uv(
         else:
             N_grid = 8
         nautilus = create_survey_nautilus()
-        grid = hypotest_grid(g, nautilus, N_grid=N_grid, fast=fast, testmethod=testmethod)
+        grid = hypotest_grid(
+            g, nautilus, N_grid=N_grid, fast=fast, testmethod=testmethod
+        )
         detected = None
         data = None
     # elif powergrid:
@@ -460,7 +462,6 @@ def past_uv(
             save_var_latex("dlnZ_{}".format(hoststars), results["dlnZ"])
         except KeyError:
             save_var_latex("p_{}".format(hoststars), results["p"])
-
 
     # save some variables for the manuscript
     if hoststars == "FGK":
