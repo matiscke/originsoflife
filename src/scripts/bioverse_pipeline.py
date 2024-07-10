@@ -4,7 +4,6 @@ It heavily relies on Bioverse and its auxiliary functions.
 """
 # import pickle
 import dill
-import timeit
 
 import paths
 from utils import *
@@ -368,8 +367,15 @@ def get_params_past_uv(hoststars="all", **kwargs):
 
     return params_past_uv
 
+
 def past_uv(
-    hoststars="all", grid=True, N_grid=None, testmethod='mannwhitney', powergrid=False, fast=False, **kwargs
+    hoststars="all",
+    grid=True,
+    N_grid=None,
+    testmethod="mannwhitney",
+    powergrid=False,
+    fast=False,
+    **kwargs
 ):
     """Test the hypothesis that life only originates on planets with a minimum past UV irradiance.
 
@@ -407,19 +413,6 @@ def past_uv(
     params_past_uv = get_params_past_uv(hoststars)
 
     g, g_args = generate_generator(label=None, **params_past_uv)  # , **kwargs)
-    d = g.generate()
-
-    # keep only 100 planets
-    # d = d[:100]
-
-    # DEBUG
-
-    dd = d.to_pandas()
-
-    print("Total number of planets: {}".format(len(d)))
-    print("Inhabited: {}".format(len(dd[dd.inhabited])))
-
-    # d.evolve()
 
     if grid:
         # perform a grid of hypothesis tests
@@ -450,6 +443,15 @@ def past_uv(
     #
     else:
         # perform a single hypothesis test
+
+        d = g.generate()
+        # keep only 100 planets
+        d = d[:100]
+
+        dd = d.to_pandas()
+        print("Total number of planets: {}".format(len(d)))
+        print("Inhabited: {}".format(len(dd[dd.inhabited])))
+
         grid = None
         d, detected, data, nautilus = run_survey_nautilus(d)
         print("Number of planets in the sample: {}".format(len(d)))
@@ -498,15 +500,12 @@ def past_uv(
 
 
 @timeit
-def main(fast=False, testmethod='mannwhitney'):
+def main(fast=False, testmethod="mannwhitney"):
     """Run the Bioverse pipeline."""
-    # for grid in [False, True]:
-
-    # for grid in [True]:
-    for grid in [False]:
-    # DEBUG
-
-
+    for grid in [False, True]:
+        # for grid in [True]:
+        # for grid in [False]:
+        # DEBUG
 
         # for spt in ["all", "FGK", "M"]:
         for spt in ["FGK", "M"]:
@@ -557,8 +556,8 @@ def main(fast=False, testmethod='mannwhitney'):
 
 if __name__ == "__main__":
     # result = timeit.timeit("main()", number=1)
-    main(fast=True)
-    # main(fast=False)
+    # main(fast=True)
+    main(fast=False)
 
 
 # # -----------------
