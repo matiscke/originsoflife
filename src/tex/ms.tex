@@ -406,12 +406,14 @@ In this example case, the few biosignature detections in the FGK sample lead to 
     \script{inhabited_aafo_nuv_thresh.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/inhabited_aafo_nuv_thresh}
-        \caption{Fraction of inhabited planets for different threshold \gls{NUV} fluxes under the UV hypothesis if the abiogenesis rate is \var{f_life}. Shaded regions denote 90 percent confidence intervals of randomized sample generations.}
+        \caption{Fraction of inhabited planets for different threshold \gls{NUV} fluxes under the UV hypothesis if the abiogenesis rate is \var{f_life}. Shaded regions denote 90 percent confidence intervals of randomized sample generations, and dashed lines correspond to samples including non-transiting planets.
+        For all samples, the fraction of inhabited planets drops sharply with increasing threshold \gls{NUV} flux due to the combined effects of never receiving sufficient \gls{NUV} flux for abiogenesis or receiving it before entering the \gls{HZ}.}
         \label{fig:inhabited_aafo_nuv_thresh}
     \end{centering}
 \end{figure}
 Figure \ref{fig:inhabited_aafo_nuv_thresh} shows the fraction of inhabited planets under the UV hypothesis for different threshold \gls{NUV} fluxes and for a high abiogenesis rate of \var{f_life}.
 This fraction decreases sharply with increasing threshold flux, as fewer planets receive sufficient \gls{NUV} flux for abiogenesis.
+Another effect responsible for this drop is that some planets receive the required \gls{NUV} flux only before entering the \gls{HZ} -- this is especially likely for M~dwarfs.
 For the FGK sample, the fraction of inhabited planets drops at lower threshold fluxes than for the M dwarf sample.
 
 
@@ -425,7 +427,9 @@ The same is true for the abiogenesis rate $f_\mathrm{life}$, where higher values
     \script{powergrid.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/powergrid}
-        \caption{Statistical power as a function of threshold \gls{NUV} flux and abiogenesis rate. For a given sample size (here: $N=\var{N_nautilus}$), the achieved statistical power of the survey is enhanced for higher values of $f_\mathrm{life}$ and intermediate values of $F_\mathrm{NUV, min}$.}
+        \caption{Statistical power as a function of threshold \gls{NUV} flux and abiogenesis rate. Even for a large sample (here: $N=\var{N_nautilus}$), a high statistical power of the transit survey requires high abiogenesis rates $f_\mathrm{life}$.
+         Intermediate values of $F_\mathrm{NUV, min}$ are more likely to yield strong evidence than extreme values; the sensitivity of the M~dwarf sample extends into the low \gls{NUV} flux end.
+         }
         \label{fig:powergrid}
     \end{centering}
 \end{figure*}
