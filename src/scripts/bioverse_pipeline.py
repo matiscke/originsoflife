@@ -296,7 +296,7 @@ def hypotest_grid(generator, survey, N_grid, fast, testmethod):
     if fast:
         N_iter = 3
     else:
-        N_iter = 8
+        N_iter = 16
     # f_life = np.geomspace(0.1, 1.0, N_grid)
     f_life = np.geomspace(1e-3, 1.0, N_grid)
     # f_life = np.geomspace(0.5, 1.0, N_grid)
@@ -305,7 +305,7 @@ def hypotest_grid(generator, survey, N_grid, fast, testmethod):
     # NUV_thresh = np.geomspace(300.0, 380.0, N_grid)
     # NUV_thresh = np.geomspace(30.0, 3000.0, N_grid)
     # NUV_thresh = np.geomspace(200.0, 600.0, N_grid)
-    NUV_thresh = np.geomspace(20.0, 800.0, N_grid)
+    NUV_thresh = np.geomspace(10.0, 1000.0, N_grid)
 
     from bioverse.analysis import test_hypothesis_grid
 
@@ -421,11 +421,12 @@ def past_uv(
         elif N_grid:
             N_grid = N_grid
         else:
-            N_grid = 8
+            N_grid = 10
         nautilus = create_survey_nautilus()
         grid = hypotest_grid(
             g, nautilus, N_grid=N_grid, fast=fast, testmethod=testmethod
         )
+        d = None
         detected = None
         data = None
     # elif powergrid:
@@ -463,33 +464,33 @@ def past_uv(
         except KeyError:
             save_var_latex("p_{}".format(hoststars), results["p"])
 
-    # save some variables for the manuscript
-    if hoststars == "FGK":
-        save_var_latex("uv_inhabited_FGK", len(dd[dd.inhabited]))
+        # save some variables for the manuscript
+        if hoststars == "FGK":
+            save_var_latex("uv_inhabited_FGK", len(dd[dd.inhabited]))
 
-        # general
-        save_var_latex("d_max", g_args["d_max"])
-        save_var_latex("M_G_max", g_args["M_G_max"])
-        save_var_latex("M_st_max", g_args["M_st_max"])
-        try:
-            save_var_latex("f_life", params_past_uv["f_life"])
-        except KeyError:
+            # general
+            save_var_latex("d_max", g_args["d_max"])
+            save_var_latex("M_G_max", g_args["M_G_max"])
+            save_var_latex("M_st_max", g_args["M_st_max"])
+            try:
+                save_var_latex("f_life", params_past_uv["f_life"])
+            except KeyError:
+                pass
+            save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
+            save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
+            save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
+
+        elif hoststars == "M":
+            save_var_latex("uv_inhabited_M", len(dd[dd.inhabited]))
+        elif hoststars == "all":
+            # general run (are we even still doing this)?
             pass
-        save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
-        save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
-        save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
-
-    elif hoststars == "M":
-        save_var_latex("uv_inhabited_M", len(dd[dd.inhabited]))
-    elif hoststars == "all":
-        # general run (are we even still doing this)?
-        pass
-        # save_var_latex("d_max", g_args["d_max"])
-        # save_var_latex("M_G_max", g_args["M_G_max"])
-        # save_var_latex("f_life", params_past_uv["f_life"])
-        # save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
-        # save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
-        # save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
+            # save_var_latex("d_max", g_args["d_max"])
+            # save_var_latex("M_G_max", g_args["M_G_max"])
+            # save_var_latex("f_life", params_past_uv["f_life"])
+            # save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
+            # save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
+            # save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
 
     # fixed variables from semianalytical analysis
     save_var_latex("semian_Nsamp1", 10)
@@ -501,11 +502,12 @@ def past_uv(
 
 
 @timeit
-def main(fast=False, testmethod="mannwhitney"):
+# def main(fast=False, testmethod="mannwhitney"):
+def main(fast=False, testmethod="dynesty"):
     """Run the Bioverse pipeline."""
     for grid in [False, True]:
-        # for grid in [True]:
-        # for grid in [False]:
+    # for grid in [True]:
+    # for grid in [False]:
         # DEBUG
 
         # for spt in ["all", "FGK", "M"]:
@@ -541,10 +543,13 @@ def main(fast=False, testmethod="mannwhitney"):
                 ) as file:
                     dill.dump(_data, file)
 
-    # save relevant Nautilus survey parameters to variables file
-    save_var_latex("nautilus_max_nuv", nautilus.measurements["max_nuv"].precision)
-    save_var_latex("nautilus_S", nautilus.measurements["S"].precision)
-    save_var_latex("nautilus_T_eff_st", nautilus.measurements["T_eff_st"].precision)
+    try:
+        # save relevant Nautilus survey parameters to variables file
+        save_var_latex("nautilus_max_nuv", nautilus.measurements["max_nuv"].precision)
+        save_var_latex("nautilus_S", nautilus.measurements["S"].precision)
+        save_var_latex("nautilus_T_eff_st", nautilus.measurements["T_eff_st"].precision)
+    except:
+        pass
 
     #
     # # run statistical power grids
