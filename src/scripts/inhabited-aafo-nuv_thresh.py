@@ -7,6 +7,8 @@ import paths
 import dill
 import numpy as np
 import matplotlib.pyplot as plt
+
+import plotstyle
 from utils import timeit
 
 from tqdm import tqdm
@@ -16,6 +18,8 @@ from bioverse_pipeline import (
     get_params_past_uv,
     generate_generator,
 )
+
+plotstyle.styleplots()
 
 # Set a seed for reproducibility of the overall process
 np.random.seed(42)
@@ -114,11 +118,11 @@ def simulate(transiting=True):
 
 
 def plot_results():
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(7, 4.5))
 
     plotkwargs = {
     'transiting' : {'marker' : 'o'},
-    'all' : {'marker' : 's', 'linestyle' : '--', 'alpha' : 0.6},
+    'all' : {'marker' : 's', 'linestyle' : '--', 'alpha' : 0.6, 'linewidth' : 1.5},
     }
 
     for transiting, lbl in zip([True, False], ['transiting', 'all']):
@@ -141,11 +145,11 @@ def plot_results():
 
         # Plot FGK stars
         ax.plot(nuv_thresholds_fgk, mean_fractions_fgk, label=f"FGK host stars ({lbl})", color='C0', **plotkwargs[lbl])
-        ax.fill_between(nuv_thresholds_fgk, lower_bound_fgk, upper_bound_fgk, color=f"{'C0' if transiting else 'gray'}", alpha=0.2)
+        ax.fill_between(nuv_thresholds_fgk, lower_bound_fgk, upper_bound_fgk, color=f"{'C0' if transiting else 'white'}", alpha=0.2)
 
         # Plot M stars
         ax.plot(nuv_thresholds_m, mean_fractions_m, label=f"M  host stars ({lbl})", color='C1', **plotkwargs[lbl])
-        ax.fill_between(nuv_thresholds_m, lower_bound_m, upper_bound_m, color=f"{'C1' if transiting else 'gray'}", alpha=0.2)
+        ax.fill_between(nuv_thresholds_m, lower_bound_m, upper_bound_m, color=f"{'C1' if transiting else 'white'}", alpha=0.2)
 
     ax.set_xlabel("$F_\mathrm{NUV, min}$ [erg/s/$cm^2$]")
     ax.set_ylabel("Fraction of inhabited planets")
@@ -161,7 +165,7 @@ def main():
     for transiting in [True, False]:
     # for transiting in [False]:
     # for transiting in [True]:
-        simulate(transiting)
+    #     simulate(transiting)
         pass
     # DEBUG
     plot_results()
