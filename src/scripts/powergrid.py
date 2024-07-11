@@ -4,6 +4,8 @@ import plotstyle
 import matplotlib.pyplot as plt
 import cmocean
 from bioverse import plots
+import matplotlib.ticker as ticker
+
 
 plotstyle.styleplots()
 
@@ -26,20 +28,22 @@ def plot_powergrid(grid, fig, ax, **kwargs):
         axes=("NUV_thresh", "f_life"),
         labels=labels,
         # log=(True, False),
+        # log=(False, False),
         log=(True, True),
         show=False,
         fig=fig,
         ax=ax,
-        # zoom_factor=2, smooth_sigma=.5,
-        zoom_factor=0,
-        # smooth_sigma=0.2,
+        zoom_factor=2,
+        # zoom_factor=0,
+        # smooth_sigma=.5,
+        smooth_sigma=0.2,
         # levels=[50, 95],
         levels=None,
         cmap=cmocean.cm.dense_r,
         **kwargs,
     )
 
-    ax.set_ylim(0.0, 1.0)
+    ax.set_ylim(bottom=1e-3)
     return fig, ax
 
 
@@ -52,18 +56,17 @@ for i, (spt, ax) in enumerate(zip(["FGK", "M"], axs)):
         grid = dill.load(f)
         data = dill.load(d)  # do we need this?
 
-    # # WHILE DEBUGGING (and no .dll files are available)
-    # import pickle
-    #
-    # with open(
-    #     paths.data / "pipeline/grid_flife_nuv_{}.pkl".format(spt), "rb"
-    # ) as f, open(paths.data / "pipeline/data_{}.dll".format(spt), "rb") as d:
-    #     grid = pickle.load(f)
-    #     data = dill.load(d)  # do we need this?
-
     cbar = False if i == 0 else True
 
     fig, ax = plot_powergrid(grid, fig, ax, cbar=cbar)
+
+    if i == 1:
+        ax.set_ylabel("")
+
+    ax.xaxis.set_major_formatter(
+        ticker.FuncFormatter(lambda x, pos: "{:0.0f}".format(x))
+    )
+    ax.yaxis.set_major_formatter(ticker.StrMethodFormatter("{x:.3g}"))
     ax.set_title(f"{spt}-type host stars")
 
 
