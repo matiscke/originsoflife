@@ -10,7 +10,7 @@ plotstyle.styleplots()
 
 def plot_powergrid(grid, fig, ax, **kwargs):
     """Plot the power grid."""
-    labels = ("$F_\mathrm{NUV, min}$", "$f_\mathrm{life}$")
+    labels = ("$F_\mathrm{NUV, min}$ [erg/s/$cm^2$]", "$f_\mathrm{life}$")
 
     # check if the dictionary grid contains 'p' or 'dlnZ' values
     if "p" in grid:

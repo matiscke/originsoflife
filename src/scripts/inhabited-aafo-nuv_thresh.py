@@ -147,7 +147,7 @@ def plot_results():
         ax.plot(nuv_thresholds_m, mean_fractions_m, label=f"M  host stars ({lbl})", color='C1', **plotkwargs[lbl])
         ax.fill_between(nuv_thresholds_m, lower_bound_m, upper_bound_m, color=f"{'C1' if transiting else 'gray'}", alpha=0.2)
 
-    ax.set_xlabel("NUV Threshold [erg/s/$cm^2$]")
+    ax.set_xlabel("$F_\mathrm{NUV, min}$ [erg/s/$cm^2$]")
     ax.set_ylabel("Fraction of inhabited planets")
     # ax.set_xscale("log")
     # ax.set_title("Fraction of Inhabited Planets vs. NUV Threshold")
