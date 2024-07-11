@@ -502,8 +502,8 @@ def past_uv(
 
 
 @timeit
-# def main(fast=False, testmethod="mannwhitney"):
-def main(fast=False, testmethod="dynesty"):
+def main(fast=False, testmethod="mannwhitney"):
+# def main(fast=False, testmethod="dynesty"):
     """Run the Bioverse pipeline."""
     for grid in [False, True]:
     # for grid in [True]:
