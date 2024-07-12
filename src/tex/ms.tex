@@ -463,46 +463,39 @@ A lack of biosignatures on these planets would support the \gls{NUV} hypothesis,
 
 
 
-
-
-
-\subsection{What do we learn from a single biosignature detection?}
-\todo[inline]{discuss constraining power on OOL of a convincing biosignature detection on a single planet, depending on the position of the planet in the parameter space we explored.}
+%\subsection{What do we learn from a single biosignature detection?}
+%\todo[inline]{discuss constraining power on OOL of a convincing biosignature detection on a single planet, depending on the position of the planet in the parameter space we explored.}
 
 \subsection{Sampling strategy for testing a predicted minimum \gls{NUV} flux}
-In Sect.~\ref{sec:results}, we show that testing the hypothesis of a minimum past \gls{NUV} flux required for abiogenesis suffers from so-called `nuisance' parameters-- unspecified parameters entering the equation of a statistical test-- that render inference difficult.
-Here, these parameters are the unspecified value of the \gls{NUV} threshold hypothesized to exist under $H_1$, and the unknown probability of detection of biosignatures should life have emerged on a planet $f_{\mathrm{life}}$.
-While the history of a planet's received UV flux is difficult to infer~\citep[e.g.,][]{Richey-Yowell2023}, the maximum value of \gls{NUV} flux that a planet was exposed to during its existence might be used as a proxy.
+In Sect.~\ref{sec:results-semianalytical}, we show that testing the hypothesis of a minimum past \gls{NUV} flux required for abiogenesis suffers from `nuisance' parameters that render inference difficult.
+Here, these parameters are the unspecified value of the \gls{NUV} threshold hypothesized to exist under $H_1$, and the unknown probability of detectable life emerging on a habitable planet $f_{\mathrm{life}}$.
+While the history of a planet's received UV flux is difficult to infer~\citep[e.g.,][]{Richey-Yowell2023}, the estimated maximum \gls{NUV} flux that a planet was exposed to may be used as a proxy.
 Indeed, the distribution of the number of planets with detected biosignature in a particular sample of planets with determined maximum \gls{NUV} values $F_{\mathrm{NUV}}$ depends on both the values of $F_{\mathrm{NUV},min}$ and $f_{\mathrm{life}}$ as shown in equation \ref{eq:semian:likelihoodH1}.
-Avoiding the loss in statistical power due to nuisance parameters is a common difficulty in statistical testing, and is the motivation behind elaborate test statistics.
-In the exercise that we do here, we project what could be a test performed by a future observer who disposes of a sample of exoplanets with known past maximum \gls{NUV} exposure and for which biosignature detection has been attempted.
-This is necessarily reductive as the future observer will have more knowledge about experimental conditions and will therefore be able to use this information to guide hypothesis testing.
-For instance, we have made the choice in Sect.~\ref{sec:results} to consider the total number of detected biosignatures as our summary statistic (equation \ref{eq:semian:likelihoodH1), which is not `sufficient' to infer $F_{\mathrm{NUV},min}$ and $f_{life}$ separately.
-However, by conditioning the Bayes factor to these variables (equation \ref{eq:bayesfactor}), we calculate the probability distribution of the Bayesian evidence in favor of $H_1$.
-In doing so, we may evaluate how evidence depends on the uncertainty over these unknown parameters in general terms, without assuming which particular test a future observer might choose to actually perform over real data when available.
-This rather unrefined analysis allows us to provide the intuitive insight that target selection may strongly affect the conclusiveness of one's future test aimed at assessing whether a planet's exposure to \gls{NUV} affects the probability of abiogenesis.
-In particular, a future observer might prefer prioritize sampling extreme values of this variable in order to maximize statistical power.
-This clashes with observational constraints, as the distribution of planets that we can observe and for which detection of biosignature can be attempted might not be independent from \gls{NUV} flux history as the latter is function of stellar mass.
-Hence, for the future observer, selectivity and sample size are in a trade-off conflict.
-Therefore, quantifying this trade-off conflict in terms of resulting expected evidence yield is relevant in order to design observational strategies.
-Our analysis shows that regardless of selectivity, sample sizes smaller than 50 likely result in inconclusive tests, and that increasing selectivity towards extreme $F_{\mathrm{NUV}}$ offers limited inference gains compared to the uniform case ($s=0$; Fig. \ref{fig:semian_selectivity}).
-However, our results show that samples of exoplanets with values of $F_{\mathrm{NUV}}$ even only weakly distributed around intermediate values may prevent inference entirely.
-Hence, we argue that selection of a sample of planets with uniformly or extreme-skewed (as opposed to center-skewed) distributed $F_{\mathrm{NUV}}$  should be considered a requirement of any future attempt at testing the hypothesis that \gls{NUV} flux contributes to determining the likelihood of abiogenesis.
+Avoiding a loss in statistical power due to nuisance parameters is a common difficulty in statistical testing, and is the motivation behind elaborate test statistics.
 
-We stress that a future observer will likely be able to leverage standard frequentist testing methods which may be more likely to yield conclusive results (whether in favor or in disfavor of $H_1$).
-For instance, it would make sense when presented with a sample of planets with various values of $F_{\mathrm{NUV}}$ and for which biosigature detection is attempted to categorize them into two classes: those for which a biosignature is detected, and those for which this is not the case.
-Then, the distribution of $F_{\mathrm{NUV}}$ in each of those categories is compared under the null hypothesis that they are the same.
-In this case, a non-parametric test could be preferred, such as a two-sample Kolmogorov-Smirnov test or perhaps a Mann-Whitney $U$ test.
+In our semi-analytical analysis (Section~\ref{sec:results-semianalytical}), we project a possible test performed by a future observer equipped with a sample of exoplanets with known past maximum \gls{NUV} exposure for which biosignature detection has been attempted.
+This is necessarily reductive as this observer will have more knowledge about experimental conditions and will therefore be able to use this information to guide hypothesis testing.
+For instance, we have made the choice to consider the total number of detected biosignatures as our summary statistic (Equation~\ref{eq:semian:likelihoodH1}), which is not `sufficient' to infer $F_{\mathrm{NUV},min}$ and $f_{life}$ separately.
+However, by conditioning the Bayes factor to these variables (Equation \ref{eq:bayes_factor}), we calculate the probability distribution of the Bayesian evidence in favor of $H_1$.
+In doing so, we may evaluate how evidence depends on the uncertainty over these unknown parameters in general terms, without assuming which particular test a future observer might choose to actually perform over real data when available.
+From this, we can see that target selection can strongly affect the conclusiveness of a future test of the UV hypothesis.
+
+%The particular finding that our future observer might prefer to prioritize extreme values of this variable in order to maximize statistical power.
+The particular finding that prioritizing extreme values of past \gls{NUV} flux can enhance statistical power clashes with observational constraints, as the composition of the subset of planets that we can observe and for which detection of biosignature can be attempted is not independent from their \gls{NUV} flux history.
+Hence, for our future observer, selectivity and sample size are in conflict.
+This trade-off can be quantified in terms of expected evidence yield, which we have done in Section~\ref{sec:results-semianalytical}.
+Our analysis shows that regardless of selectivity, sample sizes smaller than 50 likely result in inconclusive tests, and that increasing selectivity towards extreme $F_{\mathrm{NUV}}$ offers limited inference gains compared to the uniform case ($s=0$; Figure \ref{fig:semian_selectivity}).
+For larger samples, however, a narrow distribution of $F_{\mathrm{NUV}}$ may prevent inference entirely.
+We thus argue that selecting a sample with $F_{\mathrm{NUV}}$ distributed uniformly or emphasizing extreme values should -- barren any practical counterarguments -- be considered in any future attempt at testing the UV hypothesis.
+Since the practical implementation of an exoplanet survey can stand in the way of such a selection, the following discussion focuses on the results of our transit survey simulations with Bioverse.
+
+%We stress that a future observer will likely be able to leverage standard frequentist testing methods which may be more likely to yield conclusive results (whether in favor or in disfavor of $H_1$).
+%For instance, it would make sense when presented with a sample of planets with various values of $F_{\mathrm{NUV}}$ and for which biosigature detection is attempted to categorize them into two classes: those for which a biosignature is detected, and those for which this is not the case.
+%Then, the distribution of $F_{\mathrm{NUV}}$ in each of those categories is compared under the null hypothesis that they are the same.
+%In this case, a non-parametric test could be preferred, such as a two-sample Kolmogorov-Smirnov test or perhaps a Mann-Whitney $U$ test.
 % Is this what you end up looking at using BIOVERSE ? If so, then that should flow nicely with the rest.
 
-%\todo[inline]{Martin: is the given ref about inference difficulty only, or does it also support the statement that max NUV can be inferred? In any case, I beleive that there should be a statement here about whether max past NUV can be more easily inferred, how (star mass ?), and how it relates to a scalar variable pertaining to the probability ogf abiogenesis. e.g. if max past NUV is below required threshold, then no abiogenesis under H1, but if it is over, there might remain the uncertainty in the timing of this value of NUV ? Can we know if the timing matches the planet being in the HZ?}
 
-%We show in Sect.~\ref{sec:results} that the constraining power for testing the hypothesis of a minimum past \gls{NUV} flux required for abiogenesis is sensitive on the occurrence of life, the value of this threshold flux, the sample size, and the distribution of sampled past \gls{NUV} fluxes.
-%In particular the last parameter offers an opportunity to optimize the survey strategy: Although constraints on a planet's UV history have generally large uncertainties~\citep[e.g.,][]{Richey-Yowell2023}, the likely maximum flux of a planet can be inferred and used as a proxy.
-
-%Sampling more extreme (low and high) values for the maximum flux increases the probability of obtaining true strong evidence for the hypothesis.
-%For large sample sizes $\gtrsim 200$, this strategy can push this probability into the \SI{90}{\percent} range.
-%\todo[inline]{and what about the probability of getting true strong evidence for H0?}: AA reply to Martin. In BF analyses, the evidences for H0 and H1 are symmetric. We just look at the probability of strong true evidence, whether in favor of H0 or H1. If that is not what the code is doing, it is what it should be doing
 
 
 
