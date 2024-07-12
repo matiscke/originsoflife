@@ -239,11 +239,9 @@ Outside the age and stellar mass range covered in \citet{Richey-Yowell2023}, we 
 
 We then determined which planets were both in the \gls{HZ} and had \gls{NUV} fluxes above $F_\mathrm{NUV, min}$ for $\Delta T_\mathrm{min} \geq \var{deltaT_min}\,\SI{}{\mega\year}$.
 We assigned the development of life to a random fraction $f_\mathrm{life}$ of all temperate planets fulfilling these requirements.
-
-
-For the hypothesis tests, we then define our alternative hypothesis as
+For the probability of a planet having detectable biosignatures, $P(\mathrm{bio})$, the UV~hypothesis then states
 \begin{equation}\label{eq:hypothesis-uv}
-    H_{1} = f_\mathrm{life} (\theta, F_\mathrm{NUV}) =
+    H_{1} : P(\mathrm{bio}) =
         \begin{cases}
             0 , & F_\mathrm{NUV} < F_\mathrm{NUV, min}\\
             f_\mathrm{life}, & F_\mathrm{NUV} \geq F_\mathrm{NUV, min} \,\mathrm{and\, in\, HZ} \, \mathrm{for} \, \Delta t \geq \var{deltaT_min} \,\SI{}{\mega\year}
@@ -251,11 +249,10 @@ For the hypothesis tests, we then define our alternative hypothesis as
 \end{equation}
 and the corresponding null hypothesis
 %\begin{equation}
-$H_{null} = f_\mathrm{life} (\theta),$
+$H_\mathrm{null} : P(\mathrm{bio}) = f_\mathrm{life},$
 %\end{equation}
 i.e., no correlation with UV flux.
-We imposed log-uniform priors on the parameters $\boldsymbol{\theta}$, sampling $f_\mathrm{life}$ from a log-uniform distribution between $10^{-3}$ and $1$ and $F_\mathrm{NUV, min}$ from a log-uniform distribution between $10^{1}$ and $10^{5}$.
-
+Our choice of priors was to sample $f_\mathrm{life}$ from a log-uniform distribution between $10^{-3}$ and $1$ and $F_\mathrm{NUV, min}$ from a log-uniform distribution between $10^{1}$ and $10^{5}$.
 
 \begin{figure}
     \script{inhabited_FGKM.py}
