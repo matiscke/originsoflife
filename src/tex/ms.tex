@@ -379,7 +379,7 @@ Applying the approach from Sect.~\ref{sec:results-semianalytical} of fitting a B
     \script{nuv_distribution.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/nuv_distribution}
-        \caption{Distribution of maximum past \gls{NUV} flux in transit surveys targeting FGK and M~stars, respectively. The best-fit beta distributions (gray) correspond to selectivities of $s_\mathrm{FGK} = $\var{selectivity_FGK} and $s_\mathrm{M} = $\var{selectivity_M}. Red areas show inhabited planets for a threshold \gls{NUV} flux of $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$ and an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$.}
+        \caption{Distribution of maximum past \gls{NUV} flux in transit surveys targeting \glspl{EEC} around FGK and M~stars, respectively. The best-fit beta distributions (gray) correspond to selectivities of $s_\mathrm{FGK} = $\var{selectivity_FGK} and $s_\mathrm{M} = $\var{selectivity_M}. Red areas show inhabited planets for a threshold \gls{NUV} flux of $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$ and an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$.}
         \label{fig:nuv_distribution}
     \end{centering}
 \end{figure*}
@@ -440,7 +440,7 @@ A key question in the quest to understand the origins of life is which natural p
 The cyanosulfidic scenario~\citep{Patel2015}, in particular its predicted existence of a minimum \gls{NUV} flux required for prebiotic chemistry, seems to offer an opportunity to test an origins of life hypothesis with a statistical transit survey sampling planets with varying \gls{NUV} flux histories.
 In the following, we discuss the prospects of testing the UV hypothesis in light of our results.
 
-\subsection{Sampling strategy for testing a predicted minimum \gls{NUV} flux}
+\subsection{Sampling strategy for testing a predicted minimum \gls{NUV} flux} % corresponds to conclusion point 1
 In Sect.~\ref{sec:results-semianalytical}, we show that testing the hypothesis of a minimum past \gls{NUV} flux required for abiogenesis suffers from `nuisance' parameters that render inference difficult.
 Here, these parameters are the unspecified value of the \gls{NUV} threshold hypothesized to exist under $H_1$, and the unknown probability of detectable life emerging on a habitable planet $f_{\mathrm{life}}$.
 While the history of a planet's received UV flux is difficult to infer~\citep[e.g.,][]{Richey-Yowell2023}, the estimated maximum \gls{NUV} flux that a planet was exposed to may be used as a proxy.
@@ -470,9 +470,8 @@ Since the practical implementation of an exoplanet survey can stand in the way o
 % Is this what you end up looking at using BIOVERSE ? If so, then that should flow nicely with the rest.
 
 
-\subsection{Constraining power for the origins of life as a function of biosignature location}
+\subsection{Constraining power for the origins of life as a function of biosignature location} % corresponds to conclusion point 2
 \todo[inline]{How does the location of biosignature detections impact the credibility of OOL scenarios?}
-\todo[inline]{biosignature on M~dwarf planet vs. FGK: Impact on UV flux requirement?}
 It comes to no surprise that the success rate of such a test is sensitive to the sample size of the survey and to the occurrence of life on temperate exoplanets.
 As we have shown, the statistical power of this test also depends on the distribution of past \gls{NUV} fluxes in the sample and on the required threshold flux.
 Optimizing the survey to sample a wide range of NUV flux values, particularly at the extremes, can enhance the likelihood of obtaining strong evidence for or against the hypothesis.
@@ -495,7 +494,7 @@ A lack of biosignatures on these planets would support the UV~hypothesis, wherea
 
 
 
-\subsection{Contextual support for potential biosignature detections}
+\subsection{Contextual support for potential biosignature detections} % corresponds to ... which conclusion?
 \todo[inline]{discuss how planetary context may impact credibility of tentative biosignature detections (e.g., if there is a good fit with a predicted OOL pattern; or the opposite: the planetary context does not fit well to any OOL scenarios)}
 As we have shown in Section~\ref{sec:results}, the interplay of \gls{NUV} evolution and \gls{HZ} occupancy strongly favors late spectral types for abiogenesis via the cyanosulfidic scenario.
 This strong predicted correlation between stellar spectral type and the occurrence of life can be used to falsify \gls{ool} scenarios.
@@ -532,10 +531,10 @@ Our main findings are:
     \item Under the UV hypothesis, the fraction of inhabited planets in a transit survey is sensitive to the threshold \gls{NUV} flux and is expected to drop sharply for required fluxes above a few hundred~\SI{}{\erg\per\second\per\centi\meter\squared}.
     \item If the predicted UV~correlation exists, obtaining strong evidence for the hypothesis is likely ($\gtrsim \SI{80}{\percent}$) for sample sizes $\geq 100$ if the abiogenesis rate is high ($\gtrsim \SI{50}{\percent}$) and if no very high \gls{NUV} fluxes are required.
     A survey strategy that targets extreme values of inferred past \gls{NUV} irradiation increases the diagnostic power.
-    \item Samples of planets orbiting M~dwarfs overall yield higher chances of successfully testing the \gls{NUV} hypothesis.
+    \item Samples of planets orbiting M~dwarfs overall yield higher chances of successfully testing the UV~hypothesis.
         Leaving other factors aside, they are also more likely to yield biosignature detections under this hypothesis.
 
-%    \item Abiogenesis in the cyanosulfidic scenario prefers late host star spectral types due to the higher \gls{NUV} fluxes in their habitable zones. However, due to a wider distribution of maximum past \gls{NUV} fluxes in the \gls{HZ} of FGK stars, a transit survey targeting FGK systems is more likely to obtain strong evidence for or against the \gls{NUV} hypothesis.
+%    \item Abiogenesis in the cyanosulfidic scenario prefers late host star spectral types due to the higher \gls{NUV} fluxes in their habitable zones. However, due to a wider distribution of maximum past \gls{NUV} fluxes in the \gls{HZ} of FGK stars, a transit survey targeting FGK systems is more likely to obtain strong evidence for or against the UV~hypothesis.
 
 %     in a sample of transiting planets. Any potential biosignature detection on a planet around a star other than an M~dwarf would disvafor this scenario and any other \gls{ool} theory requiring extended periods of high \gls{NUV} irradiation.
 \end{enumerate}
