@@ -324,7 +324,7 @@ In the majority of cases, the outcome of the survey will be inconclusive.
         \label{fig:semian_true_evidence}
     \end{centering}
 \end{figure*}
-The situation improves with larger samples: for $n = \var{semian_Nsamp2}$, \SI{80}{\percent} \textcolor{red}{of random samples permit conclusive inference (strong true evidence)} under either $H_\mathrm{1}$ or $H_\mathrm{null}$.
+The situation improves with larger samples: for $n = \var{semian_Nsamp2}$, \SI{80}{\percent} of random samples permit conclusive inference (strong true evidence) under either $H_\mathrm{1}$ or $H_\mathrm{null}$.
 
 The expected resulting evidence further depends on the a priori unknown abiogenesis rate $f_\mathrm{life}$ and on the \gls{NUV} flux threshold.
 \begin{figure*}
@@ -343,9 +343,8 @@ Larger sample sizes enable this at lower values of these parameters.
 So far, we have assumed random, uniform distributions of $f_\mathrm{life}$, $F_\mathrm{NUV, min}$, and $F_\mathrm{NUV}$. % Actually it is more than just NUV, it is whatever index that integrates NUV and HZ requiremetns into a single scalar variable for which a threshold exist
 A high biosignature detection rate $f_\mathrm{life}$ increases the evidence (cmp. Equation~\ref{eq:bayes_factor}) but we cannot influence it.
 The same is true for $F_\mathrm{NUV, min}$, where again higher values increase the evidence as the binomial distribution for $H_\mathrm{1}$ gets increasingly skewed and shifted away from the one for $H_\mathrm{null}$.
-The distribution of $F_\mathrm{NUV}$ in the planet sample, on the other hand, can be influenced by the survey strategy.
-\textcolor{red}{For instance, one might `cherry-pick' exoplanets for which a biosignature test is performed based on information that is available \textit{a priori} such as \gls{NUV} \citep[generally referred to as `planetary context';][]{catling2018exoplanet} as to maximize the science yield of performing additional observation of exoplanets.}
-A targeted sampling approach could be to favor extreme values of $F_\mathrm{NUV}$ in the sample selection.
+However, one might `cherry-pick' exoplanets for which a biosignature test is performed based on \textit{a priori} available contextual information~\citep{catling2018exoplanet} in order to maximize the science yield of investing additional resources.
+For instance, the distribution of $F_\mathrm{NUV}$ in the planet sample can be influenced by the survey strategy, and a targeted sampling approach could favor extreme values.% of $F_\mathrm{NUV}$ in the sample selection.
 Figure~\ref{fig:semian_selectivity} shows how the probability of obtaining true strong evidence for $H_\mathrm{1}$ scales with selectivity $s$, where $s\in]-1,1[$ such that $F_\mathrm{NUV} \sim Beta(1/10^s,1/10^s)$.
 Here, $s=0$ corresponds to a random uniform distribution.
 Compared to this case, a high selectivity can increase the probability of obtaining true strong evidence to $\gtrsim \SI{85}{\percent}$ for large samples.
