@@ -51,21 +51,20 @@ def run_simulation(nuv_thresh, n_planets, star_type, seed, generator_kwargs):
 def simulate(transiting=True):
     # set_params
     n_planets = 500   # maximum number of planets to sample
-    # n_nuv_thresholds = 10
-    n_nuv_thresholds = 7
-    # n_simulations_per_threshold = 10
-    n_simulations_per_threshold = 4
+    n_nuv_thresholds = 13
+    # n_nuv_thresholds = 7
+    n_simulations_per_threshold = 10
+    # n_simulations_per_threshold = 4
 
     # nuv_thresholds = np.geomspace(30.0, 3000.0, n_nuv_thresholds)
     # nuv_thresholds = np.geomspace(200.0, 600.0, n_nuv_thresholds)
     nuv_thresholds = np.linspace(10.0, 800.0, n_nuv_thresholds)
     # f_life = 1.0
 
-    # DEBUG
     generator_kwargs = {
     # 'f_life' : 0.8,
     'f_life' : 1.0,
-    'deltaT_min' : 1., # Myr. Smaller values seems so slightly enhance #inhabited planets in the FGK sample.
+    'deltaT_min' : 10., # Myr. Smaller values seems so slightly enhance #inhabited planets in the FGK sample.
 
     # increase sample size
     'f_eta' : 15,
@@ -155,6 +154,8 @@ def plot_results():
     ax.set_ylabel("Fraction of inhabited planets")
     # ax.set_xscale("log")
     # ax.set_title("Fraction of Inhabited Planets vs. NUV Threshold")
+    ax.set_xlim(left=-8)
+    ax.set_ylim(bottom=-0.015)
     ax.legend()
     fig.show()
     fig.savefig(paths.figures / "inhabited_aafo_nuv_thresh.pdf")
