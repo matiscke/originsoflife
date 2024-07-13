@@ -180,25 +180,22 @@ We then evaluated the fraction of Monte Carlo runs in which certain evidence thr
 
 \subsection{Exoplanet survey simulations with Bioverse}
 A real exoplanet survey will be subject to observational biases, sample selection effects, and the underlying demographics of the planet sample.
-To assess the information gain of a realistic exoplanet survey, we employed Bioverse~\citep{Bixel2021}, a framework that integrates multiple components including statistically realistic simulations of exoplanet populations, a survey simulation module, and a Bayesian hypothesis testing module to evaluate the statistical power of different observational strategies.
+To assess the information gain of a realistic exoplanet survey, we employed Bioverse~\citep{Bixel2021}, a framework that integrates multiple components including statistically realistic simulations of exoplanet populations, a survey simulation module, and a hypothesis testing module to evaluate the statistical power of different observational strategies.
 The general approach is as follows:
 \begin{enumerate}
 \item \textbf{Exoplanet population synthesis:} We populate the Gaia Catalogue of Nearby Stars~\citep{Smart2021} with synthetic exoplanets whose orbital parameters and planetary properties reflect our current understanding of exoplanet demographics~\citep{Bergsten2022}.
     \item \textbf{Survey simulation:} We simulate the detection and characterization of these exoplanets with a hypothetical survey, taking into account the survey's sensitivity, target selection, and observational biases.
 To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we conduct survey simulations with Bioverse using different sample sizes and survey strategies.
-    \item \textbf{Hypothesis testing:} We employ Bayesian statistical methods to evaluate the likelihood that a given survey would detect a specified statistical trend in the exoplanet population and estimate the precision with which the survey could constrain the parameters of that trend.
+    \item \textbf{Hypothesis testing:} We evaluate the likelihood that a given survey would detect a specified demographic trend in the exoplanet population and estimate the precision with which the survey could constrain the parameters of that trend.
     A common definition of the null hypothesis $H_0$, which is also applied here, is that there is no relationship between the independent variable (here: maximum NUV flux) and the dependent variable (here: biosignature occurrence).
-    The alternative hypothesis $H_1$ proposes a specific relationship parameterized by $\theta$.
-    If the dependent variable is of binary nature such as in the case of biosignature detections, we model the likelihood function as
-    \begin{equation}
-\mathcal{L}(y \mid \boldsymbol{\theta})=\prod_i^N\left[y_i h\left(\boldsymbol{\theta}, x_i\right)+\left(1-y_i\right)\left(1-h\left(\boldsymbol{\theta}, x_i\right)\right)\right],
-\end{equation}
-where here $y_i \in \{0,1\}$ is the biosignature detection variable, $x_i$ is the maximum NUV flux, and $h(\boldsymbol{\theta}, x_i)$ is the probability of detecting a biosignature given the maximum NUV flux and the model parameters $\boldsymbol{\theta}$.
-We then use a nested sampling method~\citep{Speagle2020} to compute the Bayesian evidence for the null and alternative hypotheses and estimate the strength of evidence for the alternative hypothesis.
+%    The alternative hypothesis $H_1$ proposes a specific relationship parameterized by $\theta$.
+    The alternative hypothesis $H_1$ proposes a specific relationship between the independent and dependent variables.
+    Bioverse offers either Bayesian model comparison or non-parametric tests to evaluate the evidence for or against the null hypothesis.
 
 To determine the diagnostic capability of a given survey, Bioverse runs multiple iterations of the simulated survey and calculates the fraction of realizations that successfully reject the null hypothesis.
 We use this metric, known as the statistical power, to quantify the potential information content of the survey, identify critical design trades, and find strategies that maximize the survey's scientific return.
-The posterior samples obtained from the nested sampling runs further allows us to estimate the precision with which the survey could constrain the parameters of the hypothesized trend.
+% TODO: IF INFERENCE: add:
+%The posterior samples obtained from the nested sampling runs further allows us to estimate the precision with which the survey could constrain the parameters of the hypothesized trend.
 \end{enumerate}
 
 
@@ -252,7 +249,8 @@ and the corresponding null hypothesis
 $H_\mathrm{null} : P(\mathrm{bio}) = f_\mathrm{life},$
 %\end{equation}
 i.e., no correlation with UV flux.
-Our choice of priors was to sample $f_\mathrm{life}$ from a log-uniform distribution between $10^{-3}$ and $1$ and $F_\mathrm{NUV, min}$ from a log-uniform distribution between $10^{1}$ and $10^{5}$.
+% TODO: IF INFERENCE: add:
+%Our choice of priors was to sample $f_\mathrm{life}$ from a log-uniform distribution between $10^{-3}$ and $1$ and $F_\mathrm{NUV, min}$ from a log-uniform distribution between $10^{1}$ and $10^{5}$.
 
 \begin{figure}
     \script{inhabited_FGKM.py}
@@ -398,7 +396,10 @@ All injected biosignatures are assumed to be detected, and the maximum \gls{NUV}
     \end{centering}
 \end{figure*}
 This leads to a distribution of biosignature detections with detections increasingly occurring above a threshold inferred NUV flux.
-In this example case, the few biosignature detections in the FGK sample lead to a higher evidence ($dlnZ_\mathrm{FGK} = \var{dlnZ_FGK}$) than in the M dwarf sample ($dlnZ_\mathrm{M} = \var{dlnZ_M}$), where the majority of planets are above the threshold \gls{NUV} flux.
+In this example case, the few biosignature detections in the FGK sample lead to a higher evidence %($dlnZ_\mathrm{FGK} = \var{dlnZ_FGK}$)
+than in the M dwarf sample%($dlnZ_\mathrm{M} = \var{dlnZ_M}$)
+, where the majority of planets are above the threshold \gls{NUV} flux.
+
 
 \begin{figure}
     \script{inhabited_aafo_nuv_thresh.py}
