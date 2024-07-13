@@ -13,6 +13,8 @@ from scipy import stats
 import numpy as np
 
 def normalize_data(data):
+    """Center, reduce, and scale data to [0, 1] range."""
+    data = (data - data.mean()) / data.std()
     min_val = data.min()
     max_val = data.max()
     return (data - min_val) / (max_val - min_val)
@@ -24,11 +26,11 @@ def plot_nuv_distribution(sample, data, fig, ax, spt):
 
     # force-fit a beta distribution to our NUV_max
     # max_likeli = stats.beta.fit(dataa.max_nuv, method='MLE')
-    max_likeli = stats.beta.fit(normalized_data, method="MM")
-    print(f"fit parameters: {max_likeli}")
+    max_likeli_norm = stats.beta.fit(normalized_data, method="MM")
+    print(f"fit parameters: {max_likeli_norm}")
 
     # estimate selectivity from average of fitted beta function parameters
-    selectivity = np.log10(1 / (np.mean(max_likeli[:2])))
+    selectivity = np.log10(1 / (np.mean(max_likeli_norm[:2])))
     save_var_latex("selectivity_{}".format(spt), round(selectivity, 1))
     print(f"selectivity ~ {selectivity:.2f}")
 
@@ -72,4 +74,5 @@ for spt, ax in zip(['FGK', 'M'], axs):
     fig, ax = plot_nuv_distribution(sample, data, fig, ax, spt)
     ax.set_title(f"{spt}-type host stars")
 
+plt.show()
 fig.savefig(paths.figures / "nuv_distribution.pdf")
