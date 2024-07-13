@@ -358,7 +358,7 @@ Compared to this case, a high selectivity can increase the probability of obtain
 
 
 
-\subsection{Survey simulations with Bioverse}
+\subsection{Survey simulations with Bioverse}\label{sec:results-bioverse}
 
 In a magnitude- and volume-limited sample of a transit survey, the host star distribution will be skewed toward later spectral types and dominated by M~dwarfs (see Figure~\ref{fig:inhabited_FGKM}).
 Due to how the \gls{HZ} scales with spectral type, by far most transiting \glspl{EEC} occur around M~dwarfs.
@@ -503,10 +503,14 @@ This not only calls for a large sample size and a targeted sample selection pref
 
 \subsection{Contextual support for potential biosignature detections} % corresponds to ... which conclusion?
 \todo[inline]{discuss how planetary context may impact credibility of tentative biosignature detections (e.g., if there is a good fit with a predicted OOL pattern; or the opposite: the planetary context does not fit well to any OOL scenarios)}
-As we have shown in Section~\ref{sec:results}, the interplay of \gls{NUV} evolution and \gls{HZ} occupancy strongly favors late spectral types for abiogenesis via the cyanosulfidic scenario.
-This strong predicted correlation between stellar spectral type and the occurrence of life can be used to falsify \gls{ool} scenarios.
-The constraint of this context is particularly strong if a candidate biosignature is detected on a planet orbiting an earlier type star, i.e., where it is unexpected in the context of this \gls{ool} scenario.
+The predicted interplay of \gls{NUV} flux and \gls{HZ} occupancy in enabling abiogenesis via the cyanosulfidic scenario could in principle be used to add or remove credibility from a tentative biosignature detection.
+For example, with a strong believe that this scenario is the only viable one for the origins of life, a biosignature detection on a planet orbiting a strongly UV-radiating star may add credibility to the detection.
+Conversely, a biosignature detection on a planet estimated to have received very little UV~radiation would increase the likelihood of a false positive detection.
+On the other hand, should the detection in the latter case be confirmed, it could be used to falsify the UV~hypothesis.
 
+Unfortunately, our simulations do not yield a clear criterion for the credibility of a biosignature detection based on spectral type of the host star, as both FGK and M~dwarf samples show similar maximum past \gls{NUV} flux distributions.
+The abiogenesis rate in both samples show similar trends with the threshold \gls{NUV} flux, and the fraction of inhabited planets drops at similar threshold fluxes (see Section~\ref{sec:results-bioverse}).
+A potentially inhabited planet's host star spectral type may thus not be a strong indicator for the credibility of a biosignature detection in the context of the UV~hypothesis.
 
 
 \subsection{Caveats}
@@ -514,12 +518,6 @@ The constraint of this context is particularly strong if a candidate biosignatur
 Theoretical work suggests that the atmosphere of prebiotic Earth was largely transparent at near-UV wavelengths with the only known source of attenuation being Rayleigh scattering~\citep{Ranjan2017,Ranjan2017c}.
 We thus approximated surface UV flux using top-of-atmosphere fluxes.
 This represents a conservative approach, since any planet that fails to meet the irradiance criterion receives even lower near-UV radiation at its surface. \todo[inline]{SUKRIT please specify as neccessary}
-
-\subsubsection{Stellar flares}
-Our assumptions on past UV flux neglect the contribution of stellar flares, which may be hypothesized as an alternative source of UV light~\citep{Ranjan2017}.
-This concerns mainly ultracool dwarfs, due to their low quiescent emission and high pre-main sequence stellar activity~\citep{Buccino2007,West2008}.
-Recent work indicates that the majority of stars show inadequate activity levels for a sufficient contribution through flares~\citep{Glazier2020,Ducrot2020,Guenther2020}.
-The biosignature surveys we simulated here may test the hypothesis of sufficient UV radiation via stellar flares.
 
 %\subsubsection{Diurnal cycles}
 %\todo[inline]{We assume that tidal locking implies that there are no wet-dry cycles. Challenge this assumption.}
