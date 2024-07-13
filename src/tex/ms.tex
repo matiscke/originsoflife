@@ -297,6 +297,12 @@ To marginalize over choices of biosignatures and their detectability, which are 
 %\subsubsubsection{target list}
 %\todo[inline]{Provisional stellar target List for the habitable Worlds Observatory:~\citep{Mamajek2023}} % read like in https://github.com/mkenworthy/HWObows/tree/40b1e5f2bc2bbbe8c999b097c80ca5a8cda0aeae/src/scripts
 
+\subsubsection{Hypothesis testing}
+To evaluate the evidence for correctly rejecting the null hypothesis, we employed the Mann-Whitney U test~\citep{Mann1947}.
+This is a non-parametric test to determine whether two independent samples were drawn from a population with the same distribution and is in particular sensitive to one sample being stochastically greater than the other.
+We used the Mann-Whitney U test to compare the distributions of \gls{NUV} fluxes of planets with and without biosignatures.
+The implementation in Bioverse relies on the \texttt{scipy.stats.mannwhitneyu} function~\citep{Virtanen2020} and returns a two-tailed p-value, for which we set a significance level of $\alpha = 0.05$ to reject the null hypothesis.
+For every hypothesis test, we repeated randomized survey realizations to estimate the fraction of successful rejections of the null hypothesis, i.e., the statistical power of the survey.
 
 
 \section{Results}
