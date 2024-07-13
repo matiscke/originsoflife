@@ -415,7 +415,7 @@ Another effect responsible for this drop is that some planets receive the requir
 For the FGK sample, the fraction of inhabited planets drops at lower threshold fluxes than for the M dwarf sample.
 
 
-\subsubsection{Statistical power for a transit survey and sensitivity on astrophysical parameters}
+\subsubsection{Statistical power for a transit survey and sensitivity on astrophysical parameters}\label{sec:results-powergrid}
 We now investigate the sensitivity of the achieved statistical power of our default transit survey to the a priori unconstrained threshold \gls{NUV} flux $F_\mathrm{NUV, min}$ and the abiogenesis rate $f_\mathrm{life}$.
 Figure~\ref{fig:powergrid} shows the statistical power as a function of these parameters for a sample size of $N=\var{N_nautilus}$.
 Values of $F_\mathrm{NUV, min}$ that lie between the extrema of the inferred maximum \gls{NUV} flux increase the achieved statistical power of the survey, as in this case the dataset under the alternative hypothesis $H_1$ differs more from the null hypothesis.
@@ -512,6 +512,18 @@ Unfortunately, our simulations do not yield a clear criterion for the credibilit
 The abiogenesis rate in both samples show similar trends with the threshold \gls{NUV} flux, and the fraction of inhabited planets drops at similar threshold fluxes (see Section~\ref{sec:results-bioverse}).
 A potentially inhabited planet's host star spectral type may thus not be a strong indicator for the credibility of a biosignature detection in the context of the UV~hypothesis.
 
+\subsection{Overall prospects for testing the UV hypothesis} % corresponds to conclusion point 4
+Our results show that the UV hypothesis is testable with upcoming exoplanet surveys, but that the success of such a test depends on the sample size, the distribution of past \gls{NUV} fluxes, and several unknown astrophysical nuisance parameters.
+Even under idealized conditions, obtaining strong evidence for or against the hypothesis likely requires sample sizes on the order of 100 (see Section~\ref{sec:results-semianalytical}).
+This is true for a future transit survey, the specifics of which we have reflected in our Bioverse simulations (see Section~\ref{sec:results-bioverse}).
+However, we have shown that the impacts from the combined requirements of the UV~hypothesis on the fraction of inhabited planets in a sample are comparable in the non-transiting case.
+The likely required sample sizes are larger than the projected sample sizes of most planned missions; for example the \gls{HWO} expects to characterize a sample of only $\sim 25$ Earth analogs~\citep{Mamajek2023,Tuchow2024}.
+
+Meaningful tests of the UV hypothesis may thus require a different survey strategy that increases the sample of characterized planets.
+Such concepts, like the Nautilus mission~\citep{Apai2019,Apai2022}, which aims to characterize up to $\sim 1000$ rocky planets via utilizing an innovative telescope design, are only appearing on the horizon.
+Constraints on the origins of life from exoplanet surveys may thus be a long-term endeavor, and the UV hypothesis may not be testable yet with the current and next generation of exoplanet surveys.
+In the meantime, it is important to refine predictions on the role of UV radiation in prebiotic chemistry with both theoretical and experimental work.
+
 
 \subsection{Caveats}
 Our work is based on a number of assumptions and simplifications that may affect the results and conclusions.
@@ -527,7 +539,6 @@ However, recent work indicates that the majority of stars show inadequate activi
 Theoretical work suggests that the atmosphere of prebiotic Earth was largely transparent at near-UV wavelengths with the only known source of attenuation being Rayleigh scattering~\citep{Ranjan2017,Ranjan2017c}.
 We thus approximated surface UV flux using top-of-atmosphere fluxes.
 This represents a conservative approach, since any planet that fails to meet the irradiance criterion receives even lower near-UV radiation at its surface. \todo[inline]{SUKRIT please specify as neccessary}
-
 %\subsubsection{Diurnal cycles}
 %\todo[inline]{We assume that tidal locking implies that there are no wet-dry cycles. Challenge this assumption.}
 
@@ -553,8 +564,8 @@ Our main findings are:
 %     in a sample of transiting planets. Any potential biosignature detection on a planet around a star other than an M~dwarf would disvafor this scenario and any other \gls{ool} theory requiring extended periods of high \gls{NUV} irradiation.
 \end{enumerate}
 
-Overall, our work demonstrates that upcoming exoplanet surveys have the potential to test the hypothesis that a minimum past \gls{NUV} flux is required for abiogenesis.
-More generally, we found that models of the origins of life provide hypotheses that may be testable with near-future exoplanet surveys.
+Overall, our work demonstrates that future exoplanet surveys have the potential to test the hypothesis that a minimum past \gls{NUV} flux is required for abiogenesis.
+More generally, we found that models of the origins of life provide hypotheses that may be testable with these surveys.
 Conducting realistic survey simulations with representative samples is key to making accurate predictions, developing the optimal survey strategy, and increasing science return.
 Our work highlights the importance of understanding the context in which a biosignature detection is made, which can not only help to assess the credibility of the detection but also to test competing theories of the origins of life on Earth and beyond.
 
