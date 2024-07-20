@@ -106,8 +106,8 @@ def plot_nuv_distribution(sample, data, fig, ax, spt):
 
     ax.set_xlabel("max. NUV irradiance $F_\mathrm{NUV, max}$ [erg/s/$cm^2$]")
     ax.set_ylabel("Probability density")
-    if spt == "M":
-        ax.legend(title=None)
+    # if spt == "M":
+    #     ax.legend(title=None)
 
     # ax.text(
     #     0.97,
@@ -144,23 +144,25 @@ def plot_detections_uv(eec, fig, ax, NUV_thresh, ylabel=True):
     return fig, ax
 
 
-fig = plt.figure(figsize=(10, 8))
+fig = plt.figure(figsize=(10, 10))
 
-gs = gridspec.GridSpec(3, 2, height_ratios=[0.38, 0.38, 0.24])
+gs = gridspec.GridSpec(3, 2, height_ratios=[0.38, 0.38, 0.15])
 
 ax0 = fig.add_subplot(gs[0, 0])  # First row, first column
 ax1 = fig.add_subplot(gs[0, 1], sharey=ax0)  # First row, second column
 ax2 = fig.add_subplot(gs[1, 0])  # Second row, first column
 ax3 = fig.add_subplot(gs[1, 1], sharey=ax2)  # Second row, second column
-ax4 = fig.add_subplot(gs[2, 0])  # Third row, first column
-ax5 = fig.add_subplot(gs[2, 1])  # Third row, second column
+ax4 = fig.add_subplot(gs[2, 0], sharex=ax3)  # Third row, first column
+ax5 = fig.add_subplot(gs[2, 1], sharex=ax3)  # Third row, second column
 
 # axs = [ax0, ax1, ax2, ax3, ax4, ax5]
 axs_left = [ax0, ax2, ax4]
 axs_right = [ax1, ax3, ax5]
 
-[ax.set_title("FGK-type hosts") for ax in axs_left]
-[ax.set_title("M-type hosts") for ax in axs_right]
+# [ax.set_title("FGK-type hosts") for ax in axs_left]
+# [ax.set_title("M-type hosts") for ax in axs_right]
+ax0.set_title("FGK-type hosts")
+ax1.set_title("M-type hosts")
 
 
 for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
@@ -171,19 +173,21 @@ for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
 
     # first row
     axlr[0] = plot_inhabited_FGKM(sample, fig, axlr[0])
-    axlr[0].text(
-        0.03,
-        0.88,
-        f"N = {len(sample)}",
-        transform=axlr[0].transAxes,
-        horizontalalignment="left",
-        color="0.2",
-    )
 
     if spt == "M":
         ylabel = False
-        axlr[0].legend(loc="center left", title=None)
+        # axlr[0].legend(loc="center left", title=None)
+        leg = axlr[0].legend(bbox_to_anchor=(1.07, .99), title=f"N = {len(sample)}", loc="lower right", frameon=False)
+        leg._legend_box.align = "left"
         axlr[0].set_xlabel("")
+        # axlr[0].text(
+        #     0.949,
+        #     1.6,
+        #     f"N = {len(sample)}",
+        #     transform=axlr[0].transAxes,
+        #     horizontalalignment="right",
+        #     color="0.2",
+        # )
     elif spt == "FGK":
         axlr[0].get_legend().remove()
         ylabel = True
@@ -201,5 +205,5 @@ for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
 [ax.set_yticklabels([]) for ax in axs_right]
 
 plt.tight_layout()
-# plt.subplots_adjust(hspace=0.5)  # Increase the height space between rows
+plt.subplots_adjust(hspace=0.7)  # Increase the height space between rows
 fig.savefig(paths.figures / "surveys_FGKM.pdf")
