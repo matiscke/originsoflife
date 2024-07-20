@@ -348,19 +348,19 @@ Compared to this case, a high selectivity can increase the probability of obtain
 
 
 \subsection{Survey simulations with Bioverse}\label{sec:results-bioverse}
-\begin{figure}
-    \script{inhabited_FGKM.py}
-    \begin{centering}
-        \includegraphics[width=\hsize]{figures/inhabited_FGKM}
-        \caption{Host stars of all transiting \glspl{EEC} and inhabited planets in a simulated transit survey.
-        In the FGK sample, most \glspl{EEC} and all inhabited planets orbit K~dwarfs.
-        In an M~dwarf sample of the same size, the fraction of inhabited planets is larger.
-        }
-        \label{fig:inhabited_FGKM}
-    \end{centering}
-\end{figure}
+%\begin{figure}
+%    \script{inhabited_FGKM.py}
+%    \begin{centering}
+%        \includegraphics[width=\hsize]{figures/inhabited_FGKM}
+%        \caption{Host stars of all transiting \glspl{EEC} and inhabited planets in a simulated transit survey.
+%        In the FGK sample, most \glspl{EEC} and all inhabited planets orbit K~dwarfs.
+%        In an M~dwarf sample of the same size, the fraction of inhabited planets is larger.
+%        }
+%        \label{fig:inhabited_FGKM}
+%    \end{centering}
+%\end{figure}
 In a magnitude- and volume-limited sample of a transit survey, the host star distribution for \glspl{EEC} will be skewed toward later spectral types and dominated by M~dwarfs due to how the \gls{HZ} scales with spectral type.
-For a fixed planet sample size, the fraction of inhabited planets is highest in the M~dwarf sample due to the higher \gls{NUV} fluxes in the \gls{HZ} of these stars (see Figure~\ref{fig:inhabited_FGKM}).
+For a fixed planet sample size, the fraction of inhabited planets is highest in the M~dwarf sample due to the higher \gls{NUV} fluxes in the \gls{HZ} of these stars (see Figure~\ref{fig:surveys_FGKM}).
 Their \gls{NUV} fluxes are generally highest at early times $\lesssim\SI{100}{\mega\year}$.
 These host stars, in particular late subtypes, also provide extended periods of increased \gls{NUV} emission that overlap with times when some of these planets occupy the \gls{HZ} (see Figure~\ref{fig:hz_nuv_evo}), our requirement for abiogenesis (compare Equation~\ref{eq:hypothesis-uv}).
 %Because of that, most inhabited planets in our magnitude- and volume-limited sample orbit M~dwarfs.
@@ -371,31 +371,49 @@ We further investigate the sensitivity of the survey to the a priori unknown thr
 
 \subsubsection{Selectivity of simulated transit surveys}
 In Section~\ref{sec:results-semianalytical}, we demonstrated that the probability of obtaining true strong evidence for the hypothesis that life only originates on planets with a minimum past \gls{NUV} flux is sensitive to the distribution of sampled past \gls{NUV} fluxes, i.e., the selectivity of the survey (compare Figure~\ref{fig:semian_selectivity}).
-%The maximum \gls{NUV} distribution of our generic transit survey is rather unimodal with a median around \SI{500}{\erg\per\second\per\centi\meter\squared} (see Figure~\ref{fig:nuv_distribution}), leading to a selectivity of roughly \var{selectivity_transit_volumelim}.
+%The maximum \gls{NUV} distribution of our generic transit survey is rather unimodal with a median around \SI{500}{\erg\per\second\per\centi\meter\squared} (see Figure~\ref{fig:surveys_FGKM}), leading to a selectivity of roughly \var{selectivity_transit_volumelim}.
 For both surveys targeting M dwarfs and those targeting FGK dwarfs, the maximum \gls{NUV} distribution is rather unimodal.
-Applying the approach from Sect.~\ref{sec:results-semianalytical} of fitting a Beta function to the distribution, we find rather low selectivities (see Figure~\ref{fig:nuv_distribution}).
+Applying the approach from Sect.~\ref{sec:results-semianalytical} of fitting a Beta function to the distribution, we find rather low selectivities (see Figure~\ref{fig:surveys_FGKM}).
+%\begin{figure*}
+%    \script{nuv_distribution.py}
+%    \begin{centering}
+%        \includegraphics[width=\hsize]{figures/nuv_distribution}
+%        \caption{Distribution of maximum past \gls{NUV} flux in transit surveys targeting \glspl{EEC} around FGK and M~stars, respectively. The best-fit beta distributions (gray) correspond to selectivities of $s_\mathrm{FGK} = $\var{selectivity_FGK} and $s_\mathrm{M} = $\var{selectivity_M}. Red areas show inhabited planets for a threshold \gls{NUV} flux of $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$ and an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$.}
+%        \label{fig:nuv_distribution}
+%    \end{centering}
+%\end{figure*}
+
 \begin{figure*}
-    \script{nuv_distribution.py}
+    \script{surveys_FGKM.py}
     \begin{centering}
-        \includegraphics[width=\hsize]{figures/nuv_distribution}
-        \caption{Distribution of maximum past \gls{NUV} flux in transit surveys targeting \glspl{EEC} around FGK and M~stars, respectively. The best-fit beta distributions (gray) correspond to selectivities of $s_\mathrm{FGK} = $\var{selectivity_FGK} and $s_\mathrm{M} = $\var{selectivity_M}. Red areas show inhabited planets for a threshold \gls{NUV} flux of $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$ and an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$.}
-        \label{fig:nuv_distribution}
+        \includegraphics[width=\hsize]{figures/surveys_FGKM}
+        \caption{
+        Simulated transit surveys targeting FGK and M~stars.\\
+        Top: Host stars of all transiting \glspl{EEC} and inhabited planets in a simulated transit survey.
+        In the FGK sample, most \glspl{EEC} and all inhabited planets orbit K~dwarfs.
+        In an M~dwarf sample of the same size, the fraction of inhabited planets is larger.\\
+        Center: Distribution of maximum past \gls{NUV} flux in transit surveys targeting \glspl{EEC} around FGK and M~stars, respectively. The best-fit beta distributions (gray) correspond to selectivities of $s_\mathrm{FGK} = $\var{selectivity_FGK} and $s_\mathrm{M} = $\var{selectivity_M}. Green areas show inhabited planets for an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$ and a generic threshold \gls{NUV} flux $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.\\
+        Bottom: Recovered biosignature detections ($\checkmark$) and non-detections ($\oslash$) of simulated transit surveys. The dashed line denotes $F_\mathrm{NUV, min}$.}
+        \label{fig:surveys_FGKM}
     \end{centering}
 \end{figure*}
+
+
+
 
 
 \subsubsection{Expected biosignature pattern in a transit survey}
-A representative recovery of the injected biosignature pattern is shown in Figure~\ref{fig:detections_uv}.
+A representative recovery of the injected biosignature pattern is shown in Figure~\ref{fig:surveys_FGKM}.
 There, we assumed an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$ and a minimum \gls{NUV} flux of $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.
 All injected biosignatures are assumed to be detected, and the maximum \gls{NUV} flux is estimated from the host star's spectral type and age with an uncertainty corresponding to the intrinsic scatter in the \gls{NUV} fluxes in \citet{Richey-Yowell2023}.
-\begin{figure*}
-    \script{detections_uv.py}
-    \begin{centering}
-        \includegraphics[width=\hsize]{figures/detections_uv}
-        \caption{Recovered biosignature detections in the \gls{NUV} flux-biosignature occurrence space. The dashed line denotes a generic threshold \gls{NUV} flux $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.}
-        \label{fig:detections_uv}
-    \end{centering}
-\end{figure*}
+%\begin{figure*}
+%    \script{detections_uv.py}
+%    \begin{centering}
+%        \includegraphics[width=\hsize]{figures/detections_uv}
+%        \caption{Recovered biosignature detections in the \gls{NUV} flux-biosignature occurrence space. The dashed line denotes a generic threshold \gls{NUV} flux $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.}
+%        \label{fig:detections_uv}
+%    \end{centering}
+%\end{figure*}
 This leads to a distribution of biosignature detections with detections increasingly occurring above a threshold inferred NUV flux.
 In this example case, the few biosignature detections in the FGK sample lead to a higher evidence %($dlnZ_\mathrm{FGK} = \var{dlnZ_FGK}$)
 than in the M dwarf sample%($dlnZ_\mathrm{M} = \var{dlnZ_M}$)
