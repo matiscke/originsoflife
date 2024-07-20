@@ -2,7 +2,7 @@ import dill
 import paths
 import plotstyle
 import seaborn as sns
-from src.scripts.utils import save_var_latex
+from src.scripts.utils import save_var_latex, read_var_latex
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 
@@ -121,14 +121,37 @@ def plot_nuv_distribution(sample, data, fig, ax, spt):
     return fig, ax
 
 
+def plot_detections_uv(eec, fig, ax, NUV_thresh, ylabel=True):
+    eec = eec.to_pandas()
+    eec["has_O2"] = eec["has_O2"].astype('bool')
+    ax.scatter(eec[~eec.has_O2]["max_nuv"], eec[~eec.has_O2]["has_O2"], s=9.0, color="dimgray")
+    ax.scatter(eec[eec.has_O2]["max_nuv"], eec[eec.has_O2]["has_O2"], s=9.0, color="C1")
+    ax.axvline(x=float(NUV_thresh), linestyle="--", color="grey")
+    ax.set_yticks([0, 1])
+    # ax.set_xlim([0,10])
+    if ylabel:
+        ax.set_yticklabels(["$\oslash$", "$\checkmark$"], fontsize=16)
+    else:
+        ax.set_yticklabels(["", ""], fontsize=16)
+        ax.set_yticks([])
+
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    # To turn off the bottom or left
+    # ax.spines['bottom'].set_visible(False)
+    ax.spines["left"].set_visible(False)
+    ax.set_xlabel("max. NUV irradiance [erg/s/$cm^2$]")
+    return fig, ax
+
+
 fig = plt.figure(figsize=(10, 8))
 
 gs = gridspec.GridSpec(3, 2, height_ratios=[0.38, 0.38, 0.24])
 
 ax0 = fig.add_subplot(gs[0, 0])  # First row, first column
-ax1 = fig.add_subplot(gs[0, 1])  # First row, second column
+ax1 = fig.add_subplot(gs[0, 1], sharey=ax0)  # First row, second column
 ax2 = fig.add_subplot(gs[1, 0])  # Second row, first column
-ax3 = fig.add_subplot(gs[1, 1])  # Second row, second column
+ax3 = fig.add_subplot(gs[1, 1], sharey=ax2)  # Second row, second column
 ax4 = fig.add_subplot(gs[2, 0])  # Third row, first column
 ax5 = fig.add_subplot(gs[2, 1])  # Third row, second column
 
@@ -158,14 +181,24 @@ for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
     )
 
     if spt == "M":
+        ylabel = False
         axlr[0].legend(loc="center left", title=None)
         axlr[0].set_xlabel("")
     elif spt == "FGK":
         axlr[0].get_legend().remove()
+        ylabel = True
 
     # second row
     fig, axlr[1] = plot_nuv_distribution(sample, data, fig, axlr[1], spt)
 
+    # third row
+    fig, axlr[2] = plot_detections_uv(
+        data, fig, axlr[2], NUV_thresh=read_var_latex("NUV_thresh"), ylabel=ylabel
+    )
+
+# remove ylabel and tick labels from all right plots
+[ax.set_ylabel("") for ax in axs_right]
+[ax.set_yticklabels([]) for ax in axs_right]
 
 plt.tight_layout()
 # plt.subplots_adjust(hspace=0.5)  # Increase the height space between rows
