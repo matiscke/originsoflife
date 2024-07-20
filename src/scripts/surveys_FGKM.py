@@ -1,12 +1,16 @@
 import dill
-from matplotlib import pyplot as plt
-import matplotlib.gridspec as gridspec
-
 import paths
 import plotstyle
+import seaborn as sns
+from src.scripts.utils import save_var_latex
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+
+from scipy import stats
+import numpy as np
+
 plotstyle.styleplots()
 
-import seaborn as sns
 
 def plot_inhabited_FGKM(d, fig, ax):
     """Plot the distribution of inhabited planets in the FGKM diagram.
@@ -41,24 +45,80 @@ def plot_inhabited_FGKM(d, fig, ax):
 
     # g = sns.catplot(
     ax = sns.countplot(
-        dd, ax=ax, x="SpT",
+        dd,
+        ax=ax,
+        x="SpT",
         # kind="count",
-        hue="Category", order=['F', 'G', 'K', 'M'],
-        palette={"EEC": "dimgray", "inhabited": "C0", "non-EEC": "darkgray"}
-
+        hue="Category",
+        order=["F", "G", "K", "M"],
+        palette={"EEC": "dimgray", "inhabited": "C0", "non-EEC": "darkgray"},
     )  # , hue_order = [True, False])
     # ax.set_yscale("log")
 
     return ax
 
 
+def normalize_data(data):
+    """Center, reduce, and scale data to [0, 1] range."""
+    data = (data - data.mean()) / data.std()
+    min_val = data.min()
+    max_val = data.max()
+    return (data - min_val) / (max_val - min_val)
 
 
+def plot_nuv_distribution(sample, data, fig, ax, spt):
+    sample = sample.to_pandas()
+    dataa = data.to_pandas()
+    normalized_data = normalize_data(dataa.max_nuv)
 
+    # force-fit a beta distribution to our NUV_max
+    # max_likeli = stats.beta.fit(dataa.max_nuv, method='MLE')
+    max_likeli_norm = stats.beta.fit(normalized_data, method="MM")
+    print(f"fit parameters: {max_likeli_norm}")
 
+    # estimate selectivity from average of fitted beta function parameters
+    selectivity = np.log10(1 / (np.mean(max_likeli_norm[:2])))
+    save_var_latex("selectivity_{}".format(spt), round(selectivity, 1))
+    print(f"selectivity ~ {selectivity:.2f}")
 
+    # plot histogram and beta distribution fitted on non-normalized data
+    x = np.arange(0.0, 1000.0, 5)
 
+    # define bins for histogram
+    bins = np.linspace(0, 1000, 22)
 
+    max_likeli = stats.beta.fit(dataa.max_nuv, method="MM")
+    # ax.hist(dataa.max_nuv, density=True, color="C0")
+    ax.hist(
+        [dataa.max_nuv[sample.inhabited], dataa.max_nuv[~sample.inhabited]],
+        stacked=True,
+        density=True,
+        color=["C0", "dimgray"],
+        label=["inhabited", "EEC"],
+        bins=bins,
+    )
+    ax.plot(
+        x,
+        stats.beta.pdf(x, *max_likeli[:2], loc=max_likeli[2], scale=max_likeli[3]),
+        # c="0.4",
+        c="0.1",
+    )
+
+    ax.set_xlabel("max. NUV irradiance $F_\mathrm{NUV, max}$ [erg/s/$cm^2$]")
+    ax.set_ylabel("Probability density")
+    if spt == "M":
+        ax.legend(title=None)
+
+    # ax.text(
+    #     0.97,
+    #     0.85,
+    #     transform=ax.transAxes,
+    #     s="selectivity s = {:.1f}".format(selectivity),
+    #     horizontalalignment="right",
+    #     color="0.2",
+    # )
+
+    return fig, ax
 
 
 fig = plt.figure(figsize=(10, 8))
@@ -76,26 +136,35 @@ ax5 = fig.add_subplot(gs[2, 1])  # Third row, second column
 axs_left = [ax0, ax2, ax4]
 axs_right = [ax1, ax3, ax5]
 
-[ax.set_title('FGK-type hosts') for ax in axs_left]
-[ax.set_title('M-type hosts') for ax in axs_right]
+[ax.set_title("FGK-type hosts") for ax in axs_left]
+[ax.set_title("M-type hosts") for ax in axs_right]
 
 
 for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
     with open(paths.data / "pipeline/sample_{}.dll".format(spt), "rb") as f:
         sample = dill.load(f)
+    with open(paths.data / "pipeline/data_{}.dll".format(spt), "rb") as f:
+        data = dill.load(f)
 
     # first row
     axlr[0] = plot_inhabited_FGKM(sample, fig, axlr[0])
-    axlr[0].text(0.97, 0.9, f"N = {len(sample)}", transform=axlr[0].transAxes, horizontalalignment="right", color="0.2")
+    axlr[0].text(
+        0.03,
+        0.88,
+        f"N = {len(sample)}",
+        transform=axlr[0].transAxes,
+        horizontalalignment="left",
+        color="0.2",
+    )
 
     if spt == "M":
-        axlr[0].legend(loc='upper left', title=None)
-        axlr[0].set_xlabel('')
+        axlr[0].legend(loc="center left", title=None)
+        axlr[0].set_xlabel("")
     elif spt == "FGK":
         axlr[0].get_legend().remove()
 
-
-
+    # second row
+    fig, axlr[1] = plot_nuv_distribution(sample, data, fig, axlr[1], spt)
 
 
 plt.tight_layout()
