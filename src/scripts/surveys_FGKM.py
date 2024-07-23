@@ -104,7 +104,7 @@ def plot_nuv_distribution(sample, data, fig, ax, spt):
         c="0.1",
     )
 
-    ax.set_xlabel("max. NUV irradiance $F_\mathrm{NUV, max}$ [erg/s/$cm^2$]")
+    ax.set_xlabel("max. NUV irradiance [erg/s/cm$^2$]")
     ax.set_ylabel("Probability density")
     # if spt == "M":
     #     ax.legend(title=None)
@@ -123,8 +123,10 @@ def plot_nuv_distribution(sample, data, fig, ax, spt):
 
 def plot_detections_uv(eec, fig, ax, NUV_thresh, ylabel=True):
     eec = eec.to_pandas()
-    eec["has_O2"] = eec["has_O2"].astype('bool')
-    ax.scatter(eec[~eec.has_O2]["max_nuv"], eec[~eec.has_O2]["has_O2"], s=9.0, color="dimgray")
+    eec["has_O2"] = eec["has_O2"].astype("bool")
+    ax.scatter(
+        eec[~eec.has_O2]["max_nuv"], eec[~eec.has_O2]["has_O2"], s=9.0, color="dimgray"
+    )
     ax.scatter(eec[eec.has_O2]["max_nuv"], eec[eec.has_O2]["has_O2"], s=9.0, color="C1")
     ax.axvline(x=float(NUV_thresh), linestyle="--", color="grey")
     ax.set_yticks([0, 1])
@@ -140,7 +142,7 @@ def plot_detections_uv(eec, fig, ax, NUV_thresh, ylabel=True):
     # To turn off the bottom or left
     # ax.spines['bottom'].set_visible(False)
     ax.spines["left"].set_visible(False)
-    ax.set_xlabel("max. NUV irradiance [erg/s/$cm^2$]")
+    ax.set_xlabel("max. NUV irradiance [erg/s/cm$^2$]")
     return fig, ax
 
 
@@ -173,13 +175,18 @@ for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
 
     # first row
     axlr[0] = plot_inhabited_FGKM(sample, fig, axlr[0])
+    axlr[0].set_xlabel("Spectral Type")
 
     if spt == "M":
         ylabel = False
         # axlr[0].legend(loc="center left", title=None)
-        leg = axlr[0].legend(bbox_to_anchor=(1.07, .99), title=f"N = {len(sample)}", loc="lower right", frameon=False)
+        leg = axlr[0].legend(
+            bbox_to_anchor=(1.07, 0.99),
+            title=f"N = {len(sample)}",
+            loc="lower right",
+            frameon=False,
+        )
         leg._legend_box.align = "left"
-        axlr[0].set_xlabel("")
         # axlr[0].text(
         #     0.949,
         #     1.6,
@@ -202,7 +209,7 @@ for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
 
 # remove ylabel and tick labels from all right plots
 [ax.set_ylabel("") for ax in axs_right]
-[ax.set_yticklabels([]) for ax in axs_right]
+# [ax.set_yticklabels([]) for ax in axs_right]
 
 plt.tight_layout()
 plt.subplots_adjust(hspace=0.7)  # Increase the height space between rows
