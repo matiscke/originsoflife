@@ -48,13 +48,15 @@ def run_simulation(nuv_thresh, n_planets, star_type, seed, generator_kwargs):
     return fraction
 
 
-def simulate(transiting=True):
-    # set_params
-    n_planets = 500   # maximum number of planets to sample
-    n_nuv_thresholds = 13
-    # n_nuv_thresholds = 7
-    n_simulations_per_threshold = 10
-    # n_simulations_per_threshold = 4
+def simulate(transiting=True, debug=False):
+    if debug:
+        n_planets = 100 # maximum number of planets to sample
+        n_nuv_thresholds = 5
+        n_simulations_per_threshold = 3
+    else:
+        n_planets = 500 # maximum number of planets to sample
+        n_nuv_thresholds = 13
+        n_simulations_per_threshold = 10
 
     # nuv_thresholds = np.geomspace(30.0, 3000.0, n_nuv_thresholds)
     # nuv_thresholds = np.geomspace(200.0, 600.0, n_nuv_thresholds)
@@ -62,7 +64,6 @@ def simulate(transiting=True):
     # f_life = 1.0
 
     generator_kwargs = {
-    # 'f_life' : 0.8,
     'f_life' : 1.0,
     'deltaT_min' : 10., # Myr. Smaller values seems so slightly enhance #inhabited planets in the FGK sample.
 
@@ -162,11 +163,11 @@ def plot_results():
 
 
 @timeit
-def main():
+def main(debug):
     for transiting in [True, False]:
     # for transiting in [False]:
     # for transiting in [True]:
-    #     simulate(transiting)
+        simulate(transiting, debug)
         pass
     # DEBUG
     plot_results()
