@@ -99,7 +99,7 @@ def generate_generator(stars_only=False, **kwargs):
     for key, value in kwargs.items():
         g_args[key] = value
     g = Generator(label=None)
-    g.insert_step("read_stars_Gaia")
+    g.insert_step("create_stars_Gaia")
     if not stars_only:
         g.insert_step("create_planets_bergsten")
         g.insert_step("assign_orbital_elements")
@@ -346,20 +346,15 @@ def get_params_past_uv(hoststars="all", **kwargs):
         params_past_uv[key] = value
 
     if hoststars == "FGK":
-        # exclude other spectral types
+        # exclude other spectral types and scale for a 100 planet sample
         params_past_uv["SpT"] = ["F", "G", "K"]
-        params_past_uv["d_max"] = 125  # Gaia GCNS doesn't go further than 119 pc
-        params_past_uv[
-            "f_eta"
-        ] = 6.0  # scale to obtain 100 transiting EECs in the sample
+        params_past_uv["d_max"] = 200
+
 
     elif hoststars == "M":
         # only M dwarf hosts
         params_past_uv["SpT"] = ["M"]
-        params_past_uv["d_max"] = 42.5
-        params_past_uv[
-            "f_eta"
-        ] = 5.0  # scale to obtain 100 transiting EECs in the sample
+        params_past_uv["d_max"] = 55
 
     elif hoststars == "all":
         # default, volume-limited
