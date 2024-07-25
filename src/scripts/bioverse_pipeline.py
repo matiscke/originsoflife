@@ -367,6 +367,7 @@ def past_uv(
     hoststars="all",
     grid=True,
     N_grid=None,
+    N_planets=100,
     testmethod="mannwhitney",
     powergrid=False,
     fast=False,
@@ -443,8 +444,7 @@ def past_uv(
         # perform a single hypothesis test
 
         d = g.generate()
-        # keep only 100 planets
-        d = d[:100]
+        d = d[:N_planets]
 
         dd = d.to_pandas()
         print("Total number of planets: {}".format(len(d)))
