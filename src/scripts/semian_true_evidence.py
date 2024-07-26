@@ -127,9 +127,9 @@ def plot_true_evidence(ax):
         columnspacing=1.6,
     )
     ax.set_xscale("log")
-    ax.set_ylim(-.05, 1.05)
-    ax.set_ylabel("P(evidence>x)")
-    ax.set_xlabel("x")
+    ax.set_ylim(-0.05, 1.05)
+    ax.set_ylabel("$P(\mathrm{evidence} > x)$")
+    ax.set_xlabel("$x$")
 
     return ax
 
@@ -180,10 +180,10 @@ def plot_evidence_sampsize(ax, s_max=500):
     svec = np.arange(10,s_max)
     true_strong_evidence_p = [P_true_evidence(sampsize=s) for s in svec]
 
-    ax.plot(svec,true_strong_evidence_p)
-    ax.set_ylim(-.05, 1.05)
-    ax.set_ylabel('P($BF_{H_1, H_\mathrm{null}}$ > 10)')
-    ax.set_xlabel('Sample size')
+    ax.plot(svec, true_strong_evidence_p)
+    ax.set_ylim(-0.05, 1.05)
+    ax.set_ylabel("$P(BF_{H_1, H_\mathrm{null}} > 10$)")
+    ax.set_xlabel("Planet sample size")
 
     return ax
 
