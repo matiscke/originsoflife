@@ -72,7 +72,7 @@ def timeit(func):
 
         # Print formatted time
         print(
-            f"Processing time of {func.__qualname__}(): {int(hours):02}:{int(minutes):02}:{seconds:.0f}."
+            f"Processing time of {func.__qualname__}(): {int(hours):02}:{int(minutes):02}:{seconds:.0f}"
         )
         return result
 

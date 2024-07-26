@@ -86,7 +86,7 @@ def get_generator_args():
         # 'mr_relation' : 'Wolfgang2016',
         # 'mr_relation' : 'earthlike',
         # past HZ occupancy and NUV flux
-        "deltaT_min": 100.0,  # Myr
+        "deltaT_min": 10.0,  # Myr
         "NUV_thresh": 100.0,  # erg/s/cm2
     }
     return stars_args, planets_args
@@ -384,6 +384,8 @@ def past_uv(
         Whether to perform a grid of hypothesis tests.
     N_grid : int
         The number of grid points to use.
+    N_planets : int
+        The number of planets to generate.
     powergrid : bool
         Whether to run a grid of statistical power calculations.
     fast : bool
@@ -557,9 +559,8 @@ def main(fast=False, testmethod="mannwhitney"):
 
 
 if __name__ == "__main__":
-    # result = timeit.timeit("main()", number=1)
-    # main(fast=True)
-    main(fast=False)
+    # result = timeit(main())
+    result = timeit(main(fast=True))
 
 
 # # -----------------

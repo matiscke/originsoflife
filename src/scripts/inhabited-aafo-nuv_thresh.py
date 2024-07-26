@@ -44,7 +44,6 @@ def run_simulation(nuv_thresh, n_planets, star_type, seed, generator_kwargs):
         d = d.sample(n_planets, random_state=seed, replace=True)
 
     fraction = len(d[d["inhabited"]]) / len(d)
-    print(fraction)
     return fraction
 
 
@@ -163,7 +162,7 @@ def plot_results():
 
 
 @timeit
-def main(debug):
+def main(debug=False):
     for transiting in [True, False]:
     # for transiting in [False]:
     # for transiting in [True]:
@@ -175,3 +174,6 @@ def main(debug):
 
 if __name__ == "__main__":
     main()
+
+    # DEBUG
+    # main(debug=True)

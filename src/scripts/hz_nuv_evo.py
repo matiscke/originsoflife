@@ -48,7 +48,7 @@ def plot_interpolation(
     fig.colorbar(q, label=cbarlabel)
     ax.set_xscale("log")
     ax.set_xlabel("Time (Gyr)")
-    ax.set_ylabel("Stellar Mass ($M_\odot$)")
+    ax.set_ylabel("Stellar mass ($M_\odot$)")
     return ax
 
 
