@@ -12,6 +12,7 @@ from scipy import stats
 
 rng = np.random.default_rng(seed=42)
 
+
 def BFH1(k, theta, pi, theta_l):
     """
     Evidence for H1 against H0
@@ -31,30 +32,34 @@ def BFH1(k, theta, pi, theta_l):
     bf = stats.binom.pmf(k, nl, pi) / stats.binom.pmf(k, len(theta), pi)
     return bf
 
-def sample_H0(theta,pi,theta_l):
+
+def sample_H0(theta, pi, theta_l):
     """
     Generates a sample of values of k under H0
     """
     # theta is the vector of theta values
     # pi is the probability of life
     # theta_l is the value of the limit theta
-    return(np.random.binomial(len(theta),pi))
+    return np.random.binomial(len(theta), pi)
 
 
-def sample_H1(theta,pi,theta_l):
+def sample_H1(theta, pi, theta_l):
     """
     Generates a sample of values of k under H1
     """
     # theta is the vector of theta values
     # pi is the probability of life
     # theta_l is the value of the limit theta
-    if len(np.shape(theta_l))==2:
-        X = np.random.binomial(np.sum(theta>theta_l,axis=1),pi)
-    elif len(np.shape(theta_l))==1:
-        X = np.random.binomial(np.sum(theta>np.reshape(theta_l,(len(theta_l),1)),axis=1),pi)
+    if len(np.shape(theta_l)) == 2:
+        X = np.random.binomial(np.sum(theta > theta_l, axis=1), pi)
+    elif len(np.shape(theta_l)) == 1:
+        X = np.random.binomial(
+            np.sum(theta > np.reshape(theta_l, (len(theta_l), 1)), axis=1), pi
+        )
     else:
-        X = np.random.binomial(np.sum(theta>theta_l),pi)
-    return(X)
+        X = np.random.binomial(np.sum(theta > theta_l), pi)
+    return X
+
 
 def get_evidence(sampsize=100):
     # For convenience, we redefine theta here so that one can play with sample size and such
@@ -85,7 +90,7 @@ def plot_true_evidence(ax):
 
     for s, ls, showlabel in zip([10, 100], ["-", "--"], ["", "_"]):
         bfh1_kh1, bfh0_kh0 = get_evidence(s)
-    
+
         ax.plot(
             gtvec,
             [np.sum(bfh1_kh1 > g) / len(bfh1_kh1) for g in gtvec],
@@ -118,6 +123,7 @@ def plot_true_evidence(ax):
         xytext=(1000, .83),
         arrowprops=dict(arrowstyle="<-", color="gray"),
     )
+
     ax.legend(
         fontsize=12,
         loc="lower left",
@@ -132,6 +138,7 @@ def plot_true_evidence(ax):
     ax.set_xlabel("$x$")
 
     return ax
+
 
 ## calculate P(BF>eta)
 
@@ -177,7 +184,7 @@ def P_true_evidence(sampsize, eta=10, nboot=int(1e4), pisamp=None, theta_lsamp=N
 
 def plot_evidence_sampsize(ax, s_max=500):
     """plot strong true evidence as a function of sample size"""
-    svec = np.arange(10,s_max)
+    svec = np.arange(10, s_max)
     true_strong_evidence_p = [P_true_evidence(sampsize=s) for s in svec]
 
     ax.plot(svec, true_strong_evidence_p)
@@ -186,6 +193,7 @@ def plot_evidence_sampsize(ax, s_max=500):
     ax.set_xlabel("Planet sample size")
 
     return ax
+
 
 def get_meshplot(smooth_sigma, sampsize, ax):
     x = np.linspace(0.0, 1.0, 10)  # theta_l
@@ -224,10 +232,12 @@ def plot_evidence_grid():
 
     for i, sampsize in enumerate(sampsizes):
         axs[i], im = get_meshplot(smooth_sigma, sampsize, axs[i])
-        axs[i].text(0.99, 0.95, "$n = {}$".format(sampsize), horizontalalignment='right')
+        axs[i].text(
+            0.99, 0.95, "$n = {}$".format(sampsize), horizontalalignment="right"
+        )
 
     cbar_ax = fig.add_axes([1.015, 0.18, 0.02, 0.775])
-    cbar = fig.colorbar(im, label="P(true strong evidence)", cax=cbar_ax)
+    cbar = fig.colorbar(im, label="$P(\mathrm{true\; strong\; evidence})$", cax=cbar_ax)
     fig.tight_layout()
 
     return fig, axs
@@ -288,16 +298,17 @@ def P_true_evidence_beta(
     return np.min([trueeH1, trueeH0])
 
 
-
-def plot_selectivity(ax):
+def plot_selectivity(fig, ax):
     X = np.arange(10, 300, 20)  # sample size
     Y = np.linspace(-1, 1, 10)  # selectivity
-    Pvecz = np.vectorize(lambda x, y: P_true_evidence_beta(x, y, eta=10, nboot=int(1e4)))
+    Pvecz = np.vectorize(
+        lambda x, y: P_true_evidence_beta(x, y, eta=10, nboot=int(1e4))
+    )
     XX, YY = np.meshgrid(X, Y)
     Z = Pvecz(XX, YY)
 
     pc = ax.pcolormesh(XX, YY, Z, cmap=cmocean.cm.ice)
-    fig.colorbar(pc, label="P(true strong evidence)")
+    fig.colorbar(pc, label="$P(\mathrm{true\; strong\; evidence})$")
     ax.set_ylabel("Selectivity $s$")
     ax.set_xlabel("Sample size $n$")
     ax.plot([10, 96], [0, 0], "--C1")
@@ -308,9 +319,13 @@ def plot_selectivity(ax):
         arrowprops=dict(arrowstyle="simple", facecolor="C1", connectionstyle="arc3"),
     )
     ax.annotate(
-        xy=(25, 0.15), text=r"Sample more extreme $F_\mathrm{NUV}$", ha="left", va="center", color='k'
+        xy=(25, 0.15),
+        text=r"Sample more extreme $F_\mathrm{NUV}$",
+        ha="left",
+        va="center",
+        color="k",
     )
-    
+
     ax.annotate(
         xytext=(20, 0.0),
         xy=(20, -0.3),
@@ -319,11 +334,13 @@ def plot_selectivity(ax):
     )
     ax.annotate(
         xy=(25, -0.15),
-        text=r"Sample more intermediate $F_\mathrm{NUV}$",  color='k',
+        text=r"Sample more intermediate $F_\mathrm{NUV}$",
+        color="k",
         ha="left",
         va="center",
     )
     return ax
+
 
 def main():
     # 2-panel figure
@@ -342,9 +359,10 @@ def main():
     # selectivity figure
     fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
     axs[0] = plot_beta(axs[0])
-    axs[1] = plot_selectivity(axs[1])
+    axs[1] = plot_selectivity(fig, axs[1])
 
     fig.savefig(paths.figures / "semian_selectivity.pdf")
+
 
 if __name__ == "__main__":
     main()
