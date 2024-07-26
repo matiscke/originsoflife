@@ -214,7 +214,7 @@ For all survey simulations and hypothesis tests, we repeated the above in a Mont
 
 
 \subsubsection{Habitable zone occupancy and UV flux}\label{sec:met-hz}
-To test the UV~Threshold Hypothesis, we require that life occurs only on planets with sufficient past UV irradiation exceeding $F_\mathrm{NUV, min}$.
+To test the UV~Threshold Hypothesis, we require that life occurs only on planets with sufficient past UV irradiation exceeding the origins of life threshold $F_\mathrm{NUV, min}$.
 Further, we require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}.
 All common Origin of Life scenarios require water as a solvent;
 we thus consider only rocky planets that may sustain liquid water on their surface, i.e., that occupy their momentary \gls{HZ} during the above period.
@@ -230,7 +230,8 @@ We use the parametrization in \citet{Kopparapu2014} to derive luminosity and pla
 %Nevertheless, we focus here on detecting this key absorber as it represents the general inherent observational challenges and trends.
 
 To determine \gls{HZ} occupancy, we interpolated the stellar luminosity evolution grid of \citet{Baraffe1998} using a Clough Tocher interpolant~\citep[][see left panel of Figure~\ref{fig:hz_nuv_evo}]{Nielson1983,Alfeld1984} to compute the evolution of the inner (runaway greenhouse) and outer (maximum greenhouse) edges as a function of planet mass and stellar spectral type~\citep{Kopparapu2014}.
-This provides each planet's epochs within and outside the \gls{HZ}.
+Being a local interpolation method, Clough Tocher enables rapid processing while producing a smooth interpolating surface that highlights local trends.
+From this, we get each planet's epochs within and outside the \gls{HZ}.
 For the \gls{NUV} flux, we use the age- and stellar mass-dependent \gls{NUV} fluxes in the \gls{HZ} obtained by \citet{Richey-Yowell2023}.
 We linearly interpolate in their measured grid, where we convert spectral type to stellar mass using the midpoints of their mass ranges (\SI{0.75}{\Msun} for K~stars, \SI{0.475}{\Msun} for early-type M~stars,  and \SI{0.215}{\Msun} for late-type M~stars).
 Outside the age and stellar mass range covered in \citet{Richey-Yowell2023}, we extrapolate using nearest simplex (see right panel of Figure~\ref{fig:hz_nuv_evo}).
@@ -298,7 +299,7 @@ For every hypothesis test, we repeated randomized survey realizations to estimat
 %\subsection{Correlation of past UV flux and biosignature occurrence}\label{sec:results_uv}
 
 \subsection{Semi-analytical assessment}\label{sec:results-semianalytical}
-In Section~\ref{sec:met-semianalytical} we computed the probability for true positive evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$ respectively.
+In Section~\ref{sec:met-semianalytical} we computed the probability for true positive evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$, respectively.
 Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10).
 For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{1}$ ($H_\mathrm{null}$) can be expected in $\sim \SI{30}{\percent}$ ($\sim \SI{40}{\percent}$) of all random experiments.
 In the majority of cases, the outcome of the survey will be inconclusive.
@@ -306,7 +307,7 @@ In the majority of cases, the outcome of the survey will be inconclusive.
     \script{semian_true_evidence.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/semian_true_evidence}
-        \caption{Probability to obtain true strong evidence. Left: evidence levels for $H_\mathrm{1}$ and $H_\mathrm{null}$ under sample sizes $n = \var{semian_Nsamp1}$ (solid) and $n = \var{semian_Nsamp2}$ (dashed). The vertical lines denote the thresholds for ``strong'' evidence, $BF_{H_i, H_j}$ > 10, and ``extreme'' evidence, $BF_{H_i, H_j}$ > 100. Right: Probability of true strong evidence for $H_\mathrm{1}$ as a function of sample size $n$.}
+        \caption{Obtaining true strong evidence with different sample sizes. Left: Probability to reach given evidence levels for $H_\mathrm{1}$ and $H_\mathrm{null}$ under sample sizes $n = \var{semian_Nsamp1}$ (solid) and $n = \var{semian_Nsamp2}$ (dashed). Vertical lines denote thresholds for ``strong'' evidence, $BF_{H_i, H_j}$ > 10, and ``extreme'' evidence, $BF_{H_i, H_j}$ > 100. Right: Probability of obtaining true strong evidence for $H_\mathrm{1}$ as a function of sample size $n$.}
         \label{fig:semian_true_evidence}
     \end{centering}
 \end{figure*}
