@@ -100,15 +100,23 @@ def plot_true_evidence(ax):
             c="C1",
             ls=ls,
         )
-    
-    # ax.vlines(x=[1],ymin=0,ymax=1,linestyles='--',colors='grey')
-    ax.vlines(x=[10], ymin=0, ymax=1, linestyles="-", lw=1, colors="gray")
-    ax.text(
-        9, 1, "strong", rotation=90, va="top", ha="right", c="k", alpha=1.0, fontsize=12
+
+    # ax.vlines(x=[1],ymin=0,ymax=0.9,linestyles='--',colors='grey')
+    ax.vlines(x=[10], ymin=0, ymax=1., linestyles="-", lw=1, colors="gray")
+    ax.text(10, .95, " strong", va="bottom", ha="left", c="k", alpha=1.0, fontsize=12)
+    ax.annotate(
+        "",
+        xy=(10, .93),
+        xytext=(80, .93),
+        arrowprops=dict(arrowstyle="<-", color="gray"),
     )
-    ax.vlines(x=[100], ymin=0, ymax=1, linestyles="-", lw=1, colors="gray")
-    ax.text(
-        94, 1, "extreme", rotation=90, va="top", ha="right", c="k", alpha=1.0, fontsize=12
+    ax.vlines(x=[100], ymin=0, ymax=0.9, linestyles="-", lw=1, colors="gray")
+    ax.text(100, .85, " extreme", va="bottom", ha="left", c="k", alpha=1.0, fontsize=12)
+    ax.annotate(
+        "",
+        xy=(100, .83),
+        xytext=(1000, .83),
+        arrowprops=dict(arrowstyle="<-", color="gray"),
     )
     ax.legend(
         fontsize=12,
