@@ -116,7 +116,11 @@ def generate_generator(stars_only=False, **kwargs):
         g.insert_step(eec_filter)
         g.insert_step(inject_nuv_life_correlation)
         g.insert_step(inject_biosignature)
-    [g.set_arg(key, val) for key, val in g_args.items()]
+        g.insert_step(limit_sample)
+
+    for key, val in g_args.items():
+        g.set_arg(key, val)
+
     return g, g_args
 
 
