@@ -504,14 +504,16 @@ def past_uv(
 
 
 @timeit
-def main(fast=False, testmethod="mannwhitney"):
-# def main(fast=False, testmethod="dynesty"):
+def main(fast=False, do_grid=True, testmethod="mannwhitney"):
+    # def main(fast=False, testmethod="dynesty"):
     """Run the Bioverse pipeline."""
-    for grid in [False, True]:
-    # for grid in [True]:
-    # for grid in [False]:
-        # DEBUG
 
+    if do_grid:
+        grids = [False, True]
+    else:
+        grids = [False]
+
+    for grid in grids:
         # for spt in ["all", "FGK", "M"]:
         for spt in ["FGK", "M"]:
             if grid:
@@ -564,8 +566,9 @@ def main(fast=False, testmethod="mannwhitney"):
 
 
 if __name__ == "__main__":
-    # result = timeit(main())
-    result = timeit(main(fast=True))
+    # main()
+    main(do_grid=False)
+    # main(fast=True)
 
 
 # # -----------------
