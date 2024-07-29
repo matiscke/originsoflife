@@ -26,6 +26,11 @@ def eec_filter(d):
     return d[d["EEC"].astype(bool)]
 
 
+def limit_sample(d, N_planets=255):
+    """Limit the sample size to N_planets."""
+    return d[:N_planets]
+
+
 def inject_nuv_life_correlation(d, f_life=0.1):
     """Inject a correlation between past NUV flux and the occurrence of life.
 
@@ -371,7 +376,6 @@ def past_uv(
     hoststars="all",
     grid=True,
     N_grid=None,
-    N_planets=100,
     testmethod="mannwhitney",
     powergrid=False,
     fast=False,
@@ -388,8 +392,6 @@ def past_uv(
         Whether to perform a grid of hypothesis tests.
     N_grid : int
         The number of grid points to use.
-    N_planets : int
-        The number of planets to generate.
     powergrid : bool
         Whether to run a grid of statistical power calculations.
     fast : bool
@@ -450,7 +452,6 @@ def past_uv(
         # perform a single hypothesis test
 
         d = g.generate()
-        d = d[:N_planets]
 
         dd = d.to_pandas()
         print("Total number of planets: {}".format(len(d)))
