@@ -43,10 +43,19 @@ Therefore, a putative dependence of life on UV light is best encoded as a step f
 
 The goal of this work is to evaluate the potential of upcoming exoplanet surveys to test the hypothesis that a minimum past NUV flux is required for abiogenesis.
 We focus on one version of the UV Threshold Hypothesis, the so-called cyanosulfidic scenario, which has been refined to the point where the required threshold flux has been measured to be $F_\mathrm{NUV, min} = \SI{6.8\pm3.6 e10}{\photons\per\centi\meter\squared\per\second\per\nano\meter}$ integrated from \SIrange{200}{280}{\nano\meter} at the surface (Rimmer et al. 2018; Rimmer et al. 2021 Astrobiology; Rimmer et al. 2023).
+\todo[inline]{SR: This is an interesting number, because it is below what was available on early Earth (so this scenario could have worked on early Earth) but until recently it was below what was thought to be available on habitable zone M-dwarf exoplanets. So it was thought that identification of biosignatures on M-dwarf planets could therefore falsify the cyanosulfidic scenario, with a potential caveat for transient UV from flares. Two recent developments have complicated the picture. First, Rimmer et al. 2018 had an error in their radiative transfer routines. Correcting for this error, early M-dwarfs and highly active M-dwarfs emit enough UV to meet the Rimmer et al. 2018 criterion (Ranjan et al. 2023). Second, a recent publication argues that /all/ estimates of M-dwarf UV are underestimates, and that late M-dwarf stars have similar emission to Sunlike stars (Rekhi et al. 2023). I suspect this is incorrect, because it contradicts a lot of work from e.g. the MUSCLES collaboration and the HAZMAT project, but it's worth keeping an eye on in case it is correct after all.}
 
 We first follow a semi-analytical Bayesian analysis to estimate probabilities of obtaining strong evidence for or against this hypothesis.
 Under the UV Threshold Hypothesis ($H_1$), the probability of an exoplanet having detectable biosignatures is zero if the near-ultraviolet (\gls{NUV}) irradiation is less than the threshold, and it is equal to the (unknown) probability of abiogenesis, $f_\mathrm{life}$ if \gls{NUV} exceeds the threshold for a sufficiently long period of time.
 Under the null hypothesis ($H_0$), that probability simply is $f_\mathrm{life}$, that is, it does not correlate with the UV flux.
+\begin{figure*}
+    \begin{centering}
+        \includegraphics[width=\hsize]{figures/hypotheses.pdf}
+        \caption{UV~Threshold Hypothesis and null hypothesis derived from the cyanosulfidic scenario.}
+        \label{fig:hypotheses}
+    \end{centering}
+\end{figure*}
+Figure~\ref{fig:hypotheses} shows these hypotheses as derived from the predictions of the cyanosulfidic scenario.
 Given a sample of planets, where for some of them we have convincing biosignature detections but remain agnostic on $f_\mathrm{life}$, we ask what evidence for $H_1$ and $H_0$ we can expect to obtain.
 
 A real exoplanet survey will be subject to observational biases, sample selection effects, and the underlying demographics of the planet sample.
@@ -60,26 +69,8 @@ To determine the diagnostic capability of a given survey, Bioverse runs multiple
 We use this metric, known as the statistical power, to quantify the potential information content of the survey, identify critical design trades, and find strategies that maximize the survey’s scientific return.
 
 
-
-
-\textbf{Prediction:} Biosignatures occur outside the tidal locking zone and at bulk densities consistent with exposed rock.
-\todo[inline]{SR: I'm not a priori sold that tidal locking means that no wet-dry cycles occur. you can still have cycling driven by transient changes in instellation due to flares, for example (e.g., https://iopscience.iop.org/article/10.3847/1538-4357/aadfd1/meta). Similarly, I wonder if 3D effects might not give rise to variability (https://iopscience.iop.org/article/10.3847/PSJ/acc9c4/meta).  I argue that it is more robust to establish a correlation between biosignatures and planets which show evidence of continents/land. I think that Ty Robinson in our department has done some work in this area, his papers might be a good starting point. Other papers which look relevant (but with which I am not familiar, as this is not my area): https://academic.oup.com/mnras/article/511/1/440/6501216, https://academic.oup.com/mnras/article/495/1/1/5733176, https://iopscience.iop.org/article/10.3847/1538-3881/aad775/meta, https://iopscience.iop.org/article/10.3847/1538-3881/aaed3a/meta, https://iopscience.iop.org/article/10.3847/1538-3881/ab2df3/meta}
-
-
-%\subsection{UV flux}\label{sec:predictions:uv}
-A major hypothesis in the origin of life is the ``\textit{UV Threshold Hypothesis}'', which states that UV light played a constructive role in getting life started on Earth (see Ranjan et al. 2016, 2017c; Rimmer et al. 2018; Rapf \& Vaida 2016; Pascal et al. 2012; Green et al. 2021; and sources therein).
-
-If UV light is required to get life started, then there is a minimum planetary UV flux requirement to have an inhabited world.
-This requirement is set by competitor thermal processes; if the photo-reaction does not move forward at a rate faster than the competitor thermal process(es), then the abiogenesis scenario cannot function.
-On the other hand, abundant UV light vastly in excess of this threshold does not increase the probability of abiogenesis, since once the UV photochemistry is no longer limiting, some other thermal process in the reaction network will be rate-limiting process instead.
-Therefore, a putative dependence of life on UV light is best encoded as a step function (see, e.g., Ranjan et al. 2017c; Rimmer et al. 2018; Rimmer, Ranjan \& Rugheimer 2021).
-
-One origin-of-life scenario has been refined to the point where the threshold flux has been measured.
-The cyanosulfidic scenario has been shown to require a mean flux of at least $ F_\mathrm{NUV, min} = \SI{6.8\pm3.6 e10}{\photons\per\centi\meter\squared\per\second\per\nano\meter}$ integrated from \SIrange{200}{280}{\nano\meter} at the surface in order to function (Rimmer et al. 2018; Rimmer et al. 2021 Astrobiology; Rimmer et al. 2023).
-\todo[inline]{SR: This is an interesting number, because it is below what was available on early Earth (so this scenario could have worked on early Earth) but until recently it was below what was thought to be available on habitable zone M-dwarf exoplanets. So it was thought that identification of biosignatures on M-dwarf planets could therefore falsify the cyanosulfidic scenario, with a potential caveat for transient UV from flares. Two recent developments have complicated the picture. First, Rimmer et al. 2018 had an error in their radiative transfer routines. Correcting for this error, early M-dwarfs and highly active M-dwarfs emit enough UV to meet the Rimmer et al. 2018 criterion (Ranjan et al. 2023). Second, a recent publication argues that /all/ estimates of M-dwarf UV are underestimates, and that late M-dwarf stars have similar emission to Sunlike stars (Rekhi et al. 2023). I suspect this is incorrect, because it contradicts a lot of work from e.g. the MUSCLES collaboration and the HAZMAT project, but it's worth keeping an eye on in case it is correct after all.}
-We use this threshold value as our baseline case.
-
-\textbf{Prediction:} Past UV flux and the occurrence of biosignatures are correlated.
+%\textbf{Prediction:} Biosignatures occur outside the tidal locking zone and at bulk densities consistent with exposed rock.
+%\todo[inline]{SR: I'm not a priori sold that tidal locking means that no wet-dry cycles occur. you can still have cycling driven by transient changes in instellation due to flares, for example (e.g., https://iopscience.iop.org/article/10.3847/1538-4357/aadfd1/meta). Similarly, I wonder if 3D effects might not give rise to variability (https://iopscience.iop.org/article/10.3847/PSJ/acc9c4/meta).  I argue that it is more robust to establish a correlation between biosignatures and planets which show evidence of continents/land. I think that Ty Robinson in our department has done some work in this area, his papers might be a good starting point. Other papers which look relevant (but with which I am not familiar, as this is not my area): https://academic.oup.com/mnras/article/511/1/440/6501216, https://academic.oup.com/mnras/article/495/1/1/5733176, https://iopscience.iop.org/article/10.3847/1538-3881/aad775/meta, https://iopscience.iop.org/article/10.3847/1538-3881/aaed3a/meta, https://iopscience.iop.org/article/10.3847/1538-3881/ab2df3/meta}
 
 
 %\subsection{Other Processes related to the Origins of Life}
@@ -94,30 +85,20 @@ We use this threshold value as our baseline case.
 %Prebiotic synthesis triggered through reduced impactors that stochastically create transiently reducing or neutral atmospheres requires a certain composition of the impactors, the planet to not be in a magma ocean state (???) (Lichtenberg \& Clement 2022), and, related to this requirement, occurrence of impact events during early planetary evolution.
 %Suggested observables are stochastic increases in brightness temperature, transient increases of planet size, and change of planet composition (decreasing with decreasing impact rate, i.e., stellar age).
 
+This paper is organized as follows:
+In Section~\ref{sec:methods}, we introduce both our semi-analytical approach and Bioverse simulations for testing the UV Threshold Hypothesis.
+Section~\ref{sec:results} presents the results of these experiments for a generic survey as well as for a realistic transit survey.
+In Section~\ref{sec:discussion}, we discuss our findings before concluding with a summary in Section~\ref{sec:conclusions}.
 
 %\input{bayesian_analysis}
 
 %\subsection{Origins of Life Hypotheses}
-...
-\begin{figure*}
-    \begin{centering}
-        \includegraphics[width=\hsize]{figures/hypotheses.pdf}
-        \caption{UV~Threshold Hypothesis and null hypothesis derived from the cyanosulfidic scenario.}
-        \label{fig:hypotheses}
-    \end{centering}
-\end{figure*}
-Figure~\ref{fig:hypotheses} shows the hypothesis and null hypothesis derived from the predictions of the cyanosulfidic scenario.
-...
-
 
 \section{Methods}
-\label{sec:hypotests}
+\label{sec:methods}
 %\todo[inline]{Briefly introduce Bayesian model comparison, then present the particular hypotheses in their mathematical form.}
 
-
 \subsection{Fraction of inhabited planets with detectable biosignatures}
-Presumably, not all habitable worlds are inhabited and not all inhabited worlds develop detectable biosignatures.
-The fraction of \glspl{EEC} that are both inhabited and harbor detectable biosignatures at the time when we observe them remains speculative; we aggregate them in the unitless parameter $f_\mathrm{life}$.
 
 %\subsection{H1: Life only originates in hydrothermal vents}
 %The hydrothermal vent scenario does not allow oceans deep enough to form an impenetrable layer of high-pressure ice on its floor.
@@ -144,18 +125,21 @@ Our concrete hypothesis shall be that life only occurs on planets that at some p
 First, we apply a Bayes Factor Design Analysis~\citep{Schoenbrodt2018} to assess the expected probabilities of obtaining true negative or true positive evidence for the hypothesis above, as well as the probability for misleading or inconclusive evidence, under idealized conditions.
 This serves as a first-order estimate of the information content of a survey, before we take into account impacts from exoplanet demographics, sample selection, and survey strategy.
 
-Let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
+
+Presumably, not all habitable worlds are inhabited and not all inhabited worlds develop detectable biosignatures.
+The fraction of \glspl{EEC} that are both inhabited and harbor detectable biosignatures at the time when we observe them remains speculative; we aggregate them in the unitless parameter $f_\mathrm{life}$.
+Let us consider the probability to detect a biosignature $P(L)$, and let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
 Under Hypothesis $H_1$ (Equation~\ref{eq:hypothesis-uv}), there exists a special unknown value of $F_\mathrm{NUV}$, noted $F_\mathrm{NUV, min}$ such that
 
 \begin{align}
-    P(L|\theta,H_1) &=  f_\mathrm{life} \quad \text{if } \theta>F_\mathrm{NUV, min}\\
-    P(L|\theta,H_1) &=  0               \quad  \text{otherwise}
+    P(L|F_\mathrm{NUV},H_1) &=  f_\mathrm{life} \quad \text{if } F_\mathrm{NUV}>F_\mathrm{NUV, min}\\
+    P(L|F_\mathrm{NUV},H_1) &=  0               \quad  \text{otherwise}
 \end{align}
 
 where $f_\mathrm{life}$ is the unknown probability of abiogenesis.
 The corresponding null hypothesis is that there exists no such special value of $F_\mathrm{NUV}$ and that
 \begin{equation}
-P(L|\theta,H_\mathrm{null}) = f_\mathrm{life}.
+P(L|F_\mathrm{NUV},H_\mathrm{null}) = f_\mathrm{life}.
 \end{equation}
 
 If we now define a sample of size $n$ as $X=\{F_\mathrm{NUV, i},L_i\}_{i \in [1,n]}$ where $L_i$ is equal to 1 if life is detected and 0 otherwise, we can calculate the evidence for hypothesis $H_i$ against $H_j$ through the Bayes factor
@@ -176,10 +160,15 @@ P(Y=k|H_1) = \binom{n_{\lambda}}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n_{\lam
 \end{equation}
 
 Hence,
+\begin{subequations}
 \begin{equation}\label{eq:bayes_factor}
-BF_{H_1,H_\mathrm{null}} = \frac{P(Y=k|H_1)}{P(Y=k|H_\mathrm{null})} = \frac{\binom{n_\lambda}{k}}{\binom{n}{k}}(1-f_\mathrm{life})^{n_{\lambda}-n}.
+BF_{H_1,H_\mathrm{null}} = \frac{P(Y=k|H_1)}{P(Y=k|H_\mathrm{null})} = \frac{\binom{n_\lambda}{k}}{\binom{n}{k}}(1-f_\mathrm{life})^{n_{\lambda}-n},
 \end{equation}
-
+and
+\begin{equation}\label{eq:bayes_factor2}
+BF_{H_\mathrm{null},H_1} = \frac{P(Y=k|H_\mathrm{null})}{P(Y=k|H_1)} = \frac{\binom{n}{k}}{\binom{n_\lambda}{k}}(1-f_\mathrm{life})^{n-n_{\lambda}}.
+\end{equation}
+\end{subequations}
 
 Given a sample of planets, where for some of them we have convincing biosignature detections but remaining agnostic on $f_\mathrm{life}$: What evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$ can we expect to get?
 Our Bayes factor (Equation~\ref{eq:bayes_factor}) is determined by the unknown variables $f_\mathrm{life}$ and $F_\mathrm{NUV, min}$, as well as the number of planets with biosignature detections in the sample $k$.
@@ -200,7 +189,6 @@ The general approach is as follows:
 To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we conduct survey simulations with Bioverse using different sample sizes and survey strategies.
     \item \textbf{Hypothesis testing:} We evaluate the likelihood that a given survey would detect a specified demographic trend in the exoplanet population and estimate the precision with which the survey could constrain the parameters of that trend.
     A common definition of the null hypothesis $H_0$, which is also applied here, is that there is no relationship between the independent variable (here: maximum NUV flux) and the dependent variable (here: biosignature occurrence).
-%    The alternative hypothesis $H_1$ proposes a specific relationship parameterized by $\theta$.
     The alternative hypothesis $H_1$ proposes a specific relationship between the independent and dependent variables.
     Bioverse offers either Bayesian model comparison or non-parametric tests to evaluate the evidence for or against the null hypothesis.
 
@@ -587,6 +575,7 @@ This represents a conservative approach, since any planet that fails to meet the
 
 
 \section{Conclusions}
+\label{sec:conclusions}
 We have investigated the potential of upcoming exoplanet surveys to test the hypothesis -- motivated by the cyanosulfidic origins-of-life scenario -- that a minimum past \gls{NUV} flux is required for abiogenesis.
 To this end, we first employed a semi-analytical Bayesian analysis to estimate probabilities of obtaining strong evidence for or against this hypothesis.
 We then used the Bioverse framework to assess the diagnostic power of realistic transit surveys, taking into account exoplanet demographics, time-dependency of habitability and \gls{NUV} fluxes, observational biases, and target selection.
