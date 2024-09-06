@@ -24,7 +24,43 @@
 \section{Introduction}
 \label{sec:intro}
 \todo[inline]{Introduce OOL, the importance of planetary contexts}
-...
+A wide variety of scenarios for the origin of life have been proposed~\citep[e.g.,][]{Dass2016,Westall2018}.
+While we are still far away from testing any of them, new prospects in the search for conditions favorable to life have opened up by thinking of the origin of life as a planetary phenomenon and identifying global-scale environmental properties that might support pathways to life~\citep{Sasselov2020}.
+In particular, specific planetary conditions are needed to create stockpiles of initial compounds for prebiotic chemistry; and planetary processes are required to trigger the prebiotic synthesis.
+Such planetary conditions can be hypothesized for exoplanets located in the habitable zone of their host star, with persistent liquid water on their surface.
+For example, the deep-sea hydrothermal (or hydrothermal-sedimentary) context for the origin of life requires a direct contact of an ocean and the planetary mantle/crust~\citep[e.g.,][]{Russel2010}.
+The alternate scenario of a surface locally subject to wet-dry cycles requires a planetary exposure to mid-range UV irradiation, as a source of energy and an agent of selection in chemical evolution~\citep[e.g.,][]{Deamer2019}.
+This “UV Threshold Hypothesis” states that UV light in a specific length range played a constructive role in getting life started on Earth (CITE see Ranjan et al. 2016, 2017c; Rimmer et al. 2018; Rapf \& Vaida 2016; Pascal et al. 2012; Green et al. 2021; and sources therein).
+
+The association of chemical pathways to life and planetary environmental conditions offers a new opportunity to test alternate scenarios for life emergence based on planetary-level data collected from the upcoming observations of populations of exoplanets.
+Deep-sea hydrothermal scenarios require planetary conditions that may not be met on ocean worlds with large amounts of water, where the water pressure on the ocean floor is high enough to form high-pressure ices~\citep{Noack2016}.
+In this case, a testable prediction would be that planets with high-pressure ices do not show biosignatures.
+Likewise, if UV light is required to get life started, then there is a minimum planetary UV flux requirement to have an inhabited world.
+This requirement is set by competitor thermal processes; if the photoreaction does not move forward at a rate faster than the competitor thermal process(es), then the abiogenesis scenario cannot function.
+On the other hand, abundant UV light vastly in excess of this threshold does not increase the probability of abiogenesis, since once the UV photochemistry is no longer limiting, some other thermal process in the reaction network will be the rate-limiting process instead.
+Therefore, a putative dependence of life on UV light is best encoded as a step function (see, e.g., Ranjan et al. 2017c; Rimmer et al. 2018; Rimmer, Ranjan \& Rugheimer 2021).
+
+The goal of this work is to evaluate the potential of upcoming exoplanet surveys to test the hypothesis that a minimum past NUV flux is required for abiogenesis.
+We focus on one version of the UV Threshold Hypothesis, the so-called cyanosulfidic scenario, which has been refined to the point where the required threshold flux has been measured to be $F_\mathrm{NUV, min} = \SI{6.8\pm3.6 e10}{\photons\per\centi\meter\squared\per\second\per\nano\meter}$ integrated from \SIrange{200}{280}{\nano\meter} at the surface (Rimmer et al. 2018; Rimmer et al. 2021 Astrobiology; Rimmer et al. 2023).
+
+We first follow a semi-analytical Bayesian analysis to estimate probabilities of obtaining strong evidence for or against this hypothesis.
+Under the UV Threshold Hypothesis ($H_1$), the probability of an exoplanet having detectable biosignatures is zero if the near-ultraviolet (\gls{NUV}) irradiation is less than the threshold, and it is equal to the (unknown) probability of abiogenesis, $f_\mathrm{life}$ if \gls{NUV} exceeds the threshold for a sufficiently long period of time.
+Under the null hypothesis ($H_0$), that probability simply is $f_\mathrm{life}$, that is, it does not correlate with the UV flux.
+Given a sample of planets, where for some of them we have convincing biosignature detections but remain agnostic on $f_\mathrm{life}$, we ask what evidence for $H_1$ and $H_0$ we can expect to obtain.
+
+A real exoplanet survey will be subject to observational biases, sample selection effects, and the underlying demographics of the planet sample.
+To assess the information gain of a realistic exoplanet survey, we employed Bioverse~\citep{Bixel2021,Hardegree-Ullman2023,Schlecker2024,Hardegree-Ullman2024}, a framework that integrates multiple components including statistically realistic simulations of exoplanet populations, a survey simulation module, and a hypothesis testing module to evaluate the statistical power of different observational strategies.
+The general approach is as follows:
+After defining a population of synthetic exoplanets, we simulate the detection and characterization of these exoplanets with a hypothetical survey, taking into account the survey’s sensitivity, target selection, and observational biases.
+Then we evaluate the likelihood that a given survey would detect a specified demographic trend in the exoplanet population and estimate the precision with which the survey could constrain the parameters of that trend.
+A common definition of the null hypothesis $H_0$, which is also applied here, is that there is no relationship between the independent variable (here: maximum \gls{NUV} flux) and the dependent variable (here: biosignature occurrence).
+The alternative hypothesis $H_1$ proposes a specific relationship between the independent and dependent variables.
+To determine the diagnostic capability of a given survey, Bioverse runs multiple iterations of the simulated survey and calculates the fraction of realizations that successfully reject the null hypothesis.
+We use this metric, known as the statistical power, to quantify the potential information content of the survey, identify critical design trades, and find strategies that maximize the survey’s scientific return.
+
+
+
+
 \subsection{Origins of Life Scenarios and their Predictions}\label{sec:predictions}
 \todo[inline]{Present widely discussed OOL scenarios and their predictions on exoplanet observables; derive testable hypotheses.}
 \label{sec:ool_scenarios}
