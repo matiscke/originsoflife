@@ -60,14 +60,6 @@ Given a sample of planets, where for some of them we have convincing biosignatur
 
 A real exoplanet survey will be subject to observational biases, sample selection effects, and the underlying demographics of the planet sample.
 To assess the information gain of a realistic exoplanet survey, we employed Bioverse~\citep{Bixel2021,Hardegree-Ullman2023,Schlecker2024,Hardegree-Ullman2024}, a framework that integrates multiple components including statistically realistic simulations of exoplanet populations, a survey simulation module, and a hypothesis testing module to evaluate the statistical power of different observational strategies.
-The general approach is as follows:
-After defining a population of synthetic exoplanets, we simulate the detection and characterization of these exoplanets with a hypothetical survey, taking into account the survey’s sensitivity, target selection, and observational biases.
-Then we evaluate the likelihood that a given survey would detect a specified demographic trend in the exoplanet population and estimate the precision with which the survey could constrain the parameters of that trend.
-A common definition of the null hypothesis $H_0$, which is also applied here, is that there is no relationship between the independent variable (here: maximum \gls{NUV} flux) and the dependent variable (here: biosignature occurrence).
-The alternative hypothesis $H_1$ proposes a specific relationship between the independent and dependent variables.
-To determine the diagnostic capability of a given survey, Bioverse runs multiple iterations of the simulated survey and calculates the fraction of realizations that successfully reject the null hypothesis.
-We use this metric, known as the statistical power, to quantify the potential information content of the survey, identify critical design trades, and find strategies that maximize the survey’s scientific return.
-
 
 %\textbf{Prediction:} Biosignatures occur outside the tidal locking zone and at bulk densities consistent with exposed rock.
 %\todo[inline]{SR: I'm not a priori sold that tidal locking means that no wet-dry cycles occur. you can still have cycling driven by transient changes in instellation due to flares, for example (e.g., https://iopscience.iop.org/article/10.3847/1538-4357/aadfd1/meta). Similarly, I wonder if 3D effects might not give rise to variability (https://iopscience.iop.org/article/10.3847/PSJ/acc9c4/meta).  I argue that it is more robust to establish a correlation between biosignatures and planets which show evidence of continents/land. I think that Ty Robinson in our department has done some work in this area, his papers might be a good starting point. Other papers which look relevant (but with which I am not familiar, as this is not my area): https://academic.oup.com/mnras/article/511/1/440/6501216, https://academic.oup.com/mnras/article/495/1/1/5733176, https://iopscience.iop.org/article/10.3847/1538-3881/aad775/meta, https://iopscience.iop.org/article/10.3847/1538-3881/aaed3a/meta, https://iopscience.iop.org/article/10.3847/1538-3881/ab2df3/meta}
@@ -180,8 +172,7 @@ We then evaluated the fraction of Monte Carlo runs in which certain evidence thr
 
 
 \subsection{Exoplanet survey simulations with Bioverse}
-A real exoplanet survey will be subject to observational biases, sample selection effects, and the underlying demographics of the planet sample.
-To assess the information gain of a realistic exoplanet survey, we employed Bioverse~\citep{Bixel2021}, a framework that integrates multiple components including statistically realistic simulations of exoplanet populations, a survey simulation module, and a hypothesis testing module to evaluate the statistical power of different observational strategies.
+To assess the diagnostic power of realistic exoplanet surveys, we employed our survey simulator and hypothesis testing framework Bioverse~\citep{Bixel2021}
 The general approach is as follows:
 \begin{enumerate}
 \item \textbf{Exoplanet population synthesis:} We populate the Gaia Catalogue of Nearby Stars~\citep{Smart2021} with synthetic exoplanets whose orbital parameters and planetary properties reflect our current understanding of exoplanet demographics~\citep{Bergsten2022}.
