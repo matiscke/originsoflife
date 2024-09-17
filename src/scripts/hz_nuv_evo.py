@@ -13,6 +13,8 @@ import matplotlib.colors as colors
 from bioverse.util import interpolate_luminosity, interpolate_nuv
 
 
+NUV_thresh = 250.0
+
 def plot_planets_scatter(ax, d, norm, col=None):
     # for (v, c) in [(False, 'white'), (True, 'C1')]:
     for c, (EEC, group) in zip(["white", "C0"], d.to_pandas().groupby("EEC")):
@@ -104,7 +106,7 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0, N_sample=2, random_state=
         ax.plot(
             np.concatenate((np.array([1e-3]), t)),
             [Mst] + [Mst for tt in t],
-            lw=1,
+            lw=2,
             c="gray",
         )
         in_hz = eec.evolution[id]["in_hz"]
@@ -167,8 +169,8 @@ if __name__ == "__main__":
         fig, axs[0], T, M, Z, d, cbarlabel="Bol. luminosity ($L/L_\odot$)"
     )
     axs[1] = plot_nuv_evo(fig, axs[1], d=d)
-    axs[0] = plot_hz_and_nuv(fig, axs[0], d, NUV_thresh=100.0)
-    axs[1] = plot_hz_and_nuv(fig, axs[1], d, NUV_thresh=100.0)
+    axs[0] = plot_hz_and_nuv(fig, axs[0], d, NUV_thresh=NUV_thresh)
+    axs[1] = plot_hz_and_nuv(fig, axs[1], d, NUV_thresh=NUV_thresh)
 
     [ax.set_xlim(min(t), max(t)) for ax in axs]
     [ax.set_ylim(min(m), max(m)) for ax in axs]
