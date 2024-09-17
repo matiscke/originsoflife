@@ -104,7 +104,7 @@ def plot_nuv_distribution(sample, data, fig, ax, spt):
         c="0.1",
     )
 
-    ax.set_xlabel("max. NUV irradiance [erg/s/cm$^2$]")
+    ax.set_xlabel(" $F_\mathrm{NUV}$ [erg/s/cm$^2$]")
     ax.set_ylabel("Probability density")
     # if spt == "M":
     #     ax.legend(title=None)
@@ -142,7 +142,7 @@ def plot_detections_uv(eec, fig, ax, NUV_thresh, ylabel=True):
     # To turn off the bottom or left
     # ax.spines['bottom'].set_visible(False)
     ax.spines["left"].set_visible(False)
-    ax.set_xlabel("max. NUV irradiance [erg/s/cm$^2$]")
+    ax.set_xlabel(" $F_\mathrm{NUV}$ [erg/s/cm$^2$]")
     return fig, ax
 
 

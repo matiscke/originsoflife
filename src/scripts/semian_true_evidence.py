@@ -191,7 +191,7 @@ def plot_evidence_sampsize(ax, s_max=500):
     ax.plot(svec, true_strong_evidence_p)
     ax.set_ylim(-0.05, 1.05)
     ax.set_ylabel("$P(BF_{H_1, H_\mathrm{null}} > 10$)")
-    ax.set_xlabel("Planet sample size")
+    ax.set_xlabel("Planet sample size $n$")
 
     return ax
 
@@ -250,7 +250,7 @@ def plot_beta(ax):
     ax.plot(x, stats.beta.pdf(x, 0.1, 0.1), label=r"$s$=1, $Beta (0.1, 0.1)$")
     ax.plot(x, stats.beta.pdf(x, 1, 1), label=r"$s$=0, $Beta (1, 1)$")
     ax.plot(x, stats.beta.pdf(x, 10, 10), label=r"$s$=-1, $Beta (10,10)$")
-    ax.set_xlabel("x")
+    ax.set_xlabel("$F_\mathrm{NUV}$")
     ax.set_ylabel("Probability density")
     ax.legend()
     return ax
