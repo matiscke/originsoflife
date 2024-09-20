@@ -43,7 +43,8 @@ Therefore, a putative dependence of life on UV light is best encoded as a step f
 
 The goal of this work is to evaluate the potential of upcoming exoplanet surveys to test the hypothesis that a minimum past NUV flux is required for abiogenesis.
 We focus on one version of the UV Threshold Hypothesis, the so-called cyanosulfidic scenario, which has been refined to the point where the required threshold flux has been measured to be $F_\mathrm{NUV, min} = \SI{6.8\pm3.6 e10}{\photons\per\centi\meter\squared\per\second\per\nano\meter}$ integrated from \SIrange{200}{280}{\nano\meter} at the surface (Rimmer et al. 2018; Rimmer et al. 2021 Astrobiology; Rimmer et al. 2023).
-\todo[inline]{SR: This is an interesting number, because it is below what was available on early Earth (so this scenario could have worked on early Earth) but until recently it was below what was thought to be available on habitable zone M-dwarf exoplanets. So it was thought that identification of biosignatures on M-dwarf planets could therefore falsify the cyanosulfidic scenario, with a potential caveat for transient UV from flares. Two recent developments have complicated the picture. First, Rimmer et al. 2018 had an error in their radiative transfer routines. Correcting for this error, early M-dwarfs and highly active M-dwarfs emit enough UV to meet the Rimmer et al. 2018 criterion (Ranjan et al. 2023). Second, a recent publication argues that /all/ estimates of M-dwarf UV are underestimates, and that late M-dwarf stars have similar emission to Sunlike stars (Rekhi et al. 2023). I suspect this is incorrect, because it contradicts a lot of work from e.g. the MUSCLES collaboration and the HAZMAT project, but it's worth keeping an eye on in case it is correct after all.}
+\todo[inline]{SR: This is an interesting number, because it is below what was available on early Earth (so this scenario could have worked on early Earth) but until recently it was below what was thought to be available on habitable zone M-dwarf exoplanets. So it was thought that identification of biosignatures on M-dwarf planets could therefore falsify the cyanosulfidic scenario, with a potential caveat for transient UV from flares. Two recent developments have complicated the picture. First, Rimmer et al. 2018 had an error in their radiative transfer routines. Correcting for this error, early M-dwarfs and highly active M-dwarfs emit enough UV to meet the Rimmer et al. 2018 criterion (Ranjan et al. 2023).
+\sout{Second, a recent publication argues that /all/ estimates of M-dwarf UV are underestimates, and that late M-dwarf stars have similar emission to Sunlike stars (Rekhi et al. 2023). I suspect this is incorrect, because it contradicts a lot of work from e.g. the MUSCLES collaboration and the HAZMAT project, but it's worth keeping an eye on in case it is correct after all.}}
 
 We first follow a semi-analytical Bayesian analysis to estimate probabilities of obtaining strong evidence for or against this hypothesis.
 Under the UV Threshold Hypothesis ($H_1$), the probability of an exoplanet having detectable biosignatures is zero if the near-ultraviolet (\gls{NUV}) irradiation is less than the threshold, and it is equal to the (unknown) probability of abiogenesis, $f_\mathrm{life}$ if \gls{NUV} exceeds the threshold for a sufficiently long period of time.
@@ -171,22 +172,23 @@ We then evaluated the fraction of Monte Carlo runs in which certain evidence thr
 
 
 \subsection{Exoplanet survey simulations with Bioverse}
-To assess the diagnostic power of realistic exoplanet surveys, we employed our survey simulator and hypothesis testing framework Bioverse~\citep{Bixel2021}
+To assess the diagnostic power of realistic exoplanet surveys, we employed our survey simulator and hypothesis testing framework Bioverse~\citep{Bixel2021}.
 The general approach is as follows:
 \begin{enumerate}
 \item \textbf{Exoplanet population synthesis:} We populate the Gaia Catalogue of Nearby Stars~\citep{Smart2021} with synthetic exoplanets whose orbital parameters and planetary properties reflect our current understanding of exoplanet demographics~\citep{Bergsten2022}.
+Here, we also inject the demographic trend in question - in this case we assign biosignatures according to $H_1$, i.e., to planets in the \gls{HZ} that have received \gls{NUV} fluxes above a certain threshold.
     \item \textbf{Survey simulation:} We simulate the detection and characterization of these exoplanets with a hypothetical survey, taking into account the survey's sensitivity, target selection, and observational biases.
 To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we conduct survey simulations with Bioverse using different sample sizes and survey strategies.
     \item \textbf{Hypothesis testing:} We evaluate the likelihood that a given survey would detect a specified demographic trend in the exoplanet population and estimate the precision with which the survey could constrain the parameters of that trend.
     A common definition of the null hypothesis $H_0$, which is also applied here, is that there is no relationship between the independent variable (here: maximum NUV flux) and the dependent variable (here: biosignature occurrence).
     The alternative hypothesis $H_1$ proposes a specific relationship between the independent and dependent variables.
     Bioverse offers either Bayesian model comparison or non-parametric tests to evaluate the evidence for or against the null hypothesis.
+\end{enumerate}
 
 To determine the diagnostic capability of a given survey, Bioverse runs multiple iterations of the simulated survey and calculates the fraction of realizations that successfully reject the null hypothesis.
 We use this metric, known as the statistical power, to quantify the potential information content of the survey, identify critical design trades, and find strategies that maximize the survey's scientific return.
 % TODO: IF INFERENCE: add:
 %The posterior samples obtained from the nested sampling runs further allows us to estimate the precision with which the survey could constrain the parameters of the hypothesized trend.
-\end{enumerate}
 
 
 \subsubsection{Simulated star and planet sample}
@@ -207,7 +209,7 @@ For all survey simulations and hypothesis tests, we repeated the above in a Mont
 To test the UV~Threshold Hypothesis, we require that life occurs only on planets with sufficient past UV irradiation exceeding the origins of life threshold $F_\mathrm{NUV, min}$.
 Further, we require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}.
 All common Origin of Life scenarios require water as a solvent;
-we thus consider only rocky planets that may sustain liquid water on their surface, i.e., that occupy their host star's momentary \gls{HZ} during the above period.
+we thus consider only rocky planets that may sustain liquid water on their surface, i.e., that occupy their host star's momentary \gls{HZ} during the above period, as well as at the time of observation. \todo[inline]{Does this need more detailed explanation?}
 This takes into account the evolution of the host star's luminosity and \gls{HZ} boundaries.
 
 Different formulations of habitable zones as regions around a star where a planet with Earth's atmospheric composition can maintain liquid water on its surface exist~\citep[e.g.,][]{MolLous2022,Spinelli2023,Tuchow2023}. CITE! Ramirez \& Kaltenegger 2017, 2018
@@ -227,7 +229,8 @@ For the \gls{NUV} flux, we use the age- and stellar mass-dependent \gls{NUV} flu
 We linearly interpolate in their measured grid, where we convert spectral type to stellar mass using the midpoints of their mass ranges (\SI{0.75}{\Msun} for K~stars, \SI{0.475}{\Msun} for early-type M~stars,  and \SI{0.215}{\Msun} for late-type M~stars).
 Outside the age and stellar mass range covered in \citet{Richey-Yowell2023}, we extrapolate using nearest simplex (see right panel of Figure~\ref{fig:hz_nuv_evo}).
 
-We then determined which planets were both in the \gls{HZ} and had \gls{NUV} fluxes above $F_\mathrm{NUV, min}$ for $\Delta T_\mathrm{min} \geq \var{deltaT_min}\,\SI{}{\mega\year}$.
+We then determined which planets were both in the \gls{HZ} and had \gls{NUV} fluxes above $F_\mathrm{NUV, min}$.
+To avoid considering short transitional phases, we require this situation to last for a minimum duration $\Delta T_\mathrm{min} \geq \var{deltaT_min}\,\SI{}{\mega\year}$.
 We assigned the development of life to a random fraction $f_\mathrm{life}$ of all temperate planets fulfilling these requirements.
 For the probability of a planet having detectable biosignatures, $P(\mathrm{bio})$, the UV~Threshold Hypothesis then states
 \begin{equation}\label{eq:hypothesis-uv}
@@ -290,7 +293,7 @@ For every hypothesis test, we repeated randomized survey realizations to estimat
 %\subsection{Correlation of past UV flux and biosignature occurrence}\label{sec:results_uv}
 
 \subsection{Semi-analytical assessment}\label{sec:results-semianalytical}
-In Section~\ref{sec:met-semianalytical} we computed the probability for true positive evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$, respectively.
+In Section~\ref{sec:met-semianalytical} we computed the probability for true positive evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$, respectively (Equations~\ref{eq:bayes_factor}, \ref{eq:bayes_factor2}).
 Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10).
 For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{1}$ ($H_\mathrm{null}$) can be expected in $\sim \SI{30}{\percent}$ ($\sim \SI{40}{\percent}$) of all random experiments.
 In the majority of cases, the outcome of the survey will be inconclusive.
@@ -322,16 +325,18 @@ So far, we have assumed random, uniform distributions of $f_\mathrm{life}$, $F_\
 A high biosignature detection rate $f_\mathrm{life}$ increases the evidence (cmp. Equation~\ref{eq:bayes_factor}) but we cannot influence it.
 The same is true for $F_\mathrm{NUV, min}$, where again higher values increase the evidence as the binomial distribution for $H_\mathrm{1}$ gets increasingly skewed and shifted away from the one for $H_\mathrm{null}$.
 However, one might `cherry-pick' exoplanets for which a biosignature test is performed based on \textit{a priori} available contextual information~\citep{catling2018exoplanet} in order to maximize the science yield of investing additional resources.
-For instance, the distribution of $F_\mathrm{NUV}$ in the planet sample can be influenced by the survey strategy, and a targeted sampling approach could favor extreme values.% of $F_\mathrm{NUV}$ in the sample selection.
-Figure~\ref{fig:semian_selectivity} shows how the probability of obtaining true strong evidence for $H_\mathrm{1}$ scales with selectivity $s$, where $s\in]-1,1[$ such that $F_\mathrm{NUV} \sim Beta(1/10^s,1/10^s)$.
-Here, $s=0$ corresponds to a random uniform distribution.
-Compared to this case, a high selectivity can increase the probability of obtaining true strong evidence to $\gtrsim \SI{85}{\percent}$ for large samples.
+For instance, the distribution of $F_\mathrm{NUV}$ in the planet sample can be influenced by the survey strategy, and a targeted sampling approach could favor extreme values. % of $F_\mathrm{NUV}$ in the sample selection.
+We model this by distributing $F_\mathrm{NUV}$ according to different $Beta$ functions and introduce a selectivity parameter $s\in]-1,1[$ such that $F_\mathrm{NUV} \sim Beta(1/10^s,1/10^s)$.
+Figure~\ref{fig:semian_selectivity} shows how the probability of obtaining true strong evidence for $H_\mathrm{1}$ scales with selectivity $s$.
+%Here, $s=0$ corresponds to a random uniform distribution.
+%Compared to this case, a high selectivity ($s \sim 1$) can increase the probability of obtaining true strong evidence to $\gtrsim \SI{85}{\percent}$ for large samples.
+For large samples, a high selectivity ($s \sim 1$) can increase the probability of obtaining true strong evidence from $\sim \SI{70}{\percent}$ for $s= 0$ (random uniform distribution) to $> \SI{90}{\percent}$.
 
 \begin{figure*}
     \script{semian_true_evidence.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/semian_selectivity}
-        \caption{Scaling of the probability of obtaining true strong evidence with sample selectivity. Left: Sampling distribution for different selectivity parameters $s$. Right: Resulting \mbox{P(true strong evidence)} (random, uniform $f_\mathrm{life}$, $F_\mathrm{NUV, min}$). Sampling more extreme values of $F_\mathrm{NUV}$ is more likely to yield strong evidence.}
+        \caption{Scaling of the probability of obtaining true strong evidence with sample selectivity. Left: Sampling distribution for different selectivity parameters $s$. Right: Resulting \mbox{P(true strong evidence)}, where $f_\mathrm{life}$ and $F_\mathrm{NUV, min}$ are randomly drawn from a uniform distribution. Sampling more extreme values of $F_\mathrm{NUV}$ is more likely to yield strong evidence.}
         \label{fig:semian_selectivity}
     \end{centering}
 \end{figure*}
@@ -397,7 +402,7 @@ Applying the approach from Sect.~\ref{sec:results-semianalytical} of fitting a B
 \subsubsection{Expected biosignature pattern in a transit survey}
 A representative recovery of the injected biosignature pattern is shown in Figure~\ref{fig:surveys_FGKM}.
 There, we assumed an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$ and a minimum \gls{NUV} flux of $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.
-All injected biosignatures are assumed to be detected, and the maximum \gls{NUV} flux is estimated from the host star's spectral type and age with an uncertainty corresponding to the intrinsic scatter in the \gls{NUV} fluxes in \citet{Richey-Yowell2023}.
+All injected biosignatures are assumed to be detected without false positive ambiguity, and the maximum \gls{NUV} flux is estimated from the host star's spectral type and age with an uncertainty corresponding to the intrinsic scatter in the \gls{NUV} fluxes in \citet{Richey-Yowell2023}.
 %\begin{figure*}
 %    \script{detections_uv.py}
 %    \begin{centering}
@@ -436,6 +441,7 @@ Furthermore, a higher abiogenesis rate $f_\mathrm{life}$ increases the evidence 
 Notably, the sensitivity of the M~dwarf sample extends into the low \gls{NUV} flux end due to the broader distribution of maximum past \gls{NUV} fluxes in this sample.
 Here, the FGK sample is less sensitive.
 The only parameter space region with statistical power above \SI{90}{\percent} lies at abiogenesis rates $f_\mathrm{life} > 0.9$ and threshold \gls{NUV} fluxes of $\sim \SIrange{30}{70}{\erg\per\second\per\centi\meter\squared}$.
+\todo[inline]{Update this with final results from stat. power grid}
 
 
 \begin{figure*}
@@ -458,7 +464,7 @@ The cyanosulfidic scenario~\citep{Patel2015}, in particular its predicted existe
 In the following, we discuss the prospects of testing the UV~Threshold Hypothesis in light of our results.
 
 \subsection{Sampling strategy for testing a predicted minimum \gls{NUV} flux} % corresponds to conclusion point 1
-In Sect.~\ref{sec:results-semianalytical}, we show that testing the hypothesis of a minimum past \gls{NUV} flux required for abiogenesis suffers from `nuisance' parameters that render inference difficult.
+In Sect.~\ref{sec:results-semianalytical}, we show that testing the hypothesis of a minimum past \gls{NUV} flux required for abiogenesis suffers from `nuisance' parameters that render inference through astronomical observations difficult.
 Here, these parameters are the unspecified value of the \gls{NUV} threshold hypothesized to exist under $H_1$, and the unknown probability of detectable life emerging on a habitable planet $f_{\mathrm{life}}$.
 While the history of a planet's received UV flux is difficult to infer~\citep[e.g.,][]{Richey-Yowell2023}, the estimated maximum \gls{NUV} flux that a planet was exposed to may be used as a proxy.
 Indeed, the distribution of the number of planets with detected biosignature in a particular sample of planets with determined maximum \gls{NUV} values $F_{\mathrm{NUV}}$ depends on both the values of $F_{\mathrm{NUV},min}$ and $f_{\mathrm{life}}$ as shown in equation \ref{eq:semian:likelihoodH1}.
@@ -492,7 +498,7 @@ As we have shown, the statistical power of this test also depends on the distrib
 Optimizing the survey to sample a wide range of NUV flux values, particularly at the extremes, can enhance the likelihood of obtaining strong evidence for or against the hypothesis.
 Intermediate values of the threshold \gls{NUV} flux are more likely to yield strong evidence than extreme values, as the dataset under the alternative hypothesis $H_1$ differs more from the null hypothesis in this case while still being sufficiently populated.
 The required threshold flux is, of course, a priori unknown and we cannot influence it.
-If, however, better theoretical predictions for the required \gls{NUV} flux for abiogenesis become available, the survey strategy can be further optimized, for instance by targeting planets that are estimated to have received a \gls{NUV} flux slightly below and above this threshold.
+If, however, better theoretical predictions for the required \gls{NUV} flux for abiogenesis become available~\citep{Rimmer2021}, the survey strategy can be further optimized, for instance by targeting planets that are estimated to have received a \gls{NUV} flux slightly below and above this threshold.
 
 An interesting aspect lies in the distribution of host star properties, as different spectral types probe different past \gls{NUV} flux regimes.
 Under the UV~Threshold Hypothesis, late-type M~dwarfs are favored due to their higher \gls{NUV} fluxes in the \gls{HZ}~\citep{Richey-Yowell2023}.
@@ -508,7 +514,7 @@ Our Bioverse simulations that take into account exoplanet demographics, the evol
 Even if all biosignatures can be detected and the nominal abiogenesis rate is very high, say $f_\mathrm{life} = 1$, under the condition that prebiotic chemistry requires a minimum \gls{NUV} flux \textit{and} liquid water, the probability of finding life on a randomly selected planet may be very low.
 As we showed, for high required fluxes the two requirements of simultaneous \gls{HZ} occupancy and sufficient \gls{NUV} flux conspire to diminish the fraction of inhabited planets in the sample.
 Taking the infered fluxes from \citet{Richey-Yowell2023} at face value (but taking into account intrinsic scatter), a minimum required \gls{NUV} flux of $\gtrsim\SI{400}{\erg\per\second\per\centi\meter\squared}$ reduces the fraction of inhabited planets to below $\sim\SI{1}{\percent}$.
-This not only calls for a large sample size and a targeted sample selection prefering high expected past \gls{NUV} fluxes, but also highlight the necessity of continued theoretical and experimental research into the role of UV radiation in prebiotic chemistry~\citep{Ranjan2017b}.
+This not only calls for a large sample size and a targeted sample selection prefering high expected past \gls{NUV} fluxes, but also highlight the necessity of continued theoretical and experimental research into the role of UV radiation in prebiotic chemistry~\citep{Ranjan2017b,Rimmer2018,Rimmer2021}.
 
 
 
@@ -518,7 +524,7 @@ This not only calls for a large sample size and a targeted sample selection pref
 
 \subsection{Contextual support for potential biosignature detections} % corresponds to ... which conclusion?
 The predicted interplay of \gls{NUV} flux and \gls{HZ} occupancy in enabling abiogenesis via the cyanosulfidic scenario could in principle be used to add or remove credibility from a tentative biosignature detection.
-For example, with a strong believe that this scenario is the only viable one for the origins of life, a biosignature detection on a planet orbiting a strongly UV-radiating star may add credibility to the detection.
+For example, with a strong belief that this scenario is the only viable one for the origins of life, a biosignature detection on a planet orbiting a strongly UV-radiating star may add credibility to the detection.
 Conversely, a biosignature detection on a planet estimated to have received very little UV~radiation would increase the likelihood of a false positive detection.
 On the other hand, should the detection in the latter case be confirmed, it could be used to falsify the UV~Threshold Hypothesis.
 
@@ -552,15 +558,19 @@ Another impediment to wet-dry cycles may be tidal locking of the planet as it st
 
 
 \subsubsection{Stellar flares}
-Our assumptions on past UV flux neglect the contribution of stellar flares, which may be hypothesized as an alternative source of UV light~\citep{Ranjan2017}.
+Our assumptions on past UV flux neglect the contribution of stellar flares, which may be hypothesized as an alternative source of UV light~\citep{Buccino2007,Ranjan2017c}.
 This concerns mainly ultracool dwarfs, due to their low quiescent emission and high pre-main sequence stellar activity~\citep{Buccino2007,West2008}.
 However, recent work indicates that the majority of stars show inadequate activity levels for a sufficient contribution through flares~\citep{Glazier2020,Ducrot2020,Guenther2020}.
 %The biosignature surveys we simulated here may test the hypothesis of sufficient UV radiation via stellar flares.
 
 \subsubsection{Atmosphere transmission}
+We do not take into account absorption of UV radiation by the planetary atmosphere.
 Theoretical work suggests that the atmosphere of prebiotic Earth was largely transparent at \gls{NUV} wavelengths with the only known source of attenuation being Rayleigh scattering~\citep{Ranjan2017,Ranjan2017c}.
 We thus approximated surface UV flux using top-of-atmosphere fluxes.
-This represents a conservative approach, since any planet that fails to meet the irradiance criterion receives even lower \gls{NUV} radiation at its surface. \todo[inline]{SUKRIT please specify as neccessary}
+If there are planets in a sample that do not have a transparent atmosphere at \gls{NUV} wavelengths and require higher fluxes for abiogenesis, the fraction of inhabited planets in the sample will be lower.
+However, these planets will not pollute the below-threshold subsample, as they will not be able to host life under the UV~Threshold Hypothesis.
+
+
 %\subsubsection{Diurnal cycles}
 %\todo[inline]{We assume that tidal locking implies that there are no wet-dry cycles. Challenge this assumption.}
 
