@@ -92,7 +92,7 @@ def get_generator_args():
         # 'mr_relation' : 'earthlike',
         # past HZ occupancy and NUV flux
         "deltaT_min": 10.0,  # Myr
-        "NUV_thresh": 100.0,  # erg/s/cm2
+        # "NUV_thresh": 100.0,  # erg/s/cm2
     }
     return stars_args, planets_args
 
@@ -303,11 +303,12 @@ def hypotest_grid(generator, survey, N_grid, fast, testmethod):
     )
 
     if fast:
-        N_iter = 3
+        N_iter = 4
     else:
         N_iter = 16
     # f_life = np.geomspace(0.1, 1.0, N_grid)
-    f_life = np.geomspace(1e-3, 1.0, N_grid)
+    # f_life = np.geomspace(1e-3, 1.0, N_grid)
+    f_life = np.geomspace(1e-2, 1.0, N_grid)
     # f_life = np.geomspace(0.5, 1.0, N_grid)
     # f_life = (0.9,)  # test 1D hypothesis grid test
     # f_life = 0.99  # test 1D hypothesis grid test
@@ -344,7 +345,8 @@ def get_params_past_uv(hoststars="all", **kwargs):
         "deltaT_min": 10.0,  # Myr
         # "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
         # "NUV_thresh": 380.0,  # choose such that n_inhabited can't be zero
-        "NUV_thresh": 250.0,  # choose such that n_inhabited can't be zero
+        # "NUV_thresh": 250.0,  # choose such that n_inhabited can't be zero
+        "NUV_thresh": 300.0,  # choose such that n_inhabited can't be zero
         # "f_life": 0.8,
         "f_life": 1.0,
         # "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
@@ -423,7 +425,7 @@ def past_uv(
     if grid:
         # perform a grid of hypothesis tests
         if fast:
-            N_grid = 2
+            N_grid = 4
         elif N_grid:
             N_grid = N_grid
         else:
@@ -508,7 +510,22 @@ def past_uv(
 @timeit
 def main(fast=False, do_grid=True, testmethod="mannwhitney"):
     # def main(fast=False, testmethod="dynesty"):
-    """Run the Bioverse pipeline."""
+    """Run the Bioverse pipeline.
+
+    Parameters
+    ----------
+    fast : bool
+        Whether to run the pipeline in fast mode.
+    do_grid : bool
+        Whether to run the pipeline in grid mode.
+    testmethod : str
+        The method to use for hypothesis
+        testing. Options are 'dynesty', 'emcee', 'mannwhitney'.
+
+    Returns
+    -------
+    None
+    """
 
     if do_grid:
         grids = [False, True]
@@ -569,7 +586,8 @@ def main(fast=False, do_grid=True, testmethod="mannwhitney"):
 
 if __name__ == "__main__":
     # main()
-    main(do_grid=False)
+    # main(do_grid=False)
+    main(do_grid=True, fast=True)
     # main(fast=True)
 
 
