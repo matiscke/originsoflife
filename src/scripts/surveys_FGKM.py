@@ -66,7 +66,7 @@ def normalize_data(data):
     return (data - min_val) / (max_val - min_val)
 
 
-def plot_nuv_distribution(sample, data, fig, ax, spt):
+def plot_nuv_distribution(sample, data, fig, ax, spt, plot_fit=False):
     sample = sample.to_pandas()
     dataa = data.to_pandas()
     normalized_data = normalize_data(dataa.max_nuv)
@@ -97,12 +97,14 @@ def plot_nuv_distribution(sample, data, fig, ax, spt):
         label=["inhabited", "EEC"],
         bins=bins,
     )
-    ax.plot(
-        x,
-        stats.beta.pdf(x, *max_likeli[:2], loc=max_likeli[2], scale=max_likeli[3]),
-        # c="0.4",
-        c="0.1",
-    )
+
+    if plot_fit:
+        ax.plot(
+            x,
+            stats.beta.pdf(x, *max_likeli[:2], loc=max_likeli[2], scale=max_likeli[3]),
+            # c="0.4",
+            c="0.1",
+        )
 
     ax.set_xlabel(" $F_\mathrm{NUV}$ [erg/s/cm$^2$]")
     ax.set_ylabel("Probability density")
