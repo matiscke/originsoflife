@@ -227,7 +227,8 @@ We use the parametrization in \citet{Kopparapu2014} to derive luminosity and pla
 To determine \gls{HZ} occupancy, we interpolated the stellar luminosity evolution grid of \citet{Baraffe1998} using a Clough Tocher interpolant~\citep[][see left panel of Figure~\ref{fig:hz_nuv_evo}]{Nielson1983,Alfeld1984} to compute the evolution of the inner (runaway greenhouse) and outer (maximum greenhouse) edges as a function of planet mass and stellar spectral type~\citep{Kopparapu2014}.
 Being a local interpolation method, Clough Tocher enables rapid processing while producing a smooth interpolating surface that highlights local trends.
 From this, we get each planet's epochs within and outside the \gls{HZ}.
-For the \gls{NUV} flux, we use the age- and stellar mass-dependent \gls{NUV} fluxes in the \gls{HZ} obtained by \citet{Richey-Yowell2023}.
+
+For the \gls{NUV} flux, we use the age- and stellar mass-dependent \gls{NUV} fluxes in the \gls{HZ} obtained by \citet{Richey-Yowell2023}, which considers GALEX UV data in the wavelength range of \SIrange{177}{283}{\nano\meter}.
 We linearly interpolate in their measured grid, where we convert spectral type to stellar mass using the midpoints of their mass ranges (\SI{0.75}{\Msun} for K~stars, \SI{0.475}{\Msun} for early-type M~stars,  and \SI{0.215}{\Msun} for late-type M~stars).
 Outside the age and stellar mass range covered in \citet{Richey-Yowell2023}, we extrapolate using nearest simplex (see right panel of Figure~\ref{fig:hz_nuv_evo}).
 
@@ -391,13 +392,11 @@ Applying the approach from Sect.~\ref{sec:results-semianalytical} of fitting a B
         Top: Host stars of all transiting \glspl{EEC} and inhabited planets in a simulated transit survey.
         In the FGK sample, most \glspl{EEC} and all inhabited planets orbit K~dwarfs.
         In an M~dwarf sample of the same size, the fraction of inhabited planets is larger.\\
-        Center: Distribution of maximum past \gls{NUV} flux in transit surveys targeting \glspl{EEC} around FGK and M~stars, respectively. The best-fit beta distributions (gray) correspond to selectivities of $s_\mathrm{FGK} = $\var{selectivity_FGK} and $s_\mathrm{M} = $\var{selectivity_M}. Green areas show inhabited planets for an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$ and a generic threshold \gls{NUV} flux $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.\\
+        Center: Distribution of inferred maximum past \gls{NUV} flux in transit surveys targeting \glspl{EEC} around FGK and M~stars, respectively. The best-fit beta distributions (gray) correspond to selectivities of $s_\mathrm{FGK} = $\var{selectivity_FGK} and $s_\mathrm{M} = $\var{selectivity_M}. Green areas show inhabited planets for an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$ and a generic threshold \gls{NUV} flux $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.\\
         Bottom: Recovered biosignature detections ($\checkmark$) and non-detections ($\oslash$) of simulated transit surveys. The dashed line denotes $F_\mathrm{NUV, min}$.}
         \label{fig:surveys_FGKM}
     \end{centering}
 \end{figure*}
-
-
 
 
 
@@ -590,14 +589,14 @@ We then used the Bioverse framework to assess the diagnostic power of realistic 
 
 Our main findings are:
 \begin{enumerate}
-    \item The UV~flux requirement in the cyanosulfidic scenario for the origins of life should lead to a correlation between past \gls{NUV} flux and current occurrence of biosignatures that may be observationally testable.
+    \item The UV Threshold Hypothesis of the cyanosulfidic scenario for the origins of life should lead to a correlation between past \gls{NUV} flux and current occurrence of biosignatures that may be observationally testable.
     \item The required sample size for detecting this correlation depends on the abiogenesis rate on temperate exoplanets and the distribution of host star properties in the sample; in particular their maximum past \gls{NUV} fluxes.
 %        A direct imaging mission with the \gls{HWO} will require characterizing XXX planets ...
     \item Under the UV~Threshold Hypothesis, the fraction of inhabited planets in a transit survey is sensitive to the threshold \gls{NUV} flux and is expected to drop sharply for required fluxes above a few hundred~\SI{}{\erg\per\second\per\centi\meter\squared}.
     \item If the predicted UV~correlation exists, obtaining strong evidence for the hypothesis is likely ($\gtrsim \SI{80}{\percent}$) for sample sizes $\geq 100$ if the abiogenesis rate is high ($\gtrsim \SI{50}{\percent}$) and if no very high \gls{NUV} fluxes are required.
     A survey strategy that targets extreme values of inferred past \gls{NUV} irradiation increases the diagnostic power.
     \item Samples of planets orbiting M~dwarfs overall yield higher chances of successfully testing the UV~Threshold Hypothesis.
-        Leaving other factors aside, they are also more likely to yield biosignature detections under this hypothesis.
+          They may also be more likely to yield biosignature detections under this hypothesis.
 
 %    \item Abiogenesis in the cyanosulfidic scenario prefers late host star spectral types due to the higher \gls{NUV} fluxes in their habitable zones. However, due to a wider distribution of maximum past \gls{NUV} fluxes in the \gls{HZ} of FGK stars, a transit survey targeting FGK systems is more likely to obtain strong evidence for or against the UV~Threshold Hypothesis.
 
