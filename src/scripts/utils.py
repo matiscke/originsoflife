@@ -1,6 +1,7 @@
 # Code that we need that doesn't produce figures
 import paths
 import time
+import numpy as np
 
 
 def save_var_latex(key, value, datafile=paths.tex / "variables.dat"):
@@ -77,3 +78,23 @@ def timeit(func):
         return result
 
     return measure_time
+
+
+def sanity_check(data):
+    # a sanity check: are there any planets that are inhabited despite having a low maximum NUV flux, e.g., below 300 erg/s/cm2?
+    # dd = detected.to_pandas()
+    # for i, planet in detected.evolution.items():
+    #     if dd[dd.planetID == i].inhabited.iloc[0] and np.max(planet["nuv"]) < 300.0:
+    #         print('Planet {} is inhabited despite having a max NUV of {}'.format(i, np.max(planet["nuv"])))
+    #
+    # # same for the data table (but check evolution of detected table)
+    # dd = data.to_pandas()
+    # for i, planet in detected.evolution.items():
+    #     if dd[dd.planetID == i].has_O2.iloc[0] and np.max(planet["nuv"]) < 300.0:
+    #         print('Planet {} has O2 despite having a max NUV of {}'.format(i, np.max(planet["nuv"])))
+    dd = data.to_pandas()
+    for i, planet in data.evolution.items():
+        if dd[dd.planetID == i].has_O2.iloc[0] and np.max(planet["nuv"]) < 300.0:
+            print('Planet {} has O2 despite having a max NUV of {}'.format(i, np.max(planet["nuv"])))
+
+    return
