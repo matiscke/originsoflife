@@ -348,22 +348,24 @@ def get_params_past_uv(hoststars="all", **kwargs):
         # "f_life": 0.8,
         "f_life": 1.0,
         # "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
+        "N_planets": 250,
     }
 
     # replace parameters with kwargs, if any
     for key, value in kwargs.items():
         params_past_uv[key] = value
 
+    # choose spectral types and scale for specific planet sample size
     if hoststars == "FGK":
-        # exclude other spectral types and scale for a 100 planet sample
         params_past_uv["SpT"] = ["F", "G", "K"]
-        params_past_uv["d_max"] = 200
-
+        # params_past_uv["d_max"] = 200 #~> 100 planets
+        params_past_uv["d_max"] = 270  # ~> 100 planets
 
     elif hoststars == "M":
         # only M dwarf hosts
         params_past_uv["SpT"] = ["M"]
-        params_past_uv["d_max"] = 55
+        # params_past_uv["d_max"] = 55 #~> 100 planets
+        params_past_uv["d_max"] = 75  # ~> 100 planets
 
     elif hoststars == "all":
         # default, volume-limited
