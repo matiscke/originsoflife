@@ -25,14 +25,13 @@
 
 \section{Introduction}
 \label{sec:intro}
-\todo[inline]{Introduce OOL, the importance of planetary contexts}
-A wide variety of scenarios for the origin of life have been proposed~\citep[e.g.,][]{Dass2016,Westall2018}.
+A wide variety of scenarios for the origin of life have been proposed~\citep[e.g.,][]{Baross1985,Brasier2011,Mulkidjanian2012,Fox2013,Deamer2015,Westall2018}.
 While we are still far away from testing any of them, new prospects in the search for conditions favorable to life have opened up by thinking of the origin of life as a planetary phenomenon and identifying global-scale environmental properties that might support pathways to life~\citep{Sasselov2020}.
 In particular, specific planetary conditions are needed to create stockpiles of initial compounds for prebiotic chemistry; and planetary processes are required to trigger the prebiotic synthesis.
 Such planetary conditions can be hypothesized for exoplanets located in the habitable zone of their host star, with persistent liquid water on their surface.
-For example, the deep-sea hydrothermal (or hydrothermal-sedimentary) context for the origin of life requires a direct contact of an ocean and the planetary mantle/crust~\citep[e.g.,][]{Russel2010}.
+For example, the deep-sea hydrothermal (or hydrothermal-sedimentary) context for the origin of life requires a direct contact of an ocean and the planetary mantle/crust~\citep[e.g.,][]{Baross1985}.
 The alternate scenario of a surface locally subject to wet-dry cycles requires a planetary exposure to mid-range UV irradiation, as a source of energy and an agent of selection in chemical evolution~\citep[e.g.,][]{Deamer2019}.
-This “UV Threshold Hypothesis” states that UV light in a specific length range played a constructive role in getting life started on Earth (CITE see Ranjan et al. 2016, 2017c; Rimmer et al. 2018; Rapf \& Vaida 2016; Pascal et al. 2012; Green et al. 2021; and sources therein).
+This “UV Threshold Hypothesis” states that UV light in a specific wavelength range played a constructive role in getting life started on Earth~\citep{Ranjan2016,Ranjan2017c,Rimmer2018,Rapf2016}.
 
 The association of chemical pathways to life and planetary environmental conditions offers a new opportunity to test alternate scenarios for life emergence based on planetary-level data collected from the upcoming observations of populations of exoplanets.
 Deep-sea hydrothermal scenarios require planetary conditions that may not be met on ocean worlds with large amounts of water, where the water pressure on the ocean floor is high enough to form high-pressure ices~\citep{Noack2016}.  % TODO Sleep et al., 2011? Sobotta et al., 2020?
@@ -41,12 +40,12 @@ In this case, a testable prediction would be that planets with high-pressure ice
 Likewise, if UV light is required to get life started, then there is a minimum planetary UV flux requirement to have an inhabited world.
 This requirement is set by competitor thermal processes; if the photoreaction does not move forward at a rate faster than the competitor thermal process(es), then the abiogenesis scenario cannot function.
 On the other hand, abundant UV light vastly in excess of this threshold does not increase the probability of abiogenesis, since once the UV photochemistry is no longer limiting, some other thermal process in the reaction network will be the rate-limiting process instead.
-Therefore, a putative dependence of life on UV light is best encoded as a step function (see, e.g., Ranjan et al. 2017c; Rimmer et al. 2018; Rimmer, Ranjan \& Rugheimer 2021).
+Therefore, a putative dependence of life on UV light is best encoded as a step function~\citep[e.g.,][]{Ranjan2017c,Rimmer2018,Rimmer2021}.
 
 The goal of this work is to evaluate the potential of upcoming exoplanet surveys to test the hypothesis that a minimum past NUV flux is required for abiogenesis.
-We focus on one version of the UV Threshold Hypothesis, the so-called cyanosulfidic scenario, which has been refined to the point where the required threshold flux has been measured to be $F_\mathrm{NUV, min} = \SI{6.8\pm3.6 e10}{\photons\per\centi\meter\squared\per\second\per\nano\meter}$ integrated from \SIrange{200}{280}{\nano\meter} at the surface (Rimmer et al. 2018; Rimmer et al. 2021 Astrobiology; Rimmer et al. 2023).
-\todo[inline]{SR: This is an interesting number, because it is below what was available on early Earth (so this scenario could have worked on early Earth) but until recently it was below what was thought to be available on habitable zone M-dwarf exoplanets. So it was thought that identification of biosignatures on M-dwarf planets could therefore falsify the cyanosulfidic scenario, with a potential caveat for transient UV from flares. Two recent developments have complicated the picture. First, Rimmer et al. 2018 had an error in their radiative transfer routines. Correcting for this error, early M-dwarfs and highly active M-dwarfs emit enough UV to meet the Rimmer et al. 2018 criterion (Ranjan et al. 2023).
-\sout{Second, a recent publication argues that /all/ estimates of M-dwarf UV are underestimates, and that late M-dwarf stars have similar emission to Sunlike stars (Rekhi et al. 2023). I suspect this is incorrect, because it contradicts a lot of work from e.g. the MUSCLES collaboration and the HAZMAT project, but it's worth keeping an eye on in case it is correct after all.}}
+We focus on one version of the UV Threshold Hypothesis, the so-called cyanosulfidic scenario, which has been refined to the point where the required threshold flux has been measured to be $F_\mathrm{NUV, min} = \SI{6.8\pm3.6 e10}{\photons\per\centi\meter\squared\per\second\per\nano\meter}$ integrated from \SIrange{200}{280}{\nano\meter} at the surface~\citep{Rimmer2018,Rimmer2021a,Rimmer2023,Ranjan2023a}.
+%\todo[inline]{SR: This is an interesting number, because it is below what was available on early Earth (so this scenario could have worked on early Earth) but until recently it was below what was thought to be available on habitable zone M-dwarf exoplanets. So it was thought that identification of biosignatures on M-dwarf planets could therefore falsify the cyanosulfidic scenario, with a potential caveat for transient UV from flares. Two recent developments have complicated the picture. First, Rimmer et al. 2018 had an error in their radiative transfer routines. Correcting for this error, early M-dwarfs and highly active M-dwarfs emit enough UV to meet the Rimmer et al. 2018 criterion (Ranjan et al. 2023).
+%\sout{Second, a recent publication argues that /all/ estimates of M-dwarf UV are underestimates, and that late M-dwarf stars have similar emission to Sunlike stars (Rekhi et al. 2023). I suspect this is incorrect, because it contradicts a lot of work from e.g. the MUSCLES collaboration and the HAZMAT project, but it's worth keeping an eye on in case it is correct after all.}}
 
 We first follow a semi-analytical Bayesian analysis to estimate probabilities of obtaining strong evidence for or against this hypothesis.
 Under the UV Threshold Hypothesis ($H_1$), the probability of an exoplanet having detectable biosignatures is zero if the near-ultraviolet (\gls{NUV}) irradiation is less than the threshold, and it is equal to the (unknown) probability of abiogenesis, $f_\mathrm{life}$ if \gls{NUV} exceeds the threshold for a sufficiently long period of time.
@@ -505,7 +504,8 @@ If, however, better theoretical predictions for the required \gls{NUV} flux for 
 An interesting aspect lies in the distribution of host star properties, as different spectral types probe different past \gls{NUV} flux regimes.
 FGK stars show a narrow distribution of maximum past \gls{NUV} fluxes in the \gls{HZ}, which may limit the constraining power of a survey depending on the (unknown) threshold \gls{NUV} flux.
 With a pure FGK sample, a survey will be more sensitive to the low \gls{NUV} flux end of the hypothesis.
-A lack of biosignatures on these planets would support the UV~Threshold Hypothesis, whereas their presence might suggest that lower NUV fluxes are also sufficient for abiogenesis or indicate a different abiogenic pathway. CITE
+A lack of biosignatures on these planets would support the UV~Threshold Hypothesis.
+Their presence would have little constraining power; it would either suggest that low NUV fluxes are sufficient for abiogenesis or indicate a different abiogenic pathway~\citep[e.g.,][]{Westall2018}.
 
 On the other hand, M~dwarfs show a wider distribution of maximum past \gls{NUV} fluxes in their \glspl{HZ}.
 While old M~dwarfs can be considered low-UV environments, a large fraction of them emit high \gls{NUV} fluxes into their \gls{HZ} during their early stages, in particular later subtypes~\citep{Richey-Yowell2023}.
@@ -513,6 +513,7 @@ an M~dwarf sample will thus help to test the high \gls{NUV} flux end of the UV T
 As our simulations show, the higher and more variable \gls{NUV} fluxes in M~dwarfs increase the likelihood of obtaining strong evidence for or against the hypothesis.
 The combination of a lack of UV radiation today, which makes biosignature gases more detectable~\citep{Segura2005}, and a UV-rich past that may have enabled abiogenesis could make M~dwarfs the preferred targets for biosignature searches.
 
+These findings underscore the importance of constraining the UV emission profiles of \gls{EEC} host stars throughout their evolutionary stages to assess the viability of M-dwarf planets as testbeds for theories on the origins of life~\citep{Rimmer2021,Ranjan2023a}.
 
 
 \subsection{Sensitivity to astrophysical parameters} % corresponds to conclusion point 3
