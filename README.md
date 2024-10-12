@@ -6,19 +6,19 @@ A [Bioverse](https://github.com/danielapai/bioverse) project to study what Origi
 
 <br>
 <p>
-<a href="https://github.com/matiscke/originsoflife/actions/workflows/build.yml">
-<img src="https://github.com/matiscke/originsoflife/actions/workflows/build.yml/badge.svg?branch=main" alt="Article status"/>
-</a>
+<!-- <a href="https://github.com/matiscke/originsoflife/actions/workflows/build.yml"> -->
+<!-- <img src="https://github.com/matiscke/originsoflife/actions/workflows/build.yml/badge.svg?branch=main" alt="Article status"/> -->
+<!-- </a> -->
 <a href="mailto:schlecker@arizona.edu">
 <img src="https://img.shields.io/badge/contact-authors-blueviolet.svg?style=flat" alt="Email the authors"/>
 <a href="https://github.com/matiscke/originsoflife/raw/main-pdf/arxiv.tar.gz">
 <img src="https://img.shields.io/badge/article-tarball-blue.svg?style=flat" alt="Article tarball"/>
 </a>
-
-
+  
 [//]: # (<a href="https://github.com/matiscke/originsoflife/raw/main-pdf/ms.pdf">)
-
-<a href="https://github.com/matiscke/originsoflife/tree/main/src/tex/output/ms.pdf">
+[//]: # (<a href="https://github.com/matiscke/originsoflife/tree/main/src/tex/output/ms.pdf">)
+  
+<a href="https://github.com/matiscke/originsoflife/raw/main/drafts/bioverse_OoL_manuscript_20240926.pdf">
 <img src="https://img.shields.io/badge/article-pdf-blue.svg?style=flat" alt="Read the article"/>
 </a>
 </p>
