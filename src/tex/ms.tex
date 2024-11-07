@@ -31,11 +31,11 @@ In particular, specific planetary conditions are needed to create stockpiles of 
 Such planetary conditions can be hypothesized for exoplanets located in the habitable zone of their host star, with persistent liquid water on their surface.
 For example, the deep-sea hydrothermal (or hydrothermal-sedimentary) context for the origin of life requires a direct contact of an ocean and the planetary mantle/crust~\citep[e.g.,][]{Baross1985}.
 The alternate scenario of a surface locally subject to wet-dry cycles requires a planetary exposure to mid-range UV irradiation, as a source of energy and an agent of selection in chemical evolution~\citep[e.g.,][]{Deamer2019}.
-This “UV Threshold Hypothesis” states that UV light in a specific wavelength range played a constructive role in getting life started on Earth~\citep{Ranjan2016,Ranjan2017c,Rimmer2018,Rapf2016}.
+This “UV Threshold Hypothesis” states that UV light in a specific wavelength range played a constructive role in getting life started on Earth~\citep{Ranjan2016,Ranjan2017c,Rimmer2018,Rapf2016}, and it could provide a probabilistic approach to the interpretation of possible future biosignature detections~\citep[e.g.,][]{Catling2018,Walker2018}.
 
 The association of chemical pathways to life and planetary environmental conditions offers a new opportunity to test alternate scenarios for life emergence based on planetary-level data collected from the upcoming observations of populations of exoplanets.
-Deep-sea hydrothermal scenarios require planetary conditions that may not be met on ocean worlds with large amounts of water, where the water pressure on the ocean floor is high enough to form high-pressure ices~\citep{Noack2016}.  % TODO Sleep et al., 2011? Sobotta et al., 2020?
-\todo[inline]{see discussion in Kite \& Ford 2018 Sect. 6.4}
+Deep-sea hydrothermal scenarios require planetary conditions that may not be met on ocean worlds with large amounts of water, where the water pressure on the ocean floor is high enough to form high-pressure ices~\citep{Noack2016,Kite2018}.  % TODO Sleep et al., 2011? Sobotta et al., 2020?
+%\todo[inline]{see discussion in Kite \& Ford 2018 Sect. 6.4}
 In this case, a testable prediction would be that planets with high-pressure ices do not show biosignatures.
 Likewise, if UV light is required to get life started, then there is a minimum planetary UV flux requirement to have an inhabited world.
 This requirement is set by competitor thermal processes; if the photoreaction does not move forward at a rate faster than the competitor thermal process(es), then the abiogenesis scenario cannot function.
@@ -93,7 +93,6 @@ In Section~\ref{sec:discussion}, we discuss our findings before concluding with 
 %\todo[inline]{Briefly introduce Bayesian model comparison, then present the particular hypotheses in their mathematical form.}
 
 \subsection{Fraction of inhabited planets with detectable biosignatures}
-
 %\subsection{H1: Life only originates in hydrothermal vents}
 %The hydrothermal vent scenario does not allow oceans deep enough to form an impenetrable layer of high-pressure ice on its floor.
 %The resulting allowed parameter space is described by a lower limit on the bulk density. \todo[inline]{+ exclude atmospheric signature for water worlds?}
@@ -105,11 +104,11 @@ In Section~\ref{sec:discussion}, we discuss our findings before concluding with 
 %...
 %
 %\subsection{H3: Life only originates on planets with particular UV irradiance}
-\todo[inline]{\citet{Guenther2020} relate U-band energy to bolometric flux.}
-\todo[inline]{OPTIONAL: ``We further test the scenario of a linear correlation of past UV flux and biosignature occurrence rate.
-This test requires the detection of multiple biosignatures.''
-~\\
-Test for negative correlations as well?}
+%\todo[inline]{\citet{Guenther2020} relate U-band energy to bolometric flux.}
+%\todo[inline]{OPTIONAL: ``We further test the scenario of a linear correlation of past UV flux and biosignature occurrence rate.
+%This test requires the detection of multiple biosignatures.''
+%~\\
+%Test for negative correlations as well?}
 Here, we conduct a theoretical experiment on the UV~Threshold Hypothesis (Sect.~\ref{sec:predictions}) by relating the occurrence of life on an exo-earth candidate with a minimum past quiescent stellar UV flux, focusing on the prebiotically interesting \gls{NUV} range from \SIrange{200}{280}{\nano\meter}. \todo[inline]{SUKRIT: got a good reference for this?}  %~\citep{RanjanSasselov2016}.?
 Our concrete hypothesis shall be that life only occurs on planets that at some point in their history have received such radiation at a flux exceeding a threshold $F_\mathrm{NUV, min}$.
 
@@ -254,6 +253,7 @@ i.e., no correlation with UV flux.
     \script{hz_nuv_evo.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/hz_nuv_evo}
+%        \includegraphics[width=\hsize]{figures/hz_nuv_evo.bak.png}
         \caption{Interpolated stellar luminosity evolution (left) and evolution of the \gls{NUV} flux in the \gls{HZ} (right) as a function of host star mass.
         The scatter plots show age and host star mass of the transiting planets in the synthetic FGK sample; crosses denote the estimated \gls{NUV} values in \citet{Richey-Yowell2019}. % with \gls{EEC} highlighted in green.
         A few example tracks for an example threshold flux of $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$ are shown; extended overlap of \gls{HZ} occupancy and high \gls{NUV} flux (green sections) fulfills our requirement for abiogenesis.
@@ -448,6 +448,7 @@ The only parameter space region with statistical power above \SI{90}{\percent} l
     \script{powergrid.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/powergrid}
+%        \includegraphics[width=\hsize]{figures/powergrid.bak.png}
         \caption{Statistical power as a function of threshold \gls{NUV} flux and abiogenesis rate. Even for a large sample (here: $N=\var{N_nautilus}$), a high statistical power of the transit survey requires high abiogenesis rates $f_\mathrm{life}$.
          Intermediate values of $F_\mathrm{NUV, min}$ are more likely to yield strong evidence than extreme values; the sensitivity of the M~dwarf sample extends into the low \gls{NUV} flux end.
          }
