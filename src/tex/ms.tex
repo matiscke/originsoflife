@@ -45,7 +45,7 @@ Therefore, a putative dependence of life on UV light is best encoded as a step f
 
 The goal of this work is to evaluate the potential of upcoming exoplanet surveys to test the hypothesis that a minimum past NUV flux is required for abiogenesis.
 We focus on one version of the UV Threshold Hypothesis, the so-called cyanosulfidic scenario, which has been refined to the point where the required threshold flux has been measured to be $F_\mathrm{NUV, min} = \SI{6.8\pm3.6 e10}{\photons\per\centi\meter\squared\per\second\per\nano\meter}$ integrated from \SIrange{200}{280}{\nano\meter} at the surface~\citep{Rimmer2018,Rimmer2021a,Rimmer2023,Ranjan2023a}.
-%\todo[inline]{SR: This is an interesting number, because it is below what was available on early Earth (so this scenario could have worked on early Earth) but until recently it was below what was thought to be available on habitable zone M-dwarf exoplanets. So it was thought that identification of biosignatures on M-dwarf planets could therefore falsify the cyanosulfidic scenario, with a potential caveat for transient UV from flares. Two recent developments have complicated the picture. First, Rimmer et al. 2018 had an error in their radiative transfer routines. Correcting for this error, early M-dwarfs and highly active M-dwarfs emit enough UV to meet the Rimmer et al. 2018 criterion (Ranjan et al. 2023).
+%\todo[inline]{SR: This is an interesting number, because it is below what was available on early Earth (so this scenario could have worked on early Earth) but until recently it was below what was thought to be available on \gls{HZ} M-dwarf exoplanets. So it was thought that identification of biosignatures on M-dwarf planets could therefore falsify the cyanosulfidic scenario, with a potential caveat for transient UV from flares. Two recent developments have complicated the picture. First, Rimmer et al. 2018 had an error in their radiative transfer routines. Correcting for this error, early M-dwarfs and highly active M-dwarfs emit enough UV to meet the Rimmer et al. 2018 criterion (Ranjan et al. 2023).
 %\sout{Second, a recent publication argues that /all/ estimates of M-dwarf UV are underestimates, and that late M-dwarf stars have similar emission to Sunlike stars (Rekhi et al. 2023). I suspect this is incorrect, because it contradicts a lot of work from e.g. the MUSCLES collaboration and the HAZMAT project, but it's worth keeping an eye on in case it is correct after all.}}
 
 We first follow a semi-analytical Bayesian analysis to estimate probabilities of obtaining strong evidence for or against this hypothesis.
@@ -176,7 +176,7 @@ We then evaluated the fraction of Monte Carlo runs in which certain evidence thr
 To assess the diagnostic power of realistic exoplanet surveys, we employed our survey simulator and hypothesis testing framework Bioverse~\citep{Bixel2021}.
 The general approach is as follows:
 \begin{enumerate}
-\item \textbf{Exoplanet population synthesis:} We populate the Gaia Catalogue of Nearby Stars~\citep{Smart2021} with synthetic exoplanets whose orbital parameters and planetary properties reflect our current understanding of exoplanet demographics~\citep{Bergsten2022}.
+\item \textbf{Exoplanet population synthesis:} We populate the Gaia Catalogue of Nearby Stars~\citep{Smart2021} with synthetic exoplanets whose orbital parameters and planetary properties reflect our current understanding of exoplanet demographics~\citep{Bergsten2022,Hardegree-Ullman2023}.
 Here, we also inject the demographic trend in question - in this case we assign biosignatures according to $H_1$, i.e., to planets in the \gls{HZ} that have received \gls{NUV} fluxes above a certain threshold.
     \item \textbf{Survey simulation:} We simulate the detection and characterization of these exoplanets with a hypothetical survey, taking into account the survey's sensitivity, target selection, and observational biases.
 To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we conduct survey simulations with Bioverse using different sample sizes and survey strategies.
@@ -197,10 +197,10 @@ We generated two sets of synthetic exoplanet populations, one for FGK-type stars
 The stellar samples are drawn from the Gaia Catalogue of Nearby Stars~\citep{Smart2021} with a maximum Gaia magnitude of \var{M_G_max} and a maximum stellar mass of \var{M_st_max} \SI{}{\Msun}.
 We included stars out to a maximum distance $d_{\max}$ that depends on the required planet sample size.
 Planets were generated and assigned to the synthetic stars following the occurrence rates and size/orbit distributions of \citet{Bergsten2022}.
-Following \citet{Bixel2021}, we considered only transiting \glspl{EEC} with radii $0.8\, S^{0.25} < R < 1.4 $ that are within the habitable zone (see Section~\ref{sec:met-hz}).
+Following \citet{Bixel2021}, we considered only transiting \glspl{EEC} with radii $0.8\, S^{0.25} < R < 1.4 $ that are within the \gls{HZ} (see Section~\ref{sec:met-hz}).
 The lower limit was suggested as a minimum planet size to retain an atmosphere~\citep{Zahnle2017}.
 To generate planet samples larger than what the stellar catalog in combination with these occurrence rates yields, we scaled up the occurrence rates by a constant factor that yields the desired number of planets.
-This was in particular necessary for the FGK sample, where the rate of transiting planets that occupy the habitable zone is low.
+This was in particular necessary for the FGK sample, where the rate of transiting planets that occupy the \gls{HZ} is low.
 
 For all survey simulations and hypothesis tests, we repeated the above in a Monte Carlo fashion to generate randomized ensembles of synthetic star and planet populations~\citep[][]{Bixel2021}.
 
@@ -210,11 +210,11 @@ For all survey simulations and hypothesis tests, we repeated the above in a Mont
 To test the UV~Threshold Hypothesis, we require that life occurs only on planets with sufficient past UV irradiation exceeding the origins of life threshold $F_\mathrm{NUV, min}$.
 Further, we require this flux to have lasted for a minimum duration $\Delta T_\mathrm{min}$ to allow for a sufficient ``origins timescale''~\citep{Rimmer2023}.
 All common Origin of Life scenarios require water as a solvent;
-we thus consider only rocky planets that may sustain liquid water on their surface, i.e., that occupy their host star's momentary \gls{HZ} during the above period, as well as at the time of observation. \todo[inline]{Does this need more detailed explanation?}
-This takes into account the evolution of the host star's luminosity and \gls{HZ} boundaries.
+we thus consider only rocky planets that may sustain liquid water on their surface, i.e., that occupy their host star's momentary \gls{HZ} during the above period, as well as at the epoch of observation. \todo[inline]{Does this need more detailed explanation?}
+To determine \gls{HZ} occupancy, we take into account the evolution of the host star's luminosity and \gls{HZ} boundaries.
 
-Different formulations of habitable zones as regions around a star where a planet with Earth's atmospheric composition can maintain liquid water on its surface exist~\citep[e.g.,][]{MolLous2022,Spinelli2023,Tuchow2023}. CITE! Ramirez \& Kaltenegger 2017, 2018
-Here, we adopt the popular estimates of \citet{Kasting1993} and \citet{Kopparapu2013,Kopparapu2014} that define a temperate zone between the runaway greenhouse transition CITE! and the maximum greenhouse limit CITE!.
+The \gls{HZ} describes a region around a star where a planet with Earth's atmospheric composition and climate feedbacks can maintain liquid water on its surface~\citep[e.g.,][]{Ramirez2017,Ramirez2018,MolLous2022,Spinelli2023,Tuchow2023}.
+Here, we adopt estimates that define the \gls{HZ} as the region between the runaway greenhouse transition, where the stellar instellation cannot anymore be balanced through infrared cooling to space~\citep{Ingersoll1969}, and the maximum greenhouse limit, corresponding to the maximum distance at which surface temperatures allowing liquid water can be maintained through a CO$_2$ greenhouse effect~\citep{Kasting1991,Kasting1993,Underwood2003,Kopparapu2013,Kopparapu2014}.
 We use the parametrization in \citet{Kopparapu2014} to derive luminosity and planetary mass-dependent edges of the \gls{HZ} $a_\mathrm{inner}$ and $a_\mathrm{outer}$.
 
 % detecting methanogenic life: Sandora2020, Wang2018, Seeburger2023
@@ -267,13 +267,11 @@ i.e., no correlation with UV flux.
 
 
 
-
-
 \subsubsection{Transit survey simulations}
-With the synthetic star and planet samples generated, we simulated observations of these planets with a hypothetical transit survey.
-Using Bioverse's survey module, we simulated noisy measurements of key observables assuming a capable transit survey that can characterize a large sample with high photometric precision.
-We roughly followed the mission parameters of the Nautilus mission concept~\citep{Apai2019,Apai2022} and measured planetary instellation (for \gls{HZ} occupancy) with a precision of \var{nautilus_S} and host star effective temperature with a precision of \var{nautilus_T_eff_st}~K.
-We assumed that the maximum past \gls{NUV} flux a planet received can be determined within a precision of \var{nautilus_max_nuv}.
+With the synthetic star and planet samples generated, we used Bioverse's survey module to simulate noisy measurements of key observables with a transit survey.
+We assumed a hypothetical mission that can target a large planet sample with high photometric precision and conduct a biosignature search on these planets~\citep[e.g.,][]{Apai2019,Apai2022}.
+The simulated survey was designed to measure planetary instellation (for \gls{HZ} occupancy) with a precision of \var{nautilus_S} and host star effective temperature with a precision of \var{nautilus_T_eff_st}~K.
+The maximum past \gls{NUV} flux a planet received can be determined within a precision of \var{nautilus_max_nuv}.
 To marginalize over choices of biosignatures and their detectability, which are beyond the scope of this study, we assumed that any inhabited planet would show a biosignature detectable by the survey.
 
 %\subsubsection{Direct imaging survey (e.g., Habitable Worlds Observatory, LIFE)}
@@ -296,7 +294,7 @@ For every hypothesis test, we repeated randomized survey realizations to estimat
 %\subsection{Correlation of past UV flux and biosignature occurrence}\label{sec:results_uv}
 
 \subsection{Semi-analytical assessment}\label{sec:results-semianalytical}
-In Section~\ref{sec:met-semianalytical} we computed the probability for true positive evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$, respectively (Equations~\ref{eq:bayes_factor}, \ref{eq:bayes_factor2}).
+In Section~\ref{sec:met-semianalytical}, we computed the probability for true positive evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$, respectively (Equations~\ref{eq:bayes_factor}, \ref{eq:bayes_factor2}).
 Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10).
 For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{1}$ ($H_\mathrm{null}$) can be expected in $\sim \SI{30}{\percent}$ ($\sim \SI{40}{\percent}$) of all random experiments.
 In the majority of cases, the outcome of the survey will be inconclusive.
@@ -359,13 +357,14 @@ For large samples, a high selectivity ($s \sim 1$) can increase the probability 
 %        \label{fig:inhabited_FGKM}
 %    \end{centering}
 %\end{figure}
-In a magnitude- and volume-limited sample of a transit survey, the host star distribution for \glspl{EEC} will be skewed toward later spectral types and dominated by M~dwarfs due to how the \gls{HZ} scales with spectral type.
-For a fixed planet sample size, the fraction of inhabited planets is highest in the M~dwarf sample due to the higher \gls{NUV} fluxes in the \gls{HZ} of these stars (see Figures~\ref{fig:hz_nuv_evo}, \ref{fig:surveys_FGKM}).
+%In a magnitude- and volume-limited sample of a transit survey, the host star distribution for \glspl{EEC} will be skewed toward later spectral types and dominated by M~dwarfs due to how the \gls{HZ} scales with spectral type.
+With \gls{HZ} occupancy as a requirement for abiogenesis, and barring selection biases beyond stellar brightness, the host star distribution of inhabited planets in a simulated transit survey is skewed toward later spectral types.
+For a fixed planet sample size, the fraction of inhabited planets is highest for planets orbiting M~dwarfs due to the higher \gls{NUV} fluxes in the \gls{HZ} of these stars (see Figures~\ref{fig:hz_nuv_evo}, \ref{fig:surveys_FGKM}).
 Their \gls{NUV} fluxes are generally highest at early times $\lesssim\SI{100}{\mega\year}$.
 These host stars, in particular late subtypes, also provide extended periods of increased \gls{NUV} emission that overlap with times when some of these planets occupy the \gls{HZ} (see Figure~\ref{fig:hz_nuv_evo}), our requirement for abiogenesis (compare Equation~\ref{eq:hypothesis-uv}).
-Thus -- under the UV Threshold Hypothesis, most inhabited transiting planets in a magnitude- and volume-limited sample orbit M~dwarfs.
+Thus -- under the UV Threshold Hypothesis, most inhabited transiting planets in the sample orbit M~dwarfs.
 
-Here, we are interested in the statistical power of a transit survey with a realistic sample selection and size.
+Here, we are interested in the statistical power of a transit survey with a plausible sample selection and size.
 In the following, we fix the sample size to \var{N_nautilus} and consider two different survey strategies targeting FGK and M~dwarfs, respectively.
 We further investigate the sensitivity of the survey to the a priori unknown threshold \gls{NUV} flux $F_\mathrm{NUV, min}$ and the abiogenesis rate $f_\mathrm{life}$.
 
@@ -373,7 +372,8 @@ We further investigate the sensitivity of the survey to the a priori unknown thr
 In Section~\ref{sec:results-semianalytical}, we demonstrated that the probability of obtaining true strong evidence for the hypothesis that life only originates on planets with a minimum past \gls{NUV} flux is sensitive to the distribution of sampled past \gls{NUV} fluxes, i.e., the selectivity of the survey (compare Figure~\ref{fig:semian_selectivity}).
 %The maximum \gls{NUV} distribution of our generic transit survey is rather unimodal with a median around \SI{500}{\erg\per\second\per\centi\meter\squared} (see Figure~\ref{fig:surveys_FGKM}), leading to a selectivity of roughly \var{selectivity_transit_volumelim}.
 For both surveys targeting M dwarfs and those targeting FGK dwarfs, the maximum \gls{NUV} distribution is rather unimodal.
-Applying the approach from Sect.~\ref{sec:results-semianalytical} of fitting a Beta function to the distribution, we find rather low selectivities (see Figure~\ref{fig:surveys_FGKM}).
+Applying the approach from Sect.~\ref{sec:results-semianalytical} of fitting a Beta function to the distribution, we find rather low selectivities (see Figure~\ref{fig:surveys_FGKM}), which is likely a detriment for statistical hypothesis tests.
+
 %\begin{figure*}
 %    \script{nuv_distribution.py}
 %    \begin{centering}
@@ -400,7 +400,7 @@ Applying the approach from Sect.~\ref{sec:results-semianalytical} of fitting a B
 
 
 
-\subsubsection{Expected biosignature pattern in a transit survey}
+\subsubsection{Expected biosignature pattern}
 A representative recovery of the injected biosignature pattern is shown in Figure~\ref{fig:surveys_FGKM}.
 There, we assumed an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$ and a minimum \gls{NUV} flux of $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.
 All injected biosignatures are assumed to be detected without false positive ambiguity, and the maximum \gls{NUV} flux is estimated from the host star's spectral type and age with an uncertainty corresponding to the intrinsic scatter in the \gls{NUV} fluxes in \citet{Richey-Yowell2023}.
@@ -433,7 +433,7 @@ Another effect responsible for this drop is that some planets receive the requir
 For the FGK sample, the fraction of inhabited planets drops at lower threshold fluxes than for the M dwarf sample.
 
 
-\subsubsection{Statistical power for a transit survey and sensitivity on astrophysical parameters}\label{sec:results-powergrid}
+\subsubsection{Statistical power and sensitivity on astrophysical parameters}\label{sec:results-powergrid}
 We now investigate the sensitivity of the achieved statistical power of our default transit survey to the a priori unconstrained threshold \gls{NUV} flux $F_\mathrm{NUV, min}$ and the abiogenesis rate $f_\mathrm{life}$.
 Figure~\ref{fig:powergrid} shows the statistical power as a function of these parameters for a sample size of $N=\var{N_nautilus}$.
 Values of $F_\mathrm{NUV, min}$ that lie between the extrema of the inferred maximum \gls{NUV} flux increase the achieved statistical power of the survey, as in this case the dataset under the alternative hypothesis $H_1$ differs more from the null hypothesis.
