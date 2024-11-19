@@ -82,10 +82,10 @@ def plot_nuv_distribution(sample, data, fig, ax, spt, plot_fit=False):
     print(f"selectivity ~ {selectivity:.2f}")
 
     # plot histogram and beta distribution fitted on non-normalized data
-    x = np.arange(0.0, 800.0, 5)
+    x = np.arange(180.0, 610.0, 5)
 
     # define bins for histogram
-    bins = np.linspace(0, 800, 28)
+    bins = np.linspace(180.0, 610.0, 28)
 
     max_likeli = stats.beta.fit(dataa.max_nuv, method="MM")
     # ax.hist(dataa.max_nuv, density=True, color="C0")
@@ -107,7 +107,9 @@ def plot_nuv_distribution(sample, data, fig, ax, spt, plot_fit=False):
             c="0.1",
         )
 
-    ax.set_xlabel(" $F_\mathrm{NUV}$ [erg/s/cm$^2$]")
+    ax.set_yticks([0, 0.01])
+    ax.set_xlim([120, 610])
+    ax.set_xlabel("max. $F_\mathrm{NUV}$ [erg/s/cm$^2$]")
     ax.set_ylabel("Probability density")
     # if spt == "M":
     #     ax.legend(title=None)
@@ -135,7 +137,26 @@ def plot_detections_uv(eec, fig, ax, NUV_thresh, ylabel=True):
     ax.set_yticks([0, 1])
     # ax.set_xlim([0,10])
     if ylabel:
-        ax.set_yticklabels(["$\oslash$", "$\checkmark$"], fontsize=16)
+        # ax.set_yticklabels(["$\oslash$", "$\checkmark$"], fontsize=16)
+        ax.set_yticks([])
+        ax.text(
+            0.1,
+            0.15,
+            "no biosignature",
+            fontsize=16,
+            ha="right",
+            va="center",
+            transform=ax.get_yaxis_transform(),
+        )
+        ax.text(
+            0.1,
+            1.1,
+            "biosignature",
+            fontsize=16,
+            ha="right",
+            va="center",
+            transform=ax.get_yaxis_transform(),
+        )
     else:
         ax.set_yticklabels(["", ""], fontsize=16)
         ax.set_yticks([])
@@ -145,19 +166,19 @@ def plot_detections_uv(eec, fig, ax, NUV_thresh, ylabel=True):
     # To turn off the bottom or left
     # ax.spines['bottom'].set_visible(False)
     ax.spines["left"].set_visible(False)
-    ax.set_xlabel(" $F_\mathrm{NUV}$ [erg/s/cm$^2$]")
+    ax.set_xlabel("max. $F_\mathrm{NUV}$ [erg/s/cm$^2$]")
     return fig, ax
 
 
 fig = plt.figure(figsize=(10, 10))
 
-gs = gridspec.GridSpec(3, 2, height_ratios=[0.38, 0.38, 0.15])
+gs = gridspec.GridSpec(3, 2, height_ratios=[0.38, 0.38, 0.15], wspace=0.2, hspace=0.4)
 
 ax0 = fig.add_subplot(gs[0, 0])  # First row, first column
 ax1 = fig.add_subplot(gs[0, 1], sharey=ax0)  # First row, second column
 ax2 = fig.add_subplot(gs[1, 0])  # Second row, first column
 ax3 = fig.add_subplot(gs[1, 1], sharey=ax2)  # Second row, second column
-ax4 = fig.add_subplot(gs[2, 0], sharex=ax3)  # Third row, first column
+ax4 = fig.add_subplot(gs[2, 0], sharex=ax2)  # Third row, first column
 ax5 = fig.add_subplot(gs[2, 1], sharex=ax3)  # Third row, second column
 
 # axs = [ax0, ax1, ax2, ax3, ax4, ax5]
@@ -166,8 +187,11 @@ axs_right = [ax1, ax3, ax5]
 
 # [ax.set_title("FGK-type hosts") for ax in axs_left]
 # [ax.set_title("M-type hosts") for ax in axs_right]
-ax0.set_title("FGK-type hosts")
-ax1.set_title("M-type hosts")
+for ax in axs_left:
+    ax.set_title("FGK", ha="right", x=0.95, va="top", y=0.9)
+
+for ax in axs_right:
+    ax.set_title("M", ha="right", x=0.95, va="top", y=0.9)
 
 
 for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
