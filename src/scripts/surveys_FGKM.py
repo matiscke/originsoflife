@@ -82,15 +82,16 @@ def plot_nuv_distribution(sample, data, fig, ax, spt, plot_fit=False):
     print(f"selectivity ~ {selectivity:.2f}")
 
     # plot histogram and beta distribution fitted on non-normalized data
-    x = np.arange(0.0, 1000.0, 5)
+    x = np.arange(0.0, 800.0, 5)
 
     # define bins for histogram
-    bins = np.linspace(0, 1000, 22)
+    bins = np.linspace(0, 800, 28)
 
     max_likeli = stats.beta.fit(dataa.max_nuv, method="MM")
     # ax.hist(dataa.max_nuv, density=True, color="C0")
     ax.hist(
         [dataa.max_nuv[sample.inhabited], dataa.max_nuv[~sample.inhabited]],
+        histtype="bar",
         stacked=True,
         density=True,
         color=["C0", "dimgray"],
@@ -125,11 +126,11 @@ def plot_nuv_distribution(sample, data, fig, ax, spt, plot_fit=False):
 
 def plot_detections_uv(eec, fig, ax, NUV_thresh, ylabel=True):
     eec = eec.to_pandas()
-    eec["has_O2"] = eec["has_O2"].astype("bool")
+    eec["biosig"] = eec["biosig"].astype("bool")
     ax.scatter(
-        eec[~eec.has_O2]["max_nuv"], eec[~eec.has_O2]["has_O2"], s=9.0, color="dimgray"
+        eec[~eec.biosig]["max_nuv"], eec[~eec.biosig]["biosig"], s=9.0, color="dimgray"
     )
-    ax.scatter(eec[eec.has_O2]["max_nuv"], eec[eec.has_O2]["has_O2"], s=9.0, color="C1")
+    ax.scatter(eec[eec.biosig]["max_nuv"], eec[eec.biosig]["biosig"], s=9.0, color="C1")
     ax.axvline(x=float(NUV_thresh), linestyle="--", color="grey")
     ax.set_yticks([0, 1])
     # ax.set_xlim([0,10])
