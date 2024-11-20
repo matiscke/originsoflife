@@ -91,7 +91,7 @@ def get_generator_args():
         # 'mr_relation' : 'Wolfgang2016',
         # 'mr_relation' : 'earthlike',
         # past HZ occupancy and NUV flux
-        "deltaT_min": 10.0,  # Myr
+        "deltaT_min": 1.0,  # Myr
         # "NUV_thresh": 100.0,  # erg/s/cm2
     }
     return stars_args, planets_args
@@ -116,9 +116,9 @@ def generate_generator(stars_only=False, **kwargs):
         g.insert_step("classify_planets")
         g.insert_step("scale_height")
         g.insert_step("compute_transit_params")
+        g.insert_step(eec_filter)
         g.insert_step("past_hz_uv")
         # g.insert_step('apply_bias')
-        g.insert_step(eec_filter)
         g.insert_step(inject_nuv_life_correlation)
         g.insert_step(inject_biosignature)
         g.insert_step(limit_sample)
@@ -166,7 +166,8 @@ def create_survey_nautilus():
         "P": 0.000001,
         "S": "5%",
         # "max_nuv": "20%",
-        "max_nuv": "5%",
+        "max_nuv": "5%",  # will it be measured if we remove it from the `precision` dict? No.
+        # "max_nuv": "50.",
     }
 
     # margs['t_ref'] = {'R':1.5}
@@ -303,19 +304,21 @@ def hypotest_grid(generator, survey, N_grid, fast, testmethod):
     )
 
     if fast:
-        N_iter = 4
+        N_iter = 3
+        f_life = np.geomspace(5e-3, 0.999, N_grid)
+        NUV_thresh = np.geomspace(80.0, 500.0, N_grid)
     else:
         N_iter = 16
-    # f_life = np.geomspace(0.1, 1.0, N_grid)
-    # f_life = np.geomspace(1e-3, 1.0, N_grid)
-    f_life = np.geomspace(1e-2, 1.0, N_grid)
-    # f_life = np.geomspace(0.5, 1.0, N_grid)
-    # f_life = (0.9,)  # test 1D hypothesis grid test
-    # f_life = 0.99  # test 1D hypothesis grid test
-    # NUV_thresh = np.geomspace(300.0, 380.0, N_grid)
-    # NUV_thresh = np.geomspace(30.0, 3000.0, N_grid)
-    # NUV_thresh = np.geomspace(200.0, 600.0, N_grid)
-    NUV_thresh = np.geomspace(10.0, 1000.0, N_grid)
+        # f_life = np.geomspace(0.1, 1.0, N_grid)
+        f_life = np.geomspace(1e-3, 0.999, N_grid)
+        # f_life = np.geomspace(1e-2, 1.0, N_grid)
+        # f_life = np.geomspace(0.5, 1.0, N_grid)
+        # f_life = (0.9,)  # test 1D hypothesis grid test
+        # f_life = 0.99  # test 1D hypothesis grid test
+        # NUV_thresh = np.geomspace(300.0, 380.0, N_grid)
+        # NUV_thresh = np.geomspace(30.0, 3000.0, N_grid)
+        # NUV_thresh = np.geomspace(200.0, 600.0, N_grid)
+        NUV_thresh = np.geomspace(10.0, 1000.0, N_grid)
 
     from bioverse.analysis import test_hypothesis_grid
 
@@ -325,12 +328,13 @@ def hypotest_grid(generator, survey, N_grid, fast, testmethod):
         survey,
         method=testmethod,
         # method="emcee",
-        mw_alternative="two-sided",
+        # mw_alternative="two-sided",
+        mw_alternative="greater",
         # method="dynesty",
         f_life=f_life,
         NUV_thresh=NUV_thresh,
         N=N_iter,
-        processes=8,
+        processes=7,
         t_total=10 * 365.25,
         error_dump_filename=paths.root / "out/error_dump.txt",
     )
@@ -342,13 +346,15 @@ def get_params_past_uv(hoststars="all", **kwargs):
     params_past_uv = {
         # "d_max": 60,        # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
         "d_max": 75,  # TOO SMALL SAMPLE AND THE HYPOTHESIS TESTING GRID GETS STUCK WITHOUT AN ERROR MESSAGE
-        "deltaT_min": 10.0,  # Myr
+        # "deltaT_min": 10.0,  # Myr
+        "deltaT_min": 1.0,  # Myr
         # "NUV_thresh": 350.0,  # choose such that n_inhabited can't be zero
         # "NUV_thresh": 380.0,  # choose such that n_inhabited can't be zero
         # "NUV_thresh": 250.0,  # choose such that n_inhabited can't be zero
         "NUV_thresh": 300.0,  # choose such that n_inhabited can't be zero
-        # "f_life": 0.8,
-        "f_life": 1.0,
+        "f_life": 0.8,
+        # "f_life": 1.0,
+        # "f_life": 0.999,
         # "f_eta": 5.0,  # Occurrence rate scaling factor (MAKE SURE SAMPLE IS LARGE ENOUGH (see above))
         "N_planets": 250,
     }
@@ -425,7 +431,7 @@ def past_uv(
     if grid:
         # perform a grid of hypothesis tests
         if fast:
-            N_grid = 4
+            N_grid = 8
         elif N_grid:
             N_grid = N_grid
         else:
@@ -457,6 +463,8 @@ def past_uv(
 
         d = g.generate()
 
+        d.compute("max_nuv")
+
         dd = d.to_pandas()
         print("Total number of planets: {}".format(len(d)))
         print("Inhabited: {}".format(len(dd[dd.inhabited])))
@@ -479,7 +487,11 @@ def past_uv(
             save_var_latex("M_G_max", g_args["M_G_max"])
             save_var_latex("M_st_max", g_args["M_st_max"])
             try:
-                save_var_latex("f_life", params_past_uv["f_life"])
+                if params_past_uv["f_life"] == 1.0:
+                    # save without trailing zeros
+                    save_var_latex("f_life", 1)
+                else:
+                    save_var_latex("f_life", params_past_uv["f_life"])
             except KeyError:
                 pass
             save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
@@ -587,7 +599,8 @@ def main(fast=False, do_grid=True, testmethod="mannwhitney"):
 if __name__ == "__main__":
     # main()
     # main(do_grid=False)
-    main(do_grid=True, fast=True)
+    # main(do_grid=True, fast=True)
+    main(do_grid=True, fast=False)
     # main(fast=True)
 
 
