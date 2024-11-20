@@ -449,19 +449,17 @@ Figure~\ref{fig:powergrid} shows the statistical power as a function of these pa
 Values of $F_\mathrm{NUV, min}$ that lie between the extrema of the inferred maximum \gls{NUV} flux increase the achieved statistical power of the survey, as in this case the dataset under the alternative hypothesis $H_1$ differs more from the null hypothesis.
 Furthermore, a higher abiogenesis rate $f_\mathrm{life}$ increases the evidence for $H_1$.
 
+Parameter space regions with statistical power above \SI{90}{\percent} lie at abiogenesis rates $f_\mathrm{life} > 0.5$ and mostly at threshold \gls{NUV} fluxes of $\sim \SIrange{200}{400}{\erg\per\second\per\centi\meter\squared}$.
 Notably, the sensitivity of the M~dwarf sample extends into the low \gls{NUV} flux end due to the broader distribution of maximum past \gls{NUV} fluxes in this sample.
-Here, the FGK sample is less sensitive.
-\todo[inline]{Update this with final results from stat. power grid}
-The only parameter space region with statistical power above \SI{90}{\percent} lies at abiogenesis rates $f_\mathrm{life} > 0.9$ and threshold \gls{NUV} fluxes of $\sim \SIrange{200}{400}{\erg\per\second\per\centi\meter\squared}$.
+Here, the FGK sample is barely sensitive.
 
 
 \begin{figure*}
     \script{powergrid.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/powergrid}
-%        \includegraphics[width=\hsize]{figures/powergrid.bak.png}
         \caption{Statistical power as a function of threshold \gls{NUV} flux and abiogenesis rate. Even for a large sample (here: $N=\var{N_nautilus}$), a high statistical power of the transit survey requires high abiogenesis rates $f_\mathrm{life}$.
-         Intermediate values of $F_\mathrm{NUV, min}$ are more likely to yield strong evidence than extreme values; the sensitivity of the M~dwarf sample extends into the low \gls{NUV} flux end.
+         Intermediate values of $F_\mathrm{NUV, min}$ are more likely to yield strong evidence than extreme values. For abiogenesis rates $f_\mathrm{life} \gtrsim \SI{80}{\percent}$, the sensitivity of the M~dwarf sample extends into the low \gls{NUV} flux end.
          }
         \label{fig:powergrid}
     \end{centering}
@@ -485,7 +483,7 @@ Indeed, the distribution of the number of planets with detected biosignature in 
 
 In our semi-analytical analysis (Section~\ref{sec:results-semianalytical}), we project a possible test performed by a future observer equipped with a sample of exoplanets with derived past maximum \gls{NUV} exposure for which biosignature detection has been attempted.
 This is necessarily reductive as this observer will have more knowledge about experimental conditions and will therefore be able to use this information to guide hypothesis testing.
-For instance, we have made the choice to consider the total number of detected biosignatures as our summary statistic (Equation~\ref{eq:semian:likelihoodH1}), which is not `sufficient' to infer $F_{\mathrm{NUV},min}$ and $f_{life}$ separately.
+For instance, we have made the choice to consider the total number of detected biosignatures as our summary statistic (Equation~\ref{eq:semian:likelihoodH1}), which is not sufficient to infer $F_{\mathrm{NUV},min}$ and $f_{life}$ separately.
 However, by conditioning the Bayes factor to these variables (Equation \ref{eq:bayes_factor}), we calculate the probability distribution of the Bayesian evidence in favor of $H_1$.
 In doing so, we may evaluate how evidence depends on the uncertainty over these unknown parameters in general terms, without assuming which particular test a future observer might choose to actually perform over real data when available.
 From this, we can see that target selection can strongly affect the conclusiveness of a future test of the UV~Threshold Hypothesis.
@@ -507,7 +505,7 @@ Since the practical implementation of an exoplanet survey can stand in the way o
 
 %\subsection{Constraining power for the origins of life as a function of biosignature location} % corresponds to conclusion points 2, 5
 \subsection{How planetary context may constrain the UV~Threshold Hypothesis} % corresponds to conclusion points 2, 5
-It comes to no surprise that the success rate of such a test is sensitive to the sample size of the survey and to the occurrence of life on temperate exoplanets.
+It comes to no surprise that the success rate for testing the UV~Threshold Hypothesis is sensitive to the sample size of the survey and to the occurrence of life on temperate exoplanets.
 As we have shown, the statistical power of this test also depends on the distribution of past \gls{NUV} fluxes in the sample and on the threshold flux.
 Optimizing the survey to sample a wide range of NUV flux values, particularly at the extremes, can enhance the likelihood of obtaining strong evidence for or against the hypothesis.
 Intermediate values of the threshold \gls{NUV} flux are more likely to yield strong evidence than extreme values, as the dataset under the alternative hypothesis $H_1$ differs more from the null hypothesis in this case while still being sufficiently populated.
@@ -527,7 +525,6 @@ This will help to test the high \gls{NUV} flux end of the UV Threshold Hypothesi
 At the same time, a fraction of host stars in our M~dwarf sample extends it to lower maximum past \gls{NUV} fluxes, enabling tests of the low \gls{NUV} flux end of the hypothesis.
 The higher and more variable \gls{NUV} fluxes in M~dwarfs thus increase the likelihood of obtaining strong evidence for or against the UV~Threshold Hypothesis.
 The combination of a lack of UV radiation today, which makes biosignature gases more detectable~\citep{Segura2005}, and a UV-rich past that may have enabled abiogenesis could make M~dwarfs the preferred targets for biosignature searches.
-
 These findings underscore the importance of constraining the UV emission profiles of \gls{EEC} host stars throughout their evolutionary stages to assess the viability of M-dwarf planets as testbeds for theories on the origins of life~\citep{Rimmer2021,Ranjan2023a}.
 
 
@@ -577,7 +574,7 @@ By its nature, cyanosulfidic scenario relies on rock surfaces exposed to the pla
 Water worlds that have their entire planeary surface covered by oceans contradict this requireent and do not allow for the wet-dry cycling inherent to this origin of life scenario.
 The competition of tectonic stress with gravitational crustal spreading~\citep{Melosh2011} sets the maximum possible height of mountains, which in the solar system does not exceed $\SI{\sim 20}{\kilo\meter}$.
 Such mountains will be permanently underwater on water worlds.
-Another impediment to wet-dry cycles may be tidal locking of the planet as it stalls stellar tide-induced water movement and diurnal irradiation variability~\citep[e.g.,][]{Ranjan2017b}. 
+Another impediment to wet-dry cycles may be tidal locking of the planet as it stalls stellar tide-induced water movement and diurnal irradiation variability~\citep[e.g.,][]{Ranjan2017b}.
 
 
 \subsubsection{Stellar flares}
@@ -615,7 +612,6 @@ Our main findings are:
     A survey strategy that targets extreme values of inferred past \gls{NUV} irradiation increases the diagnostic power.
     \item Samples of planets orbiting M~dwarfs overall yield higher chances of successfully testing the UV~Threshold Hypothesis.
           They may also be more likely to yield biosignature detections under this hypothesis.
-          \todo[inline]{check if new grid still supports this}
 
 %    \item Abiogenesis in the cyanosulfidic scenario prefers late host star spectral types due to the higher \gls{NUV} fluxes in their habitable zones. However, due to a wider distribution of maximum past \gls{NUV} fluxes in the \gls{HZ} of FGK stars, a transit survey targeting FGK systems is more likely to obtain strong evidence for or against the UV~Threshold Hypothesis.
 
