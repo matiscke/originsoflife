@@ -78,7 +78,7 @@ def plot_nuv_distribution(sample, data, fig, ax, spt, plot_fit=False):
 
     # estimate selectivity from average of fitted beta function parameters
     selectivity = np.log10(1 / (np.mean(max_likeli_norm[:2])))
-    save_var_latex("selectivity_{}".format(spt), round(selectivity, 1))
+    save_var_latex("selectivity_{}".format(spt), round(selectivity, 2))
     print(f"selectivity ~ {selectivity:.2f}")
 
     # plot histogram and beta distribution fitted on non-normalized data
@@ -209,7 +209,8 @@ for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
         # axlr[0].legend(loc="center left", title=None)
         leg = axlr[0].legend(
             bbox_to_anchor=(1.07, 0.99),
-            title=f"N = {len(sample)}",
+            # title=f"N = {len(sample)}",
+            title="N = {}".format(read_var_latex('N_nautilus')),
             loc="lower right",
             frameon=False,
         )
