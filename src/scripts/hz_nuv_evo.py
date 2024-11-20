@@ -13,7 +13,7 @@ import matplotlib.colors as colors
 from bioverse.util import interpolate_luminosity, interpolate_nuv
 
 
-NUV_thresh = 250.0
+NUV_thresh = 300.0
 
 def plot_planets_scatter(ax, d, norm, col=None):
     # for (v, c) in [(False, 'white'), (True, 'C1')]:
@@ -90,7 +90,7 @@ def plot_nuv_evo(fig, ax, log=True, d=None):
     return ax
 
 
-def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0, N_sample=2, random_state=44):
+def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=300.0, N_sample=2, random_state=44):
     "plot where HZ and sufficient NUV overlap for a few planets."
     eec = sample[sample["EEC"].astype(bool)]
     eec.evolve()
@@ -153,7 +153,9 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=100.0, N_sample=2, random_state=
 
 if __name__ == "__main__":
     # with open(paths.data / "pipeline/sample.dll", "rb") as f:
-    with open(paths.data / "pipeline/sample_FGK.dll", "rb") as f:
+    # with open(paths.data / "pipeline/sample_FGK.dll", "rb") as f:
+    with open(paths.data / "pipeline/sample_all.dll", "rb") as f:
+    # with open(paths.data / "pipeline/sample_M.dll", "rb") as f:
         d = dill.load(f)
 
     m = np.linspace(0.1, 1.0, num=200)
@@ -176,4 +178,5 @@ if __name__ == "__main__":
     [ax.set_ylim(min(m), max(m)) for ax in axs]
 
     fig.tight_layout()
+    fig.show()
     fig.savefig(paths.figures / "hz_nuv_evo.pdf")
