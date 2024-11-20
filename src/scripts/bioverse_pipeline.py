@@ -62,8 +62,8 @@ def inject_nuv_life_correlation(d, f_life=0.1):
 
 
 def inject_biosignature(d, P=1.0):
-    # Randomly assign O2 to some inhabited planets
-    d["has_O2"] = np.logical_and(d["inhabited"], np.random.random(size=len(d)) <= P)
+    # Randomly assign a biosignature to some inhabited planets
+    d["biosig"] = np.logical_and(d["inhabited"], np.random.random(size=len(d)) <= P)
 
     return d
 
@@ -150,7 +150,7 @@ def create_survey_nautilus():
         "M",  # needed for estimates of HZ occupancy
         "S",
         "EEC",
-        "has_O2",
+        "biosig",
         "hz_and_uv",
         "max_nuv",
     ]
@@ -245,7 +245,7 @@ def hypothesis_test(data, testmethod):
     bounds = np.array([[1e-3, 1.0], [10.0, 1e5]])
     bounds_null = np.array([[1e-3, 1.0]])
     features = ("max_nuv",)
-    labels = ("has_O2",)
+    labels = ("biosig",)
 
     h_nuv = Hypothesis(
         h1, bounds, params=params, features=features, labels=labels, log=log
@@ -253,7 +253,7 @@ def hypothesis_test(data, testmethod):
     h_nuv.h_null = Hypothesis(
         h_null,
         bounds_null,
-        params=("f_O2",),
+        params=("f_biosig",),
         features=features,
         labels=labels,
         log=(True,),
@@ -288,7 +288,7 @@ def hypotest_grid(generator, survey, N_grid, fast, testmethod):
     bounds = np.array([[1e-3, 1.0], [10.0, 1e5]])
     bounds_null = np.array([[1e-3, 1.0]])
     features = ("max_nuv",)
-    labels = ("has_O2",)
+    labels = ("biosig",)
 
     h_nuv = Hypothesis(
         h1, bounds, params=params, features=features, labels=labels, log=log
@@ -296,7 +296,7 @@ def hypotest_grid(generator, survey, N_grid, fast, testmethod):
     h_nuv.h_null = Hypothesis(
         h_null,
         bounds_null,
-        params=("f_O2",),
+        params=("f_biosig",),
         features=features,
         labels=labels,
         log=(True,),
