@@ -17,14 +17,27 @@ NUV_thresh = 300.0
 
 
 def get_example_planets(d):
-    dd = d.to_pandas()
-    ids = dd[dd.planetID.isin([40278, 578, 71628
-        # 3476,   8688,  15613,  40030,  54874,  56161,  71628,
-        # 79440, 106402, 121746, 149285, 170230, 174441, 180296,
-        # 185852, 189631, 208822, 221669, 224253
-       ])].planetID
-    sample = d[np.isin(d['planetID'], ids)]
-    sample.evolution = {k: v for k, v in d.evolution.items() if k in ids.values}
+    try:
+        with open(
+                paths.data / "pipeline/exampleplanets.dll", "rb"
+        ) as file:
+            sample = dill.load(file)
+
+    except FileNotFoundError:
+        dd = d.to_pandas()
+        ids = dd[dd.planetID.isin([40278, 578, 71628
+            # 3476,   8688,  15613,  40030,  54874,  56161,  71628,
+            # 79440, 106402, 121746, 149285, 170230, 174441, 180296,
+            # 185852, 189631, 208822, 221669, 224253
+           ])].planetID
+        sample = d[np.isin(d['planetID'], ids)]
+        sample.evolution = {k: v for k, v in d.evolution.items() if k in ids.values}
+
+        with open(
+                paths.data / "pipeline/exampleplanets.dll", "wb"
+        ) as file:
+            dill.dump(sample, file)
+
     return sample
 
 def plot_planets_scatter(ax, d, norm, col=None):
