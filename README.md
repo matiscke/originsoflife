@@ -34,7 +34,7 @@ A [Bioverse](https://github.com/danielapai/bioverse) project to study what Origi
 
 ## Reproducibility
 All code needed to reproduce the paper can be found in this repo. The manuscript is autocompiled using the [showyourwork](https://github.com/rodluger/showyourwork) workflow.
-Click [**here**](https://github.com/matiscke/originsoflife/raw/main-pdf/ms.pdf) to read the latest draft of our paper.
+Click [**here**](https://github.com/matiscke/originsoflife/raw/main/src/tex/output/ms.pdf) to read the latest draft of our paper.
 
 
 
