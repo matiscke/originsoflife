@@ -289,9 +289,10 @@ To marginalize over choices of biosignatures and their detectability, which are 
 
 \subsubsection{Hypothesis testing}
 To evaluate the evidence for correctly rejecting the null hypothesis, we employed the Mann-Whitney U test~\citep{Mann1947}.
-This is a non-parametric test to determine whether two independent samples were drawn from a population with the same distribution and is in particular sensitive to one sample being stochastically greater than the other.
+%This is a non-parametric test to determine whether two independent samples were drawn from a population with the same distribution and is in particular sensitive to one sample being stochastically greater than the other.
+This is a non-parametric test of the null hypothesis that two independent samples were drawn from a population with the same distribution and is in particular sensitive to one sample being stochastically greater than the other.
 We used the Mann-Whitney U test to compare the distributions of \gls{NUV} fluxes of planets with and without biosignatures.
-The implementation in Bioverse relies on the \texttt{scipy.stats.mannwhitneyu} function~\citep{Virtanen2020} and returns a two-tailed p-value, for which we set a significance level of $\alpha = 0.05$ to reject the null hypothesis.
+The implementation in Bioverse relies on the \texttt{scipy.stats.mannwhitneyu} function~\citep{Virtanen2020} and returns a p-value, for which we set a significance level of $\alpha = 0.05$ to reject the null hypothesis.
 For every hypothesis test, we repeated randomized survey realizations to estimate the fraction of successful rejections of the null hypothesis, i.e., the statistical power of the survey.
 
 
@@ -371,7 +372,7 @@ With \gls{HZ} occupancy as a requirement for abiogenesis, and barring selection 
 For a fixed planet sample size, the fraction of inhabited planets is highest for planets orbiting M~dwarfs due to the higher \gls{NUV} fluxes in the \gls{HZ} of these stars (see Figures~\ref{fig:hz_nuv_evo}, \ref{fig:surveys_FGKM}).
 Their \gls{NUV} fluxes are generally highest at early times $\lesssim\SI{100}{\mega\year}$.
 These host stars, in particular late subtypes, also provide extended periods of increased \gls{NUV} emission that overlap with times when some of these planets occupy the \gls{HZ} (see Figure~\ref{fig:hz_nuv_evo}), our requirement for abiogenesis (compare Equation~\ref{eq:hypothesis-uv}).
-Thus -- under the UV Threshold Hypothesis, most inhabited transiting planets in the sample orbit M~dwarfs.
+Thus -- under the UV Threshold Hypothesis -- most inhabited transiting planets in the sample orbit M~dwarfs.
 
 Here, we are interested in the statistical power of a transit survey with a plausible sample selection and size.
 In the following, we fix the sample size to \var{N_nautilus} and consider two different survey strategies targeting FGK and M~dwarfs, respectively.
@@ -402,7 +403,7 @@ Applying the approach from Sect.~\ref{sec:results-semianalytical} of fitting a B
         In the FGK sample, most \glspl{EEC} and all inhabited planets orbit K~dwarfs.
         In an M~dwarf sample of the same size, the fraction of inhabited planets is larger.\\
         Center: Distribution of inferred maximum past \gls{NUV} flux in transit surveys targeting \glspl{EEC} around FGK and M~stars, respectively. The best-fit beta distributions (gray) correspond to selectivities of $s_\mathrm{FGK} = $\var{selectivity_FGK} and $s_\mathrm{M} = $\var{selectivity_M}. Green areas show inhabited planets for an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$ and a generic threshold \gls{NUV} flux $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.\\
-        Bottom: Recovered biosignature detections ($\checkmark$) and non-detections ($\oslash$) of simulated transit surveys. The dashed line denotes $F_\mathrm{NUV, min}$.}
+        Bottom: Recovered biosignature detections and non-detections of simulated transit surveys. The dashed line denotes $F_\mathrm{NUV, min}$.}
         \label{fig:surveys_FGKM}
     \end{centering}
 \end{figure*}
@@ -431,12 +432,12 @@ than in the M dwarf sample%($dlnZ_\mathrm{M} = \var{dlnZ_M}$)
     \script{inhabited_aafo_nuv_thresh.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/inhabited_aafo_nuv_thresh}
-        \caption{Fraction of inhabited planets for different threshold \gls{NUV} fluxes under the UV~Threshold Hypothesis if the abiogenesis rate is \var{f_life}. Shaded regions denote 90 percent confidence intervals of randomized sample generations, and dashed lines correspond to samples including non-transiting planets.
+        \caption{Fraction of inhabited planets for different threshold \gls{NUV} fluxes under the UV~Threshold Hypothesis if the abiogenesis rate is 1. Shaded regions denote 90 percent confidence intervals of randomized sample generations, and dashed lines correspond to samples including non-transiting planets.
         For all samples, the fraction of inhabited planets drops sharply with increasing threshold \gls{NUV} flux due to the combined effects of never receiving sufficient \gls{NUV} flux for abiogenesis or receiving it before entering the \gls{HZ}.}
         \label{fig:inhabited_aafo_nuv_thresh}
     \end{centering}
 \end{figure}
-Figure \ref{fig:inhabited_aafo_nuv_thresh} shows the fraction of inhabited planets under the UV~Threshold Hypothesis for different threshold \gls{NUV} fluxes and for a high abiogenesis rate of \var{f_life}.
+Figure \ref{fig:inhabited_aafo_nuv_thresh} shows the fraction of inhabited planets under the UV~Threshold Hypothesis for different threshold \gls{NUV} fluxes and for a high abiogenesis rate of $f_\mathrm{life} = 1$.
 This fraction decreases sharply with increasing threshold flux, as fewer planets receive sufficient \gls{NUV} flux for abiogenesis.
 Another effect responsible for this drop is that some planets receive the required \gls{NUV} flux only before entering the \gls{HZ} -- this is especially likely for M~dwarfs.
 For the FGK sample, the fraction of inhabited planets drops at lower threshold fluxes than for the M dwarf sample.
@@ -450,8 +451,8 @@ Furthermore, a higher abiogenesis rate $f_\mathrm{life}$ increases the evidence 
 
 Notably, the sensitivity of the M~dwarf sample extends into the low \gls{NUV} flux end due to the broader distribution of maximum past \gls{NUV} fluxes in this sample.
 Here, the FGK sample is less sensitive.
-The only parameter space region with statistical power above \SI{90}{\percent} lies at abiogenesis rates $f_\mathrm{life} > 0.9$ and threshold \gls{NUV} fluxes of $\sim \SIrange{30}{70}{\erg\per\second\per\centi\meter\squared}$.
 \todo[inline]{Update this with final results from stat. power grid}
+The only parameter space region with statistical power above \SI{90}{\percent} lies at abiogenesis rates $f_\mathrm{life} > 0.9$ and threshold \gls{NUV} fluxes of $\sim \SIrange{200}{400}{\erg\per\second\per\centi\meter\squared}$.
 
 
 \begin{figure*}
@@ -480,7 +481,7 @@ In Sect.~\ref{sec:results-semianalytical}, we show that testing the UV~Threshold
 Here, these parameters are the unspecified value of the \gls{NUV} threshold hypothesized to exist under $H_1$, and the unknown probability of detectable life emerging on a habitable planet $f_{\mathrm{life}}$.
 While the inference of a planet's entire UV flux evolution is difficult~\citep[e.g.,][]{Richey-Yowell2023}, the estimated maximum \gls{NUV} flux that a planet was exposed to may be used as a proxy, at least if one is interested in a minimum threshold flux and makes the assumption that planetary surfaces offer protection against \textit{too high} UV flux.
 Indeed, the distribution of the number of planets with detected biosignature in a particular sample of planets with determined maximum \gls{NUV} values $F_{\mathrm{NUV}}$ depends on both the values of $F_{\mathrm{NUV},min}$ and $f_{\mathrm{life}}$ as shown in equation \ref{eq:semian:likelihoodH1}.
-Avoiding a loss in statistical power due to nuisance parameters is a common difficulty in statistical testing, and is the motivation behind elaborate test statistics.
+%Avoiding a loss in statistical power due to nuisance parameters is a common difficulty in statistical testing, and is the motivation behind elaborate test statistics.
 
 In our semi-analytical analysis (Section~\ref{sec:results-semianalytical}), we project a possible test performed by a future observer equipped with a sample of exoplanets with derived past maximum \gls{NUV} exposure for which biosignature detection has been attempted.
 This is necessarily reductive as this observer will have more knowledge about experimental conditions and will therefore be able to use this information to guide hypothesis testing.
@@ -613,6 +614,7 @@ Our main findings are:
     A survey strategy that targets extreme values of inferred past \gls{NUV} irradiation increases the diagnostic power.
     \item Samples of planets orbiting M~dwarfs overall yield higher chances of successfully testing the UV~Threshold Hypothesis.
           They may also be more likely to yield biosignature detections under this hypothesis.
+          \todo[inline]{check if new grid still supports this}
 
 %    \item Abiogenesis in the cyanosulfidic scenario prefers late host star spectral types due to the higher \gls{NUV} fluxes in their habitable zones. However, due to a wider distribution of maximum past \gls{NUV} fluxes in the \gls{HZ} of FGK stars, a transit survey targeting FGK systems is more likely to obtain strong evidence for or against the UV~Threshold Hypothesis.
 
