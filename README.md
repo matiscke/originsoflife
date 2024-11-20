@@ -18,7 +18,7 @@ A [Bioverse](https://github.com/danielapai/bioverse) project to study what Origi
 [//]: # (<a href="https://github.com/matiscke/originsoflife/raw/main-pdf/ms.pdf">)
 [//]: # (<a href="https://github.com/matiscke/originsoflife/tree/main/src/tex/output/ms.pdf">)
   
-<a href="https://github.com/matiscke/originsoflife/raw/main/drafts/bioverse_OoL_manuscript_20240926.pdf">
+<a href="https://github.com/matiscke/originsoflife/raw/main/src/tex/output/ms.pdf">
 <img src="https://img.shields.io/badge/article-pdf-blue.svg?style=flat" alt="Read the article"/>
 </a>
 </p>
