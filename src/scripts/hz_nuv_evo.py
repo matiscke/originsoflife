@@ -9,6 +9,7 @@ plotstyle.styleplots()
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
+from matplotlib.patches import Rectangle
 
 from bioverse.util import interpolate_luminosity, interpolate_nuv
 
@@ -18,27 +19,32 @@ NUV_thresh = 300.0
 
 def get_example_planets(d):
     try:
-        with open(
-                paths.data / "pipeline/exampleplanets.dll", "rb"
-        ) as file:
+        with open(paths.data / "pipeline/exampleplanets.dll", "rb") as file:
+            print("Loading example planets from file.")
             sample = dill.load(file)
 
     except FileNotFoundError:
         dd = d.to_pandas()
-        ids = dd[dd.planetID.isin([40278, 578, 71628
-            # 3476,   8688,  15613,  40030,  54874,  56161,  71628,
-            # 79440, 106402, 121746, 149285, 170230, 174441, 180296,
-            # 185852, 189631, 208822, 221669, 224253
-           ])].planetID
-        sample = d[np.isin(d['planetID'], ids)]
+        ids = dd[
+            dd.planetID.isin(
+                [
+                    40278,
+                    578,
+                    71628
+                    # 3476,   8688,  15613,  40030,  54874,  56161,  71628,
+                    # 79440, 106402, 121746, 149285, 170230, 174441, 180296,
+                    # 185852, 189631, 208822, 221669, 224253
+                ]
+            )
+        ].planetID
+        sample = d[np.isin(d["planetID"], ids)]
         sample.evolution = {k: v for k, v in d.evolution.items() if k in ids.values}
 
-        with open(
-                paths.data / "pipeline/exampleplanets.dll", "wb"
-        ) as file:
+        with open(paths.data / "pipeline/exampleplanets.dll", "wb") as file:
             dill.dump(sample, file)
 
     return sample
+
 
 def plot_planets_scatter(ax, d, norm, col=None):
     # for (v, c) in [(False, 'white'), (True, 'C1')]:
@@ -117,7 +123,7 @@ def plot_nuv_evo(fig, ax, log=True, d=None):
 
 def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=300.0, N_sample=2, random_state=44):
     "plot where HZ and sufficient NUV overlap for a few planets."
-    offset = 0.
+    offset = 0.01
     eec = sample[sample["EEC"].astype(bool)]
     # eec.evolve()
     eecdf = eec.to_pandas()
@@ -133,16 +139,32 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=300.0, N_sample=2, random_state=
         ax.plot(
             np.concatenate((np.array([1e-3]), t)),
             [Mst] + [Mst for tt in t],
-            lw=2,
+            lw=1,
             c="gray",
         )
         in_hz = sample.evolution[id]["in_hz"]
         nuv = sample.evolution[id]["nuv"]
-        # check if planet ever was in the HZ and had NUV fluxes above the threshold value
-        hz_and_uv = in_hz & (nuv > NUV_thresh)
 
+        # check where planet was in the HZ and had NUV fluxes above the threshold value
+        t_hz = t[in_hz]
+        t_nuv = t[nuv > NUV_thresh]
+        hz_and_uv = in_hz & (nuv > NUV_thresh)
         t_hzuv = t[hz_and_uv]
-        ax.plot(t_hzuv, [Mst - offset for tt in t_hzuv], lw=4, c="C1")
+
+        ax.plot(t_hz, [Mst + offset for tt in t_hz], lw=3, c="C0")
+        ax.plot(t_nuv, [Mst - offset for tt in t_nuv], lw=3, c="C2")
+
+        # plot emptly rectangle around overlapping region
+        if len(t_hzuv) > 1:
+            # h_off_left = offset*np.abs(np.log10(t_hzuv[0]))
+            # h_off_right = offset*np.abs(np.log10(t_hzuv[-1]))
+
+            ax.add_patch(
+                Rectangle((t_hzuv[0] - 0.1*t_hzuv[0], Mst.values[0] - 3*offset),
+                          t_hzuv[-1] - t_hzuv[0] + 0.2*t_hzuv[-1],  6*offset,
+                fill=False, lw=2, edgecolor="C1", zorder=99)
+            )
+
 
         # save Mst and last time to dictionary
         exampleplanets[Mst.values[0]] = t[-1]
@@ -183,7 +205,7 @@ if __name__ == "__main__":
     # with open(paths.data / "pipeline/sample.dll", "rb") as f:
     # with open(paths.data / "pipeline/sample_FGK.dll", "rb") as f:
     with open(paths.data / "pipeline/sample_all.dll", "rb") as f:
-    # with open(paths.data / "pipeline/sample_M.dll", "rb") as f:
+        # with open(paths.data / "pipeline/sample_M.dll", "rb") as f:
         d = dill.load(f)
 
     m = np.linspace(0.1, 1.0, num=200)
