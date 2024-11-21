@@ -30,7 +30,7 @@ def get_example_planets(d):
                 [
                     40278,
                     578,
-                    71628
+                    71628,
                     # 3476,   8688,  15613,  40030,  54874,  56161,  71628,
                     # 79440, 106402, 121746, 149285, 170230, 174441, 180296,
                     # 185852, 189631, 208822, 221669, 224253
@@ -180,6 +180,12 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=300.0, N_sample=2, random_state=
     ax.plot(
         np.concatenate((np.array([1e-3]), t)), [Mst] + [Mst for tt in t], lw=1, c="gray"
     )
+
+    t = sample.evolution[id]["time"]
+    in_hz = sample.evolution[id]["in_hz"]
+    t_hz = t[in_hz]
+    ax.plot(t_hz, [Mst + offset for tt in t_hz], lw=3, c="C0")
+
     exampleplanets[Mst.values[0]] = t.tolist()[-1]
     print(f"Planet {i+2} has SpT {eecdf[eecdf.planetID == id].SpT.values[0]}")
 
@@ -209,7 +215,7 @@ if __name__ == "__main__":
         d = dill.load(f)
 
     m = np.linspace(0.1, 1.0, num=200)
-    t = np.geomspace(5e-3, 10.0, num=200)
+    t = np.geomspace(1.4e-2, 10.0, num=200)
     M, T = np.meshgrid(m, t)
     interp_lum, extrap_nn = interpolate_luminosity()
 
