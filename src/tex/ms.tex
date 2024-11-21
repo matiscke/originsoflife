@@ -10,7 +10,8 @@
 
 % Title
 %\title{Bioverse: Exoplanet Biosignature Detection Under the UV Threshold Hypothesis}
-\title{Bioverse: Exoplanet Biosignature Patterns Under the UV Threshold Hypothesis for the Origin of Life}
+%\title{Bioverse: Exoplanet Biosignature Patterns Under the UV Threshold Hypothesis for the Origin of Life}
+\title{Bioverse: Potentiablly Observable Exoplanet Biosignature Patterns Under the UV Threshold Hypothesis for the Origin of Life}
 % The Role of Ultraviolet Radiation in Abiogenesis: Insights from Exoplanet Survey Simulations
 % Bioverse: The Impact of UV Flux on Exoplanet Biosignatures under the Cyanosulfidic Origins of Life Scenario
 
@@ -401,7 +402,7 @@ Applying the approach from Sect.~\ref{sec:results-semianalytical} of fitting a B
         \caption{
         Simulated transit surveys targeting FGK and M~stars.\\
         Top: Host stars of all transiting \glspl{EEC} and inhabited planets in a simulated transit survey.
-        In the FGK sample, most \glspl{EEC} and all inhabited planets orbit K~dwarfs.
+        In the FGK sample, all \glspl{EEC} and all inhabited planets orbit K~dwarfs.
         In an M~dwarf sample of the same size, the fraction of inhabited planets is larger.\\
         Center: Distribution of inferred maximum past \gls{NUV} flux in transit surveys targeting \glspl{EEC} around FGK and M~stars, respectively. The best-fit beta distributions (gray) correspond to selectivities of $s_\mathrm{FGK} = $\var{selectivity_FGK} and $s_\mathrm{M} = $\var{selectivity_M}. Green areas show inhabited planets for an abiogenesis rate of $f_\mathrm{life} = \var{f_life}$ and a generic threshold \gls{NUV} flux $F_\mathrm{NUV, min} = \var{NUV_thresh}\,\SI{}{\erg\per\second\per\centi\meter\squared}$.\\
         Bottom: Recovered biosignature detections and non-detections of simulated transit surveys. The dashed line denotes $F_\mathrm{NUV, min}$.}
@@ -525,8 +526,10 @@ While old M~dwarfs can be considered low-UV environments, a significant fraction
 This will help to test the high \gls{NUV} flux end of the UV Threshold Hypothesis; a higher occurrence of biosignatures here would support the hypothesis that a higher NUV flux is beneficial or necessary for life.
 At the same time, a fraction of host stars in our M~dwarf sample extends it to lower maximum past \gls{NUV} fluxes, enabling tests of the low \gls{NUV} flux end of the hypothesis.
 The higher and more variable \gls{NUV} fluxes in M~dwarfs thus increase the likelihood of obtaining strong evidence for or against the UV~Threshold Hypothesis.
+
 The combination of a lack of UV radiation today, which makes biosignature gases more detectable~\citep{Segura2005}, and a UV-rich past that may have enabled abiogenesis could make M~dwarfs the preferred targets for biosignature searches.
-These findings underscore the importance of constraining the UV emission profiles of \gls{EEC} host stars throughout their evolutionary stages to assess the viability of M-dwarf planets as testbeds for theories on the origins of life~\citep{Rimmer2021,Ranjan2023a}.
+We note that relevant mission concepts, such as the Large Interferometer for Exoplanets~\citep[\life,][]{Quanz2022}, include M-dwarf systems among their primary targets~\citep{Kammerer2018,Carrion-Gonzalez2023,Boukrouche2024}.
+Our findings underscore the importance of constraining the UV emission profiles of \gls{EEC} host stars throughout their evolutionary stages to assess the viability of M-dwarf planets as testbeds for theories on the origins of life~\citep{Rimmer2021,Ranjan2023a}.
 
 
 \subsection{Sensitivity to astrophysical parameters} % corresponds to conclusion point 3
@@ -557,13 +560,16 @@ Our results show that the UV~Threshold Hypothesis is testable with potential fut
 Even under idealized conditions, obtaining strong evidence for or against the hypothesis likely requires sample sizes on the order of 100 (see Section~\ref{sec:results-semianalytical}).
 This is true for a future transit survey, the specifics of which we have reflected in our Bioverse simulations (see Section~\ref{sec:results-bioverse}).
 However, we have shown that the impacts from the combined requirements of the UV~Threshold Hypothesis on the fraction of inhabited planets in a sample are comparable in the non-transiting case.
-The likely required sample sizes are larger than the projected sample sizes of most planned missions; for example the \gls{HWO} expects to characterize a sample of only $\sim 25$ Earth analogs~\citep{Mamajek2023,Tuchow2024}.
+%The projected planet yield of most currently planned exoplanet mission concepts are likely insufficient to test the UV~Threshold Hypothesis:
 
-Meaningful tests of the UV~Threshold Hypothesis may thus require a different survey strategy that increases the sample of characterized planets.
-The Nautilus mission~\citep{Apai2019,Apai2022} aims to characterize up to $\sim 1000$ \gls{EEC} via utilizing an innovative telescope design.
-\todo[inline]{DANIEL wants to work on this paragraph}
-%Constraints on the origins of life from exoplanet surveys may thus be a long-term endeavor, and the UV~Threshold Hypothesis may not be testable yet with the current and next generation of exoplanet surveys.
-To prepare for future biosignature surveys, it is important to refine predictions on the role of UV radiation in prebiotic chemistry with both theoretical and experimental work.
+%Meaningful tests of the UV~Threshold Hypothesis may thus require a different survey strategy that increases the sample of characterized planets.
+Given the challenging nature of detecting and characterizing small (Earth-sized) exoplanets, most exoplanet mission concepts currently under development or considered lack the potential for characterizing large enough samples:
+For example, the \gls{HWO} is expected to characterize a sample of $\sim 25$ Earth analogs~\citep{Mamajek2023,Tuchow2024}.
+Depending on the technical design, \life\ is expected to target 25–80 \glspl{EEC}~\citep{Kammerer2018,Quanz2022}, which could be just sufficient to constrain the UV~Threshold Hypothesis.
+One current exception is the Nautilus Space Observatory concept~\citep{Apai2019,Apai2022}.
+Nautilus aims to characterize up to $\sim 1000$ \gls{EEC} via transmission spectroscopy, building on an innovative optical technology.
+To guide the definition of future biosignature surveys, it is important to refine predictions on the role of UV radiation in prebiotic chemistry with both theoretical and experimental work.
+
 
 
 \subsection{Caveats}
