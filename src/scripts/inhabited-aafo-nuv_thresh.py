@@ -59,12 +59,12 @@ def simulate(transiting=True, debug=False):
 
     # nuv_thresholds = np.geomspace(30.0, 3000.0, n_nuv_thresholds)
     # nuv_thresholds = np.geomspace(200.0, 600.0, n_nuv_thresholds)
-    nuv_thresholds = np.linspace(10.0, 800.0, n_nuv_thresholds)
+    nuv_thresholds = np.linspace(10.0, 600.0, n_nuv_thresholds)
     # f_life = 1.0
 
     generator_kwargs = {
     'f_life' : 1.0,
-    'deltaT_min' : 10., # Myr. Smaller values seems so slightly enhance #inhabited planets in the FGK sample.
+    'deltaT_min' : 1., # Myr. Smaller values seems to slightly enhance inhabited planets in the FGK sample.
 
     # increase sample size
     'f_eta' : 15,
@@ -167,8 +167,7 @@ def main(debug=False):
     # for transiting in [False]:
     # for transiting in [True]:
         simulate(transiting, debug)
-        pass
-    # DEBUG
+        # pass
     plot_results()
 
 
