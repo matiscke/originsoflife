@@ -22,9 +22,9 @@
 \author{et al.}
 
 \begin{abstract}
-The origins of life on Earth may provide testable hypotheses about biosignature distributions in exoplanet populations.
-Motivated by the cyanosulfidic origins-of-life scenario, we investigate the hypothesis that a minimum past near-ultraviolet (NUV) flux is necessary for abiogenesis.
-Using a semi-analytical Bayesian framework und the Bioverse survey simulator, we estimate the probability of obtaining strong evidence for or against this UV Threshold Hypothesis with potential future biosignature surveys.
+The origin of life on Earth may provide testable hypotheses about biosignature distributions in exoplanet populations.
+Motivated by the cyanosulfidic origins-of-life scenario, we investigate the hypothesis that a minimum near-ultraviolet (NUV) flux is necessary for abiogenesis.
+Using a semi-analytical Bayesian framework and the Bioverse survey simulator, we estimate the probability of obtaining strong evidence for or against this UV Threshold Hypothesis with potential future biosignature surveys.
 Our results indicate that a correlation between past NUV flux and current biosignature occurrence is observationally testable, but requires sample sizes of at least 50 planets for meaningful constraints.
 These constraints are critically sensitive to the intrinsic abiogenesis rate, as well as host star properties, particularly maximum past NUV fluxes.
 Surveys targeting extreme NUV flux values and planets orbiting M dwarfs enhance the likelihood of obtaining conclusive results, with sample sizes $\gtrsim$100 providing $\gtrsim$80\% likelihood of strong evidence if abiogenesis rates are high and required NUV fluxes are moderate. Conversely, the fraction of inhabited planets sharply decreases for required fluxes exceeding a few hundred erg/s/cm$^2$.
@@ -434,7 +434,8 @@ than in the M dwarf sample%($dlnZ_\mathrm{M} = \var{dlnZ_M}$)
     \script{inhabited_aafo_nuv_thresh.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/inhabited_aafo_nuv_thresh}
-        \caption{Fraction of inhabited planets for different threshold \gls{NUV} fluxes under the UV~Threshold Hypothesis if the abiogenesis rate is 1. Shaded regions denote 90 percent confidence intervals of randomized sample generations, and dashed lines correspond to samples including non-transiting planets.
+        \caption{Fraction of inhabited planets for different threshold \gls{NUV} fluxes under the UV~Threshold Hypothesis if the abiogenesis rate is 1.
+        %Shaded regions denote 90 percent confidence intervals of randomized sample generations, and dashed lines correspond to samples including non-transiting planets.
         For all samples, the fraction of inhabited planets drops sharply with increasing threshold \gls{NUV} flux due to the combined effects of never receiving sufficient \gls{NUV} flux for abiogenesis or receiving it before entering the \gls{HZ}.}
         \label{fig:inhabited_aafo_nuv_thresh}
     \end{centering}
@@ -528,7 +529,7 @@ At the same time, a fraction of host stars in our M~dwarf sample extends it to l
 The higher and more variable \gls{NUV} fluxes in M~dwarfs thus increase the likelihood of obtaining strong evidence for or against the UV~Threshold Hypothesis.
 
 The combination of a lack of UV radiation today, which makes biosignature gases more detectable~\citep{Segura2005}, and a UV-rich past that may have enabled abiogenesis could make M~dwarfs the preferred targets for biosignature searches.
-We note that relevant mission concepts, such as the Large Interferometer for Exoplanets~\citep[\life,][]{Quanz2022}, include M-dwarf systems among their primary targets~\citep{Kammerer2018,Carrion-Gonzalez2023,Boukrouche2024}.
+We note that relevant mission concepts, such as the Large Interferometer for Exoplanets~\citep[\life,][]{Quanz2022}, include M-dwarf systems among their primary targets~\citep{Kammerer2018,Carrion-Gonzalez2023}.
 Our findings underscore the importance of constraining the UV emission profiles of \gls{EEC} host stars throughout their evolutionary stages to assess the viability of M-dwarf planets as testbeds for theories on the origins of life~\citep{Rimmer2021,Ranjan2023a}.
 
 
@@ -562,9 +563,13 @@ This is true for a future transit survey, the specifics of which we have reflect
 However, we have shown that the impacts from the combined requirements of the UV~Threshold Hypothesis on the fraction of inhabited planets in a sample are comparable in the non-transiting case.
 %The projected planet yield of most currently planned exoplanet mission concepts are likely insufficient to test the UV~Threshold Hypothesis:
 
+Given the challenging nature of detecting and characterizing small (Earth-sized) exoplanets, most exoplanet mission concepts currently under development or considered lack the potential for characterizing large enough samples.
+Ground-based 25--40-meter class extremely large telescopes are expected to have the capabilities to detect biosignatures on exoplanets like Proxima Centauri~b~\citep[e.g.,][]{Wang2017,Hawker2019,Zhang2024,Vaughan2024}.
+\citet{Hardegree-Ullman2024} used Bioverse to determine potential yields for a 10-year direct imaging and high-resolution spectroscopy survey of O$_2$ on the Giant Magellan Telescope (GMT) and on the Extremely Large Telescope (ELT) and found that between 7 and 19 habitable zone Earth-sized planets could be probed for Earth-like oxygen levels.
+Such a sample is too small to test the UV Threshold Hypothesis, but it may be synergistic with other detection methods.
+
 %Meaningful tests of the UV~Threshold Hypothesis may thus require a different survey strategy that increases the sample of characterized planets.
-Given the challenging nature of detecting and characterizing small (Earth-sized) exoplanets, most exoplanet mission concepts currently under development or considered lack the potential for characterizing large enough samples:
-For example, the \gls{HWO} is expected to characterize a sample of $\sim 25$ Earth analogs~\citep{Mamajek2023,Tuchow2024}.
+The \gls{HWO} is expected to characterize a sample of $\sim 25$ Earth analogs~\citep{Mamajek2023,Tuchow2024}.
 Depending on the technical design, \life\ is expected to target 25–80 \glspl{EEC}~\citep{Kammerer2018,Quanz2022}, which could be just sufficient to constrain the UV~Threshold Hypothesis.
 One current exception is the Nautilus Space Observatory concept~\citep{Apai2019,Apai2022}.
 Nautilus aims to characterize up to $\sim 1000$ \gls{EEC} via transmission spectroscopy, building on an innovative optical technology.
