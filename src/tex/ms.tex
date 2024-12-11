@@ -158,7 +158,7 @@ Let $Y=\sum_i^n L_i$ be the random variable counting the number of positive life
 P(Y=k|H_\mathrm{null}) = \binom{n}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n-k}.
 \end{equation}
 
-Under $H_1$, $Y$ also follows a binomial distribution, however it is conditioned by $n_{\lambda}=Card(\{F_\mathrm{NUV, i} \text{ if } F_\mathrm{NUV, i}>F_\mathrm{NUV, min}\}_{i \in [1,n]})$ the number of values of $F_\mathrm{NUV}$ in the experiment that exceed $F_\mathrm{NUV, min}$
+Under $H_1$, $Y$ also follows a binomial distribution, however it is conditioned by $n_{\lambda} = n(\{F_\mathrm{NUV, i} \text{ if } F_\mathrm{NUV, i}>F_\mathrm{NUV, min}\}_{i \in [1,n]})$, the number of values of $F_\mathrm{NUV}$ in the experiment that exceed $F_\mathrm{NUV, min}$
 \begin{equation}
 \label{eq:semian:likelihoodH1}
 P(Y=k|H_1) = \binom{n_{\lambda}}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n_{\lambda}-k}.
