@@ -24,11 +24,11 @@
 \begin{abstract}
 A wide variety of scenarios for the origin of life have been proposed, each influencing the prevalence and distribution of biosignatures across exoplanet populations.
 This relationship suggests these scenarios can be tested by predicting biosignature distributions and comparing them with empirical data.
-Here, we demonstrate this approach by focusing on the cyanosulfidic origins-of-life scenario and investigating the hypothesis that a minimum past near-ultraviolet (NUV) flux is necessary for abiogenesis.
+Here, we demonstrate this approach by focusing on the cyanosulfidic origins-of-life scenario and investigating the hypothesis that a minimum near-ultraviolet (NUV) flux is necessary for abiogenesis.
 Using a semi-analytical Bayesian framework and the Bioverse survey simulator, we constrain the probability of obtaining strong evidence for or against this hypothesis with future biosignature surveys.
 Our results indicate that a correlation between past NUV flux and current biosignature occurrence is testable for sample sizes of $\gtrsim$50 planets.
 The diagnostic power of such tests is critically sensitive to the intrinsic abiogenesis rate and host star properties, particularly maximum past NUV fluxes.
-Surveys targeting a wide range of fluxes, including extremes, and planets orbiting M dwarfs enhance the chances of conclusive results, with sample sizes $\gtrsim$100 providing $\gtrsim$80\% likelihood of strong evidence if abiogenesis rates are high and required NUV fluxes are moderate.
+Surveys targeting a wide range of fluxes, including extremes, and planets orbiting M dwarfs enhance the chances of conclusive results, with sample sizes $\gtrsim$100 providing $\gtrsim$80\% likelihood of strong evidence if abiogenesis rates are high and the required NUV fluxes are moderate.
 For required fluxes exceeding a few hundred erg/s/cm$^2$, both the fraction of inhabited planets and the diagnostic power sharply decrease.
 Our findings demonstrate the potential of exoplanet surveys to test origins-of-life hypotheses.
  Beyond specific scenarios, this work underscores the broader value of realistic survey simulations in identifying testable science questions, optimizing mission strategies, and advancing theoretical and experimental studies of abiogenesis.
@@ -38,7 +38,7 @@ Our findings demonstrate the potential of exoplanet surveys to test origins-of-l
 \section{Introduction}
 \label{sec:intro}
 A wide variety of scenarios for the origin of life have been proposed~\citep[e.g.,][]{Baross1985,Brasier2011,Mulkidjanian2012,Fox2013,Deamer2015,Westall2018}.
-While we may still be far away from conclusively testing them, new prospects in the search for conditions favorable to life have opened up by thinking of the origin of life as a planetary phenomenon and identifying global-scale environmental properties that might support pathways to life~\citep{Sasselov2020}.
+While we may still be far from conclusively testing these scenarios, new prospects in the search for conditions favorable to life have opened up by thinking of the origin of life as a planetary phenomenon and identifying global-scale environmental properties that might support pathways to life~\citep{Sasselov2020}.
 In particular, specific planetary conditions are needed to create stockpiles of initial compounds for prebiotic chemistry; and planetary processes are required to trigger the prebiotic synthesis.
 Such planetary conditions can be hypothesized for exoplanets located in the \gls{HZ} of their host star, with persistent liquid water on their surface.
 For example, if deep-sea or sedimentary hydrothermalism is required for abiogenesis, then the insulation of an ocean from the planetary crust minerals (e.g., due to high-pressure ices) may reduce or eliminate the chances of life emerging~\citep[e.g.,][]{Baross1985}.
@@ -59,7 +59,7 @@ We focus on one version of the UV Threshold Hypothesis, the so-called cyanosulfi
 %\todo[inline]{SR: This is an interesting number, because it is below what was available on early Earth (so this scenario could have worked on early Earth) but until recently it was below what was thought to be available on \gls{HZ} M-dwarf exoplanets. So it was thought that identification of biosignatures on M-dwarf planets could therefore falsify the cyanosulfidic scenario, with a potential caveat for transient UV from flares. Two recent developments have complicated the picture. First, Rimmer et al. 2018 had an error in their radiative transfer routines. Correcting for this error, early M-dwarfs and highly active M-dwarfs emit enough UV to meet the Rimmer et al. 2018 criterion (Ranjan et al. 2023).
 %\sout{Second, a recent publication argues that /all/ estimates of M-dwarf UV are underestimates, and that late M-dwarf stars have similar emission to Sunlike stars (Rekhi et al. 2023). I suspect this is incorrect, because it contradicts a lot of work from e.g. the MUSCLES collaboration and the HAZMAT project, but it's worth keeping an eye on in case it is correct after all.}}
 
-We first follow a semi-analytical Bayesian analysis to estimate probabilities of obtaining strong evidence for or against this hypothesis.
+We follow a semi-analytical Bayesian analysis to estimate probabilities of obtaining strong evidence for or against this hypothesis.
 Under the UV Threshold Hypothesis ($H_1$), the probability of an exoplanet having detectable biosignatures is zero if the near-ultraviolet (\gls{NUV}) irradiation is less than the threshold, and it is equal to the (unknown) probability of abiogenesis, $f_\mathrm{life}$ if \gls{NUV} exceeds the threshold for a sufficiently long period of time.
 Under the null hypothesis ($H_\mathrm{null}$), that probability simply is $f_\mathrm{life}$, that is, it does not correlate with the UV flux.
 \begin{figure*}
@@ -121,7 +121,7 @@ In Section~\ref{sec:discussion}, we discuss our findings before concluding with 
 %This test requires the detection of multiple biosignatures.''
 %~\\
 %Test for negative correlations as well?}
-Here, we conduct a theoretical experiment on the UV~Threshold Hypothesis by relating the occurrence of life on an exo-earth candidate with a minimum past quiescent stellar UV flux, focusing on the prebiotically interesting \gls{NUV} range from \SIrange{200}{280}{\nano\meter}~\citep{RanjanSasselov2016}. %\todo[inline]{SUKRIT: got a good reference for this?}
+Here, we conduct a theoretical experiment on the UV~Threshold Hypothesis by relating the occurrence of life on an exo-earth candidate with a minimum past quiescent stellar UV flux, focusing on the prebiotically interesting \gls{NUV} range from \SIrange{200}{280}{\nano\meter}~\citep{Ranjan2016}. %\todo[inline]{SUKRIT: got a good reference for this?}
 Our core hypothesis shall be that life only occurs on planets that at some point in their history have received such radiation at a flux exceeding a threshold $F_\mathrm{NUV, min}$.
 
 
@@ -176,7 +176,7 @@ BF_{H_\mathrm{null},H_1} = \frac{P(Y=k|H_\mathrm{null})}{P(Y=k|H_1)} = \frac{\bi
 \end{subequations}
 
 Given a sample of planets, where for some of them we have convincing biosignature detections but remaining agnostic on $f_\mathrm{life}$: What evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$ can we expect to get?
-The analytical expression for the Bayes factor of this infverence problem (Equation~\ref{eq:bayes_factor}) is determined by the unknown variables $f_\mathrm{life}$ and $F_\mathrm{NUV, min}$, as well as by the summary statistic $Y$ (number of biosignature detections).
+The analytical expression for the Bayes factor of this inference problem (Equation~\ref{eq:bayes_factor}) is determined by the unknown variables $f_\mathrm{life}$ and $F_\mathrm{NUV, min}$, as well as by the summary statistic $Y$ (number of biosignature detections).
 To compute the distribution of evidences, we repeatedly generated samples under $H_\mathrm{1}$ and $H_\mathrm{null}$ and computed the Bayes factors $BF_{H_1,H_\mathrm{null}}$ and $BF_{H_\mathrm{null}, H_1}$.
 We then evaluated the fraction of Monte Carlo runs in which certain evidence thresholds~\citep{Jeffreys1939} were exceeded.
 
@@ -335,7 +335,7 @@ Larger sample sizes enable this at lower values of these parameters.
 
 
 So far, we have assumed random, uniform distributions of $f_\mathrm{life}$, $F_\mathrm{NUV, min}$, and $F_\mathrm{NUV}$. % Actually it is more than just NUV, it is whatever index that integrates NUV and HZ requiremetns into a single scalar variable for which a threshold exist
-A high biosignature detection rate $f_\mathrm{life}$ increases the evidence (see Equation~\ref{eq:bayes_factor}) but we cannot influence it.
+A high biosignature detection rate $f_\mathrm{life}$ increases the evidence (see Equation~\ref{eq:bayes_factor}) but a survey strategy cannot influence it.
 The same is true for $F_\mathrm{NUV, min}$, where again higher values increase the evidence as the binomial distribution for $H_\mathrm{1}$ gets increasingly skewed and shifted away from the one for $H_\mathrm{null}$.
 However, one might select exoplanets for which a biosignature test is performed based on \textit{a priori} available contextual information~\citep{catling2018exoplanet} in order to maximize the science yield of investing additional resources.
 For instance, the distribution of $F_\mathrm{NUV}$ in the planet sample can be influenced by the survey strategy, and a targeted sampling approach could favor extreme values. % of $F_\mathrm{NUV}$ in the sample selection.
@@ -529,7 +529,7 @@ At the same time, a fraction of host stars in our M~dwarf sample extends it to l
 The higher and more variable \gls{NUV} fluxes in M~dwarfs thus increase the likelihood of obtaining strong evidence for or against the UV~Threshold Hypothesis.
 
 The combination of a lack of UV radiation today, which makes biosignature gases more detectable~\citep{Segura2005}, and a UV-rich past that may have enabled abiogenesis could make M~dwarfs the preferred targets for biosignature searches.
-We note that relevant mission concepts, such as the Large Interferometer for Exoplanets~\citep[\life,][]{Quanz2022}, include M-dwarf systems among their primary targets~\citep{Kammerer2018,Carrion-Gonzalez2023}.
+We note that relevant mission concepts, such as the Large Interferometer for Exoplanets~\citep[\life,][]{Quanz2022,Glauser2024}, include M-dwarf systems among their primary targets~\citep{Kammerer2018,Carrion-Gonzalez2023}.
 Our findings underscore the importance of constraining the UV emission profiles of \gls{EEC} host stars throughout their evolutionary stages to assess the viability of M-dwarf planets as testbeds for theories on the origins of life~\citep{Rimmer2021,Ranjan2023a}.
 
 
@@ -587,6 +587,7 @@ Water worlds that have their entire planetary surface covered by oceans contradi
 The competition of tectonic stress with gravitational crustal spreading~\citep{Melosh2011} sets the maximum possible height of mountains, which in the solar system does not exceed $\SI{\sim 20}{\kilo\meter}$.
 Such mountains will be permanently underwater on water worlds.
 Another impediment to wet-dry cycles may be tidal locking of the planet as it stalls stellar tide-induced water movement and diurnal irradiation variability~\citep[e.g.,][]{Ranjan2017b}.
+However, recent dynamical models suggest tidally locked planets to undergo rapid drift of their sub-stellar point~\citep{Revol2024}.
 
 
 \subsubsection{Stellar flares}
@@ -601,7 +602,7 @@ Theoretical work suggests that the atmosphere of prebiotic Earth was largely tra
 We thus approximated surface UV flux using top-of-atmosphere fluxes.
 If there are planets in a sample that do not have a transparent atmosphere at \gls{NUV} wavelengths and require higher fluxes for abiogenesis, the fraction of inhabited planets in the sample will be lower.
 However, these planets will not pollute the below-threshold subsample, as they will not be able to host life under the UV~Threshold Hypothesis.
-
+Exoplanet surveys focusing on highly irradiated planets offer an opportunity to constrain the typical oxidation state of rocky exoplanets, providing insights into the average composition of their secondary atmospheres~\citep{Lichtenberg2024}.
 
 %\subsubsection{Diurnal cycles}
 %\todo[inline]{We assume that tidal locking implies that there are no wet-dry cycles. Challenge this assumption.}
