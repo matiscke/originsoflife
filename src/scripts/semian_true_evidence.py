@@ -136,7 +136,7 @@ def plot_true_evidence(ax):
     ax.set_ylim(-0.05, 1.05)
     # ax.set_ylabel("$P(\mathrm{evidence} > x)$")
     ax.set_ylabel("$P(BF_{H_i, H_j} > x$)")
-    ax.set_xlabel("$x$")
+    ax.set_xlabel("Evidence threshold $x$")
 
     return ax
 
