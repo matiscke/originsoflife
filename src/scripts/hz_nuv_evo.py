@@ -151,10 +151,10 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=300.0, N_sample=2, random_state=
         hz_and_uv = in_hz & (nuv > NUV_thresh)
         t_hzuv = t[hz_and_uv]
 
-        ax.plot(t_hz, [Mst + offset for tt in t_hz], lw=3, c="C0")
-        ax.plot(t_nuv, [Mst - offset for tt in t_nuv], lw=3, c="C2")
+        ax.plot(t_hz, [Mst + offset for tt in t_hz], lw=3, c="C0", label="HZ")
+        ax.plot(t_nuv, [Mst - offset for tt in t_nuv], lw=3, c="C2", label="high NUV")
 
-        # plot emptly rectangle around overlapping region
+        # plot empty rectangle around overlapping region
         if len(t_hzuv) > 1:
             # h_off_left = offset*np.abs(np.log10(t_hzuv[0]))
             # h_off_right = offset*np.abs(np.log10(t_hzuv[-1]))
@@ -162,7 +162,7 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=300.0, N_sample=2, random_state=
             ax.add_patch(
                 Rectangle((t_hzuv[0] - 0.1*t_hzuv[0], Mst.values[0] - 3*offset),
                           t_hzuv[-1] - t_hzuv[0] + 0.2*t_hzuv[-1],  6*offset,
-                fill=False, lw=2, edgecolor="C1", zorder=99)
+                fill=False, lw=2, edgecolor="C1", zorder=99, label="HZ and high NUV")
             )
 
 
@@ -204,6 +204,7 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=300.0, N_sample=2, random_state=
             fontweight="bold",
         )
 
+
     return ax
 
 
@@ -232,6 +233,11 @@ if __name__ == "__main__":
     sample = get_example_planets(d)
 
     axs[0] = plot_hz_and_nuv(fig, axs[0], sample, NUV_thresh=NUV_thresh)
+    # add a legend covering only the elements 1, 2, and 3 in the axis:
+    axs[0].legend(loc="lower left", framealpha=0.0, handles=axs[0].get_legend_handles_labels()[0][1:4],
+                  bbox_to_anchor=(0.0, 1.0, 1.0, 0.1), ncol=3)
+
+
     axs[1] = plot_hz_and_nuv(fig, axs[1], sample, NUV_thresh=NUV_thresh)
 
     [ax.set_xlim(min(t), max(t)) for ax in axs]
