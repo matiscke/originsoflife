@@ -163,11 +163,13 @@ def plot_results():
 
 @timeit
 def main(debug=False):
-    for transiting in [True, False]:
+    # !only simulate if needed! It takes a while...
+
+    # for transiting in [True, False]:
     # for transiting in [False]:
     # for transiting in [True]:
-        simulate(transiting, debug)
-        # pass
+    #     simulate(transiting, debug)
+
     plot_results()
 
 
