@@ -37,8 +37,8 @@ def plot_nuv_distribution(sample, data, fig, ax, spt):
     # plot histogram and beta distribution fitted on non-normalized data
     x = np.arange(0.0, 1000.0, 5)
     max_likeli = stats.beta.fit(dataa.max_nuv, method="MM")
-    # ax.hist(dataa.max_nuv, density=True, color="C0")
-    ax.hist([dataa.max_nuv[sample.inhabited], dataa.max_nuv[~sample.inhabited]], stacked=True, density=True, color=["C1", "C0"], label=["inhabited", "EEC"])
+    # ax.hist(dataa.max_nuv, density=True, color="C2")
+    ax.hist([dataa.max_nuv[sample.inhabited], dataa.max_nuv[~sample.inhabited]], stacked=True, density=True, color=["C1", "C2"], label=["inhabited", "EEC"])
     ax.plot(
         x,
         stats.beta.pdf(x, *max_likeli[:2], loc=max_likeli[2], scale=max_likeli[3]),

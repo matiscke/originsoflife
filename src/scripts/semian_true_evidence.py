@@ -93,15 +93,16 @@ def plot_true_evidence(ax):
 
         ax.plot(
             gtvec,
-            [np.sum(bfh1_kh1 > g) / len(bfh1_kh1) for g in gtvec],
-            label=showlabel + "True evidence for $H_\mathrm{1}$",
-            c="C0",
-            ls=ls,
-        )
-        ax.plot(
-            gtvec,
             [np.sum(bfh0_kh0 > g) / len(bfh1_kh1) for g in gtvec],
             label=showlabel + "True evidence for $H_\mathrm{null}$",
+            c="C2",
+            ls=ls,
+        )
+
+        ax.plot(
+            gtvec,
+            [np.sum(bfh1_kh1 > g) / len(bfh1_kh1) for g in gtvec],
+            label=showlabel + "True evidence for $H_\mathrm{1}$",
             c="C1",
             ls=ls,
         )
@@ -188,7 +189,7 @@ def plot_evidence_sampsize(ax, s_max=500):
     svec = np.arange(10, s_max)
     true_strong_evidence_p = [P_true_evidence(sampsize=s) for s in svec]
 
-    ax.plot(svec, true_strong_evidence_p)
+    ax.plot(svec, true_strong_evidence_p, c="C1")
     ax.set_ylim(-0.05, 1.05)
     ax.set_ylabel("$P(BF_{H_1, H_\mathrm{null}} > 10$)")
     ax.set_xlabel("Planet sample size $n$")

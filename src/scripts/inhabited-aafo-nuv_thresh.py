@@ -143,7 +143,7 @@ def plot_results():
 
 
         # Plot FGK stars
-        ax.plot(nuv_thresholds_fgk, mean_fractions_fgk, label=f"FGK host stars ({lbl})", color='C0', **plotkwargs[lbl])
+        ax.plot(nuv_thresholds_fgk, mean_fractions_fgk, label=f"FGK host stars ({lbl})", color='C2', **plotkwargs[lbl])
         ax.fill_between(nuv_thresholds_fgk, lower_bound_fgk, upper_bound_fgk, color=f"{'C0' if transiting else 'white'}", alpha=0.2)
 
         # Plot M stars

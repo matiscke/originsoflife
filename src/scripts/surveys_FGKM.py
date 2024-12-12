@@ -51,7 +51,7 @@ def plot_inhabited_FGKM(d, fig, ax):
         # kind="count",
         hue="Category",
         order=["F", "G", "K", "M"],
-        palette={"EEC": "dimgray", "inhabited": "C0", "non-EEC": "darkgray"},
+        palette={"EEC": "dimgray", "inhabited": "C1", "non-EEC": "darkgray"},
     )  # , hue_order = [True, False])
     # ax.set_yscale("log")
 
@@ -88,13 +88,13 @@ def plot_nuv_distribution(sample, data, fig, ax, spt, plot_fit=False):
     bins = np.linspace(180.0, 610.0, 28)
 
     max_likeli = stats.beta.fit(dataa.max_nuv, method="MM")
-    # ax.hist(dataa.max_nuv, density=True, color="C0")
+    # ax.hist(dataa.max_nuv, density=True, color="C1")
     ax.hist(
         [dataa.max_nuv[sample.inhabited], dataa.max_nuv[~sample.inhabited]],
         histtype="bar",
         stacked=True,
         density=True,
-        color=["C0", "dimgray"],
+        color=["C1", "dimgray"],
         label=["inhabited", "EEC"],
         bins=bins,
     )
@@ -241,4 +241,5 @@ for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
 
 plt.tight_layout()
 plt.subplots_adjust(hspace=0.7)  # Increase the height space between rows
+fig.show()
 fig.savefig(paths.figures / "surveys_FGKM.pdf")
