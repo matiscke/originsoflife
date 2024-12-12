@@ -136,12 +136,12 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=300.0, N_sample=2, random_state=
     for i, id in enumerate(inhabited.planetID):
         Mst = eecdf[eecdf.planetID == id]["M_st"]
         t = sample.evolution[id]["time"]
-        ax.plot(
-            np.concatenate((np.array([1e-3]), t)),
-            [Mst] + [Mst for tt in t],
-            lw=1,
-            c="gray",
-        )
+        # ax.plot(
+        #     np.concatenate((np.array([1e-3]), t)),
+        #     [Mst] + [Mst for tt in t],
+        #     lw=1,
+        #     c="gray",
+        # )
         in_hz = sample.evolution[id]["in_hz"]
         nuv = sample.evolution[id]["nuv"]
 
@@ -151,8 +151,8 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=300.0, N_sample=2, random_state=
         hz_and_uv = in_hz & (nuv > NUV_thresh)
         t_hzuv = t[hz_and_uv]
 
-        ax.plot(t_hz, [Mst + offset for tt in t_hz], lw=3, c="C0", label="HZ")
-        ax.plot(t_nuv, [Mst - offset for tt in t_nuv], lw=3, c="C2", label="high NUV")
+        ax.plot(t_hz, [Mst + offset for tt in t_hz], lw=3.5, c="xkcd:pale gold", label="HZ")
+        ax.plot(t_nuv, [Mst - offset for tt in t_nuv], lw=3.5, c="C1", label="high NUV")
 
         # plot empty rectangle around overlapping region
         if len(t_hzuv) > 1:
@@ -160,9 +160,9 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=300.0, N_sample=2, random_state=
             # h_off_right = offset*np.abs(np.log10(t_hzuv[-1]))
 
             ax.add_patch(
-                Rectangle((t_hzuv[0] - 0.1*t_hzuv[0], Mst.values[0] - 3*offset),
-                          t_hzuv[-1] - t_hzuv[0] + 0.2*t_hzuv[-1],  6*offset,
-                fill=False, lw=2, edgecolor="C1", zorder=99, label="HZ and high NUV")
+                Rectangle((t_hzuv[0] - 0.1*t_hzuv[0], Mst.values[0] - 4*offset),
+                          t_hzuv[-1] - t_hzuv[0] + 0.2*t_hzuv[-1],  8*offset,
+                fill=False, lw=3, edgecolor="white", zorder=99, label="HZ and high NUV")
             )
 
 
@@ -177,14 +177,14 @@ def plot_hz_and_nuv(fig, ax, sample, NUV_thresh=300.0, N_sample=2, random_state=
     id = 40278
     Mst = eecdf[eecdf.planetID == id]["M_st"]
     t = sample.evolution[id]["time"]
-    ax.plot(
-        np.concatenate((np.array([1e-3]), t)), [Mst] + [Mst for tt in t], lw=1, c="gray"
-    )
+    # ax.plot(
+    #     np.concatenate((np.array([1e-3]), t)), [Mst] + [Mst for tt in t], lw=1, c="gray"
+    # )
 
     t = sample.evolution[id]["time"]
     in_hz = sample.evolution[id]["in_hz"]
     t_hz = t[in_hz]
-    ax.plot(t_hz, [Mst + offset for tt in t_hz], lw=3, c="C0")
+    ax.plot(t_hz, [Mst + offset for tt in t_hz], lw=3.5, c="xkcd:pale gold")
 
     exampleplanets[Mst.values[0]] = t.tolist()[-1]
     print(f"Planet {i+2} has SpT {eecdf[eecdf.planetID == id].SpT.values[0]}")
@@ -234,7 +234,7 @@ if __name__ == "__main__":
 
     axs[0] = plot_hz_and_nuv(fig, axs[0], sample, NUV_thresh=NUV_thresh)
     # add a legend covering only the elements 1, 2, and 3 in the axis:
-    axs[0].legend(loc="lower left", framealpha=0.0, handles=axs[0].get_legend_handles_labels()[0][1:4],
+    axs[0].legend(loc="lower left", framealpha=0.0, handles=axs[0].get_legend_handles_labels()[0][1:3],
                   bbox_to_anchor=(0.0, 1.0, 1.0, 0.1), ncol=3)
 
 
