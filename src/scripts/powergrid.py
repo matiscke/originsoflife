@@ -46,7 +46,8 @@ def plot_powergrid(grid, fig, ax, **kwargs):
 
     # ax.set_xlim(10, 1100)
     ax.set_xlim(50, 1000)
-    ax.set_ylim(bottom=1e-3, top=1.0)
+    # ax.set_ylim(bottom=1e-3, top=1.0)
+    ax.set_ylim(bottom=1e-2, top=1.0)
     return fig, ax
 
 
@@ -71,4 +72,5 @@ for i, (spt, ax) in enumerate(zip(["FGK", "M"], axs)):
 
 fig.colorbar(axs[0].collections[0], cax=cax, label="Statistical power (%)")
 
+fig.show()
 fig.savefig(paths.figures / "powergrid.pdf")
