@@ -83,7 +83,7 @@ We focus on one version of the UV Threshold Hypothesis, the so-called cyanosulfi
 %\sout{Second, a recent publication argues that /all/ estimates of M-dwarf UV are underestimates, and that late M-dwarf stars have similar emission to Sunlike stars (Rekhi et al. 2023). I suspect this is incorrect, because it contradicts a lot of work from e.g. the MUSCLES collaboration and the HAZMAT project, but it's worth keeping an eye on in case it is correct after all.}}
 
 We follow a semi-analytical Bayesian analysis to estimate probabilities of obtaining strong evidence for or against this hypothesis.
-Under the UV Threshold Hypothesis ($H_1$), the probability of an exoplanet having detectable biosignatures is zero if the near-ultraviolet (\gls{NUV}) irradiation is less than the threshold, and it is equal to the (unknown) probability of abiogenesis, $f_\mathrm{life}$ if \gls{NUV} exceeds the threshold for a sufficiently long period of time.
+Under the UV Threshold Hypothesis ($H_1$), the probability of an exoplanet having detectable biosignatures is zero if the near-ultraviolet (\gls{NUV}) irradiation is less than the threshold, and it is equal to the (unknown) probability of \rev{life emerging and persisting}, $f_\mathrm{life}$ if \gls{NUV} exceeds the threshold for a sufficiently long period of time.
 Under the null hypothesis ($H_\mathrm{null}$), that probability simply is $f_\mathrm{life}$, that is, it does not correlate with the \gls{UV} flux.
 \begin{figure*}
     \begin{centering}
@@ -154,7 +154,8 @@ We first assessed the expected probabilities of obtaining true negative or true 
 This serves as a first-order estimate of the information content of a survey, before we take into account the effects of exoplanet demographics, sample selection, and survey strategy.
 
 Presumably, not all habitable worlds are inhabited and not all inhabited worlds develop detectable biosignatures.
-The fraction of \glspl{EEC} that are both inhabited and exhibit detectable biosignatures at the time of observation is unknown and may depend on various parameters that we aggregate under a single term $f_\mathrm{life}$.
+The fraction of \glspl{EEC} that are both inhabited and exhibit detectable biosignatures at the time of observation is unknown \rev{and is represented by the term $f_\mathrm{life}$.
+This encompasses the probability of life both emerging and persisting to produce detectable biosignatures.}
 Let us consider the probability to detect a biosignature $P(L)$, and let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
 Under Hypothesis $H_1$, there exists a special unknown value of $F_\mathrm{NUV}$, noted $F_\mathrm{NUV, min}$ such that
 
@@ -265,7 +266,7 @@ Outside the age and stellar mass range covered in \citet{Richey-Yowell2023}, we 
 
 We then determined which planets were both in the \gls{HZ} and had \gls{NUV} fluxes above $F_\mathrm{NUV, min}$.
 To avoid considering short transitional phases, we require this situation to last for a minimum duration $\Delta T_\mathrm{min} \geq \var{deltaT_min}\,\SI{}{\mega\year}$.
-We assigned the emergence of life to a random fraction $f_\mathrm{life}$ of all temperate planets fulfilling these requirements.
+We assigned the emergence \rev{and persistence} of life to a random fraction $f_\mathrm{life}$ of all temperate planets fulfilling these requirements.
 For the probability of a planet having detectable biosignatures, $P(\mathrm{bio})$, the UV~Threshold Hypothesis then states
 \begin{equation}\label{eq:hypothesis-uv}
     H_{1} : P(\mathrm{bio}) =
@@ -343,7 +344,7 @@ In the majority of cases, the outcome of the survey will be inconclusive.
 \end{figure*}
 The situation improves with larger samples: for $n = \var{semian_Nsamp2}$, \SI{80}{\percent} of random samples permit conclusive inference (strong true evidence) under either $H_\mathrm{1}$ or $H_\mathrm{null}$.
 
-The expected resulting evidence further depends on the a priori unknown abiogenesis rate $f_\mathrm{life}$ and on the \gls{NUV} flux threshold.
+The expected resulting evidence further depends on the a priori unknown \rev{rate of life's emergence and persistence} $f_\mathrm{life}$ and on the \gls{NUV} flux threshold.
 \begin{figure*}
     \script{semian_true_evidence.py}
     \begin{centering}
@@ -401,7 +402,7 @@ Thus -- under the UV Threshold Hypothesis -- most inhabited transiting planets i
 
 Here, we are interested in the statistical power of a transit survey with a plausible sample selection and size.
 In the following, we fix the sample size to \var{N_nautilus} and consider two different survey strategies targeting FGK and M~dwarfs, respectively.
-We further investigate the sensitivity of the survey to the a priori unknown threshold \gls{NUV} flux $F_\mathrm{NUV, min}$ and the abiogenesis rate $f_\mathrm{life}$.
+We further investigate the sensitivity of the survey to the a priori unknown threshold \gls{NUV} flux $F_\mathrm{NUV, min}$ and the \rev{probability of life emerging and persisting} $f_\mathrm{life}$.
 
 \subsubsection{Selectivity of simulated transit surveys}
 In Section~\ref{sec:results-semianalytical}, we showed that the probability of obtaining true strong evidence for the hypothesis that life only originates on planets with a minimum past \gls{NUV} flux is sensitive to the distribution of sampled past \gls{NUV} fluxes, i.e., the selectivity of the survey (compare Figure~\ref{fig:semian_selectivity}).
@@ -463,19 +464,19 @@ than in the M dwarf sample%($dlnZ_\mathrm{M} = \var{dlnZ_M}$)
         \label{fig:inhabited_aafo_nuv_thresh}
     \end{centering}
 \end{figure}
-Figure~\ref{fig:inhabited_aafo_nuv_thresh} shows the fraction of inhabited planets under the UV~Threshold Hypothesis for different threshold \gls{NUV} fluxes and for the limiting case of an abiogenesis rate of $f_\mathrm{life} = 1$.
+Figure~\ref{fig:inhabited_aafo_nuv_thresh} shows the fraction of inhabited planets under the UV~Threshold Hypothesis for different threshold \gls{NUV} fluxes and for the limiting case of \rev{a probability for life's emergence and persistence} of $f_\mathrm{life} = 1$.
 This fraction decreases sharply with increasing threshold flux, as fewer planets receive sufficient \gls{NUV} flux for abiogenesis.
 Another effect responsible for this drop is that some planets receive the required \gls{NUV} flux only before entering the \gls{HZ} -- this is especially likely for M~dwarfs.
 For the FGK sample, the fraction of inhabited planets drops at lower threshold fluxes than for the M dwarf sample.
 
 
 \subsubsection{Statistical power and sensitivity to astrophysical parameters}\label{sec:results-powergrid}
-We now investigate the sensitivity of the achieved statistical power of our default transit survey to the a priori unconstrained threshold \gls{NUV} flux $F_\mathrm{NUV, min}$ and the abiogenesis rate $f_\mathrm{life}$.
+We now investigate the sensitivity of the achieved statistical power of our default transit survey to the a priori unconstrained threshold \gls{NUV} flux $F_\mathrm{NUV, min}$ and the abiogenesis \rev{and persistence} rate $f_\mathrm{life}$.
 Figure~\ref{fig:powergrid} shows the statistical power as a function of these parameters for a sample size of $N=\var{N_nautilus}$.
 Values of $F_\mathrm{NUV, min}$ that lie between the extrema of the inferred maximum \gls{NUV} flux increase the achieved statistical power of the survey, as in this case the dataset under the alternative hypothesis $H_1$ differs more from the null hypothesis.
-Furthermore, a higher abiogenesis rate $f_\mathrm{life}$ increases the evidence for $H_1$.
+Furthermore, \rev{higher $f_\mathrm{life}$ increase} the evidence for $H_1$.
 
-Parameter space regions with statistical power above \SI{90}{\percent} lie at abiogenesis rates $f_\mathrm{life} > 0.5$ and mostly at threshold \gls{NUV} fluxes of $\sim \SIrange{200}{400}{\erg\per\second\per\centi\meter\squared}$.
+Parameter space regions with statistical power above \SI{90}{\percent} lie at \rev{$f_\mathrm{life} > 0.5$} and mostly at threshold \gls{NUV} fluxes of $\sim \SIrange{200}{400}{\erg\per\second\per\centi\meter\squared}$.
 Notably, the sensitivity of the M~dwarf sample extends into the low \gls{NUV} flux end due to the broader distribution of maximum past \gls{NUV} fluxes in this sample.
 Here, the FGK sample is barely sensitive.
 
@@ -484,8 +485,8 @@ Here, the FGK sample is barely sensitive.
     \script{powergrid.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/powergrid}
-        \caption{Statistical power as a function of threshold \gls{NUV} flux and abiogenesis rate. Even for a large sample (here: $N=\var{N_nautilus}$), a high statistical power of the transit survey requires high abiogenesis rates $f_\mathrm{life}$.
-         Intermediate values of $F_\mathrm{NUV, min}$ are more likely to yield strong evidence than extreme values. For abiogenesis rates $f_\mathrm{life} \gtrsim \SI{80}{\percent}$, the sensitivity of the M~dwarf sample extends into the low \gls{NUV} flux end.
+        \caption{Statistical power as a function of threshold \gls{NUV} flux and abiogenesis rate. Even for a large sample (here: $N=\var{N_nautilus}$), a high statistical power of the transit survey requires high \rev{rates of life emerging and persisting} $f_\mathrm{life}$.
+         Intermediate values of $F_\mathrm{NUV, min}$ are more likely to yield strong evidence than extreme values. \rev{For $f_\mathrm{life} \gtrsim \SI{80}{\percent}$}, the sensitivity of the M~dwarf sample extends into the low \gls{NUV} flux end.
          }
         \label{fig:powergrid}
     \end{centering}
@@ -558,7 +559,7 @@ Our findings underscore the importance of constraining the \gls{UV} emission pro
 
 \subsection{Sensitivity to astrophysical parameters} % corresponds to conclusion point 3
 Our Bioverse simulations that take into account exoplanet demographics, the evolution of habitability and \gls{NUV} fluxes, and observational biases show that not only the likelihood of a conclusive test of the UV~Threshold Hypothesis, but also the likelihood of successful biosignature detection itself is extremely sensitive to the threshold \gls{NUV} flux if the hypothesis is true.
-Even if all biosignatures can be detected and the nominal abiogenesis rate is very high, say $f_\mathrm{life} = 1$, under the condition that prebiotic chemistry requires a minimum \gls{NUV} flux \textit{and} liquid water, if the threshold flux turns out to be high the probability of finding life on a randomly selected planet may be very low.
+Even if all biosignatures can be detected and the nominal \rev{rate of life's emergence and persistence} is very high, say $f_\mathrm{life} = 1$, under the condition that prebiotic chemistry requires a minimum \gls{NUV} flux \textit{and} liquid water, if the threshold flux turns out to be high the probability of finding life on a randomly selected planet may be very low.
 As we showed, for high required fluxes the two requirements of simultaneous \gls{HZ} occupancy and sufficient \gls{NUV} flux conspire to diminish the fraction of inhabited planets in the sample.
 Taking the inferred fluxes from \citet{Richey-Yowell2023} at face value (but taking into account intrinsic scatter), a minimum required \gls{NUV} flux of $\gtrsim\SI{400}{\erg\per\second\per\centi\meter\squared}$ reduces the fraction of inhabited planets to below $\sim\SI{1}{\percent}$.
 This not only calls for a large sample size and a targeted sample selection preferring high expected past \gls{NUV} fluxes, but also highlight the necessity of continued theoretical and experimental research into the role of \gls{UV} radiation in prebiotic chemistry~\citep{Ranjan2017b,Rimmer2018,Rimmer2021}.
