@@ -314,12 +314,18 @@ To marginalize over choices of biosignatures and their detectability, which are 
 %\todo[inline]{Provisional stellar target List for the habitable Worlds Observatory:~\citep{Mamajek2023}} % read like in https://github.com/mkenworthy/HWObows/tree/40b1e5f2bc2bbbe8c999b097c80ca5a8cda0aeae/src/scripts
 
 \subsubsection{Hypothesis testing}
-To evaluate the evidence for correctly rejecting the null hypothesis, we employed the Mann-Whitney U test~\citep{Mann1947}.
-%This is a non-parametric test to determine whether two independent samples were drawn from a population with the same distribution and is in particular sensitive to one sample being stochastically greater than the other.
-This is a non-parametric test of the null hypothesis that two independent samples were drawn from a population with the same distribution and is in particular sensitive to one sample being stochastically greater than the other.
-We used the Mann-Whitney U test to compare the distributions of \gls{NUV} fluxes of planets with and without biosignatures.
-The implementation in Bioverse relies on the \texttt{scipy.stats.mannwhitneyu} function~\citep{Virtanen2020} and returns a p-value, for which we set a significance level of $\alpha = 0.05$ to reject the null hypothesis.
-For every hypothesis test, we repeated randomized survey realizations to estimate the fraction of successful rejections of the null hypothesis, i.e., the statistical power of the survey.
+%To evaluate the evidence for correctly rejecting the null hypothesis, we employed the Mann-Whitney U test~\citep{Mann1947}.
+\rev{We ought to choose a statistical test that is sensitive to the UV~Threshold Hypothesis, and that could be realistically conducted in a future transit survey (which may include auxiliary information from ground-based observations, archived data, or models).
+Given the available types of data expected from such surveys, our test shall be non-parametric and compare two samples -- planets with and without biosignatures -- to assess whether they are drawn from the same underlying population in terms of their infered historic maximum NUV flux.
+Common options include the Kolmogorov-Smirnov test, the Brunner-Munzel test~\citep{Brunner2000}, and the Mann-Whitney U test~\citep{Mann1947}.
+Due to its availability and suitability for large sample sizes, we chose the Mann-Whitney U test, which evaluates if one sample is stochastically greater than the other.
+Here, we }
+compare the distributions of \gls{NUV} fluxes of planets with and without biosignatures.
+The implementation in Bioverse relies on the \texttt{scipy.stats.mannwhitneyu} function~\citep{Virtanen2020} and returns a p-value \rev{for each test.
+To balance the trade-off between Type I and Type II error risks, we set the significance level to the widely adopted threshold $\alpha = 0.05$.
+%This choice ensures a reasonable trade-off between detecting a potential dependence of biosignatures on NUV flux while controlling for statistical noise.
+To quantify the diagnostic power of the survey, we conducted repeated randomized realizations and calculated the fraction of successful rejections of the null hypothesis, i.e., the statistical power.
+}
 
 
 \section{Results}
