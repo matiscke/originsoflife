@@ -48,7 +48,7 @@
 A wide variety of scenarios for the origin of life have been proposed, with many influencing the prevalence and distribution of biosignatures across exoplanet populations.
 This relationship suggests these scenarios can be tested by predicting biosignature distributions and comparing them with empirical data.
 Here, we demonstrate this approach by focusing on the cyanosulfidic origins-of-life scenario and investigating the hypothesis that a minimum near-ultraviolet (NUV) flux is necessary for abiogenesis.
-Using Bayesian modeling and the Bioverse survey simulator, we constrain the probability of obtaining strong evidence for or against this ``UV Threshold Hypothesis'' with future biosignature surveys.
+Using Bayesian modeling and the \bioverse\ survey simulator, we constrain the probability of obtaining strong evidence for or against this ``UV Threshold Hypothesis'' with future biosignature surveys.
 Our results indicate that a correlation between past NUV flux and current biosignature occurrence is testable for sample sizes of $\gtrsim$50 planets.
 The diagnostic power of such tests is critically sensitive to the intrinsic abiogenesis rate and host star properties, particularly maximum past NUV fluxes.
 Surveys targeting a wide range of fluxes, and planets orbiting M dwarfs enhance the chances of conclusive results, with sample sizes $\gtrsim$100 providing $\gtrsim$80\% likelihood of strong evidence if abiogenesis rates are high and the required NUV fluxes are moderate.
@@ -96,7 +96,7 @@ Figure~\ref{fig:hypotheses} shows these hypotheses as derived from the predictio
 Given a sample of planets, where for some of them we have convincing biosignature detections but remain agnostic on $f_\mathrm{life}$, we ask what evidence for $H_1$ and $H_\mathrm{null}$ we can expect to obtain.
 
 A real exoplanet survey will be subject to observational biases and sample selection effects, and will be constrained by the underlying demographics of the planet sample.
-To assess the information gain of a realistic exoplanet survey, we employed Bioverse~\citep{Bixel2021,Hardegree-Ullman2023,Schlecker2024,Hardegree-Ullman2024}, a framework that integrates multiple components including statistically realistic simulations of exoplanet populations, a survey simulation module, and a hypothesis testing module to evaluate the statistical power of different observational strategies.
+To assess the information gain of a realistic exoplanet survey, we employed \bioverse~\citep{Bixel2021,Hardegree-Ullman2023,Schlecker2024,Hardegree-Ullman2024}, a framework that integrates multiple components including statistically realistic simulations of exoplanet populations, a survey simulation module, and a hypothesis testing module to evaluate the statistical power of different observational strategies.
 
 %\textbf{Prediction:} Biosignatures occur outside the tidal locking zone and at bulk densities consistent with exposed rock.
 %\todo[inline]{SR: I'm not a priori sold that tidal locking means that no wet-dry cycles occur. you can still have cycling driven by transient changes in instellation due to flares, for example (e.g., https://iopscience.iop.org/article/10.3847/1538-4357/aadfd1/meta). Similarly, I wonder if 3D effects might not give rise to variability (https://iopscience.iop.org/article/10.3847/PSJ/acc9c4/meta).  I argue that it is more robust to establish a correlation between biosignatures and planets which show evidence of continents/land. I think that Ty Robinson in our department has done some work in this area, his papers might be a good starting point. Other papers which look relevant (but with which I am not familiar, as this is not my area): https://academic.oup.com/mnras/article/511/1/440/6501216, https://academic.oup.com/mnras/article/495/1/1/5733176, https://iopscience.iop.org/article/10.3847/1538-3881/aad775/meta, https://iopscience.iop.org/article/10.3847/1538-3881/aaed3a/meta, https://iopscience.iop.org/article/10.3847/1538-3881/ab2df3/meta}
@@ -115,7 +115,7 @@ To assess the information gain of a realistic exoplanet survey, we employed Biov
 %Suggested observables are stochastic increases in brightness temperature, transient increases of planet size, and change of planet composition (decreasing with decreasing impact rate, i.e., stellar age).
 
 This paper is organized as follows:
-In Section~\ref{sec:methods}, we introduce both our semi-analytical approach and Bioverse simulations for testing the UV Threshold Hypothesis.
+In Section~\ref{sec:methods}, we introduce both our semi-analytical approach and \bioverse\ simulations for testing the UV Threshold Hypothesis.
 Section~\ref{sec:results} presents the results of these experiments for a generic survey as well as for a realistic transit survey.
 In Section~\ref{sec:discussion}, we discuss our findings before concluding with a summary in Section~\ref{sec:conclusions}.
 
@@ -208,21 +208,21 @@ Under a more realistic scenario, the distribution of $n_{\lambda}$ depends on ad
 We will address these in the following section.
 
 
-\subsection{Exoplanet survey simulations with Bioverse}
-To assess the diagnostic power of realistic exoplanet surveys, we employed our survey simulator and hypothesis testing framework Bioverse~\citep{Bixel2021}.
+\subsection{Exoplanet survey simulations with \bioverse}
+To assess the diagnostic power of realistic exoplanet surveys, we employed our survey simulator and hypothesis testing framework \bioverse~\citep{Bixel2021}.
 The general approach is as follows:
 \begin{enumerate}
 \item \textbf{Exoplanet population synthesis:} We populate the Gaia Catalogue of Nearby Stars~\citep{Smart2021} with synthetic exoplanets whose orbital parameters and planetary properties reflect our current understanding of exoplanet demographics~\citep{Bergsten2022,Hardegree-Ullman2023}.
 Here, we also inject the demographic trend in question - in this case we assign biosignatures according to $H_1$, i.e., to planets in the \gls{HZ} that have received \gls{NUV} fluxes above a certain threshold.
     \item \textbf{Survey simulation:} We simulate the detection and characterization of these exoplanets with a hypothetical survey, taking into account the survey's sensitivity, target selection, and observational biases.
-To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we conduct survey simulations with Bioverse using different sample sizes and survey strategies.
+To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we conduct survey simulations with \bioverse\ using different sample sizes and survey strategies.
     \item \textbf{Hypothesis testing:} We evaluate the likelihood that a given survey would detect a specified demographic trend in the exoplanet population and estimate the precision with which the survey could constrain the parameters of that trend.
     A common definition of the null hypothesis $H_\mathrm{null}$, which is also applied here, is that there is no relationship between the independent variable (here: maximum NUV flux) and the dependent variable (here: biosignature occurrence).
     The alternative hypothesis $H_1$ proposes a specific relationship between the independent and dependent variables.
-    Bioverse offers either Bayesian model comparison or non-parametric tests to evaluate the evidence for or against the null hypothesis.
+    \bioverse\ offers either Bayesian model comparison or non-parametric tests to evaluate the evidence for or against the null hypothesis.
 \end{enumerate}
 
-To determine the diagnostic capability of a given survey, Bioverse runs multiple iterations of the simulated survey and calculates the fraction of realizations that successfully reject the null hypothesis.
+To determine the diagnostic capability of a given survey, \bioverse\ runs multiple iterations of the simulated survey and calculates the fraction of realizations that successfully reject the null hypothesis.
 We used this metric, known as the statistical power, to quantify the potential information content of the survey, identify critical design trades, and find strategies that maximize the survey's scientific return.
 % TODO: IF INFERENCE: add:
 %The posterior samples obtained from the nested sampling runs further allows us to estimate the precision with which the survey could constrain the parameters of the hypothesized trend.
@@ -303,7 +303,7 @@ i.e., no correlation with \gls{UV} flux.
 
 
 \subsubsection{Transit survey simulations}
-With the synthetic star and planet samples generated, we used Bioverse's survey module to simulate noisy measurements of key observables with a transit survey.
+With the synthetic star and planet samples generated, we used \bioverse's survey module to simulate noisy measurements of key observables with a transit survey.
 We assumed a hypothetical mission that can target a large planet sample with high photometric precision and conduct a biosignature search on these planets~\citep[e.g.,][]{Apai2019,Apai2022}.
 The simulated survey was designed to measure planetary instellation (for \gls{HZ} occupancy) with a precision of \var{nautilus_S} and host star effective temperature with a precision of \var{nautilus_T_eff_st}~K.
 The maximum past \gls{NUV} flux a planet received can be determined within a precision of \var{nautilus_max_nuv}.
@@ -321,7 +321,7 @@ Common options include the Kolmogorov-Smirnov test, the Brunner-Munzel test~\cit
 Due to its availability and suitability for large sample sizes, we chose the Mann-Whitney U test, which evaluates if one sample is stochastically greater than the other.
 Here, we }
 compare the distributions of \gls{NUV} fluxes of planets with and without biosignatures.
-The implementation in Bioverse relies on the \texttt{scipy.stats.mannwhitneyu} function~\citep{Virtanen2020} and returns a p-value \rev{for each test.
+The implementation in \bioverse\ relies on the \texttt{scipy.stats.mannwhitneyu} function~\citep{Virtanen2020} and returns a p-value \rev{for each test.
 To balance the trade-off between Type I and Type II error risks, we set the significance level to the widely adopted threshold $\alpha = 0.05$.
 %This choice ensures a reasonable trade-off between detecting a potential dependence of biosignatures on NUV flux while controlling for statistical noise.
 To quantify the diagnostic power of the survey, we conducted repeated randomized realizations and calculated the fraction of successful rejections of the null hypothesis, i.e., the statistical power.
@@ -387,7 +387,7 @@ For large samples, a high selectivity ($s \sim 1$) can increase the probability 
 
 
 
-\subsection{Survey simulations with Bioverse}\label{sec:results-bioverse}
+\subsection{Survey simulations with \bioverse}\label{sec:results-bioverse}
 %\begin{figure}
 %    \script{inhabited_FGKM.py}
 %    \begin{centering}
@@ -528,7 +528,7 @@ This trade-off can be quantified in terms of expected evidence yield, which we h
 Our analysis shows that regardless of selectivity, sample sizes smaller than 50 likely result in inconclusive tests, and that increasing selectivity towards extreme $F_{\mathrm{NUV}}$ offers limited inference gains compared to the uniform case ($s=0$; Figure~\ref{fig:semian_selectivity}).
 For larger samples, however, a narrow distribution of $F_{\mathrm{NUV}}$ may prevent inference entirely.
 We thus argue that selecting a sample with $F_{\mathrm{NUV}}$ distributed uniformly or emphasizing extreme values should -- barring any practical counterarguments -- be considered in any future attempt at testing the UV~Threshold Hypothesis.
-Since the practical implementation of an exoplanet survey can stand in the way of such a selection, the following discussion focuses on the results of our transit survey simulations with Bioverse.
+Since the practical implementation of an exoplanet survey can stand in the way of such a selection, the following discussion focuses on the results of our transit survey simulations with \bioverse.
 
 %We stress that a future observer will likely be able to leverage standard frequentist testing methods which may be more likely to yield conclusive results (whether in favor or in disfavor of $H_1$).
 %For instance, it would make sense when presented with a sample of planets with various values of $F_{\mathrm{NUV}}$ and for which biosigature detection is attempted to categorize them into two classes: those for which a biosignature is detected, and those for which this is not the case.
@@ -564,7 +564,7 @@ Our findings underscore the importance of constraining the \gls{UV} emission pro
 
 
 \subsection{Sensitivity to astrophysical parameters} % corresponds to conclusion point 3
-Our Bioverse simulations that take into account exoplanet demographics, the evolution of habitability and \gls{NUV} fluxes, and observational biases show that not only the likelihood of a conclusive test of the UV~Threshold Hypothesis, but also the likelihood of successful biosignature detection itself is extremely sensitive to the threshold \gls{NUV} flux if the hypothesis is true.
+Our \bioverse\ simulations that take into account exoplanet demographics, the evolution of habitability and \gls{NUV} fluxes, and observational biases show that not only the likelihood of a conclusive test of the UV~Threshold Hypothesis, but also the likelihood of successful biosignature detection itself is extremely sensitive to the threshold \gls{NUV} flux if the hypothesis is true.
 Even if all biosignatures can be detected and the nominal \rev{rate of life's emergence and persistence} is very high, say $f_\mathrm{life} = 1$, under the condition that prebiotic chemistry requires a minimum \gls{NUV} flux \textit{and} liquid water, if the threshold flux turns out to be high the probability of finding life on a randomly selected planet may be very low.
 As we showed, for high required fluxes the two requirements of simultaneous \gls{HZ} occupancy and sufficient \gls{NUV} flux conspire to diminish the fraction of inhabited planets in the sample.
 Taking the inferred fluxes from \citet{Richey-Yowell2023} at face value (but taking into account intrinsic scatter), a minimum required \gls{NUV} flux of $\gtrsim\SI{400}{\erg\per\second\per\centi\meter\squared}$ reduces the fraction of inhabited planets to below $\sim\SI{1}{\percent}$.
@@ -589,13 +589,13 @@ A potentially inhabited planet's host star spectral type may thus not be a stron
 \subsection{Overall prospects for testing the UV~Threshold Hypothesis} % corresponds to conclusion point 4
 Our results show that the UV~Threshold Hypothesis is testable with potential future exoplanet surveys, but that the success of such a test depends on the sample size, the distribution of past \gls{NUV} fluxes, and several unknown astrophysical nuisance parameters.
 Even under idealized conditions, obtaining strong evidence for or against the hypothesis likely requires sample sizes on the order of 100 (see Section~\ref{sec:results-semianalytical}).
-This is true for a future transit survey, the specifics of which we have reflected in our Bioverse simulations (see Section~\ref{sec:results-bioverse}).
+This is true for a future transit survey, the specifics of which we have reflected in our \bioverse\ simulations (see Section~\ref{sec:results-bioverse}).
 However, we have shown that the impacts from the combined requirements of the UV~Threshold Hypothesis on the fraction of inhabited planets in a sample are comparable in the non-transiting case.
 %The projected planet yield of most currently planned exoplanet mission concepts are likely insufficient to test the UV~Threshold Hypothesis:
 
 Given the challenging nature of detecting and characterizing small (Earth-sized) exoplanets, most exoplanet mission concepts currently under development or considered lack the potential for characterizing large enough samples.
 Ground-based 25--40-meter class extremely large telescopes are expected to have the capabilities to detect biosignatures on exoplanets like Proxima Centauri~b~\citep[e.g.,][]{Wang2017,Hawker2019,Zhang2024,Vaughan2024}.
-\citet{Hardegree-Ullman2024} used Bioverse to determine potential yields for a 10-year direct imaging and high-resolution spectroscopy survey of O$_2$ on the Giant Magellan Telescope (GMT) and on the Extremely Large Telescope (ELT) and found that between 7 and 19 habitable zone Earth-sized planets could be probed for Earth-like oxygen levels.
+\citet{Hardegree-Ullman2024} used \bioverse\ to determine potential yields for a 10-year direct imaging and high-resolution spectroscopy survey of O$_2$ on the Giant Magellan Telescope (GMT) and on the Extremely Large Telescope (ELT) and found that between 7 and 19 habitable zone Earth-sized planets could be probed for Earth-like oxygen levels.
 Such a sample is too small to test the UV Threshold Hypothesis, but it may be synergistic with other detection methods.
 
 %Meaningful tests of the UV~Threshold Hypothesis may thus require a different survey strategy that increases the sample of characterized planets.
@@ -660,7 +660,7 @@ Optimally, the atmospheric composition of young rocky protoplanets will be probe
 We propose that specific origins-of-life scenarios may leave a detectable imprint on the distribution of biosignatures in exoplanet populations.
 We have investigated the potential of upcoming exoplanet surveys to test the hypothesis -- motivated by the cyanosulfidic origins-of-life scenario -- that a minimum past \gls{NUV} flux is required for abiogenesis.
 To this end, we first employed a semi-analytical Bayesian analysis to estimate probabilities of obtaining strong evidence for or against this hypothesis.
-We then used the Bioverse framework to assess the diagnostic power of realistic transit surveys, taking into account exoplanet demographics, time-dependency of habitability and \gls{NUV} fluxes, observational biases, and target selection.
+We then used the \bioverse\ framework to assess the diagnostic power of realistic transit surveys, taking into account exoplanet demographics, time-dependency of habitability and \gls{NUV} fluxes, observational biases, and target selection.
 
 Our main findings are:
 \begin{enumerate}
