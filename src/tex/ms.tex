@@ -204,26 +204,26 @@ Computing the distributions given by equations \ref{eq:bayesHnull} and \ref{eq:b
 }
 \rev{
 Apart from the caveat that the likelihood for $H_{1}$ cannot be expressed analytically due to being conditioned by n_{\lambda} (equation \ref{eq:semian:likelihoodH1}), computing posterior probabilities is challenging due to the unknown priors.
-}
-
-Defining a sample of size $n$ as $X=\{F_\mathrm{NUV, i},L_i\}_{i \in [1,n]}$ where $L_i$ is equal to 1 if life is detected and 0 otherwise, we can calculate the evidence for hypothesis $H_i$ being true against $H_j$ through the Bayes factor
+In addition, we are not interested in constraining the posterior distributions for each hypothesis as we are in measuring the information gain of performing a certain observation, regardless of the priors that future observers may adopt.
+The ratio of posterior probabilities (equations \ref{eq:bayesHone} and \ref{eq:bayesHnull}) is the product of the ratio of the prior probabilities and likelihoods of each hypotheses (equation \ref{eq:postratio}).
 \begin{equation}
-BF_{H_i,H_j} = \frac{P(X|H_i)}{P(X|H_j)},
+    \label{eq:postratio}
+    \frac{P(H_1|X)}{P(H_{\mathrm{null}}|X)} = \frac{P(X|H_{\mathrm{null}})P(H_{\mathrm{null}})}{P(X|H_{\mathrm{null}})P(H_{\mathrm{null}})}~.
 \end{equation}
-with $P(X|H_i)$ and $P(X|H_j)$ likelihoods of obtaining the sample $X$ under either hypothesis.
-
-
-
-Hence,
-\begin{subequations}
+By truncating the prior ratio out of equation \ref{eq:postratio} (and substituting likelihoods for their expressions; equations \ref{eq:semian:likelihoodH1}, \ref{eq:semian:likelihoodHnull}), one obtains the Bayes factor \cite{Jeffreys1939}:
+}
+%\begin{subequations}
 \begin{equation}\label{eq:bayes_factor}
 BF_{H_1,H_\mathrm{null}} = \frac{P(Y=k|H_1)}{P(Y=k|H_\mathrm{null})} = \frac{\binom{n_\lambda}{k}}{\binom{n}{k}}(1-f_\mathrm{life})^{n_{\lambda}-n},
 \end{equation}
-and
-\begin{equation}\label{eq:bayes_factor2}
+\rev{and conversely the Bayes ratio measuring evidence for $H_{\mathrm{null}}$ against $H_1$:}
+\begin{equation}
+    \label{eq:bayes_factor2}
 BF_{H_\mathrm{null},H_1} = \frac{P(Y=k|H_\mathrm{null})}{P(Y=k|H_1)} = \frac{\binom{n}{k}}{\binom{n_\lambda}{k}}(1-f_\mathrm{life})^{n-n_{\lambda}}.
 \end{equation}
-\end{subequations}
+%\end{subequations}
+\rev{
+By focusing on the Bayes ratio, we measure how much the observation of a sample $Y$ tips the scale of evidence for or against hypothesis relative to prior expectations, allowing us to focus on the information yield as a function of sample size.}
 
 Given a sample of planets, where for some of them we have convincing biosignature detections but remaining agnostic on $f_\mathrm{life}$: What evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$ can we expect to get?
 The analytical expression for the Bayes factor of this inference problem (Equation~\ref{eq:bayes_factor}) is determined by the unknown variables $f_\mathrm{life}$ and $F_\mathrm{NUV, min}$, as well as by the summary statistic $Y$ (number of biosignature detections).
