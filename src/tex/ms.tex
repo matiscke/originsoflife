@@ -151,8 +151,11 @@ Our core hypothesis shall be that life only occurs on planets that at some point
 
 \subsection{Semi-analytical approach}\label{sec:met-semianalytical}
 %First, we apply a Bayes Factor Design Analysis~\citep{Schoenbrodt2018}
-We first assessed the expected probabilities of obtaining true negative or true positive evidence for the UV Threshold Hypothesis ($H_1$) above, as well as the probability for misleading or inconclusive evidence, under idealized conditions.
-This serves as a first-order estimate of the information content of a survey, before we take into account the effects of exoplanet demographics, sample selection, and survey strategy.
+\rev{In order to constrain the evidence yield of potential future surveys aimed at evaluating the} UV Threshold Hypothesis ($H_1$) above, \rev{we first derive a simplified analytical approach.
+This approach ignores the effects of exoplanet demographics and sample selection to focus on the qualitative effects of sample size and the unknown probablity of abiogenesis on the evidence yield of future surveys.
+To do so, we need to frame hypotheses $H_\mathrm{null}$ and $H_1$ as probabilistic models that determine the probability distributions of outcomes in terms of samples of exoplanets for which biosignatures are detected or not.}
+%We first assessed the expected probabilities of obtaining true negative or true positive evidence for the UV Threshold Hypothesis ($H_1$) above, as well as the probability for misleading or inconclusive evidence, under idealized conditions.
+%This serves as a first-order estimate of the information content of a survey, before we take into account the effects of exoplanet demographics, sample selection, and survey strategy.
 
 Presumably, not all habitable worlds are inhabited and not all inhabited worlds develop detectable biosignatures.
 The fraction of \glspl{EEC} that are both inhabited and exhibit detectable biosignatures at the time of observation is unknown \rev{and is represented by the term $f_\mathrm{life}$.
@@ -172,14 +175,10 @@ P(L|F_\mathrm{NUV},H_\mathrm{null}) = f_\mathrm{life}.
 \end{equation}
 In other words, $H_\mathrm{null}$ states that $P(L)$ is independent of $F_\mathrm{NUV}$.
 
-Defining a sample of size $n$ as $X=\{F_\mathrm{NUV, i},L_i\}_{i \in [1,n]}$ where $L_i$ is equal to 1 if life is detected and 0 otherwise, we can calculate the evidence for hypothesis $H_i$ being true against $H_j$ through the Bayes factor
-\begin{equation}
-BF_{H_i,H_j} = \frac{P(X|H_i)}{P(X|H_j)},
-\end{equation}
-with $P(X|H_i)$ and $P(X|H_j)$ likelihoods of obtaining the sample $X$ under either hypothesis.
-
+\rev{Next, we determine the probability distribution of sample outcomes, or likelihood of each hypothesis.}
 Let $Y=\sum_i^n L_i$ be the random variable counting the number of positive life detections in a sample of size $n$. Its probability mass function under the null hypothesis $H_\mathrm{null}$ is that of a binomial distribution:
 \begin{equation}
+    \label{eq:semian:likelihoodHnull}
 P(Y=k|H_\mathrm{null}) = \binom{n}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n-k}.
 \end{equation}
 
@@ -188,6 +187,31 @@ Under $H_1$, $Y$ also follows a binomial distribution, however it is conditioned
 \label{eq:semian:likelihoodH1}
 P(Y=k|H_1) = \binom{n_{\lambda}}{k}f_\mathrm{life}^k(1-f_\mathrm{life})^{n_{\lambda}-k}.
 \end{equation}
+
+\rev{Then, we turn to a metric which measures the information gain of sampling: the Bayes factor \cite{Jeffreys1939}.
+The posterior evidence for the null hypothesis $H_{\mathrm{null}}$ is given by the Bayes' theorem:
+\begin{equation}
+\label{eq:bayesHnull}
+    P(H_{\mathrm{null}}|Y) = \frac{P(Y|H_{\mathrm{null}})P(H_{\mathrm{null}})}{P(Y)}
+\end{equation}
+and the posterior evidence for the NUV hypothesis:
+\begin{equation}
+    \label{eq:bayesHone}
+        P(H_1|Y) = \frac{P(Y|H_1)P(H_1)}{P(Y)}~.
+\end{equation}
+Computing the distributions given by equations \ref{eq:bayesHnull} and \ref{eq:bayesHone} requires the distributions of likelihoods, given in equations \ref{eq:semian:likelihoodHnull} and \ref{eq:semian:likelihoodH1}, as well as the prior distributions for each hypothesis ($P(H_{\mathrm{null}})$ and $P(H_{1})$) and for the sample ($P(H_{1})$).
+}
+\rev{
+Appart from the caveat that the likelihood for $H_{1}$ cannot be expressed analytically due to being conditioned by n_{\lambda} (equation \ref{eq:semian:likelihoodH1}), computing posterior probabilities is challenging due to the unknown priors.
+}
+
+Defining a sample of size $n$ as $X=\{F_\mathrm{NUV, i},L_i\}_{i \in [1,n]}$ where $L_i$ is equal to 1 if life is detected and 0 otherwise, we can calculate the evidence for hypothesis $H_i$ being true against $H_j$ through the Bayes factor
+\begin{equation}
+BF_{H_i,H_j} = \frac{P(X|H_i)}{P(X|H_j)},
+\end{equation}
+with $P(X|H_i)$ and $P(X|H_j)$ likelihoods of obtaining the sample $X$ under either hypothesis.
+
+
 
 Hence,
 \begin{subequations}

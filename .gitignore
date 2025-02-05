@@ -17,3 +17,11 @@ __pycache__
 /.idea/*
 *.ipynb_checkpoints
 .DS_Store
+src/tex/ms.aux
+src/tex/ms.bbl
+src/tex/ms.blg
+src/tex/ms.fdb_latexmk
+src/tex/ms.fls
+src/tex/ms.log
+src/tex/ms.out
+src/tex/ms.pdf
