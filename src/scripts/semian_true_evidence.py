@@ -61,14 +61,20 @@ def sample_H1(theta, pi, theta_l):
     return X
 
 
-def get_evidence(sampsize=100):
+def get_evidence(sampsize=100, nboot=100000):
     # For convenience, we redefine theta here so that one can play with sample size and such
     theta = rng.uniform(
         0, 1, sampsize
     )  # vector theta chosen at random for demonstrative purposes; for simplicity we assume theta in 0,1
 
-    nboot = 100000  # it is advised to use a large nboot because we have increased the sampling space quite a bit (probably already too much)
-    pisamp = rng.uniform(0, 1, nboot)
+    nboot = nboot  # it is advised to use a large nboot because we have increased the sampling space quite a bit (probably already too much)
+
+    # uniform f_life
+    # pisamp = rng.uniform(0, 1, nboot)
+
+    # log-uniform f_life
+    pisamp = 10**rng.uniform(-6, 0, nboot)
+
     theta_lsamp = rng.uniform(0, 1, nboot)
     kh1samp = sample_H1(theta, pisamp, theta_lsamp)
     kh0samp = sample_H0(theta, pisamp, theta_lsamp)
@@ -85,11 +91,11 @@ def get_evidence(sampsize=100):
     return bfh1_kh1, bfh0_kh0
 
 
-def plot_true_evidence(ax):
+def plot_true_evidence(ax, nboot=None):
     gtvec = 10 ** np.linspace(-2, 3, 300)
 
     for s, ls, showlabel in zip([10, 100], ["-", "--"], ["", "_"]):
-        bfh1_kh1, bfh0_kh0 = get_evidence(s)
+        bfh1_kh1, bfh0_kh0 = get_evidence(s, nboot)
 
         ax.plot(
             gtvec,
@@ -149,7 +155,8 @@ def P_true_evidence(sampsize, eta=10, nboot=int(1e4), pisamp=None, theta_lsamp=N
     theta = rng.uniform(0, 1, sampsize)
 
     if pisamp is None:
-        pisamp = rng.uniform(0, 1, nboot)
+        # pisamp = rng.uniform(0, 1, nboot)
+        pisamp = 10**rng.uniform(-6, 0, nboot)
     elif np.isscalar(pisamp):
         # try a fixed value for pi
         pisamp = np.full(nboot, pisamp)
@@ -197,14 +204,16 @@ def plot_evidence_sampsize(ax, s_max=500):
     return ax
 
 
-def get_meshplot(smooth_sigma, sampsize, ax):
+def get_meshplot(smooth_sigma, sampsize, ax, nboot=int(1e5)):
     x = np.linspace(0.0, 1.0, 10)  # theta_l
-    y = np.linspace(0.0, 1.0, 10)  # pi
+    # y = np.linspace(0.0, 1.0, 10)  # pi
+    y = np.geomspace(1e-3, 1., 10)  # pi in log space
+
     z = np.zeros((len(x), len(y)))
     for i, xi in enumerate(x):
         for j, yj in enumerate(y):
             z[i, j] = P_true_evidence(
-                sampsize=sampsize, eta=10, nboot=int(1e5), theta_lsamp=xi, pisamp=yj
+                sampsize=sampsize, eta=10, nboot=nboot, theta_lsamp=xi, pisamp=yj
             )
 
     # Smooth the data
@@ -214,9 +223,11 @@ def get_meshplot(smooth_sigma, sampsize, ax):
         z = gaussian_filter(z, smooth_sigma)
 
     x, y = np.meshgrid(x, y, indexing="ij")
+    ax.set_yscale("log")
     im = ax.pcolormesh(
-        x, y, z, cmap=cmocean.cm.ice
+        x, y, z, cmap=cmocean.cm.ice,
     )  # , vmin=vmin, vmax=vmax, cmap=cmap, lw=0, rasterized=True, shading='auto', edgecolors='k', linewidths=4)
+    ax.set_ylim(2e-3, 1.3)
 
     # ax.set_xlabel('$\\theta_{\lambda}$')
     ax.set_xlabel("NUV flux threshold (arb. units)")
@@ -225,17 +236,19 @@ def get_meshplot(smooth_sigma, sampsize, ax):
     return ax, im
 
 
-def plot_evidence_grid():
+def plot_evidence_grid(nboot=int(1e5)):
     steps = 4
     sampsizes = np.rint(np.geomspace(10, 500, steps) / 10).astype(np.int64) * 10
     smooth_sigma = None
 
-    fig, axs = plt.subplots(1, steps, figsize=[13, 3.3], sharey=True)
+    # fig, axs = plt.subplots(1, steps, figsize=[13, 3.3], sharey=True)
+    fig, axs = plt.subplots(1, steps, figsize=[13, 3.5], sharey=True)
 
     for i, sampsize in enumerate(sampsizes):
-        axs[i], im = get_meshplot(smooth_sigma, sampsize, axs[i])
+        axs[i], im = get_meshplot(smooth_sigma, sampsize, axs[i], nboot=nboot)
         axs[i].text(
-            0.99, 0.95, "$n = {}$".format(sampsize), horizontalalignment="right"
+            0.5, 1.03, "$n = {}$".format(sampsize), horizontalalignment="center",
+            transform=axs[i].transAxes,
         )
 
     cbar_ax = fig.add_axes([1.015, 0.18, 0.02, 0.775])
@@ -266,7 +279,8 @@ def P_true_evidence_beta(
     theta = rng.beta(1 / s, 1 / s, sampsize)
 
     if pisamp is None:
-        pisamp = rng.uniform(0, 1, nboot)
+        # pisamp = rng.uniform(0, 1, nboot)
+        pisamp = 10**rng.uniform(-6, 0, nboot)
     elif np.isscalar(pisamp):
         # try a fixed value for pi
         pisamp = np.full(nboot, pisamp)
@@ -300,11 +314,11 @@ def P_true_evidence_beta(
     return np.min([trueeH1, trueeH0])
 
 
-def plot_selectivity(fig, ax):
+def plot_selectivity(fig, ax, nboot=int(1e4)):
     X = np.arange(10, 300, 20)  # sample size
     Y = np.linspace(-1, 1, 10)  # selectivity
     Pvecz = np.vectorize(
-        lambda x, y: P_true_evidence_beta(x, y, eta=10, nboot=int(1e4))
+        lambda x, y: P_true_evidence_beta(x, y, eta=10, nboot=nboot)
     )
     XX, YY = np.meshgrid(X, Y)
     Z = Pvecz(XX, YY)
