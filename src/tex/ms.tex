@@ -719,6 +719,30 @@ Our work highlights the importance of understanding the context in which a biosi
 \section*{Reproducibility}
 All code required to reproduce our results, figures, and this article itself is available at \url{https://github.com/matiscke/originsoflife}.
 
+
+\appendix
+\section{Alternative priors for the abiogenesis rate}
+\label{sec:appendix-flife-prior}
+\rev{In the main text, we used a log-uniform prior for the probability of life emerging and persisting $f_\mathrm{life}$ in order to reflect our ignorance about this parameter and its order of magnitude.
+We consider this a reasonable choice, as it is agnostic about the scale of $f_\mathrm{life}$ and assigns equal prior probability to all orders of magnitude.
+Nevertheless, we repeated our semi-analytical analysis for the more optimistic choice of a prior that is \textit{uniform} in $f_\mathrm{life}$.
+Figure~\ref{fig:semian_true_evidence_uniform} shows the resulting probabilities of obtaining strong evidence for or against the UV~Threshold Hypothesis under this prior.
+While the resulting trends are qualitatively similar, the uniform prior yields overall higher probabilities of such a conclusive test for all sample sizes.
+}
+
+\begin{figure*}
+    \begin{centering}
+        \includegraphics[width=\hsize]{figures/semian_true_evidence_uniform}
+        \caption{\rev{As Figure~\ref{fig:semian_true_evidence}, but using a uniform prior for the abiogenesis rate $f_\mathrm{life}$.
+        The probabilities of obtaining strong evidence for or against the UV~Threshold Hypothesis are overall higher than for the log-uniform prior.
+        }
+        }
+        \label{fig:semian_true_evidence_uniform}
+    \end{centering}
+\end{figure*}
+
+
+
 %! suppress = MissingBibliographystyle
 \bibliography{bib,coauthors}
 
