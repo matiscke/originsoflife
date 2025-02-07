@@ -534,39 +534,6 @@ For larger samples, however, a narrow distribution of $F_{\mathrm{NUV}}$ may pre
 We thus argue that selecting a sample with $F_{\mathrm{NUV}}$ distributed uniformly or emphasizing extreme values should -- barring any practical counterarguments -- be considered in any future attempt at testing the UV~Threshold Hypothesis.
 Since the practical implementation of an exoplanet survey can stand in the way of such a selection, the following discussion focuses on the results of our transit survey simulations with \bioverse.
 
-\rev{
-Our semi-analytical framework focuses on the Bayes ratio as a measure of the evidence that a future observation may bring relative to prior expectations.
-This is useful in order to specifically consider the information yield of an observation, but also trades off the opportunity to estimate the posterior probability of a specific hypothesis with the possibility to narrow down the problem to two specific competing hypotheses.
-Indeed, the posterior probability depends on the prior expectation for a sample $Y$ (see equation \ref{eq:bayesHone}), which may be approximated as the sum of likelihoods of the modeled hypotheses ($P(Y)=P(Y|H_1)P(H_1)+P(Y|H_{\mathrm{null}})P(H_{\mathrm{null}})$) but could in principle depend on any number of unknown processes.
-Could there be factors other than the past UV flux that would determine the occurrence rate of biosignatures in terrestrial exoplanets?
-Surely, there is a vast array of possible mechanisms that could be considered which could shape the prior probability of an observed sample of biosignatures $Y$.
-Thus, while the Bayes factor is an essential part of the inference process, and the one relevant to prospective analyses of future evidence yields, future attempts at inference may aim for estimating posterior probabilities rather than evidence ratios.
-Constraining the prior distribution for the probability that life requires exposure to a certain NUV threshold to emerge is beyond the scope of this study, but remains a question that future work will need to address in order to evaluate fully this hypothesis in the prospect of future observation of biosignatures.}
-
-\rev{Our Bayes factor analysis quantifies how much evidence future data may provide in favor of a hypothesis against another one (the null hypothesis).
-Typical frequentist (p-value based) tests usually evaluate only the likelihood of the null hypothesis, thus requiring that the experiment be carefully crafted such that rejection of the null hypothesis can be interpreted in favor of a particular studied hypothesis (for instance that samples from coin tosses score a very low likelihood under the hypothesis of a fair coin may indicate that the coin is biased).
-In contrast, Bayes factor analyses such as ours introduce additional constraint to the testing by involving the likelihood of the tested alternate hypothesis (equation \ref{eq:bayes_factor}).
-Thus, under Bayes-factor analyses, evidence for the tested hypothesis is not only measured by how unlikely the null hypothesis is given some observation but rather by how much more likely than the null hypothesis is the alternate hypothesis.
-The most exhaustive form of hypothesis selection test would be performed by using the entire Bayes theorem (equation \ref{eq:BayesTheorem}), computing the \emph{posterior} probability of the tested hypothesis.
-Doing so enables to quantify the information gain from performing some observation (by comparing the posterior with the prior), and to perform inference with consideration for prior information.
-\begin{equation}
-    \label{eq:BayesTheorem}
-    P(H_i|X) = \frac{P(X|H_i)P(H_i)}{P(X)}
-\end{equation}
-However, implementing the Bayes theorem can prove difficult in practice, owing to the (usually) subjective nature of prior distributions.
-Two prior distributions are required for the computation of the posterior distribution: the prior distribution for the considered model and hypothesis, and the prior distribution for the observation.
-While the former requires that at least some amount of consensus is identifiable in the community of scientists that discuss this hypothesis, the latter also requires that either empirical distributions for the prior distribution of the observation be available or that the exhaustive list of mechanistic pathways that could potentially lead to this observation be known and tractable.
-Taking the ratio of the posterior evidence for two alternate hypotheses (i.e. of equation \ref{eq:BayesTheorem}) allows this problematic term, the prior probability for the observation, to cancel out (equation \ref{eq:postratio}).
-\begin{equation}
-    \label{eq:postratio}
-    \frac{P(H_1|X)}{P(H_0|X)} = \frac{P(X|H_0)P(H_0)}{P(X|H_0)P(H_0)}
-\end{equation}
-This trades off the opportunity to estimate the posterior probability of a specific hypothesis with the possiblity to narrow down the problem to two specific competing hypotheses.
-Could there be factors other than the past UV flux that would determine the occurrence rate of biosignatures in terrestrial exoplanets?
-Surely, there is a vast array of possible mechanisms that could be considered which could shape the prior probability of an observed sample of biosignatures $X$.
-Truncating the ratio of prior probabilities from equation \ref{eq:postratio} results in the Bayes factor (equation \ref{eq:bayes_factor}), which we used in our semi-analytical analysis (section \ref{sec:results-semianalytical}).
-While the Bayes ratio only paints part of the picture of what a full inference pipeline would look line in a future survey aimed at testing origin of life hypotheses from the observation of biosignatures, it captures an essential part of the yield of a particular strategy: by how much would these observations tip the scale of model selection relative to prior expectations.}
-
 %We stress that a future observer will likely be able to leverage standard frequentist testing methods which may be more likely to yield conclusive results (whether in favor or in disfavor of $H_1$).
 %For instance, it would make sense when presented with a sample of planets with various values of $F_{\mathrm{NUV}}$ and for which biosigature detection is attempted to categorize them into two classes: those for which a biosignature is detected, and those for which this is not the case.
 %Then, the distribution of $F_{\mathrm{NUV}}$ in each of those categories is compared under the null hypothesis that they are the same.
@@ -716,6 +683,24 @@ Tidal effects are especially relevant for \gls{HZ} M~dwarf planets, where strong
 Tidal locking may also create extreme climate zones, challenging habitability.}
 \rev{While not modeled here, the factors outlined above may offer directions for future work.}
 
+\rev{
+\subsubsection{Bayesian Evidence and the Influence of Priors}
+Our semi-analytical analysis (Section~\ref{sec:results-semianalytical}) employs Bayes factors to quantify the evidence in favor of or against the UV~Threshold Hypothesis that future observations may provide.
+%In contrast to frequentist p-value tests, which only assess the likelihood of the null hypothesis, this approach explicitly incorporates the likelihood of the alternative hypothesis.
+%However, Bayes factor analysis limits the scope to two competing hypotheses, and it does not estimate posterior probabilities.
+}
+
+\rev{
+Using the Bayes theorem
+%\begin{equation}
+%    \label{eq:BayesTheorem}
+%    P(H_i|X) = \frac{P(X|H_i)P(H_i)}{P(X)}
+%\end{equation}
+to estimate posterior probabilities would allow for a more complete assessment by quantifying information gain and integrating prior knowledge into hypothesis testing.
+In practice, implementation of a full Bayesian inference is often hindered by the subjectivity of prior distributions.
+Here, we thus chose to provide merely a general assessment of the potential evidence yield from future observations.
+In essence, we addressed the question: \textit{By how much does a particular observation tip the scale between the UV~Threshold Hypothesis and the null hypothesis?}
+}
 
 \section{Conclusions}
 \label{sec:conclusions}
