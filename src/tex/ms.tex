@@ -157,6 +157,7 @@ This serves as a first-order estimate of the information content of a survey, be
 Presumably, not all habitable worlds are inhabited and not all inhabited worlds develop detectable biosignatures.
 The fraction of \glspl{EEC} that are both inhabited and exhibit detectable biosignatures at the time of observation is unknown \rev{and is represented by the term $f_\mathrm{life}$.
 This encompasses the probability of life both emerging and persisting to produce detectable biosignatures.}
+\rev{Due to our ignorance about its true value or even its order of magnitude, we draw $f_\mathrm{life}$ from a log-uniform prior probability distribution.}
 Let us consider the probability to detect a biosignature $P(L)$, and let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
 Under Hypothesis $H_1$, there exists a special unknown value of $F_\mathrm{NUV}$, noted $F_\mathrm{NUV, min}$ such that
 
@@ -369,7 +370,7 @@ Both higher $f_\mathrm{life}$ and higher \gls{NUV} flux thresholds increase the 
 Larger sample sizes enable this at lower values of these parameters.
 
 
-So far, we have assumed random, uniform distributions of $f_\mathrm{life}$, $F_\mathrm{NUV, min}$, and $F_\mathrm{NUV}$. % Actually it is more than just NUV, it is whatever index that integrates NUV and HZ requiremetns into a single scalar variable for which a threshold exist
+So far, we have \rev{drawn random values from uniform distributions for} $F_\mathrm{NUV, min}$, and $F_\mathrm{NUV}$\rev{, and from a log-uniform distribution for $f_\mathrm{life}$}. % Actually it is more than just NUV, it is whatever index that integrates NUV and HZ requiremetns into a single scalar variable for which a threshold exist
 A high biosignature detection rate $f_\mathrm{life}$ increases the evidence (see Equation~\ref{eq:bayes_factor}) but a survey strategy cannot influence it.
 The same is true for $F_\mathrm{NUV, min}$, where again higher values increase the evidence as the binomial distribution for $H_\mathrm{1}$ gets increasingly skewed and shifted away from the one for $H_\mathrm{null}$.
 However, one might select exoplanets for which a biosignature test is performed based on \textit{a priori} available contextual information~\citep{catling2018exoplanet} in order to maximize the science yield of investing additional resources.
@@ -384,7 +385,7 @@ For large samples, a high selectivity ($s \sim 1$) can increase the probability 
     \script{semian_true_evidence.py}
     \begin{centering}
         \includegraphics[width=\hsize]{figures/semian_selectivity}
-        \caption{Scaling of the probability of obtaining true strong evidence with sample selectivity. Left: Sampling distribution for different selectivity parameters $s$. Right: Resulting \mbox{P(true strong evidence)}, where $f_\mathrm{life}$ and $F_\mathrm{NUV, min}$ are randomly drawn from a uniform distribution. Sampling more extreme values of $F_\mathrm{NUV}$ is more likely to yield strong evidence.}
+        \caption{Scaling of the probability of obtaining true strong evidence with sample selectivity. Left: Sampling distribution for different selectivity parameters $s$. Right: Resulting \mbox{P(true strong evidence)}, where $f_\mathrm{life}$ and $F_\mathrm{NUV, min}$ are randomly drawn from \rev{log-uniform and uniform distributions, respectively}. Sampling more extreme values of $F_\mathrm{NUV}$ is more likely to yield strong evidence.}
         \label{fig:semian_selectivity}
     \end{centering}
 \end{figure*}
