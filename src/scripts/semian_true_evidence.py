@@ -113,6 +113,9 @@ def plot_true_evidence(ax, nboot=None):
             ls=ls,
         )
 
+        print("N=", s, ":\nProb for strong evidence for H1: ",
+        np.sum(bfh1_kh1 > 10) / len(bfh1_kh1), "\nProb for strong evidence for H0: ", np.sum(bfh0_kh0 > 10) / len(bfh0_kh0))
+
     # ax.vlines(x=[1],ymin=0,ymax=0.9,linestyles='--',colors='grey')
     ax.vlines(x=[10], ymin=0, ymax=1., linestyles="-", lw=1, colors="gray")
     ax.text(10, .95, " strong", va="bottom", ha="left", c="k", alpha=1.0, fontsize=12)
@@ -140,6 +143,7 @@ def plot_true_evidence(ax, nboot=None):
         columnspacing=1.6,
     )
     ax.set_xscale("log")
+    ax.set_xlim(0.5, 1200)
     ax.set_ylim(-0.05, 1.05)
     # ax.set_ylabel("$P(\mathrm{evidence} > x)$")
     ax.set_ylabel("$P(BF_{H_i, H_j} > x$)")
@@ -335,7 +339,7 @@ def plot_selectivity(fig, ax, nboot=int(1e4)):
         arrowprops=dict(arrowstyle="simple", facecolor="C1", connectionstyle="arc3"),
     )
     ax.annotate(
-        xy=(25, 0.15),
+        xy=(45, 0.15),
         text=r"Sample more extreme $F_\mathrm{NUV}$",
         ha="left",
         va="center",
@@ -349,7 +353,7 @@ def plot_selectivity(fig, ax, nboot=int(1e4)):
         arrowprops=dict(arrowstyle="simple", facecolor="C1", connectionstyle="arc3"),
     )
     ax.annotate(
-        xy=(25, -0.15),
+        xy=(45, -0.15),
         text=r"Sample more intermediate $F_\mathrm{NUV}$",
         color="k",
         ha="left",
@@ -359,23 +363,35 @@ def plot_selectivity(fig, ax, nboot=int(1e4)):
 
 
 def main():
+
+
+    nboot = 100000
+    # nboot = 1000  # just for testing
+
+
     # 2-panel figure
     fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
-    axs[0] = plot_true_evidence(axs[0])
+    axs[0] = plot_true_evidence(axs[0], nboot=nboot)
     axs[1] = plot_evidence_sampsize(axs[1])
     # axs[1] = plot_evidence_sampsize(axs[1], s_max=50)
 
     # fig.tight_layout(
+    fig.show()
     fig.savefig(paths.figures / "semian_true_evidence.pdf")
 
+
+
     # evidence grid
-    fig, axs = plot_evidence_grid()
+    fig, axs = plot_evidence_grid(nboot=nboot)
+    fig.show()
     fig.savefig(paths.figures / "semian_evidence-grid.pdf")
+
 
     # selectivity figure
     fig, axs = plt.subplots(1, 2, figsize=[13, 4.5])
     axs[0] = plot_beta(axs[0])
-    axs[1] = plot_selectivity(fig, axs[1])
+    axs[1] = plot_selectivity(fig, axs[1], nboot=nboot)
+    fig.show()
 
     fig.savefig(paths.figures / "semian_selectivity.pdf")
 
