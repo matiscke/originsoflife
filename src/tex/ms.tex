@@ -343,8 +343,8 @@ To quantify the diagnostic power of the survey, we conducted repeated randomized
 
 \subsection{Semi-analytical assessment}\label{sec:results-semianalytical}
 In Section~\ref{sec:met-semianalytical}, we computed the probability for true positive evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$, respectively (Equations~\ref{eq:bayes_factor},~\ref{eq:bayes_factor2}).
-Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10).
-For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{1}$ ($H_\mathrm{null}$) can be expected in $\sim \SI{30}{\percent}$ ($\sim \SI{40}{\percent}$) of all random experiments.
+Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10) \rev{in the agnostic case where we draw $f_\mathrm{life}$ from a log-uniform distribution}.
+For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{1}$ ($H_\mathrm{null}$) can be \rev{expected in $\sim \SI{3}{\percent}$ ($\sim \SI{6}{\percent}$) of} all random experiments.
 In the majority of cases, the outcome of the survey will be inconclusive.
 \begin{figure*}
     \script{semian_true_evidence.py}
@@ -354,7 +354,7 @@ In the majority of cases, the outcome of the survey will be inconclusive.
         \label{fig:semian_true_evidence}
     \end{centering}
 \end{figure*}
-The situation improves with larger samples: for $n = \var{semian_Nsamp2}$, \SI{80}{\percent} of random samples permit conclusive inference (strong true evidence) under either $H_\mathrm{1}$ or $H_\mathrm{null}$.
+The situation improves with larger samples: \rev{for $n = \var{semian_Nsamp2}$, \SI{14}{\percent} (\SI{16}{\percent}) of} random samples permit conclusive inference (strong true evidence) \rev{under $H_\mathrm{1}$ ($H_\mathrm{null}$).}
 
 The expected resulting evidence further depends on the a priori unknown \rev{rate of life's emergence and persistence} $f_\mathrm{life}$ and on the \gls{NUV} flux threshold.
 \begin{figure*}
