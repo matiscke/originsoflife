@@ -78,7 +78,7 @@ This requirement is set by competing thermal processes; if the photoreaction doe
 On the other hand, abundant \gls{UV} light vastly in excess of this threshold does not increase the probability of abiogenesis, since once the \gls{UV} photochemistry is no longer limiting, some other thermal process in the reaction network will be the rate-limiting process instead.
 Therefore, a putative dependence of life on \gls{UV} light is best described as a step function~\citep[e.g.,][]{Ranjan2017c,Rimmer2018,Rimmer2021}.
 
-The goal of this work is to evaluate the potential of future exoplanet surveys to test the hypothesis that a minimum past NUV flux is required for abiogenesis.
+The goal of this work is to evaluate the potential of future exoplanet surveys to test the hypothesis that a minimum past \gls{NUV} flux is required for abiogenesis.
 We focus on one version of the UV Threshold Hypothesis, the so-called cyanosulfidic scenario, which has been refined to the point where the required threshold flux has been measured to be $F_\mathrm{NUV, min} = \SI{6.8\pm3.6 e10}{\photons\per\centi\meter\squared\per\second\per\nano\meter}$ integrated from \SIrange{200}{280}{\nano\meter} at the surface~\citep{Rimmer2018,Rimmer2021a,Rimmer2023,Ranjan2023a}.
 %\todo[inline]{SR: This is an interesting number, because it is below what was available on early Earth (so this scenario could have worked on early Earth) but until recently it was below what was thought to be available on \gls{HZ} M-dwarf exoplanets. So it was thought that identification of biosignatures on M-dwarf planets could therefore falsify the cyanosulfidic scenario, with a potential caveat for transient UV from flares. Two recent developments have complicated the picture. First, Rimmer et al. 2018 had an error in their radiative transfer routines. Correcting for this error, early M-dwarfs and highly active M-dwarfs emit enough UV to meet the Rimmer et al. 2018 criterion (Ranjan et al. 2023).
 %\sout{Second, a recent publication argues that /all/ estimates of M-dwarf UV are underestimates, and that late M-dwarf stars have similar emission to Sunlike stars (Rekhi et al. 2023). I suspect this is incorrect, because it contradicts a lot of work from e.g. the MUSCLES collaboration and the HAZMAT project, but it's worth keeping an eye on in case it is correct after all.}}
@@ -221,7 +221,7 @@ Here, we also inject the demographic trend in question - in this case we assign 
     \item \textbf{Survey simulation:} We simulate the detection and characterization of these exoplanets with a hypothetical survey, taking into account the survey's sensitivity, target selection, and observational biases.
 To model the sensitivity of the information gain of a proposed mission to sample selection and survey strategy, we conduct survey simulations with \bioverse\ using different sample sizes and survey strategies.
     \item \textbf{Hypothesis testing:} We evaluate the likelihood that a given survey would detect a specified demographic trend in the exoplanet population and estimate the precision with which the survey could constrain the parameters of that trend.
-    A common definition of the null hypothesis $H_\mathrm{null}$, which is also applied here, is that there is no relationship between the independent variable (here: maximum NUV flux) and the dependent variable (here: biosignature occurrence).
+    A common definition of the null hypothesis $H_\mathrm{null}$, which is also applied here, is that there is no relationship between the independent variable (here: maximum \gls{NUV} flux) and the dependent variable (here: biosignature occurrence).
     The alternative hypothesis $H_1$ proposes a specific relationship between the independent and dependent variables.
     \bioverse\ offers either Bayesian model comparison or non-parametric tests to evaluate the evidence for or against the null hypothesis.
 \end{enumerate}
@@ -324,14 +324,14 @@ To marginalize over choices of biosignatures and their detectability, which are 
 \subsubsection{Hypothesis testing}
 %To evaluate the evidence for correctly rejecting the null hypothesis, we employed the Mann-Whitney U test~\citep{Mann1947}.
 \rev{We ought to choose a statistical test that is sensitive to the UV~Threshold Hypothesis, and that could be realistically conducted in a future transit survey (which may include auxiliary information from ground-based observations, archived data, or models).
-Given the available types of data expected from such surveys, our test shall be non-parametric and compare two samples -- planets with and without biosignatures -- to assess whether they are drawn from the same underlying population in terms of their infered historic maximum NUV flux.
+Given the available types of data expected from such surveys, our test shall be non-parametric and compare two samples -- planets with and without biosignatures -- to assess whether they are drawn from the same underlying population in terms of their infered historic maximum \gls{NUV} flux.
 Common options include the Kolmogorov-Smirnov test, the Brunner-Munzel test~\citep{Brunner2000}, and the Mann-Whitney U test~\citep{Mann1947}.
 Due to its availability and suitability for large sample sizes, we chose the Mann-Whitney U test, which evaluates if one sample is stochastically greater than the other.
 Here, we }
 compare the distributions of \gls{NUV} fluxes of planets with and without biosignatures.
 The implementation in \bioverse\ relies on the \texttt{scipy.stats.mannwhitneyu} function~\citep{Virtanen2020} and returns a p-value \rev{for each test.
 To balance the trade-off between Type I and Type II error risks, we set the significance level to the widely adopted threshold $\alpha = 0.05$.
-%This choice ensures a reasonable trade-off between detecting a potential dependence of biosignatures on NUV flux while controlling for statistical noise.
+%This choice ensures a reasonable trade-off between detecting a potential dependence of biosignatures on \gls{NUV} flux while controlling for statistical noise.
 To quantify the diagnostic power of the survey, we conducted repeated randomized realizations and calculated the fraction of successful rejections of the null hypothesis, i.e., the statistical power.
 }
 
@@ -372,7 +372,7 @@ Both higher $f_\mathrm{life}$ and higher \gls{NUV} flux thresholds increase the 
 Larger sample sizes enable this at lower values of these parameters.
 
 
-So far, we have \rev{drawn random values from uniform distributions for} $F_\mathrm{NUV, min}$, and $F_\mathrm{NUV}$\rev{, and from a log-uniform distribution for $f_\mathrm{life}$}. % Actually it is more than just NUV, it is whatever index that integrates NUV and HZ requiremetns into a single scalar variable for which a threshold exist
+So far, we have \rev{drawn random values from uniform distributions for} $F_\mathrm{NUV, min}$, and $F_\mathrm{NUV}$\rev{, and from a log-uniform distribution for $f_\mathrm{life}$}. % Actually it is more than just NUV, it is whatever index that integrates \gls{NUV} and HZ requiremetns into a single scalar variable for which a threshold exist
 A high biosignature detection rate $f_\mathrm{life}$ increases the evidence (see Equation~\ref{eq:bayes_factor}) but a survey strategy cannot influence it.
 The same is true for $F_\mathrm{NUV, min}$, where again higher values increase the evidence as the binomial distribution for $H_\mathrm{1}$ gets increasingly skewed and shifted away from the one for $H_\mathrm{null}$.
 However, one might select exoplanets for which a biosignature test is performed based on \textit{a priori} available contextual information~\citep{catling2018exoplanet} in order to maximize the science yield of investing additional resources.
@@ -462,7 +462,7 @@ All injected biosignatures are assumed to be detected without false positive amb
 %        \label{fig:detections_uv}
 %    \end{centering}
 %\end{figure*}
-This leads to a distribution of biosignature detections with detections increasingly occurring above a threshold inferred NUV flux.
+This leads to a distribution of biosignature detections with detections increasingly occurring above a threshold inferred \gls{NUV} flux.
 In this example case, the few biosignature detections in the FGK sample lead to a higher evidence %($dlnZ_\mathrm{FGK} = \var{dlnZ_FGK}$)
 than in the M dwarf sample%($dlnZ_\mathrm{M} = \var{dlnZ_M}$)
 , where the majority of planets are above the threshold \gls{NUV} flux.
@@ -548,7 +548,7 @@ Since the practical implementation of an exoplanet survey can stand in the way o
 \subsection{How planetary context may constrain the UV~Threshold Hypothesis} % corresponds to conclusion points 2, 5
 It comes to no surprise that the success rate for testing the UV~Threshold Hypothesis is sensitive to the sample size of the survey and to the occurrence of life on temperate exoplanets.
 As we have shown, the statistical power of this test also depends on the distribution of past \gls{NUV} fluxes in the sample and on the threshold flux.
-Optimizing the survey to sample a wide range of NUV flux values, particularly at the extremes, can enhance the likelihood of obtaining strong evidence for or against the hypothesis.
+Optimizing the survey to sample a wide range of \gls{NUV} flux values, particularly at the extremes, can enhance the likelihood of obtaining strong evidence for or against the hypothesis.
 Intermediate values of the threshold \gls{NUV} flux are more likely to yield strong evidence than extreme values, as the dataset under the alternative hypothesis $H_1$ differs more from the null hypothesis in this case while still being sufficiently populated.
 The threshold flux is, of course, a priori unknown and we cannot influence it.
 If, however, better theoretical predictions for the required \gls{NUV} flux for abiogenesis become available~\citep{Rimmer2021}, the survey strategy can be further optimized, for instance by targeting planets that are estimated to have received a \gls{NUV} flux slightly below and above this threshold or by applying a bisection algorithm in a sequential survey~\citep{Fields2023}.
@@ -562,7 +562,7 @@ A lack of biosignatures in a larger FGK sample would support the UV~Threshold Hy
 
 On the other hand, M~dwarfs show a wider distribution of maximum past \gls{NUV} fluxes in their \glspl{HZ}.
 While old M~dwarfs can be considered low-UV environments, a significant fraction of them emit high \gls{NUV} fluxes into their \gls{HZ} during their early stages, in particular later subtypes~\citep{Richey-Yowell2023}.
-This will help to test the high \gls{NUV} flux end of the UV Threshold Hypothesis; a higher occurrence of biosignatures here would support the hypothesis that a higher NUV flux is favorable or necessary for life.
+This will help to test the high \gls{NUV} flux end of the UV Threshold Hypothesis; a higher occurrence of biosignatures here would support the hypothesis that a higher \gls{NUV} flux is favorable or necessary for life.
 At the same time, a fraction of host stars in our M~dwarf sample extends it to lower maximum past \gls{NUV} fluxes, enabling tests of the low \gls{NUV} flux end of the hypothesis.
 The higher and more variable \gls{NUV} fluxes in M~dwarfs thus increase the likelihood of obtaining strong evidence for or against the UV~Threshold Hypothesis.
 
