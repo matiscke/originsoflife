@@ -47,7 +47,7 @@ def run_simulation(nuv_thresh, n_planets, star_type, seed, generator_kwargs):
     return fraction
 
 
-def simulate(transiting=True, debug=False):
+def simulate(transiting=True, debug=False, deltatmin=1.):
     if debug:
         n_planets = 100 # maximum number of planets to sample
         n_nuv_thresholds = 5
@@ -64,7 +64,7 @@ def simulate(transiting=True, debug=False):
 
     generator_kwargs = {
     'f_life' : 1.0,
-    'deltaT_min' : 1., # Myr. Smaller values seems to slightly enhance inhabited planets in the FGK sample.
+    'deltaT_min' : deltatmin, # Myr. Smaller values seems to slightly enhance inhabited planets in the FGK sample.
 
     # increase sample size
     'f_eta' : 15,
@@ -109,14 +109,18 @@ def simulate(transiting=True, debug=False):
 
     # Save results to disk
     lbl = 'transiting' if transiting else 'all'
-    with open(paths.data / f"frac-inhabited_fgk_{lbl}.dll", "wb") as f:
+    if deltatmin == 100.:
+        dt = "_dtmin100Myr"
+    else:
+        dt = ""
+    with open(paths.data / f"frac-inhabited_fgk_{lbl}{dt}.dll", "wb") as f:
         dill.dump((results_fgk, nuv_thresholds), f)
 
-    with open(paths.data / f"frac-inhabited_m_{lbl}.dll", "wb") as f:
+    with open(paths.data / f"frac-inhabited_m_{lbl}{dt}.dll", "wb") as f:
         dill.dump((results_m, nuv_thresholds), f)
 
 
-def plot_results():
+def plot_results(deltatmin=1.):
     fig, ax = plt.subplots(figsize=(7, 4.5))
 
     plotkwargs = {
@@ -124,11 +128,15 @@ def plot_results():
     'all' : {'marker' : 's', 'linestyle' : '--', 'alpha' : 0.6, 'linewidth' : 1.5},
     }
 
+    if deltatmin == 100.:
+        dt = "_dtmin100Myr"
+    else:
+        dt = ""
     for transiting, lbl in zip([True, False], ['transiting', 'all']):
-        with open(paths.data / f"frac-inhabited_fgk_{lbl}.dll", "rb") as f:
+        with open(paths.data / f"frac-inhabited_fgk_{lbl}{dt}.dll", "rb") as f:
             results_fgk, nuv_thresholds_fgk = dill.load(f)
 
-        with open(paths.data / f"frac-inhabited_m_{lbl}.dll", "rb") as f:
+        with open(paths.data / f"frac-inhabited_m_{lbl}{dt}.dll", "rb") as f:
             results_m, nuv_thresholds_m = dill.load(f)
 
         # Calculate the mean fraction of inhabited planets for each NUV threshold
@@ -158,19 +166,22 @@ def plot_results():
     ax.set_ylim(bottom=-0.015)
     ax.legend()
     fig.show()
-    fig.savefig(paths.figures / "inhabited_aafo_nuv_thresh.pdf")
+    if deltatmin == 100.:
+        fig.savefig(paths.figures / "inhabited_aafo_nuv_thresh_deltatmin100.pdf")
+    else:
+        fig.savefig(paths.figures / "inhabited_aafo_nuv_thresh.pdf")
 
 
 @timeit
 def main(debug=False):
     # !only simulate if needed! It takes a while...
 
-    # for transiting in [True, False]:
-    # for transiting in [False]:
-    # for transiting in [True]:
-    #     simulate(transiting, debug)
+    for deltamin in [1., 100.]:
+    # for deltamin in [100.]:
+    #     for transiting in [True, False]:
+    #         simulate(transiting, debug, deltatmin=deltamin)
 
-    plot_results()
+        plot_results(deltatmin=deltamin)
 
 
 if __name__ == "__main__":
