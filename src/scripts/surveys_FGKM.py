@@ -170,76 +170,125 @@ def plot_detections_uv(eec, fig, ax, NUV_thresh, ylabel=True):
     return fig, ax
 
 
-fig = plt.figure(figsize=(10, 10))
+def create_figure_grid(n_cases=2):
+    """Create figure with grid for multiple deltaT cases."""
+    fig = plt.figure(figsize=(10 * n_cases, 10))
+    
+    gs = gridspec.GridSpec(3, 2 * n_cases, 
+                          height_ratios=[0.38, 0.38, 0.15], 
+                          wspace=0.2, 
+                          hspace=0.4)
+    
+    axes = []
+    for case in range(n_cases):
+        col_offset = case * 2
+        # Create 3 rows x 2 columns of axes for each case
+        case_axes = [
+            fig.add_subplot(gs[0, col_offset]),   # First row, first column
+            fig.add_subplot(gs[0, col_offset + 1]),  # First row, second column
+            fig.add_subplot(gs[1, col_offset]),   # Second row, first column
+            fig.add_subplot(gs[1, col_offset + 1]),  # Second row, second column
+            fig.add_subplot(gs[2, col_offset]),   # Third row, first column
+            fig.add_subplot(gs[2, col_offset + 1])   # Third row, second column
+        ]
+        
+        # Share y axes within each case
+        case_axes[1].sharey(case_axes[0])
+        case_axes[3].sharey(case_axes[2])
+        case_axes[5].sharey(case_axes[4])
+        
+        # Share x axes for bottom plots
+        case_axes[4].sharex(case_axes[2])
+        case_axes[5].sharex(case_axes[3])
+        
+        axes.append(case_axes)
+    
+    return fig, axes
 
-gs = gridspec.GridSpec(3, 2, height_ratios=[0.38, 0.38, 0.15], wspace=0.2, hspace=0.4)
 
-ax0 = fig.add_subplot(gs[0, 0])  # First row, first column
-ax1 = fig.add_subplot(gs[0, 1], sharey=ax0)  # First row, second column
-ax2 = fig.add_subplot(gs[1, 0])  # Second row, first column
-ax3 = fig.add_subplot(gs[1, 1], sharey=ax2)  # Second row, second column
-ax4 = fig.add_subplot(gs[2, 0], sharex=ax2)  # Third row, first column
-ax5 = fig.add_subplot(gs[2, 1], sharex=ax3)  # Third row, second column
+def main():
+    # Define the cases we want to plot
+    cases = [
+        {"suffix": "", "filename": "surveys_FGKM.pdf"},
+        {"suffix": "_dT100", "filename": "surveys_FGKM_dT100.pdf"}
+    ]
+    
+    for case in cases:
+        # Create figure with grid for single case
+        fig = plt.figure(figsize=(10, 10))
+        gs = gridspec.GridSpec(3, 2, 
+                             height_ratios=[0.38, 0.38, 0.15], 
+                             wspace=0.2, 
+                             hspace=0.4)
+        
+        # Create axes grid for this case
+        axes = []
+        for i in range(6):
+            ax = fig.add_subplot(gs[i//2, i%2])
+            axes.append(ax)
+        
+        # Share y axes
+        axes[1].sharey(axes[0])
+        axes[3].sharey(axes[2])
+        axes[5].sharey(axes[4])
+        
+        # Share x axes for bottom plots
+        axes[4].sharex(axes[2])
+        axes[5].sharex(axes[3])
+        
+        axs_left = [axes[0], axes[2], axes[4]]
+        axs_right = [axes[1], axes[3], axes[5]]
+        
+        for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
+            # Load data with appropriate suffix
+            with open(paths.data / f"pipeline/sample_{spt}{case['suffix']}.dll", "rb") as f:
+                sample = dill.load(f)
+            with open(paths.data / f"pipeline/data_{spt}{case['suffix']}.dll", "rb") as f:
+                data = dill.load(f)
 
-# axs = [ax0, ax1, ax2, ax3, ax4, ax5]
-axs_left = [ax0, ax2, ax4]
-axs_right = [ax1, ax3, ax5]
+            # first row
+            axlr[0] = plot_inhabited_FGKM(sample, fig, axlr[0])
+            axlr[0].set_xlabel("Spectral Type")
 
-# [ax.set_title("FGK-type hosts") for ax in axs_left]
-# [ax.set_title("M-type hosts") for ax in axs_right]
-for ax in axs_left:
-    ax.set_title("FGK", ha="right", x=0.95, va="top", y=0.9)
+            if spt == "M":
+                ylabel = False
+                leg = axlr[0].legend(
+                    bbox_to_anchor=(1.07, 0.99),
+                    title="N = {}".format(read_var_latex(f"N_nautilus{case['suffix']}")),
+                    loc="lower right",
+                    frameon=False,
+                )
+                leg._legend_box.align = "left"
+            elif spt == "FGK":
+                axlr[0].get_legend().remove()
+                ylabel = True
 
-for ax in axs_right:
-    ax.set_title("M", ha="right", x=0.95, va="top", y=0.9)
+            # second row
+            fig, axlr[1] = plot_nuv_distribution(sample, data, fig, axlr[1], spt)
 
+            # third row
+            fig, axlr[2] = plot_detections_uv(
+                data, fig, axlr[2], 
+                NUV_thresh=read_var_latex(f"NUV_thresh{case['suffix']}"), 
+                ylabel=ylabel
+            )
 
-for spt, axlr in zip(["FGK", "M"], [axs_left, axs_right]):
-    with open(paths.data / "pipeline/sample_{}.dll".format(spt), "rb") as f:
-        sample = dill.load(f)
-    with open(paths.data / "pipeline/data_{}.dll".format(spt), "rb") as f:
-        data = dill.load(f)
+            # Set titles for each column
+            for ax in axlr:
+                ax.set_title(spt, ha="right", x=0.95, va="top", y=0.9)
 
-    # first row
-    axlr[0] = plot_inhabited_FGKM(sample, fig, axlr[0])
-    axlr[0].set_xlabel("Spectral Type")
+            # Add figure title for dT 100 case
+            if case['suffix'] == '_dT100':
+                fig.suptitle('Minimum time in HZ: 100 Myr', y=1.02)
 
-    if spt == "M":
-        ylabel = False
-        # axlr[0].legend(loc="center left", title=None)
-        leg = axlr[0].legend(
-            bbox_to_anchor=(1.07, 0.99),
-            # title=f"N = {len(sample)}",
-            title="N = {}".format(read_var_latex('N_nautilus')),
-            loc="lower right",
-            frameon=False,
-        )
-        leg._legend_box.align = "left"
-        # axlr[0].text(
-        #     0.949,
-        #     1.6,
-        #     f"N = {len(sample)}",
-        #     transform=axlr[0].transAxes,
-        #     horizontalalignment="right",
-        #     color="0.2",
-        # )
-    elif spt == "FGK":
-        axlr[0].get_legend().remove()
-        ylabel = True
+            # Remove ylabel and tick labels from right plots
+            if spt == "M":
+                [ax.set_ylabel("") for ax in axlr]
 
-    # second row
-    fig, axlr[1] = plot_nuv_distribution(sample, data, fig, axlr[1], spt)
+        plt.tight_layout()
+        plt.subplots_adjust(hspace=0.7)  # Increase the height space between rows
+        fig.savefig(paths.figures / case['filename'])
+        plt.close()
 
-    # third row
-    fig, axlr[2] = plot_detections_uv(
-        data, fig, axlr[2], NUV_thresh=read_var_latex("NUV_thresh"), ylabel=ylabel
-    )
-
-# remove ylabel and tick labels from all right plots
-[ax.set_ylabel("") for ax in axs_right]
-# [ax.set_yticklabels([]) for ax in axs_right]
-
-plt.tight_layout()
-plt.subplots_adjust(hspace=0.7)  # Increase the height space between rows
-fig.show()
-fig.savefig(paths.figures / "surveys_FGKM.pdf")
+if __name__ == "__main__":
+    main()
