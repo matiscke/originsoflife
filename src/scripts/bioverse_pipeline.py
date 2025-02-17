@@ -208,7 +208,6 @@ def run_survey_nautilus(sample, t_total=10 * 365.25):
 
     # compute yield, conduct survey
     detected = nautilus.compute_yield(sample)
-    save_var_latex("N_nautilus", len(detected))
     data = nautilus.observe(
         detected
     )  # commented out for now because of Bioverse's issue #45: , t_total=t_total)
@@ -382,6 +381,14 @@ def get_params_past_uv(hoststars="all", **kwargs):
     return params_past_uv
 
 
+def get_file_suffix(params):
+    """Generate a suffix for filenames based on special parameter values."""
+    suffix = ""
+    if params.get("deltaT_min", 1.0) != 1.0:
+        suffix += f"_dT{int(params['deltaT_min'])}"
+    return suffix
+
+
 def past_uv(
     hoststars="all",
     grid=True,
@@ -425,8 +432,14 @@ def past_uv(
 
     # default parameters for planet generation
     params_past_uv = get_params_past_uv(hoststars)
+    # Update params with kwargs
+    for key, value in kwargs.items():
+        params_past_uv[key] = value
+    
+    # Get filename suffix based on special parameters
+    file_suffix = get_file_suffix(params_past_uv)
 
-    g, g_args = generate_generator(label=None, **params_past_uv)  # , **kwargs)
+    g, g_args = generate_generator(label=None, **params_past_uv)
 
     if grid:
         # perform a grid of hypothesis tests
@@ -460,11 +473,8 @@ def past_uv(
     #
     else:
         # perform a single hypothesis test
-
         d = g.generate()
-
         d.compute("max_nuv")
-
         dd = d.to_pandas()
         print("Total number of planets: {}".format(len(d)))
         print("Inhabited: {}".format(len(dd[dd.inhabited])))
@@ -474,54 +484,52 @@ def past_uv(
         print("Number of planets in the sample: {}".format(len(d)))
         results = hypothesis_test(data, testmethod)
         try:
-            save_var_latex("dlnZ_{}".format(hoststars), results["dlnZ"])
+            save_var_latex(f"dlnZ_{hoststars}{file_suffix}", results["dlnZ"])
         except KeyError:
-            save_var_latex("p_{}".format(hoststars), results["p"])
+            save_var_latex(f"p_{hoststars}{file_suffix}", results["p"])
 
-        # save some variables for the manuscript
+        # Save variables with spectral type and suffix
+        save_var_latex(f"uv_inhabited_{hoststars}{file_suffix}", len(dd[dd.inhabited]))
+
+        save_var_latex(f"N_nautilus{file_suffix}", len(detected))
+
+        # General parameters - save only once (for FGK case)
         if hoststars == "FGK":
-            save_var_latex("uv_inhabited_FGK", len(dd[dd.inhabited]))
-
-            # general
-            save_var_latex("d_max", g_args["d_max"])
-            save_var_latex("M_G_max", g_args["M_G_max"])
-            save_var_latex("M_st_max", g_args["M_st_max"])
+            save_var_latex(f"d_max{file_suffix}", g_args["d_max"])
+            save_var_latex(f"M_G_max{file_suffix}", g_args["M_G_max"])
+            save_var_latex(f"M_st_max{file_suffix}", g_args["M_st_max"])
             try:
                 if params_past_uv["f_life"] == 1.0:
-                    # save without trailing zeros
-                    save_var_latex("f_life", 1)
+                    save_var_latex(f"f_life{file_suffix}", 1)
                 else:
-                    save_var_latex("f_life", params_past_uv["f_life"])
+                    save_var_latex(f"f_life{file_suffix}", params_past_uv["f_life"])
             except KeyError:
                 pass
-            save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
-            save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
-            save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
+            save_var_latex(f"NUV_thresh{file_suffix}", params_past_uv["NUV_thresh"])
+            save_var_latex(f"deltaT_min{file_suffix}", int(params_past_uv["deltaT_min"]))
 
-        elif hoststars == "M":
-            save_var_latex("uv_inhabited_M", len(dd[dd.inhabited]))
-        elif hoststars == "all":
-            # general run (are we even still doing this)?
-            pass
-            # save_var_latex("d_max", g_args["d_max"])
-            # save_var_latex("M_G_max", g_args["M_G_max"])
-            # save_var_latex("f_life", params_past_uv["f_life"])
-            # save_var_latex("NUV_thresh", params_past_uv["NUV_thresh"])
-            # save_var_latex("deltaT_min", int(params_past_uv["deltaT_min"]))
-            # save_var_latex("uv_inhabited", len(dd[dd.inhabited]))
-
-    # fixed variables from semianalytical analysis
-    save_var_latex("semian_Nsamp1", 10)
-    save_var_latex("semian_Nsamp2", 100)
+    # Fixed variables from semianalytical analysis
+    save_var_latex(f"semian_Nsamp1{file_suffix}", 10)
+    save_var_latex(f"semian_Nsamp2{file_suffix}", 100)
     ## Below commands potentially lead to latex error "Paragraph ended before \@dtl@stripeol was complete":
     # save_var_latex("sigma_M_st", nautilus.measurements['M_st'].precision)
     # save_var_latex("sigma_t", nautilus.measurements['age'].precision)
+
+    # save Bioverse objects with suffix
+    with open(
+        paths.data / f"pipeline/sample_{hoststars}{file_suffix}.dll", "wb"
+    ) as file:
+        dill.dump(d, file)
+    with open(
+        paths.data / f"pipeline/data_{hoststars}{file_suffix}.dll", "wb"
+    ) as file:
+        dill.dump(data, file)
+
     return d, grid, detected, data, nautilus
 
 
 @timeit
-def main(fast=False, do_grid=True, testmethod="mannwhitney"):
-    # def main(fast=False, testmethod="dynesty"):
+def main(fast=False, do_grid=True, testmethod="mannwhitney", **kwargs):
     """Run the Bioverse pipeline.
 
     Parameters
@@ -531,14 +539,11 @@ def main(fast=False, do_grid=True, testmethod="mannwhitney"):
     do_grid : bool
         Whether to run the pipeline in grid mode.
     testmethod : str
-        The method to use for hypothesis
-        testing. Options are 'dynesty', 'emcee', 'mannwhitney'.
-
-    Returns
-    -------
-    None
+        The method to use for hypothesis testing.
+    **kwargs :
+        Additional parameters to pass to the generator,
+        e.g. deltaT_min=100.
     """
-
     if do_grid:
         grids = [False, True]
     else:
@@ -546,37 +551,35 @@ def main(fast=False, do_grid=True, testmethod="mannwhitney"):
 
     for grid in grids:
         # for spt in ["all", "FGK", "M"]:
-        for spt in ["FGK", "M"]:
+        for hoststars in ["FGK", "M"]:
+        # for hoststars in ["FGK"]:
             if grid:
-                print("grid run")
-                if fast:
-                    print("...in fast mode")
-
-                # grid runs
                 _d, grid, _detected, _data, _nautilus = past_uv(
-                    hoststars=spt, grid=True, testmethod=testmethod, fast=fast
+                    hoststars=hoststars,
+                    grid=True, 
+                    testmethod=testmethod, 
+                    fast=fast,
+                    **kwargs
                 )
                 # save grid results
+                # all this just to get the file suffix
+                params_past_uv = get_params_past_uv(hoststars)
+                for key, value in kwargs.items():
+                    params_past_uv[key] = value
+                file_suffix = get_file_suffix(params_past_uv)
                 with open(
-                    paths.data / "pipeline/grid_flife_nuv_{}.dll".format(spt), "wb"
+                    paths.data / f"pipeline/grid_flife_nuv_{hoststars}{file_suffix}.dll", "wb"
                 ) as file:
                     dill.dump(grid, file)
 
             else:
                 # single hypothesis test
                 _d, _grid, _detected, _data, nautilus = past_uv(
-                    hoststars=spt, testmethod=testmethod, grid=False
+                    hoststars=hoststars,
+                    testmethod=testmethod, 
+                    grid=False,
+                    **kwargs
                 )
-
-                # save Bioverse objects
-                with open(
-                    paths.data / "pipeline/sample_{}.dll".format(spt), "wb"
-                ) as file:
-                    dill.dump(_d, file)
-                with open(
-                    paths.data / "pipeline/data_{}.dll".format(spt), "wb"
-                ) as file:
-                    dill.dump(_data, file)
 
     try:
         # save relevant Nautilus survey parameters to variables file
@@ -586,22 +589,17 @@ def main(fast=False, do_grid=True, testmethod="mannwhitney"):
     except:
         pass
 
-    #
-    # # run statistical power grids
-    # for spt in ["FGK", "M"]:
-    #     _d, powergrid, _detected, _data, _nautilus = past_uv(
-    #         hoststars=spt, grid=False, testmethod=testmethod, powergrid=True
-    #     )
-    #
     return
 
 
 if __name__ == "__main__":
-    # main()
-    # main(do_grid=False)
-    # main(do_grid=True, fast=True)
-    main(do_grid=True, fast=False)
-    # main(fast=True)
+    for deltaT_min in [1.0, 100.0]:
+    # for deltaT_min in [100.0]:
+            main(do_grid=True, deltaT_min=deltaT_min, fast=False)
+
+
+
+
 
 
 # # -----------------
