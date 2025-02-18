@@ -422,7 +422,7 @@ We further investigate the sensitivity of the survey to the a priori unknown thr
 In Section~\ref{sec:results-semianalytical}, we showed that the probability of obtaining true strong evidence for the hypothesis that life only originates on planets with a minimum past \gls{NUV} flux is sensitive to the distribution of sampled past \gls{NUV} fluxes, i.e., the selectivity of the survey (compare Figure~\ref{fig:semian_selectivity}).
 %The maximum \gls{NUV} distribution of our generic transit survey is rather unimodal with a median around \SI{500}{\erg\per\second\per\centi\meter\squared} (see Figure~\ref{fig:surveys_FGKM}), leading to a selectivity of roughly \var{selectivity_transit_volumelim}.
 For both surveys targeting M dwarfs and those targeting FGK dwarfs, the maximum \gls{NUV} distribution is rather unimodal.
-Applying the approach from Sect.~\ref{sec:results-semianalytical} of fitting a Beta function to the distribution, we find rather low selectivities (see Figure~\ref{fig:surveys_FGKM}), which is likely detrimental for statistical hypothesis tests.
+Applying the approach from Section~\ref{sec:results-semianalytical} of fitting a Beta function to the distribution, we find rather low selectivities (see Figure~\ref{fig:surveys_FGKM}), which is likely detrimental for statistical hypothesis tests.
 
 %\begin{figure*}
 %    \script{nuv_distribution.py}
@@ -516,7 +516,7 @@ The cyanosulfidic scenario for the origins of life~\citep{Patel2015}, in particu
 In the following, we discuss the prospects of testing the UV~Threshold Hypothesis in light of our results.
 
 \subsection{Sampling strategy for testing a \gls{NUV} flux threshold} % corresponds to conclusion point 1
-In Sect.~\ref{sec:results-semianalytical}, we show that testing the UV~Threshold Hypothesis suffers from `nuisance' parameters that hamper inference through astronomical observations.
+In Section~\ref{sec:results-semianalytical}, we show that testing the UV~Threshold Hypothesis suffers from `nuisance' parameters that hamper inference through astronomical observations.
 Here, these parameters are the unspecified value of the \gls{NUV} threshold hypothesized to exist under $H_1$, and the unknown probability of detectable life emerging on a habitable planet $f_{\mathrm{life}}$.
 While the inference of a planet's entire \gls{UV} flux evolution is difficult~\citep[e.g.,][]{Richey-Yowell2023}, the estimated maximum \gls{NUV} flux that a planet was exposed to may be used as a proxy, at least if one is interested in a minimum threshold flux and makes the assumption that planetary surfaces offer protection against \textit{too high} UV flux.
 Indeed, the distribution of the number of planets with detected biosignature in a particular sample of planets with inferred maximum \gls{NUV} values $F_{\mathrm{NUV}}$ depends on both the values of $F_{\mathrm{NUV},min}$ and $f_{\mathrm{life}}$ as shown in equation~\ref{eq:semian:likelihoodH1}.
@@ -560,6 +560,7 @@ FGK stars \rev{exhibit a relatively} narrow \rev{range} of maximum past \gls{NUV
 \rev{A detection of biosignatures in such a sample would likely only suggest that either low \gls{NUV} fluxes are sufficient for abiogenesis or that an alternative abiogenic pathway may be at play~\citep[e.g.,][]{Westall2018}.
 Conversely, a lack of biosignatures in a sufficiently large FGK sample could indicate that the actual threshold is higher than the maximum past flux levels reached by FGK hosts.
 We further note that under the UV~Threshold Hypothesis, the fraction of inhabited planets in an FGK sample declines rapidly for increasing threshold fluxes, as shown in Figure~\ref{fig:inhabited_aafo_nuv_thresh}.
+In addition, if the timescale for the emergence of life is $\gg \SI{1}{\mega\year}$, the fraction of inhabited planets in an FGK sample may be negligible (see Section~\ref{sec:long-origins}).
 }
 
 On the other hand, M~dwarfs show a wider distribution of maximum past \gls{NUV} fluxes in their \glspl{HZ}.
@@ -593,7 +594,8 @@ Conversely, a biosignature detection on a planet estimated to have received very
 On the other hand, should the detection in the latter case be confirmed, it could be used to falsify the UV~Threshold Hypothesis.
 
 Our simulations find no clear criterion for the credibility of a biosignature detection based on spectral type of the host star, as both FGK and M~dwarf samples show similar maximum past \gls{NUV} flux distributions.
-The abiogenesis rate in both samples show similar trends with the threshold \gls{NUV} flux, and the fraction of inhabited planets drops at similar threshold fluxes (see Section~\ref{sec:results-bioverse}).
+\rev{While there is a significant preference for M~dwarfs in the case of a long timescale for abiogenesis (see Section \ref{sec:long-origins}
+), the fraction of inhabited planets in the M~dwarf sample drops at similar threshold fluxes as in the FGK sample if the timescale for abiogenesis is short }(see Section~\ref{sec:results-bioverse}).
 A potentially inhabited planet's host star spectral type may thus not be a strong indicator for the credibility of a biosignature detection in the context of the UV~Threshold Hypothesis.
 
 \subsection{Overall prospects for testing the UV~Threshold Hypothesis} % corresponds to conclusion point 4
@@ -726,7 +728,7 @@ Our main findings are:
     \item If the predicted \gls{UV}~correlation exists, obtaining strong evidence for the hypothesis is likely ($\gtrsim \SI{80}{\percent}$) for sample sizes $\geq 100$ if the abiogenesis rate is high ($\gtrsim \SI{50}{\percent}$) and if no very high \gls{NUV} fluxes are required.
     A survey strategy that targets extreme values of inferred past \gls{NUV} irradiation increases the diagnostic power.
     \item Samples of planets orbiting M~dwarfs overall yield higher chances of successfully testing the UV~Threshold Hypothesis.
-          They may also be more likely to yield biosignature detections under this hypothesis.
+          They may also be more likely to yield biosignature detections under this hypothesis\rev{, in particular if the origins timescale is long}.
 
 %    \item Abiogenesis in the cyanosulfidic scenario prefers late host star spectral types due to the higher \gls{NUV} fluxes in their habitable zones. However, due to a wider distribution of maximum past \gls{NUV} fluxes in the \gls{HZ} of FGK stars, a transit survey targeting FGK systems is more likely to obtain strong evidence for or against the UV~Threshold Hypothesis.
 
@@ -765,6 +767,55 @@ While the resulting trends are qualitatively similar, the uniform prior yields o
         \label{fig:semian_true_evidence_uniform}
     \end{centering}
 \end{figure*}
+
+
+
+%\section{Impact of a Longer Abiogenesis Timescale}
+\section{\rev{Impact of a Longer Origins Timescale}}\label{sec:long-origins}
+\rev{
+While evidence from Earth's history suggests that life may have emerged early~\citep{Mojzsis2001, Dodd2017}, there is no strong empirical basis to assume that this timescale is representative of habitable planets in the Universe.
+The emergence of life could be a slow and rare process, possibly requiring much longer periods \citep{Lineweaver2002, Spiegel2012}.
+}
+
+\rev{
+To assess the implications of a more conservative abiogenesis timescale, we consider a scenario in which a planet's minimum time required to be both in the \gls{HZ} and having above-threshold \gls{NUV} fluxes before life can emerge is increased to \(\Delta T_{\text{min}} = 100\) Myr, rather than 1 Myr as assumed above.
+Figures~\ref{fig:inhabited_dT100}, \ref{fig:surveys_dT100}, and \ref{fig:powergrid_dT100} show the results of our \bioverse\ simulations under this assumption.
+}
+
+\rev{
+The overall impact differs significantly between M dwarf and FGK dwarf planets.
+ While M dwarf planets remain largely unaffected, the fraction of inhabited FGK dwarf planets decreases sharply due to the limited overlap between the time of high UV flux and habitable conditions (compare Figure~\ref{fig:hz_nuv_evo}).
+Even under the optimistic assumption that the probability of abiogenesis is unity (\( f_{\text{life}} = 1 \)), the fraction of inhabited planets under the UV Threshold Hypothesis declines rapidly with increasing UV flux thresholds (Figure~\ref{fig:inhabited_dT100}).
+}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/inhabited_aafo_nuv_thresh_deltatmin100.pdf}
+    \caption{\rev{Fraction of inhabited planets as a function of NUV threshold flux for \(\Delta T_{\text{min}} = 100\) Myr. The decrease in inhabited planets is more pronounced for FGK stars, narrowing the viable range of UV Thresholds compared to shorter origins timescales.}}
+    \label{fig:inhabited_dT100}
+\end{figure}
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/surveys_FGKM_dT100.pdf}
+    \caption{\rev{Simulated survey results under the assumption of \(\Delta T_{\text{min}} = 100\) Myr. The fraction of inhabited FGK planets is reduced to zero, while the fraction of inhabited M dwarf planets remains largely unaffected.}}
+    \label{fig:surveys_dT100}
+\end{figure*}
+
+\rev{
+The impact of a longer origins timescale on testing the UV Threshold Hypothesis becomes evident when we repeat our example survey ($f_{\text{life}} = 0.8$, $F_{\text{NUV},\text{min}} = \SI{300}{\erg\per\second\per\centi\meter\squared}$) under this assumption (Figure~\ref{fig:surveys_dT100}):
+While the survey of M dwarf planets remains largely unaffected, the fraction of inhabited FGK planets is reduced to zero, making a conclusive test of the UV Threshold Hypothesis impossible.
+}
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/powergrid_dT100.pdf}
+    \caption{\rev{Statistical power for different abiogenesis rates and NUV threshold fluxes under the assumption of \(\Delta T_{\text{min}} = 100\) Myr. The longer origins timescale makes a test of the UV Threshold Hypothesis impossible for FGK planets, while M dwarf planets remain viable targets.}}
+    \label{fig:powergrid_dT100}
+\end{figure*}
+\rev{
+Figure \ref{fig:powergrid_dT100} demonstrates that this result is independent of the threshold \gls{NUV} flux and the intrinsic abiogenesis rate.
+Given the lack of constraints on the timescale of abiogenesis, these findings highlight the advantages of focusing on M dwarf planets when searching for biosignatures.
+If life emerges slowly, FGK planets may rarely, if ever, reach the inhabited stage, whereas M dwarf planets remain viable targets for future surveys.
+If biosignatures were nevertheless detected on FGK planets despite the constraints imposed by a longer abiogenesis timescale, it would suggest that either the UV Threshold Hypothesis, as formulated here, is incorrect or that the timescale of abiogenesis is shorter than $\mathcal{O}(\SI{100}{\mega\year})$.
+}
 
 
 
