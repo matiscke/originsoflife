@@ -68,7 +68,7 @@ def create_powergrid_figure(suffix=""):
 
     # Add figure title for dT 100 case
     if suffix == "_dT100":
-        fig.suptitle('Minimum time in HZ: 100 Myr', y=1.02)
+        fig.suptitle('$\Delta T_\mathrm{min}$ = 100 Myr', horizontalalignment='left', y=1.1)
 
     fig.savefig(paths.figures / f"powergrid{suffix}.pdf")
     plt.close()
