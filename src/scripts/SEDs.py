@@ -5,6 +5,9 @@ import numpy as np
 from astropy.constants import h, c, k_B
 import astropy.units as u
 import pandas as pd
+import astropy.constants as const
+import paths
+import cmocean
 
 
 def PlanckFunctionLambda(Temperature, lambdas):
@@ -69,66 +72,94 @@ def planck_law(wavelength, temperature):
 
 
 def compute_blackbody_seds(temperatures, wavelengths):
-    # return {spectral_type: planck_law(wavelengths, temp) for spectral_type, temp in temperatures.items()}
-    return {spectral_type: PlanckFunctionLambda(temp, wavelengths)[0] for spectral_type, temp in temperatures.items()}
+    """Compute blackbody SEDs for given temperatures and wavelengths."""
+    blackbody_seds = {}
+    wavelengths = wavelengths * u.m
+    
+    for st, temp in temperatures.items():
+        temp = temp * u.K
+        # Planck function (erg/s/cm²/m)
+        bb_intensity = ((2 * h * c**2 / wavelengths**5) * 
+                       1 / (np.exp(h * c / (wavelengths * k_B * temp)) - 1)
+                      ).to(u.erg/u.s/u.cm**2/u.m)
+        blackbody_seds[st] = bb_intensity.value
+    
+    return blackbody_seds
 
 
-def normalize_seds(flux_data, blackbody_seds, wavelengths, age):
+def normalize_seds(flux_data, blackbody_seds, wavelengths, age, temperatures):
     # Filter flux data for specific age
     age_data = flux_data[flux_data["Age (Myr)"] == age]
     
     flux_reference = {
-        "G-type": age_data[age_data["Spectral Type"] == "G"]["NUV Flux (erg/s/cm^2)"].median(),
         "K-type": age_data[age_data["Spectral Type"] == "K"]["NUV Flux (erg/s/cm^2)"].median(),
         "early M": age_data[age_data["Spectral Type"] == "earlyM"]["NUV Flux (erg/s/cm^2)"].median(),
         "late M": age_data[age_data["Spectral Type"] == "lateM"]["NUV Flux (erg/s/cm^2)"].median(),
     }
-
+    
+    # Convert reference fluxes to astropy quantities
+    flux_reference = {k: v * u.erg/u.s/u.cm**2 for k, v in flux_reference.items()}
+    
+    normalized_seds = {}
+    scaling_factors = {}
+    
+    wavelengths = wavelengths * u.m
+    
+    for spectral_type, temp in temperatures.items():
+        temp = temp * u.K
+        blackbody_sed = blackbody_seds[spectral_type] * u.erg/u.s/u.cm**2/u.m
+        
+        # Calculate scaling factor using UV range
+        uv_mask = (wavelengths >= 200 * u.nm) & (wavelengths <= 280 * u.nm)
+        uv_flux_bb = np.trapz(blackbody_sed[uv_mask], wavelengths[uv_mask])
+        scaling_factor = flux_reference[spectral_type] / uv_flux_bb
+        
+        normalized_seds[spectral_type] = blackbody_sed * scaling_factor
+        scaling_factors[spectral_type] = f"{scaling_factor:.2e}"
+    
+    # Calculate photon number flux density for the UV range
     photon_fluxes = {}
-    wl_range = np.linspace(200e-9, 280e-9, 100)
-    for spectral_type, flux in blackbody_seds.items():
-        energy_flux = np.interp(wl_range, wavelengths, flux)
-        photon_flux = energy_flux / (h.value * c.value / wl_range)
-        total_photon_flux = np.trapz(photon_flux, wl_range)
-        photon_fluxes[spectral_type] = float(total_photon_flux)
-
-    scaling_factors = {st: flux_reference[st] / photon_fluxes[st] for st in flux_reference if st in photon_fluxes}
-
-    normalized_seds = {st: blackbody_seds[st] * scaling_factors.get(st, 1) for st in blackbody_seds}
-
-    # Calculate photon number flux density (per nm) for the UV range
-    photon_fluxes = {}
-    uv_mask = (wavelengths >= 200e-9) & (wavelengths <= 280e-9)
-    wavelength_nm = wavelengths[uv_mask] * 1e9  # Convert to nm
+    uv_mask = (wavelengths >= 200 * u.nm) & (wavelengths <= 280 * u.nm)
     
     for st, flux in normalized_seds.items():
         # Energy per photon: E = hc/λ
-        photon_energy = (h * c) / wavelengths[uv_mask]
-        # Convert energy flux to photon flux density (per nm)
-        photon_flux_density = flux[uv_mask] / photon_energy / 1e9  # Divide by 1e9 to convert from per m to per nm
+        photon_energy = (const.h * const.c / wavelengths[uv_mask]).to(u.erg)
+        # Convert energy flux to photon flux density
+        # First convert flux to per-nm
+        flux_per_nm = flux[uv_mask].to(u.erg/u.s/u.cm**2/u.nm)
+        # Then divide by photon energy to get photons
+        photon_flux_density = (flux_per_nm / photon_energy) * u.photon
         # Take the mean value over the UV range
-        photon_fluxes[st] = f"{np.mean(photon_flux_density):.2e}"
+        mean_flux = np.mean(photon_flux_density)
+        if np.isnan(mean_flux):
+            photon_fluxes[st] = 0.0 * u.photon/u.s/u.cm**2/u.nm
+        else:
+            photon_fluxes[st] = mean_flux
     
     return normalized_seds, scaling_factors, photon_fluxes
 
 
 def plot_seds(seds_by_age, wavelengths):
-    plt.rcParams.update({'font.size': 14})  # Set base font size
+    plt.rcParams.update({'font.size': 14})
     fig, axes = plt.subplots(3, 2, figsize=(15, 20))
     axes = axes.flatten()
+    
+    wavelengths = wavelengths * u.m
     
     # First pass to determine global y-axis limits
     y_min, y_max = float('inf'), float('-inf')
     for seds in seds_by_age.values():
         for flux in seds.values():
-            y_min = min(y_min, np.min(flux / 1e-13))
-            y_max = max(y_max, np.max(flux / 1e-13))
+            y_min = min(y_min, np.min(flux.to(u.erg/u.s/u.cm**2/u.m).value / 1e-13))
+            y_max = max(y_max, np.max(flux.to(u.erg/u.s/u.cm**2/u.m).value / 1e-13))
     
     for idx, (age, seds) in enumerate(seds_by_age.items()):
         ax = axes[idx]
         for st, flux in seds.items():
-            ax.plot(wavelengths * 1e9, flux / 1e-13, label=st, linewidth=2)
-        ax.axvspan(200e-9 * 1e9, 280e-9 * 1e9, alpha=0.2, color='green', label='200-280 nm')
+            ax.plot(wavelengths.to(u.nm).value, 
+                   flux.to(u.erg/u.s/u.cm**2/u.m).value / 1e-13, 
+                   label=st, linewidth=2)
+        ax.axvspan(200, 280, alpha=0.2, color='green', label='200-280 nm')
         ax.set_xlabel("Wavelength (nm)", fontsize=16)
         ax.set_ylabel("Normalized Spectral Energy Flux (erg/s/cm²)", fontsize=16)
         ax.set_title(f"Normalized Blackbody SEDs - Age: {age} Myr", fontsize=18, pad=15)
@@ -137,36 +168,66 @@ def plot_seds(seds_by_age, wavelengths):
         ax.legend(fontsize=14)
         ax.tick_params(axis='both', which='major', labelsize=14)
     
-    # Remove the empty subplot
     axes[-1].remove()
     plt.tight_layout()
+    plt.savefig(paths.figures / 'normalized_seds.pdf', bbox_inches='tight')
     plt.show()
+    plt.close()
 
 
 def plot_photon_flux(photon_fluxes_by_age):
     plt.rcParams.update({'font.size': 14})
-    plt.figure(figsize=(12, 8))
+    fig, ax = plt.subplots(figsize=(12, 8))
     
     x = np.arange(len(list(photon_fluxes_by_age.values())[0].keys()))
     width = 0.15
     
-    for i, (age, photon_fluxes) in enumerate(photon_fluxes_by_age.items()):
-        values = [float(v) for v in photon_fluxes.values()]
-        plt.bar(x + i*width, values, width, label=f'{age} Myr')
+    # Create colormap for ages
+    ages = list(photon_fluxes_by_age.keys())
+    colors = cmocean.cm.haline(np.linspace(0, .93, len(ages)))
     
-    plt.xlabel("Spectral Type", fontsize=16)
-    plt.ylabel("Photon Number Flux Density (photons/s/cm²/nm)", fontsize=16)
-    plt.title("Mean UV Photon Flux Density (200-280 nm)", fontsize=18, pad=15)
-    plt.xticks(x + width*2, list(list(photon_fluxes_by_age.values())[0].keys()), fontsize=14)
-    plt.yticks(fontsize=14)
-    plt.yscale("log")
-    plt.legend(fontsize=14)
+    for i, ((age, photon_fluxes), color) in enumerate(zip(photon_fluxes_by_age.items(), colors)):
+        values = [v.value for v in photon_fluxes.values()]
+        ax.bar(x + i*width, values, width, label=f'{age} Myr', color=color)
+    
+    # Add Rimmer threshold line and uncertainty
+    threshold = 6.8e10
+    uncertainty = 3.6e10
+    ax.axhline(y=threshold, color='black', linestyle='--', alpha=0.8)
+    ax.fill_between([-width, x[-1] + width*5], 
+                    threshold - uncertainty, 
+                    threshold + uncertainty, 
+                    color='darkgray', alpha=0.4)
+    ax.annotate('Rimmer et al. 2018\n\nthreshold surface flux',
+                xy=(x[-1] + width*5, threshold),
+                xytext=(10, 0), textcoords='offset points',
+                va='center')
+    
+    # Remove top and right spines
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    
+    ax.set_xlabel("Spectral Type", fontsize=16)
+    ax.set_ylabel("Photon Number Flux Density (photons/s/cm²/nm)", fontsize=16)
+    ax.set_title("Mean UV Photon Flux Density (200-280 nm)", fontsize=18, pad=15)
+    ax.set_xticks(x + width*2)
+    ax.set_xticklabels(list(list(photon_fluxes_by_age.values())[0].keys()), fontsize=14)
+    ax.tick_params(axis='y', labelsize=14)
+    ax.set_yscale("log")
+    
+    # Move legend outside
+    ax.legend(fontsize=14, bbox_to_anchor=(.95, 1), loc='upper left')
+    
+    # Adjust layout to prevent legend cutoff
+    plt.tight_layout()
+    plt.savefig(paths.figures / 'photon_flux.pdf', bbox_inches='tight')
     plt.show()
+    plt.close()
 
 
 def main():
     flux_data = load_flux_data("../data/past-UV.csv")
-    temperatures = {"G-type": 5700, "K-type": 4500, "early M": 3500, "late M": 2500}
+    temperatures = {"K-type": 4500, "early M": 3500, "late M": 2500}
     wavelengths = np.linspace(190e-9, 300e-9, 1000)
     ages = [16.5, 43.5, 150.0, 650.0, 5000.0]
 
@@ -177,7 +238,7 @@ def main():
     photon_fluxes_by_age = {}
     
     for age in ages:
-        normalized_seds, scaling_factors, photon_fluxes = normalize_seds(flux_data, blackbody_seds, wavelengths, age)
+        normalized_seds, scaling_factors, photon_fluxes = normalize_seds(flux_data, blackbody_seds, wavelengths, age, temperatures)
         normalized_seds_by_age[age] = normalized_seds
         scaling_factors_by_age[age] = scaling_factors
         photon_fluxes_by_age[age] = photon_fluxes
@@ -190,7 +251,11 @@ def main():
         df_scaling_factors = pd.DataFrame.from_dict(scaling_factors_by_age[age], orient="index", columns=["Scaling Factor"])
         df_scaling_factors.to_csv(f"../data/scaling_factors_{age}Myr.csv")
 
-        df_photon_flux = pd.DataFrame.from_dict(photon_fluxes_by_age[age], orient="index", columns=["Photon Number Flux"])
+        df_photon_flux = pd.DataFrame.from_dict(
+            {k: v.value for k, v in photon_fluxes_by_age[age].items()}, 
+            orient="index", 
+            columns=["Photon Number Flux Density (photons/s/cm²/nm)"]
+        )
         df_photon_flux.to_csv(f"../data/photon_flux_{age}Myr.csv")
 
 
