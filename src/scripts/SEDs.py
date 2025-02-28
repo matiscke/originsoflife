@@ -113,7 +113,7 @@ def normalize_seds(flux_data, blackbody_seds, wavelengths, age, temperatures):
         uv_mask = (wavelengths >= 200 * u.nm) & (wavelengths <= 280 * u.nm)
         uv_flux_bb = np.trapz(blackbody_sed[uv_mask], wavelengths[uv_mask])
         scaling_factor = flux_reference[spectral_type] / uv_flux_bb
-        
+
         normalized_seds[spectral_type] = blackbody_sed * scaling_factor
         scaling_factors[spectral_type] = f"{scaling_factor:.2e}"
     
@@ -161,18 +161,18 @@ def plot_seds(seds_by_age, wavelengths):
                    label=st, linewidth=2)
         ax.axvspan(200, 280, alpha=0.2, color='green', label='200-280 nm')
         ax.set_xlabel("Wavelength (nm)", fontsize=16)
-        ax.set_ylabel("Normalized Spectral Energy Flux (erg/s/cm²)", fontsize=16)
+        ax.set_ylabel("Normalized Energy Flux (erg/s/cm²)", fontsize=16)
         ax.set_title(f"Normalized Blackbody SEDs - Age: {age} Myr", fontsize=18, pad=15)
         ax.set_yscale("log")
+        ax.set_xscale("log")
         ax.set_ylim(y_min, y_max)
         ax.legend(fontsize=14)
         ax.tick_params(axis='both', which='major', labelsize=14)
     
+    # Remove the empty subplot
     axes[-1].remove()
     plt.tight_layout()
-    plt.savefig(paths.figures / 'normalized_seds.pdf', bbox_inches='tight')
     plt.show()
-    plt.close()
 
 
 def plot_photon_flux(photon_fluxes_by_age):
@@ -261,6 +261,7 @@ def plot_number_flux_seds(seds_by_age, wavelengths):
         ax.set_ylabel("Photon Number Flux Density\n(photons/s/cm²/nm)", fontsize=16)
         ax.set_title(f"Normalized Photon Flux Density - Age: {age} Myr", fontsize=18, pad=15)
         ax.set_yscale("log")
+        ax.set_xscale("log")
         ax.set_ylim(y_min, y_max)
         ax.legend(fontsize=14)
         ax.tick_params(axis='both', which='major', labelsize=14)
@@ -268,6 +269,7 @@ def plot_number_flux_seds(seds_by_age, wavelengths):
     # Remove the empty subplot
     axes[-1].remove()
     plt.tight_layout()
+    plt.savefig(paths.figures / 'normalized_photon_seds.pdf', bbox_inches='tight')
     plt.show()
 
 
