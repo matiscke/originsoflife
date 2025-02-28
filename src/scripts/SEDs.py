@@ -42,10 +42,10 @@ def bb_sed(min_wl=100, max_wl=9000):
     """
 
     wavelengths = np.geomspace(min_wl, max_wl, 100) * u.nm  # Wavelengths from 10 nm to 1000 nm
-    temperatures = {'hot': 20000, 'F-type': 7000, 'G-type': 5800, 'K-type': 4500, 'M-type': 3000}
+    temperatures = {'hot': 20000, 'F-type': 7000,'K-type': 4500, 'M-type': 3000}
 
     fig, ax = plt.subplots()
-    colors = {'hot': 'cyan', 'F-type': 'blue', 'G-type': 'green', 'K-type': 'orange', 'M-type': 'red'}
+    colors = {'hot': 'cyan', 'F-type': 'blue','K-type': 'orange', 'M-type': 'red'}
 
     for star_type, temp in temperatures.items():
         flux, _ = PlanckFunctionLambda(temp, wavelengths.to(u.m).value)
@@ -78,11 +78,11 @@ def compute_blackbody_seds(temperatures, wavelengths):
     
     for st, temp in temperatures.items():
         temp = temp * u.K
-        # Planck function (erg/s/cm²/m)
-        bb_intensity = ((2 * h * c**2 / wavelengths**5) * 
-                       1 / (np.exp(h * c / (wavelengths * k_B * temp)) - 1)
+        # Planck function in spectral energy flux density
+        bb_intensity = ((2 * const.h * const.c**2 / wavelengths**5) * 
+                       1 / (np.exp(const.h * const.c / (wavelengths * const.k_B * temp)) - 1)
                       ).to(u.erg/u.s/u.cm**2/u.m)
-        blackbody_seds[st] = bb_intensity.value
+        blackbody_seds[st] = bb_intensity
     
     return blackbody_seds
 
@@ -225,9 +225,55 @@ def plot_photon_flux(photon_fluxes_by_age):
     plt.close()
 
 
+def plot_number_flux_seds(seds_by_age, wavelengths):
+    plt.rcParams.update({'font.size': 14})
+    fig, axes = plt.subplots(3, 2, figsize=(15, 20))
+    axes = axes.flatten()
+    
+    wavelengths = wavelengths * u.m
+    
+    # Set up spectral density equivalencies
+    equiv = u.spectral_density(wavelengths)
+    
+    # First pass to determine global y-axis limits
+    y_min, y_max = float('inf'), float('-inf')
+    for seds in seds_by_age.values():
+        for flux in seds.values():
+            # Convert energy flux to photon flux using spectral equivalencies
+            photon_flux = flux.to(u.photon/u.s/u.cm**2/u.m, equivalencies=equiv)
+            # Convert from per meter to per nm
+            photon_flux = photon_flux.to(u.photon/u.s/u.cm**2/u.nm)
+            y_min = min(y_min, np.min(photon_flux.value))
+            y_max = max(y_max, np.max(photon_flux.value))
+    
+    for idx, (age, seds) in enumerate(seds_by_age.items()):
+        ax = axes[idx]
+        for st, flux in seds.items():
+            # Convert energy flux to photon flux using spectral equivalencies
+            photon_flux = flux.to(u.photon/u.s/u.cm**2/u.m, equivalencies=equiv)
+            # Convert from per meter to per nm
+            photon_flux = photon_flux.to(u.photon/u.s/u.cm**2/u.nm)
+            ax.plot(wavelengths.to(u.nm).value, 
+                   photon_flux.value,
+                   label=st, linewidth=2)
+        ax.axvspan(200, 280, alpha=0.2, color='green', label='200-280 nm')
+        ax.set_xlabel("Wavelength (nm)", fontsize=16)
+        ax.set_ylabel("Photon Number Flux Density\n(photons/s/cm²/nm)", fontsize=16)
+        ax.set_title(f"Normalized Photon Flux Density - Age: {age} Myr", fontsize=18, pad=15)
+        ax.set_yscale("log")
+        ax.set_ylim(y_min, y_max)
+        ax.legend(fontsize=14)
+        ax.tick_params(axis='both', which='major', labelsize=14)
+    
+    # Remove the empty subplot
+    axes[-1].remove()
+    plt.tight_layout()
+    plt.show()
+
+
 def main():
     flux_data = load_flux_data("../data/past-UV.csv")
-    temperatures = {"K-type": 4500, "early M": 3500, "late M": 2500}
+    temperatures = { "K-type": 4500, "early M": 3500, "late M": 2500}
     wavelengths = np.linspace(190e-9, 300e-9, 1000)
     ages = [16.5, 43.5, 150.0, 650.0, 5000.0]
 
@@ -244,6 +290,7 @@ def main():
         photon_fluxes_by_age[age] = photon_fluxes
     
     plot_seds(normalized_seds_by_age, wavelengths)
+    plot_number_flux_seds(normalized_seds_by_age, wavelengths)
     plot_photon_flux(photon_fluxes_by_age)
 
     # Save results for each age
