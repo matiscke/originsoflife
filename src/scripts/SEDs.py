@@ -362,6 +362,90 @@ def plot_energy_flux(flux_data):
     plt.close()
 
 
+def compare_dynamic_range(scaling_factors_by_age, photon_fluxes_by_age, flux_data):
+    # Extract maximum values for K-type and late M
+    max_photon_flux_k = max(photon_fluxes_by_age[age]["K-type"] for age in photon_fluxes_by_age)
+    max_photon_flux_late_m = max(photon_fluxes_by_age[age]["late M"] for age in photon_fluxes_by_age)
+
+    max_integrated_flux_k = flux_data[flux_data["SpT"] == "K"]["NUV_flux"].max()
+    max_integrated_flux_late_m = flux_data[flux_data["SpT"] == "lateM"]["NUV_flux"].max()
+
+    # Calculate ratios
+    photon_flux_ratio = max_photon_flux_late_m / max_photon_flux_k
+    integrated_flux_ratio = max_integrated_flux_late_m / max_integrated_flux_k
+
+    print(f"Photon Flux Density Ratio (late M / K-type): {photon_flux_ratio:.2f}")
+    print(f"Integrated Energy Flux Ratio (late M / K-type): {integrated_flux_ratio:.2f}")
+
+    # Save ratios to variables.dat
+    save_var_latex('photon_flux_ratio', f"{photon_flux_ratio:.2f}")
+    save_var_latex('integrated_flux_ratio', f"{integrated_flux_ratio:.2f}")
+
+
+def plot_combined_fluxes(photon_fluxes_by_age, flux_data):
+    """Plot photon flux and energy flux side by side."""
+    plt.rcParams.update({'font.size': 14})
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 8))
+    
+    x = np.arange(len(list(photon_fluxes_by_age.values())[0].keys()))
+    width = 0.15
+    
+    # Create colormap for ages
+    ages = list(photon_fluxes_by_age.keys())
+    colors = cmocean.cm.haline(np.linspace(0, .93, len(ages)))
+    
+    # Left plot: Photon flux
+    for i, ((age, photon_fluxes), color) in enumerate(zip(photon_fluxes_by_age.items(), colors)):
+        values = [v.value for v in photon_fluxes.values()]
+        ax1.bar(x + i*width, values, width, label=f'{age} Myr', color=color)
+    
+    # Add Rimmer threshold line and uncertainty
+    threshold = 6.8e10
+    uncertainty = 3.6e10
+    ax1.axhline(y=threshold, color='black', linestyle='--', alpha=0.8)
+    ax1.fill_between([-width, x[-1] + width*5], 
+                    threshold - uncertainty, 
+                    threshold + uncertainty, 
+                    color='darkgray', alpha=0.4)
+    ax1.annotate('Rimmer et al. 2018\n\nthreshold surface flux',
+                xy=(x[-1] + width*5, threshold),
+                xytext=(10, 0), textcoords='offset points',
+                va='center')
+    
+    # Right plot: Energy flux
+    for i, age in enumerate(ages):
+        age_data = flux_data[flux_data["age"] == age]
+        integrated_fluxes = age_data['NUV_flux'].values * u.erg/u.s/u.cm**2
+        values = [v.value for v in integrated_fluxes]
+        ax2.bar(x + i*width, values, width, color=colors[i])
+    
+    # Common formatting
+    for ax in [ax1, ax2]:
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.set_xticks(x + width*2)
+        ax.set_xticklabels(list(list(photon_fluxes_by_age.values())[0].keys()), fontsize=14)
+        ax.tick_params(axis='y', labelsize=14)
+        ax.set_yscale("log")
+        ax.set_xlabel("Spectral Type", fontsize=16)
+    
+    # Specific labels
+    ax1.set_ylabel("Photon Number Flux Density\n(photons/s/cm²/nm)", fontsize=16)
+    ax2.set_ylabel("Integrated Energy Flux\n(erg/s/cm²)", fontsize=16)
+    
+    # Title for entire figure
+    fig.suptitle("UV Flux (200-280 nm)", fontsize=18, y=1.05)
+    
+    # Single legend for both plots
+    handles, labels = ax1.get_legend_handles_labels()
+    fig.legend(handles, labels, bbox_to_anchor=(0.99, 0.9), loc='center left', fontsize=14)
+    
+    plt.tight_layout()
+    plt.savefig(paths.figures / 'combined_fluxes.pdf', bbox_inches='tight')
+    plt.show()
+    plt.close()
+
+
 def main():
     flux_data = load_flux_data("../data/past-UV.csv")
     temperatures = { "K-type": 4500, "early M": 3500, "late M": 2500}
@@ -384,7 +468,10 @@ def main():
     plot_number_flux_seds(normalized_seds_by_age, wavelengths)
     plot_photon_flux(photon_fluxes_by_age)
     plot_energy_flux(flux_data)
-    
+
+    # Compare dynamic range
+    compare_dynamic_range(scaling_factors_by_age, photon_fluxes_by_age, flux_data)
+
     # Convert and save Rimmer threshold
     rimmer_energy_flux, rimmer_energy_uncertainty = convert_rimmer_threshold()
 
@@ -399,6 +486,9 @@ def main():
             columns=["Photon Number Flux Density (photons/s/cm²/nm)"]
         )
         df_photon_flux.to_csv(f"../data/photon_flux_{age}Myr.csv")
+
+    # Replace separate plot calls with combined plot
+    plot_combined_fluxes(photon_fluxes_by_age, flux_data)
 
 
 if __name__ == "__main__":
