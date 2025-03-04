@@ -60,11 +60,11 @@ def bb_sed(min_wl=100, max_wl=9000):
 
 
 def load_flux_data(filepath):
-    df = pd.read_csv(filepath, skiprows=2, usecols=[0, 1, 2],
-                     names=["Age (Myr)", "Spectral Type", "NUV Flux (erg/s/cm^2)"])
+    df = pd.read_csv(filepath, skiprows=2, usecols=[0, 1, 2], header=0)
+                    #  names=["age", "SpT", "NUV_flux"])
     df.dropna(inplace=True)
-    df["Age (Myr)"] = pd.to_numeric(df["Age (Myr)"], errors='coerce')
-    df["NUV Flux (erg/s/cm^2)"] = pd.to_numeric(df["NUV Flux (erg/s/cm^2)"], errors='coerce')
+    df["age"] = pd.to_numeric(df["age"], errors='coerce')
+    df["NUV_flux"] = pd.to_numeric(df["NUV_flux"], errors='coerce')
     return df
 
 
@@ -90,12 +90,12 @@ def compute_blackbody_seds(temperatures, wavelengths):
 
 def normalize_seds(flux_data, blackbody_seds, wavelengths, age, temperatures):
     # Filter flux data for specific age
-    age_data = flux_data[flux_data["Age (Myr)"] == age]
+    age_data = flux_data[flux_data["age"] == age]
     
     flux_reference = {
-        "K-type": age_data[age_data["Spectral Type"] == "K"]["NUV Flux (erg/s/cm^2)"].median(),
-        "early M": age_data[age_data["Spectral Type"] == "earlyM"]["NUV Flux (erg/s/cm^2)"].median(),
-        "late M": age_data[age_data["Spectral Type"] == "lateM"]["NUV Flux (erg/s/cm^2)"].median(),
+        "K-type": age_data[age_data["SpT"] == "K"]["NUV_flux"].median(),
+        "early M": age_data[age_data["SpT"] == "earlyM"]["NUV_flux"].median(),
+        "late M": age_data[age_data["SpT"] == "lateM"]["NUV_flux"].median(),
     }
     
     # Convert reference fluxes to astropy quantities
@@ -315,11 +315,58 @@ def convert_rimmer_threshold():
     return energy_flux, energy_uncertainty
 
 
+def plot_energy_flux(flux_data):
+    """Plot energy flux version of the photon flux bar plot using original integrated energy flux data."""
+    plt.rcParams.update({'font.size': 14})
+    fig, ax = plt.subplots(figsize=(12, 8))
+    
+    x = np.arange(len(flux_data["SpT"].unique()))
+    width = 0.15
+    
+    # Create colormap for ages (using a different colormap)
+    ages = flux_data["age"].unique()
+    colors = cmocean.cm.thermal(np.linspace(0, .93, len(ages)))
+    
+    for i, age in enumerate(ages):
+        if pd.isna(age):
+            continue
+        # Filter the flux data for the current age
+        age_data = flux_data[flux_data["age"] == age]
+        
+        # Get integrated energy flux values
+        integrated_fluxes = age_data['NUV_flux'].values * u.erg/u.s/u.cm**2
+        
+        # Convert to energy flux (no need for nm conversion since we are using integrated flux)
+        values = [v.value for v in integrated_fluxes]
+        ax.bar(x + i*width, values, width, label=f'{age} Myr', color=colors[i])
+    
+    # Remove top and right spines
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    
+    ax.set_xlabel("Spectral Type", fontsize=16)
+    ax.set_ylabel("Integrated Energy Flux (erg/s/cm²)", fontsize=16)
+    ax.set_title("Mean UV Integrated Energy Flux (200-280 nm)", fontsize=18, pad=15)
+    ax.set_xticks(x + width*2)
+    ax.set_xticklabels(flux_data["SpT"].unique(), fontsize=14)
+    ax.tick_params(axis='y', labelsize=14)
+    ax.set_yscale("log")
+    
+    # Move legend outside
+    ax.legend(fontsize=14, bbox_to_anchor=(.95, 1), loc='upper left')
+    
+    # Adjust layout to prevent legend cutoff
+    plt.tight_layout()
+    plt.savefig(paths.figures / 'integrated_energy_flux.pdf', bbox_inches='tight')
+    plt.show()
+    plt.close()
+
+
 def main():
     flux_data = load_flux_data("../data/past-UV.csv")
     temperatures = { "K-type": 4500, "early M": 3500, "late M": 2500}
     wavelengths = np.linspace(190e-9, 300e-9, 1000)
-    ages = [16.5, 43.5, 150.0, 650.0, 5000.0]
+    ages = flux_data.age.unique()
 
     blackbody_seds = compute_blackbody_seds(temperatures, wavelengths)
     
@@ -336,6 +383,7 @@ def main():
     plot_seds(normalized_seds_by_age, wavelengths)
     plot_number_flux_seds(normalized_seds_by_age, wavelengths)
     plot_photon_flux(photon_fluxes_by_age)
+    plot_energy_flux(flux_data)
     
     # Convert and save Rimmer threshold
     rimmer_energy_flux, rimmer_energy_uncertainty = convert_rimmer_threshold()
