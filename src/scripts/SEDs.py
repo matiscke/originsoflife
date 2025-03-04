@@ -8,6 +8,7 @@ import pandas as pd
 import astropy.constants as const
 import paths
 import cmocean
+from utils import save_var_latex
 
 
 def PlanckFunctionLambda(Temperature, lambdas):
@@ -273,6 +274,47 @@ def plot_number_flux_seds(seds_by_age, wavelengths):
     plt.show()
 
 
+def convert_rimmer_threshold():
+    """Convert the Rimmer et al. (2018) photon flux threshold to energy flux.
+    
+    The threshold was determined using mercury lamps which emit >90% of their energy at 254 nm.
+    Therefore, we assume all photons have wavelength 254 nm for the conversion.
+    
+    Rimmer et al. (2018) threshold:
+    - Photon flux: 6.8±3.6 × 10¹⁰ photons cm⁻² s⁻¹ nm⁻¹ integrated from 200-280nm
+    """
+    # Define threshold and uncertainty (single source for these values)
+    threshold_photon = 6.8e10 * u.photon/u.cm**2/u.s/u.nm  # photons cm⁻² s⁻¹ nm⁻¹
+    uncertainty_photon = 3.6e10 * u.photon/u.cm**2/u.s/u.nm
+    
+    # Integration range
+    delta_lambda = (280 - 200) * u.nm
+    
+    # Total integrated photon flux
+    total_photon_flux = threshold_photon * delta_lambda
+    total_photon_uncertainty = uncertainty_photon * delta_lambda
+    
+    # Set up spectral equivalency at 254 nm
+    wavelength = 254 * u.nm
+    equiv = u.spectral_density(wavelength)
+    
+    # Convert photon flux to energy flux using spectral equivalency
+    energy_flux = total_photon_flux.to(u.erg/u.cm**2/u.s, equivalencies=equiv)
+    energy_uncertainty = total_photon_uncertainty.to(u.erg/u.cm**2/u.s, equivalencies=equiv)
+    
+    # Print results
+    print(f"Rimmer et al. (2018) threshold converted to energy flux:")
+    print(f"Threshold: {energy_flux:.2e}")
+    print(f"Uncertainty: {energy_uncertainty:.2e}")
+    
+    # Save to variables.dat with appropriate rounding
+    # The input has 2 significant figures, so we'll round to 2 significant figures
+    save_var_latex('rimmer_threshold', f"{energy_flux.value:.0f}")
+    save_var_latex('rimmer_uncertainty', f"{energy_uncertainty.value:.0f}")
+    
+    return energy_flux, energy_uncertainty
+
+
 def main():
     flux_data = load_flux_data("../data/past-UV.csv")
     temperatures = { "K-type": 4500, "early M": 3500, "late M": 2500}
@@ -294,6 +336,9 @@ def main():
     plot_seds(normalized_seds_by_age, wavelengths)
     plot_number_flux_seds(normalized_seds_by_age, wavelengths)
     plot_photon_flux(photon_fluxes_by_age)
+    
+    # Convert and save Rimmer threshold
+    rimmer_energy_flux, rimmer_energy_uncertainty = convert_rimmer_threshold()
 
     # Save results for each age
     for age in ages:
