@@ -1,5 +1,7 @@
 # Plots and conversions for Spectral Energy Distributions (SEDs)
 
+# import matplotlib
+# matplotlib.use('Qt5Agg')  # or 'Qt5Agg', 'Qt4Agg', etc. depending on your setup
 import matplotlib.pyplot as plt
 import numpy as np
 from astropy.constants import h, c, k_B
@@ -381,10 +383,12 @@ def compare_dynamic_range(scaling_factors_by_age, photon_fluxes_by_age, flux_dat
     save_var_latex('photon_flux_ratio', f"{photon_flux_ratio:.2f}")
     save_var_latex('integrated_flux_ratio', f"{integrated_flux_ratio:.2f}")
 
+    return photon_flux_ratio, integrated_flux_ratio
 
-def plot_combined_fluxes(photon_fluxes_by_age, flux_data):
+
+def plot_combined_fluxes(photon_fluxes_by_age, flux_data, photon_flux_ratio, integrated_flux_ratio):
     """Plot photon flux and energy flux side by side."""
-    plt.rcParams.update({'font.size': 14})
+    plt.rcParams.update({'font.size': 16})  # Increase the base font size
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 8))
     
     x = np.arange(len(list(photon_fluxes_by_age.values())[0].keys()))
@@ -424,22 +428,55 @@ def plot_combined_fluxes(photon_fluxes_by_age, flux_data):
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.set_xticks(x + width*2)
-        ax.set_xticklabels(list(list(photon_fluxes_by_age.values())[0].keys()), fontsize=14)
-        ax.tick_params(axis='y', labelsize=14)
+        ax.set_xticklabels(list(list(photon_fluxes_by_age.values())[0].keys()), fontsize=16)  # Increase x-tick font size
+        ax.tick_params(axis='y', labelsize=16)  # Increase y-tick font size
         ax.set_yscale("log")
-        ax.set_xlabel("Spectral Type", fontsize=16)
+        ax.set_xlabel("Spectral Type", fontsize=16)  # Increase x-label font size
     
     # Specific labels
-    ax1.set_ylabel("Photon Number Flux Density\n(photons/s/cm²/nm)", fontsize=16)
-    ax2.set_ylabel("Integrated Energy Flux\n(erg/s/cm²)", fontsize=16)
+    ax1.set_ylabel("Photon Number Flux Density\n(photons/s/cm²/nm)", fontsize=16)  # Increase y-label font size
+    ax2.set_ylabel("Integrated Energy Flux\n(erg/s/cm²)", fontsize=16)  # Increase y-label font size
     
     # Title for entire figure
-    fig.suptitle("UV Flux (200-280 nm)", fontsize=18, y=1.05)
+    fig.suptitle("UV Flux Evolution (200-280 nm)", fontsize=18, y=1.05)  # Increase title font size
     
     # Single legend for both plots
     handles, labels = ax1.get_legend_handles_labels()
-    fig.legend(handles, labels, bbox_to_anchor=(0.99, 0.9), loc='center left', fontsize=14)
+    fig.legend(handles, labels, bbox_to_anchor=(0.99, 0.9), loc='center left', fontsize=16)  # Increase legend font size
     
+    # Draw brackets and annotate ratios
+    # Photon flux plot
+    max_photon_flux_k = max(photon_fluxes_by_age[age]["K-type"].value for age in photon_fluxes_by_age)
+    max_photon_flux_late_m = max(photon_fluxes_by_age[age]["late M"].value for age in photon_fluxes_by_age)
+
+    # Energy flux plot
+    max_integrated_flux_k = flux_data[flux_data["SpT"] == "K"]["NUV_flux"].max()
+    max_integrated_flux_late_m = flux_data[flux_data["SpT"] == "lateM"]["NUV_flux"].max()
+
+    # Add shaded regions behind bars
+    k_idx = list(list(photon_fluxes_by_age.values())[0].keys()).index("K-type")
+    late_m_idx = list(list(photon_fluxes_by_age.values())[0].keys()).index("late M")
+    
+    # Shade photon flux plot and add text with flux ratios
+    ax1.fill_between([-width/2, x[k_idx] + width/2], 
+                    [max_photon_flux_k, max_photon_flux_k], [max_photon_flux_k, max_photon_flux_k],
+                    color='lightgray', alpha=0.75, zorder=1)
+    ax1.text(x[k_idx], max_photon_flux_k + (max_photon_flux_late_m - max_photon_flux_k)/2, f'ratio: {photon_flux_ratio:.2f}', ha='left', va='top', zorder=2, alpha=0.8)
+    
+    ax1.fill_between([-width/2, x[late_m_idx] + width/2],
+                    [max_photon_flux_late_m, max_photon_flux_late_m], [max_photon_flux_late_m, max_photon_flux_late_m], 
+                    color='lightgray', alpha=0.75, zorder=1)
+
+    # Shade energy flux plot and add text with flux ratios
+    ax2.fill_between([-width/2, x[k_idx] + width/2],
+                    [max_integrated_flux_k, max_integrated_flux_k], [max_integrated_flux_k, max_integrated_flux_k],
+                    color='lightgray', alpha=0.75, zorder=1)
+    ax2.text(x[k_idx], max_integrated_flux_k + (max_integrated_flux_late_m - max_integrated_flux_k)/2, f'ratio: {integrated_flux_ratio:.2f}', ha='left', va='top', zorder=2, alpha=0.8)
+    
+    ax2.fill_between([-width/2, x[late_m_idx] + width/2],
+                    [max_integrated_flux_late_m, max_integrated_flux_late_m], [max_integrated_flux_late_m, max_integrated_flux_late_m],
+                    color='lightgray', alpha=0.75, zorder=1)
+
     plt.tight_layout()
     plt.savefig(paths.figures / 'combined_fluxes.pdf', bbox_inches='tight')
     plt.show()
@@ -469,8 +506,11 @@ def main():
     plot_photon_flux(photon_fluxes_by_age)
     plot_energy_flux(flux_data)
 
-    # Compare dynamic range
-    compare_dynamic_range(scaling_factors_by_age, photon_fluxes_by_age, flux_data)
+    # Compare dynamic range and get ratios
+    photon_flux_ratio, integrated_flux_ratio = compare_dynamic_range(scaling_factors_by_age, photon_fluxes_by_age, flux_data)
+
+    # Plot the combined fluxes with ratios
+    plot_combined_fluxes(photon_fluxes_by_age, flux_data, photon_flux_ratio, integrated_flux_ratio)
 
     # Convert and save Rimmer threshold
     rimmer_energy_flux, rimmer_energy_uncertainty = convert_rimmer_threshold()
@@ -486,9 +526,6 @@ def main():
             columns=["Photon Number Flux Density (photons/s/cm²/nm)"]
         )
         df_photon_flux.to_csv(f"../data/photon_flux_{age}Myr.csv")
-
-    # Replace separate plot calls with combined plot
-    plot_combined_fluxes(photon_fluxes_by_age, flux_data)
 
 
 if __name__ == "__main__":
