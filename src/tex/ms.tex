@@ -820,6 +820,32 @@ If life emerges slowly, FGK planets may rarely, if ever, reach the inhabited sta
 If biosignatures were nevertheless detected on FGK planets despite the constraints imposed by a longer abiogenesis timescale, it would suggest that either the UV Threshold Hypothesis, as formulated here, is incorrect or that the timescale of abiogenesis is shorter than $\mathcal{O}(\SI{100}{\mega\year})$.
 }
 
+\section{\rev{Photon Number Fluxes and Energy Fluxes}}\label{appendix:photon_vs_energy_flux}
+\rev{The \gls{NUV} fluxes we used in our simulations are given in units of energy flux, i.e., \si{\erg\per\second\per\centi\meter\squared}, due to their availability across different spectral types and evolutionary stages of stars.
+Here, we assess the robustness of our conclusions when considering photon number fluxes instead.
+}
+\rev{We first computed blackbody spectral energy distributions (SEDs) for representative effective temperatures corresponding to K-type, early M-type, and late M-type stars, and across the evolutionary stages considered in the main text.
+We then normalized these SEDs to align with the observed UV fluxes from \citet{Richey-Yowell2023} and used them to calculate mean number flux densities (photons \si{\per\centi\meter\squared\per\second\per\nano\meter}) in the \SIrange{200}{280}{\nano\meter} wavelength range.}
+
+\begin{figure*}[htb]
+\centering
+\includegraphics[width=\textwidth]{figures/combined_fluxes.pdf}
+\caption{\rev{Comparison of \gls{NUV} flux evolution in terms of photon number flux and energy flux for K-type, early M-type, and late M-type stars.
+In both regimes, later spectral types exhibit higher maximum values.
+The ratio of the maximum past \gls{NUV} fluxes in K dwarfs and late M dwarfs is slightly larger in the photon number flux regime compared to the energy flux regime, suggesting that our conclusions regarding the impact of host star spectral type on the UV Threshold Hypothesis are conservative.
+}}
+\label{fig:combined_fluxes}
+\end{figure*}
+\rev{We found that the derived flux densities for all considered spectral types exceed the threshold estimated by \citet{Rimmer2018} during earlier stages of stellar evolution (Figure~\ref{fig:combined_fluxes}).
+Notably -- as in the case of energy fluxes -- later spectral types exhibit higher maximum past \gls{NUV} number flux densities.}
+
+\rev{We then calculated the ratio of the maximum past \gls{NUV} fluxes in K dwarfs and late M dwarfs in both photon number flux and energy flux regimes.
+We found that this ``dynamic range'' is slightly larger in the photon number flux regime (\var{photon_flux_ratio}) compared to the energy flux regime (\var{integrated_flux_ratio}).
+This suggests that our use of energy flux may slightly underestimate the variations in \gls{NUV} exposure across different stellar types, rendering our conclusions regarding the impact of host star spectral type on the UV Threshold Hypothesis conservative.
+Our results are thus robust when transitioning between energy flux and photon number flux representations.}
+
+
+
 
 
 %! suppress = MissingBibliographystyle
