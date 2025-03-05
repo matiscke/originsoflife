@@ -204,7 +204,8 @@ def plot_photon_flux(photon_fluxes_by_age):
     ax.annotate('Rimmer et al. 2018\n\nthreshold surface flux',
                 xy=(x[-1] + width*5, threshold),
                 xytext=(10, 0), textcoords='offset points',
-                va='center')
+                va='center',
+                fontsize=10)
     
     # Remove top and right spines
     ax.spines['top'].set_visible(False)
@@ -388,8 +389,8 @@ def compare_dynamic_range(scaling_factors_by_age, photon_fluxes_by_age, flux_dat
 
 def plot_combined_fluxes(photon_fluxes_by_age, flux_data, photon_flux_ratio, integrated_flux_ratio):
     """Plot photon flux and energy flux side by side."""
-    plt.rcParams.update({'font.size': 16})  # Increase the base font size
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 8))
+    plt.rcParams.update({'font.size': 18})  # Increase the base font size
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6)) 
     
     x = np.arange(len(list(photon_fluxes_by_age.values())[0].keys()))
     width = 0.15
@@ -407,14 +408,15 @@ def plot_combined_fluxes(photon_fluxes_by_age, flux_data, photon_flux_ratio, int
     threshold = 6.8e10
     uncertainty = 3.6e10
     ax1.axhline(y=threshold, color='black', linestyle='--', alpha=0.8)
-    ax1.fill_between([-width, x[-1] + width*5], 
+    ax1.fill_between([-width, x[-1] + width*3.5], 
                     threshold - uncertainty, 
                     threshold + uncertainty, 
                     color='darkgray', alpha=0.4)
     ax1.annotate('Rimmer et al. 2018\n\nthreshold surface flux',
-                xy=(x[-1] + width*5, threshold),
+                xy=(x[-1] + width*3.5, threshold),
                 xytext=(10, 0), textcoords='offset points',
-                va='center')
+                va='center',
+                fontsize=12)
     
     # Right plot: Energy flux
     for i, age in enumerate(ages):
@@ -437,8 +439,6 @@ def plot_combined_fluxes(photon_fluxes_by_age, flux_data, photon_flux_ratio, int
     ax1.set_ylabel("Photon Number Flux Density\n(photons/s/cm²/nm)", fontsize=16)  # Increase y-label font size
     ax2.set_ylabel("Integrated Energy Flux\n(erg/s/cm²)", fontsize=16)  # Increase y-label font size
     
-    # Title for entire figure
-    fig.suptitle("UV Flux Evolution (200-280 nm)", fontsize=18, y=1.05)  # Increase title font size
     
     # Single legend for both plots
     handles, labels = ax1.get_legend_handles_labels()
