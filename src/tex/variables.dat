@@ -48,3 +48,7 @@ uv_inhabited_M_dT1000,0
 N_nautilus{file_suffix},214
 N_nautilus_dT100,214
 uv_inhabited_all,145
+rimmer_threshold,43
+rimmer_uncertainty,23
+photon_flux_ratio,2.55
+integrated_flux_ratio,2.45
