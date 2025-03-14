@@ -9,6 +9,9 @@ A [Bioverse](https://github.com/danielapai/bioverse) project to explore how hypo
 <!-- <a href="https://github.com/matiscke/originsoflife/actions/workflows/build.yml"> -->
 <!-- <img src="https://github.com/matiscke/originsoflife/actions/workflows/build.yml/badge.svg?branch=main" alt="Article status"/> -->
 <!-- </a> -->
+  
+
+[![DOI](https://zenodo.org/badge/676742611.svg)](https://doi.org/10.5281/zenodo.15022722)
 <a href="mailto:schlecker@arizona.edu">
 <img src="https://img.shields.io/badge/contact-authors-blueviolet.svg?style=flat" alt="Email the authors"/>
 <a href="https://github.com/matiscke/originsoflife/raw/main-pdf/arxiv.tar.gz">
