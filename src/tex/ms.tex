@@ -159,7 +159,7 @@ This serves as a first-order estimate of the information content of a survey, be
 Presumably, not all habitable worlds are inhabited and not all inhabited worlds develop detectable biosignatures.
 The fraction of \glspl{EEC} that are both inhabited and exhibit detectable biosignatures at the time of observation is unknown \rev{and is represented by the term $f_\mathrm{life}$.
 This encompasses the probability of life both emerging and persisting to produce detectable biosignatures.}
-\rev{Due to our ignorance about its true value or even its order of magnitude, we draw $f_\mathrm{life}$ from a log-uniform prior probability distribution (but see Appendix~\ref{sec:appendix-flife-prior} for a discussion of the impact of different priors).}
+\rev{Due to our ignorance about its true value or even its order of magnitude, we draw $f_\mathrm{life}$ from a log-uniform prior probability distribution} \revv{over the range $[10^{-15}, 1]$~\citep[][but see Appendix~\ref{sec:appendix-flife-prior} for a discussion of the impact of different priors]{Balbi2023a}}.
 Let us consider the probability to detect a biosignature $P(L)$, and let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
 Under Hypothesis $H_1$, there exists a special unknown value of $F_\mathrm{NUV}$, noted $F_\mathrm{NUV, min}$ such that
 
@@ -346,7 +346,7 @@ To quantify the diagnostic power of the survey, we conducted repeated randomized
 
 \subsection{Semi-analytical assessment}\label{sec:results-semianalytical}
 In Section~\ref{sec:met-semianalytical}, we computed the probability for true positive evidence for $H_\mathrm{1}$ and $H_\mathrm{null}$, respectively (Equations~\ref{eq:bayes_factor},~\ref{eq:bayes_factor2}).
-Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10) \rev{in the agnostic case where we draw $f_\mathrm{life}$ from a log-uniform distribution}.
+Figure~\ref{fig:semian_true_evidence} shows how these evidences are distributed for sample sizes \var{semian_Nsamp1} and \var{semian_Nsamp2}, and how likely we are to obtain strong evidence ($BF_{H_i, H_j}$ > 10) \rev{in the agnostic case where we draw $f_\mathrm{life}$ from a log-uniform distribution \revv{over the range $[10^{-15}, 1]$}}.
 For $n = \var{semian_Nsamp1}$, strong true evidence for $H_\mathrm{1}$ ($H_\mathrm{null}$) can be \rev{expected in $\sim \SI{3}{\percent}$ ($\sim \SI{6}{\percent}$) of} all random experiments.
 In the majority of cases, the outcome of the survey will be inconclusive.
 \begin{figure*}
@@ -783,7 +783,7 @@ Our results are thus robust when transitioning between energy flux and photon nu
 
 \section{\rev{Alternative priors for the abiogenesis rate}}
 \label{sec:appendix-flife-prior}
-\rev{In the main text, we used a log-uniform prior for the probability of life emerging and persisting $f_\mathrm{life}$ in order to reflect our ignorance about this parameter and its order of magnitude.
+\rev{In the main text, we used a log-uniform prior \revv{over the range $[10^{-15}, 1]$} for the probability of life emerging and persisting $f_\mathrm{life}$ in order to reflect our ignorance about this parameter and its order of magnitude.
 We consider this a reasonable choice, as it is agnostic about the scale of $f_\mathrm{life}$ and assigns equal prior probability to all orders of magnitude.
 Nevertheless, we repeated our semi-analytical analysis for the more optimistic choice of a prior that is \textit{uniform} in $f_\mathrm{life}$.
 Figure~\ref{fig:semian_true_evidence_uniform} shows the resulting probabilities of obtaining strong evidence for or against the UV~Threshold Hypothesis under this prior.

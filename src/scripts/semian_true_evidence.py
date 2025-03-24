@@ -73,7 +73,8 @@ def get_evidence(sampsize=100, nboot=100000):
     # pisamp = rng.uniform(0, 1, nboot)
 
     # log-uniform f_life
-    pisamp = 10**rng.uniform(-6, 0, nboot)
+    pisamp = 10**rng.uniform(-15, 0, nboot) # 1e-15 consistent with Balbi&Lingam 2023
+
 
     theta_lsamp = rng.uniform(0, 1, nboot)
     kh1samp = sample_H1(theta, pisamp, theta_lsamp)
