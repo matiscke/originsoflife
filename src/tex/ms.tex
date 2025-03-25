@@ -765,7 +765,17 @@ Here, we assess the robustness of our conclusions when considering photon number
 }
 \rev{We first computed blackbody spectral energy distributions (SEDs) for representative effective temperatures corresponding to K-type, early M-type, and late M-type stars, and across the evolutionary stages considered in the main text.
 While blackbody SEDs are not necessarily representative of M-dwarf SEDs in the \gls{NUV}~\citep{Seager2013,Rugheimer2015}, the spectrally resolved evolution of M-dwarf SEDs as a function of age is not known; we therefore adopt this simplified prescription for the purpose of this sensitivity test.
-We then normalized these SEDs to align with the observed UV fluxes from \citet{Richey-Yowell2023} and used them to calculate mean number flux densities (photons \si{\per\centi\meter\squared\per\second\per\nano\meter}) in the \SIrange{200}{280}{\nano\meter} wavelength range.}
+We then normalized these SEDs to align with the observed UV fluxes from \citet{Richey-Yowell2023} and used them to calculate mean number flux densities (photons \si{\per\centi\meter\squared\per\second\per\nano\meter}) in the \SIrange{200}{280}{\nano\meter} wavelength range }\revv{(see Figure~\ref{fig:normalized_photon_seds})}.
+
+\begin{figure*}[htb]
+    \centering
+    \includegraphics[width=.9\textwidth]{figures/normalized_photon_seds.pdf}
+    \caption{\revv{Photon flux densities of K-type, early M-type, and late M-type stars at different ages.
+    All flux densities are normalized to the observed \gls{NUV} fluxes from \citet{Richey-Yowell2023}.
+    The green area indicates the \SIrange{200}{280}{\nano\meter} wavelength range used to calculate energy fluxes.
+    }}
+    \label{fig:normalized_photon_seds}
+\end{figure*}
 
 \begin{figure*}[htb]
     \centering
@@ -777,7 +787,7 @@ We then normalized these SEDs to align with the observed UV fluxes from \citet{R
     \label{fig:combined_fluxes}
 \end{figure*}
 \rev{We found that the derived flux densities for all considered spectral types exceed the threshold estimated by \citet{Rimmer2018} during earlier stages of stellar evolution (Figure~\ref{fig:combined_fluxes}).
-Notably -- as in the case of energy fluxes -- later spectral types exhibit higher maximum past \gls{NUV} number flux densities.}
+Notably -- as in the case of energy fluxes -- later spectral types exhibit higher maximum past \gls{NUV} number flux densities }\revv{due to the steeper rise of the blackbody SEDs at shorter wavelengths}.
 
 \rev{We then calculated the ratio of the maximum past \gls{NUV} fluxes in K dwarfs and late M dwarfs in both photon number flux and energy flux regimes.
 We found that this ``dynamic range'' is slightly larger in the photon number flux regime (\var{photon_flux_ratio}) compared to the energy flux regime (\var{integrated_flux_ratio}).
