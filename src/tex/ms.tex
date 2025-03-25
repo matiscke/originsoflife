@@ -157,18 +157,20 @@ We first assessed the expected probabilities of obtaining true negative or true 
 This serves as a first-order estimate of the information content of a survey, before we take into account the effects of exoplanet demographics, sample selection, and survey strategy.
 
 Presumably, not all habitable worlds are inhabited and not all inhabited worlds develop detectable biosignatures.
-The fraction of \glspl{EEC} that are both inhabited and exhibit detectable biosignatures at the time of observation is unknown \rev{and is represented by the term $f_\mathrm{life}$.
-This encompasses the probability of life both emerging and persisting to produce detectable biosignatures.}
+The fraction of \glspl{EEC} that are both inhabited and exhibit detectable biosignatures at the time of observation is unknown \rev{and is represented by }\revv{ $f_\mathrm{life}$.}
+\revv{This term captures the combined probability that life \textit{both} emerges on a planet and persists in a form that produces detectable biosignatures by the time of observation.
+}
 \rev{Due to our ignorance about its true value or even its order of magnitude, we draw $f_\mathrm{life}$ from a log-uniform prior probability distribution} \revv{over the range $[10^{-15}, 1]$~\citep[][but see Appendix~\ref{sec:appendix-flife-prior} for a discussion of the impact of different priors]{Balbi2023a}}.
 Let us consider the probability to detect a biosignature $P(L)$, and let our observable be the inferred past \gls{NUV} flux of the planet $F_\mathrm{NUV}$.
 Under Hypothesis $H_1$, there exists a special unknown value of $F_\mathrm{NUV}$, noted $F_\mathrm{NUV, min}$ such that
 
 \begin{align}
     P(L|F_\mathrm{NUV},H_1) &=  f_\mathrm{life} \quad \text{if } F_\mathrm{NUV}>F_\mathrm{NUV, min}\\
-    P(L|F_\mathrm{NUV},H_1) &=  0               \quad  \text{otherwise}
+    P(L|F_\mathrm{NUV},H_1) &=  0               \quad  \text{otherwise.}
 \end{align}
+\revv{Here, the step-function dependence on $F_\mathrm{NUV}$ applies only to the initial step of abiogenesis, consistent with the cyanosulfidic scenario in which UV irradiation is required for the synthesis of key prebiotic precursors.
+We do not assume that the persistence of life or the presence of detectable biosignatures depends on UV flux.}
 
-where $f_\mathrm{life}$ is the unknown probability of abiogenesis.
 The corresponding null hypothesis $H_\mathrm{null}$ is that there exists no such special value of $F_\mathrm{NUV}$ and that
 \begin{equation}
 P(L|F_\mathrm{NUV},H_\mathrm{null}) = f_\mathrm{life}.
