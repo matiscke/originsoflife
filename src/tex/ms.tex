@@ -254,11 +254,8 @@ Further, we required this flux to have lasted for a minimum duration $\Delta T_\
 The ``clock'' for the required duration $\Delta T_\mathrm{min}$ starts once the planet resides within the habitable zone and receives NUV flux above the threshold $F_\mathrm{NUV, min}$.
 }
 
-
 All commonly investigated origins-of-life scenarios require water as a solvent;
 we thus considered only rocky planets that may sustain liquid water on their surface, i.e., that occupy their host star's momentary \gls{HZ} during the above period, as well as at the epoch of observation.
-To determine \gls{HZ} occupancy, we took into account the evolution of the host star's luminosity and \gls{HZ} boundaries.
-
 The \gls{HZ} describes a region around a star where a planet with Earth's atmospheric composition and climate feedbacks can maintain liquid water on its surface~\citep[e.g.,][]{Ramirez2017,Ramirez2018,MolLous2022,Spinelli2023,Tuchow2023}.
 Here, we adopted orbital distance estimates that define the \gls{HZ} as the region between the runaway greenhouse transition, where the stellar instellation cannot anymore be balanced through infrared cooling to space~\citep{Ingersoll1969}, and the maximum greenhouse limit, corresponding to the maximum distance at which surface temperatures allowing liquid water can be maintained through a CO$_2$ greenhouse effect~\citep{Kasting1991,Kasting1993,Underwood2003,Kopparapu2013,Kopparapu2014}.
 \rev{The exact boundaries of the habitable zone are known to be sensitive to the star's luminosity, spectral type, the planet's mass, and the planet's atmospheric properties~\citep[e.g.,][]{Pierrehumbert2011,Ramirez2014,Ramirez2017,Ramirez2018b,Koll2019,Ramirez2018,Ramirez2020,Bonati2021,Chaverot2022,Turbet2023}.
@@ -271,9 +268,16 @@ Here, we adopted the commonly used parametrization in \citet{Kopparapu2014} to d
 %No individual component of an atmosphere has been identified as a reliable biosignature in isolation~\citep{Seager2016}, and the detection of Oxygen alone will certainly not be sufficient to confirm the presence of life.
 %Nevertheless, we focus here on detecting this key absorber as it represents the general inherent observational challenges and trends.
 
-To determine \gls{HZ} occupancy, we interpolated the stellar luminosity evolution grid of \citet{Baraffe1998} using a Clough Tocher interpolant~\citep[][see left panel of Figure~\ref{fig:hz_nuv_evo}]{Nielson1983,Alfeld1984} to compute the evolution of the inner (runaway greenhouse) and outer (maximum greenhouse) edges as a function of planet mass and stellar spectral type~\citep{Kopparapu2014}.
+\revv{To determine \gls{HZ} occupancy, we took into account the evolution of the host star's luminosity and \gls{HZ} boundaries.
+Specifically, we} interpolated the stellar luminosity evolution grid of \citet{Baraffe1998} using a Clough Tocher interpolant~\citep[][see left panel of Figure~\ref{fig:hz_nuv_evo}]{Nielson1983,Alfeld1984} to compute the evolution of the inner (runaway greenhouse) and outer (maximum greenhouse) edges as a function of planet mass and stellar spectral type~\citep{Kopparapu2014}.
 Being a local interpolation method, Clough Tocher enables rapid processing while producing a smooth interpolating surface that highlights local trends.
 From this, we get each planet's epochs within and outside the \gls{HZ}.
+
+\revv{We note that in particular for late M dwarfs, the pre-main-sequence phase can reach into the age ranges considered here~\citep{Baraffe2015}. This may expose planets to elevated levels of radiation, potentially inducing runaway greenhouse effects, water loss, or atmospheric erosion~\citep{Ramirez2014,Luger2015}.
+As such, the actual window of surface habitability may be shorter than the total time a planet spends in the habitable zone during its main-sequence lifetime.
+We defer a detailed treatment of pre-main-sequence effects to future work.
+}
+
 
 For the \gls{NUV} flux, we used the age- and stellar mass-dependent \gls{NUV} fluxes in the \gls{HZ} obtained by \citet{Richey-Yowell2023}, which considers GALEX \gls{UV} data in the wavelength range of \SIrange{177}{283}{\nano\meter}.
 We linearly interpolate in their measured grid, where we convert spectral type to stellar mass using the midpoints of their mass ranges (\SI{0.75}{\Msun} for K~stars, \SI{0.475}{\Msun} for early-type M~stars,  and \SI{0.215}{\Msun} for late-type M~stars).
