@@ -389,6 +389,48 @@ def get_file_suffix(params):
     return suffix
 
 
+def compute_stellar_stats(dd, hoststars, file_suffix):
+    """Compute and save statistics about stellar parameters in the sample.
+    
+    Parameters
+    ----------
+    dd : pandas.DataFrame
+        DataFrame containing the stellar data
+    hoststars : str
+        The spectral type of the host stars to consider
+    file_suffix : str
+        Suffix to append to variable names
+    """
+    # Calculate and save statistics for each spectral type
+    for spT in dd.SpT.unique():
+        spT_data = dd[dd.SpT == spT]
+        
+        # Basic counts and fractions
+        save_var_latex(f"N_{spT}_{hoststars}{file_suffix}", len(spT_data))
+        save_var_latex(f"f_{spT}_{hoststars}{file_suffix}", round(len(spT_data)/len(dd), 2))
+        
+        # Stellar parameter statistics
+        for param in ['M_st','T_eff_st']:
+            # Median
+            if param == 'T_eff_st':
+                # Convert temperatures to integers to remove .0
+                save_var_latex(f"median_{param}_{spT}_{hoststars}{file_suffix}", 
+                             int(round(spT_data[param].median(), 0)))
+                # Percentiles as integers for temperatures
+                save_var_latex(f"p16_{param}_{spT}_{hoststars}{file_suffix}", 
+                             int(round(spT_data[param].quantile(0.16), 0)))
+                save_var_latex(f"p84_{param}_{spT}_{hoststars}{file_suffix}", 
+                             int(round(spT_data[param].quantile(0.84), 0)))
+            else:
+                # Keep 3 decimal places for masses
+                save_var_latex(f"median_{param}_{spT}_{hoststars}{file_suffix}", 
+                             round(spT_data[param].median(), 3))
+                save_var_latex(f"p16_{param}_{spT}_{hoststars}{file_suffix}", 
+                             round(spT_data[param].quantile(0.16), 3))
+                save_var_latex(f"p84_{param}_{spT}_{hoststars}{file_suffix}", 
+                             round(spT_data[param].quantile(0.84), 3))
+
+
 def past_uv(
     hoststars="all",
     grid=True,
@@ -439,6 +481,14 @@ def past_uv(
     # Get filename suffix based on special parameters
     file_suffix = get_file_suffix(params_past_uv)
 
+    # compute and save stellar sample size
+    g, g_args = generate_generator(stars_only=True)
+    d = g.generate()
+    dd = d.to_pandas()
+    stellar_sample_size = len(dd[dd.SpT.isin(params_past_uv["SpT"])])
+    save_var_latex(f"stellar_sample_size_{hoststars}", stellar_sample_size)
+    compute_stellar_stats(dd, hoststars, file_suffix)
+
     g, g_args = generate_generator(label=None, **params_past_uv)
 
     if grid:
@@ -482,6 +532,7 @@ def past_uv(
         grid = None
         d, detected, data, nautilus = run_survey_nautilus(d)
         print("Number of planets in the sample: {}".format(len(d)))
+
         results = hypothesis_test(data, testmethod)
         try:
             save_var_latex(f"dlnZ_{hoststars}{file_suffix}", results["dlnZ"])
@@ -516,14 +567,14 @@ def past_uv(
     # save_var_latex("sigma_t", nautilus.measurements['age'].precision)
 
     # save Bioverse objects with suffix
-    with open(
-        paths.data / f"pipeline/sample_{hoststars}{file_suffix}.dll", "wb"
-    ) as file:
-        dill.dump(d, file)
-    with open(
-        paths.data / f"pipeline/data_{hoststars}{file_suffix}.dll", "wb"
-    ) as file:
-        dill.dump(data, file)
+    # with open(
+    #     paths.data / f"pipeline/sample_{hoststars}{file_suffix}.dll", "wb"
+    # ) as file:
+    #     dill.dump(d, file)
+    # with open(
+    #     paths.data / f"pipeline/data_{hoststars}{file_suffix}.dll", "wb"
+    # ) as file:
+    #     dill.dump(data, file)
 
     return d, grid, detected, data, nautilus
 
@@ -567,10 +618,10 @@ def main(fast=False, do_grid=True, testmethod="mannwhitney", **kwargs):
                 for key, value in kwargs.items():
                     params_past_uv[key] = value
                 file_suffix = get_file_suffix(params_past_uv)
-                with open(
-                    paths.data / f"pipeline/grid_flife_nuv_{hoststars}{file_suffix}.dll", "wb"
-                ) as file:
-                    dill.dump(grid, file)
+                # with open(
+                #     paths.data / f"pipeline/grid_flife_nuv_{hoststars}{file_suffix}.dll", "wb"
+                # ) as file:
+                #     dill.dump(grid, file)
 
             else:
                 # single hypothesis test
@@ -594,8 +645,8 @@ def main(fast=False, do_grid=True, testmethod="mannwhitney", **kwargs):
 
 if __name__ == "__main__":
     for deltaT_min in [1.0, 100.0]:
-    # for deltaT_min in [100.0]:
-            main(do_grid=True, deltaT_min=deltaT_min, fast=False)
+        # main(do_grid=True, deltaT_min=deltaT_min, fast=False)
+        main(do_grid=False, deltaT_min=deltaT_min, fast=False)
 
 
 
