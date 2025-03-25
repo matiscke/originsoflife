@@ -143,7 +143,7 @@ def normalize_seds(flux_data, blackbody_seds, wavelengths, age, temperatures):
 
 
 def plot_seds(seds_by_age, wavelengths):
-    plt.rcParams.update({'font.size': 14})
+    plt.rcParams.update({'font.size': 16})  # Increased base font size
     fig, axes = plt.subplots(3, 2, figsize=(15, 20))
     axes = axes.flatten()
     
@@ -163,14 +163,14 @@ def plot_seds(seds_by_age, wavelengths):
                    flux.to(u.erg/u.s/u.cm**2/u.m).value / 1e-13, 
                    label=st, linewidth=2)
         ax.axvspan(200, 280, alpha=0.2, color='green', label='200-280 nm')
-        ax.set_xlabel("Wavelength (nm)", fontsize=16)
-        ax.set_ylabel("Normalized Energy Flux (erg/s/cm²)", fontsize=16)
-        ax.set_title(f"Normalized Blackbody SEDs - Age: {age} Myr", fontsize=18, pad=15)
+        ax.set_xlabel("Wavelength (nm)", fontsize=18)  # Increased from 16
+        ax.set_ylabel("Normalized Energy Flux (erg/s/cm²)", fontsize=18)  # Increased from 16
+        ax.set_title(f"Normalized Blackbody SEDs - Age: {age} Myr", fontsize=18, pad=15)  # Increased from 18
         ax.set_yscale("log")
-        ax.set_xscale("log")
         ax.set_ylim(y_min, y_max)
-        ax.legend(fontsize=14)
-        ax.tick_params(axis='both', which='major', labelsize=14)
+        ax.legend(fontsize=16)  # Increased from 14
+        ax.tick_params(axis='both', which='major', labelsize=18)  # Increased from 14
+        ax.tick_params(axis='both', which='minor', labelsize=18)  # Added minor tick labels
     
     # Remove the empty subplot
     axes[-1].remove()
@@ -179,7 +179,7 @@ def plot_seds(seds_by_age, wavelengths):
 
 
 def plot_photon_flux(photon_fluxes_by_age):
-    plt.rcParams.update({'font.size': 14})
+    plt.rcParams.update({'font.size': 16})  # Increased base font size
     fig, ax = plt.subplots(figsize=(12, 8))
     
     x = np.arange(len(list(photon_fluxes_by_age.values())[0].keys()))
@@ -205,22 +205,22 @@ def plot_photon_flux(photon_fluxes_by_age):
                 xy=(x[-1] + width*5, threshold),
                 xytext=(10, 0), textcoords='offset points',
                 va='center',
-                fontsize=10)
+                fontsize=12)  # Increased from 10
     
     # Remove top and right spines
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     
-    ax.set_xlabel("Spectral Type", fontsize=16)
-    ax.set_ylabel("Photon Number Flux Density (photons/s/cm²/nm)", fontsize=16)
-    ax.set_title("Mean UV Photon Flux Density (200-280 nm)", fontsize=18, pad=15)
+    ax.set_xlabel("Spectral Type", fontsize=18)  # Increased from 16
+    ax.set_ylabel("Photon Number Flux Density (photons/s/cm²/nm)", fontsize=18)  # Increased from 16
+    ax.set_title("Mean UV Photon Flux Density (200-280 nm)", fontsize=18, pad=15)  # Increased from 18
     ax.set_xticks(x + width*2)
-    ax.set_xticklabels(list(list(photon_fluxes_by_age.values())[0].keys()), fontsize=14)
-    ax.tick_params(axis='y', labelsize=14)
+    ax.set_xticklabels(list(list(photon_fluxes_by_age.values())[0].keys()), fontsize=16)  # Increased from 14
+    ax.tick_params(axis='y', labelsize=18)  # Increased from 14
     ax.set_yscale("log")
     
     # Move legend outside
-    ax.legend(fontsize=14, bbox_to_anchor=(.95, 1), loc='upper left')
+    ax.legend(fontsize=16, bbox_to_anchor=(.95, 1), loc='upper left')  # Increased from 14
     
     # Adjust layout to prevent legend cutoff
     plt.tight_layout()
@@ -230,7 +230,7 @@ def plot_photon_flux(photon_fluxes_by_age):
 
 
 def plot_number_flux_seds(seds_by_age, wavelengths):
-    plt.rcParams.update({'font.size': 14})
+    plt.rcParams.update({'font.size': 16})  # Increased base font size
     fig, axes = plt.subplots(3, 2, figsize=(15, 20))
     axes = axes.flatten()
     
@@ -261,14 +261,14 @@ def plot_number_flux_seds(seds_by_age, wavelengths):
                    photon_flux.value,
                    label=st, linewidth=2)
         ax.axvspan(200, 280, alpha=0.2, color='green', label='200-280 nm')
-        ax.set_xlabel("Wavelength (nm)", fontsize=16)
-        ax.set_ylabel("Photon Number Flux Density\n(photons/s/cm²/nm)", fontsize=16)
-        ax.set_title(f"Normalized Photon Flux Density - Age: {age} Myr", fontsize=18, pad=15)
+        ax.set_xlabel("Wavelength (nm)", fontsize=18)  # Increased from 16
+        ax.set_ylabel("Photon Number Flux Density\n(photons/s/cm²/nm)", fontsize=18)  # Increased from 16
+        ax.set_title(f"Normalized Photon Flux Density - Age: {age} Myr", fontsize=18, pad=15)  # Increased from 18
         ax.set_yscale("log")
-        ax.set_xscale("log")
         ax.set_ylim(y_min, y_max)
-        ax.legend(fontsize=14)
-        ax.tick_params(axis='both', which='major', labelsize=14)
+        ax.legend(fontsize=16)  # Increased from 14
+        ax.tick_params(axis='both', which='major', labelsize=18)  # Increased from 14
+        ax.tick_params(axis='both', which='minor', labelsize=18)  # Added minor tick labels
     
     # Remove the empty subplot
     axes[-1].remove()
@@ -431,7 +431,7 @@ def plot_combined_fluxes(photon_fluxes_by_age, flux_data, photon_flux_ratio, int
         ax.spines['right'].set_visible(False)
         ax.set_xticks(x + width*2)
         ax.set_xticklabels(list(list(photon_fluxes_by_age.values())[0].keys()), fontsize=16)  # Increase x-tick font size
-        ax.tick_params(axis='y', labelsize=16)  # Increase y-tick font size
+        ax.tick_params(axis='y', labelsize=18)  # Increase y-tick font size
         ax.set_yscale("log")
         ax.set_xlabel("Spectral Type", fontsize=16)  # Increase x-label font size
     
