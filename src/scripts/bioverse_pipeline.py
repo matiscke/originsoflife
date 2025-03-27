@@ -411,24 +411,30 @@ def compute_stellar_stats(dd, hoststars, file_suffix):
         
         # Stellar parameter statistics
         for param in ['M_st','T_eff_st']:
-            # Median
+            # Calculate median and percentiles
+            median = spT_data[param].median()
+            p16 = spT_data[param].quantile(0.16)
+            p84 = spT_data[param].quantile(0.84)
+            
+            # Calculate uncertainties as differences from median
             if param == 'T_eff_st':
                 # Convert temperatures to integers to remove .0
                 save_var_latex(f"median_{param}_{spT}_{hoststars}{file_suffix}", 
-                             int(round(spT_data[param].median(), 0)))
-                # Percentiles as integers for temperatures
-                save_var_latex(f"p16_{param}_{spT}_{hoststars}{file_suffix}", 
-                             int(round(spT_data[param].quantile(0.16), 0)))
+                             int(round(median, 0)))
+                # Save uncertainties as differences from median
                 save_var_latex(f"p84_{param}_{spT}_{hoststars}{file_suffix}", 
-                             int(round(spT_data[param].quantile(0.84), 0)))
+                             int(round(p84 - median, 0)))
+                save_var_latex(f"p16_{param}_{spT}_{hoststars}{file_suffix}", 
+                             int(round(median - p16, 0)))
             else:
                 # Keep 3 decimal places for masses
                 save_var_latex(f"median_{param}_{spT}_{hoststars}{file_suffix}", 
-                             round(spT_data[param].median(), 3))
-                save_var_latex(f"p16_{param}_{spT}_{hoststars}{file_suffix}", 
-                             round(spT_data[param].quantile(0.16), 3))
+                             round(median, 3))
+                # Save uncertainties as differences from median
                 save_var_latex(f"p84_{param}_{spT}_{hoststars}{file_suffix}", 
-                             round(spT_data[param].quantile(0.84), 3))
+                             round(p84 - median, 3))
+                save_var_latex(f"p16_{param}_{spT}_{hoststars}{file_suffix}", 
+                             round(median - p16, 3))
 
 
 def past_uv(
