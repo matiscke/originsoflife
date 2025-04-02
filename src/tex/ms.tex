@@ -1,8 +1,8 @@
 %! suppress = GroupedSubSupScript
 %! suppress = Ellipsis
 % Define document class
-\documentclass[twocolumn,twocolappendix,linenumbers]{aastex631}
-%\documentclass[twocolumn,twocolappendix]{aastex631}
+%\documentclass[twocolumn,twocolappendix,linenumbers]{aastex631}
+\documentclass[twocolumn,twocolappendix]{aastex631}
 %\documentclass[modern,linenumbers]{aastex631}
 
 \input{preamble}
@@ -653,6 +653,7 @@ However, recent studies challenge this view for the cyanosulfidic scenario.
 \citet{Rimmer2021} calculated photochemical timescales on early Earth at 180--300 hours (7.5--12.5 days), significantly shorter than the timescale for stochastic geological events also required for the scenario~\citep{Rimmer2023}.
 Even with 1000x slower photochemistry on M-dwarf planets, prebiotic photochemistry like sulfite photolysis would still occur on a geologically negligible timescale of 20--30 years, meaning that the photochemistry is unlikely to be rate limiting compared to stochastic geological processes, justifying the step-function model.
 }
+
 \revv{We note that the photochemical timescale does not include subsequent stages such as assembly into functional biomolecules, protocell formation, or the emergence of self-replicating systems -- each of which may require significantly more time.
 However, in the context of the cyanosulfidic scenario, UV irradiation is needed only for this initial synthetic step, and later stages can proceed under different environmental conditions, potentially long after UV levels have declined.
 Moreover, abiogenesis may require many ``failed trials''.
@@ -803,13 +804,6 @@ We found that this ``dynamic range'' is slightly larger in the photon number flu
 This suggests that our use of energy flux may slightly underestimate the variations in \gls{NUV} exposure across different stellar types, rendering our conclusions regarding the impact of host star spectral type on the UV Threshold Hypothesis conservative.
 Our results are thus robust when transitioning between energy flux and photon number flux representations.}
 
-
-
-
-
-%! suppress = MissingBibliographystyle
-\bibliography{bib,coauthors}
-
 \section{\rev{Alternative priors for the abiogenesis rate}}
 \label{sec:appendix-flife-prior}
 \rev{In the main text, we used a log-uniform prior \revv{over the range $[10^{-15}, 1]$} for the probability of life emerging and persisting $f_\mathrm{life}$ in order to reflect our ignorance about this parameter and its order of magnitude.
@@ -851,7 +845,8 @@ Even under the optimistic assumption that the probability of abiogenesis is unit
 }
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/inhabited_aafo_nuv_thresh_deltatmin100.pdf}
+%    \includegraphics[width=0.9\textwidth]{figures/inhabited_aafo_nuv_thresh_deltatmin100.pdf}
+    \includegraphics[width=0.5\textwidth]{figures/inhabited_aafo_nuv_thresh_deltatmin100.pdf} % make it half the width
     \caption{\rev{Fraction of inhabited planets as a function of NUV threshold flux for $\Delta T_{\mathrm{min}} = 100$ Myr. The decrease in inhabited planets is more pronounced for FGK stars, narrowing the viable range of UV Thresholds compared to shorter origins timescales.}}
     \label{fig:inhabited_dT100}
 \end{figure}
@@ -878,4 +873,12 @@ Given the lack of constraints on the timescale of abiogenesis, these findings hi
 If life emerges slowly, FGK planets may rarely, if ever, reach the inhabited stage, whereas M dwarf planets remain viable targets for future surveys.
 If biosignatures were nevertheless detected on FGK planets despite the constraints imposed by a longer abiogenesis timescale, it would suggest that either the UV Threshold Hypothesis, as formulated here, is incorrect or that the timescale of abiogenesis is shorter than $\mathcal{O}(\SI{100}{\mega\year})$.
 }
+
+
+%! suppress = MissingBibliographystyle
+\bibliography{bib,coauthors}
+
+
+
+
 \end{document}
