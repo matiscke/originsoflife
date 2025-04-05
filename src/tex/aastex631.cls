@@ -1237,7 +1237,7 @@ when using acknowledgments. For more details, see:\\
 %%
 \global\setbox\ackbox=\vbox\bgroup
 \expandafter\ifx\csname internallinenumbers\endcsname\relax\else
-\begin{internallinenumbers}
+%\begin{internallinenumbers}
 \fi
 \vskip 5.8mm plus 1mm minus 1mm
 \vskip1sp
@@ -1246,7 +1246,7 @@ when using acknowledgments. For more details, see:\\
 
 \def\endacknowledgments{
 \expandafter\ifx\csname internallinenumbers\endcsname\relax\else
-\end{internallinenumbers}
+%\end{internallinenumbers}
 \fi
 \egroup%% completes ackbox
 \ifanonymous
