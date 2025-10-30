@@ -28,7 +28,7 @@ A [Bioverse](https://github.com/danielapai/bioverse) project to explore how hypo
 
 
 ## Scope
-This repository contains the code necessary to create the results and figures in Schlecker et al. (2025). In this study, we explore how exoplanet surveys can test origins-of-life hypotheses by linking biosignature distributions to proposed abiogenesis scenarios. Focusing on the cyanosulfidic origins model, we investigate whether a minimum near-ultraviolet (NUV) flux is required for life to emerge. 
+This repository contains the code necessary to create the results and figures in [Schlecker et al. (2025)](https://ui.adsabs.harvard.edu/abs/2025ApJ...987...24S/abstract). In this study, we explore how exoplanet surveys can test origins-of-life hypotheses by linking biosignature distributions to proposed abiogenesis scenarios. Focusing on the cyanosulfidic origins model, we investigate whether a minimum near-ultraviolet (NUV) flux is required for life to emerge. 
 
 Using Bayesian modeling and the [Bioverse](https://github.com/danielapai/bioverse) survey simulator, we assess the probability of detecting strong evidence for or against this “UV Threshold Hypothesis” in future biosignature surveys. We find that sample sizes of at least ~50 planets are needed for meaningful constraints, with the power of such tests depending on abiogenesis rates and host star properties. Surveys targeting diverse stellar environments, particularly M dwarfs, improve diagnostic potential, with ~100 planets yielding a high likelihood of conclusive results if moderate NUV fluxes are required. However, if life requires very high NUV levels, both habitability and testability decrease sharply. 
 
